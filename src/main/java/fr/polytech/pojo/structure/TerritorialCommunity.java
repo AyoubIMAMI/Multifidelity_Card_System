@@ -1,4 +1,4 @@
-package pojo.structure;
+package fr.polytech.pojo.structure;
 
 public class TerritorialCommunity extends Organisation {
 }

@@ -1,4 +1,4 @@
-package interfaces;
+package fr.polytech.interfaces;
 
 import components.CustomerManager;
 

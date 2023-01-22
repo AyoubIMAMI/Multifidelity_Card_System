@@ -1,6 +1,6 @@
-package pojo;
+package fr.polytech.pojo;
 
-import pojo.item.Product;
+import fr.polytech.pojo.item.Product;
 
 import java.util.Set;
 

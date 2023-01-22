@@ -1,4 +1,4 @@
-package pojo;
+package fr.polytech.pojo;
 
 import java.util.Set;
 

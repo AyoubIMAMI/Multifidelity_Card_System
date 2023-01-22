@@ -1,5 +1,5 @@
-package pojo.structure;
-import pojo.item.FidelityProduct;
+package fr.polytech.pojo.structure;
+import fr.polytech.pojo.item.FidelityProduct;
 
 import java.util.Date;
 import java.util.Set;

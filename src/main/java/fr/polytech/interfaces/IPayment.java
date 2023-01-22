@@ -1,6 +1,6 @@
-package interfaces;
+package fr.polytech.interfaces;
 
-import pojo.Payment;
+import fr.polytech.pojo.Payment;
 
 public interface IPayment {
     void Pay(Payment payment);
