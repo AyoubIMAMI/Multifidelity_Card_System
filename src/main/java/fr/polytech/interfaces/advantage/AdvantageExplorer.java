@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface AdvantageExplorer {
     //public List<Advantage> getAdvantage();
-    public List<Advantage> getAdvantage(int userId);
+    List<Advantage> getAdvantage(int userId);
 }
