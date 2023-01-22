@@ -2,7 +2,8 @@ package fr.polytech.interfaces.store;
 
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.store.StoreNotFoundException;
+import fr.polytech.pojo.structure.Store;
 
 public interface StoreFinder {
-    void findStore(String name, String myName, String myPassword)  throws BadCredentialsException, StoreNotFoundException;
+    Store findStore(String name, String myName, String myPassword)  throws BadCredentialsException, StoreNotFoundException;
 }
