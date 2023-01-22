@@ -1,4 +1,4 @@
-package fr.polytech.interfaces.Customer;
+package fr.polytech.interfaces.customer;
 
 import fr.polytech.pojo.Customer;
 
