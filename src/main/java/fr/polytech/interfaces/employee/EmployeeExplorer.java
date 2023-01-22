@@ -5,22 +5,23 @@ import fr.polytech.exceptions.MalformedCredentialsExceptions;
 import fr.polytech.exceptions.store.EmployeeNotFoundException;
 import fr.polytech.pojo.structure.Employee;
 
+import java.util.Set;
+
 public interface EmployeeExplorer {
     /**
-     * For a given id, return a
-     * @param id The id of an employee to find
+     * For a given id, return the employee with the given id
+     * @param id The id of the employee to find
      * @return The employee associated with the given id
      * @throws EmployeeNotFoundException The employee wasn't found
      */
     Employee findEmployeeById(int id) throws EmployeeNotFoundException;
 
     /**
-     * For a given id, return a
-     * @param name The name of an employee to find
-     * @return The employee associated with the given name
-     * @throws EmployeeNotFoundException The employee wasn't found
+     * For a given id, return all the employee with the given name
+     * @param name The name of the employee to find
+     * @return The employees associated with the given name
      */
-    Employee findEmployeeByName(String name) throws EmployeeNotFoundException;
+    Set<Employee> findEmployeeByName(String name);
 
     /**
      * Check the given credentials
