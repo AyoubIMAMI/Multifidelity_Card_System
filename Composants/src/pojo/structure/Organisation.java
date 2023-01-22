@@ -1,4 +1,4 @@
-package structure;
+package pojo.structure;
 
 import java.util.Set;
 

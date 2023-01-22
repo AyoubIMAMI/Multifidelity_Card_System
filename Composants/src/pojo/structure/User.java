@@ -1,4 +1,4 @@
-package structure;
+package pojo.structure;
 
 public class User {
     private int id;

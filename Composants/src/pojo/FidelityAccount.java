@@ -1,3 +1,5 @@
+package pojo;
+
 import java.util.Set;
 
 public class FidelityAccount {

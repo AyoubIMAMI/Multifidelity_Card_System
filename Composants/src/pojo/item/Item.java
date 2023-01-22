@@ -1,4 +1,4 @@
-package item;
+package pojo.item;
 
 public class Item {
     private int quantity;

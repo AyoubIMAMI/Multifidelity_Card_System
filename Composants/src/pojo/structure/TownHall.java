@@ -1,6 +1,4 @@
-package structure;
-
-import structure.Store;
+package pojo.structure;
 
 import java.util.Set;
 

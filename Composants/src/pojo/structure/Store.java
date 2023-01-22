@@ -1,5 +1,5 @@
-package structure;
-import item.FidelityProduct;
+package pojo.structure;
+import pojo.item.FidelityProduct;
 
 import java.util.Date;
 import java.util.Set;

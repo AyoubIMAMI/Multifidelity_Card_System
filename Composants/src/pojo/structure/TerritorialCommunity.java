@@ -1,6 +1,4 @@
-package structure;
-
-import structure.Organisation;
+package pojo.structure;
 
 public class TerritorialCommunity extends Organisation {
 }

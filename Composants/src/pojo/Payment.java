@@ -1,4 +1,6 @@
-import item.Product;
+package pojo;
+
+import pojo.item.Product;
 
 import java.util.Set;
 

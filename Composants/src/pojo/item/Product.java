@@ -1,4 +1,4 @@
-package item;
+package pojo.item;
 
 public abstract class Product {
     private String name;
