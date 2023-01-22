@@ -5,7 +5,7 @@ import fr.polytech.exceptions.MalformedCredentialsExceptions;
 import fr.polytech.exceptions.store.EmployeeNotFoundException;
 import fr.polytech.pojo.structure.Employee;
 
-public interface EmployeeExplorer {
+public interface EmployeeFinder {
     /**
      * For a given id, return a
      * @param id The id of an employee to find
