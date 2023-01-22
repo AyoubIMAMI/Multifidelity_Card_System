@@ -1,4 +1,4 @@
-package fr.polytech.exceptions;
+package fr.polytech.exceptions.store;
 
 public class NotValidHourException extends Exception{
 }
