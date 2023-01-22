@@ -1,4 +1,4 @@
-package fr.polytech.interfaces.Store;
+package fr.polytech.interfaces.store;
 
 public interface DiscountExplorer {
 }

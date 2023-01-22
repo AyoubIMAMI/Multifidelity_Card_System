@@ -1,4 +1,4 @@
-package fr.polytech.interfaces.Payment;
+package fr.polytech.interfaces.payment;
 
 import fr.polytech.pojo.Customer;
 import fr.polytech.pojo.Payment;
