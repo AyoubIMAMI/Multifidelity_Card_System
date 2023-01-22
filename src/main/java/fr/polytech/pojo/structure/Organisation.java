@@ -6,6 +6,6 @@ public abstract class Organisation {
     private int id;
     private String name;
 
-    private Set<User> staff;
-    private Set<User> administrators;
+    private Set<Employee> staff;
+    private Set<Employee> administrators;
 }
