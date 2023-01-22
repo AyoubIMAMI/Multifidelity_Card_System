@@ -6,7 +6,7 @@ import fr.polytech.pojo.Customer;
 import fr.polytech.pojo.Payment;
 import fr.polytech.pojo.structure.Store;
 
-public class CardBalancePurchaseHandler implements FidelityCardPurchase {
+public class FidelityCardPurchaseHandler implements FidelityCardPurchase {
     @Override
     public void buyWithFidelityCard(Customer customer, Payment payment, Store store) throws NotEnoughBalanceException {
 
