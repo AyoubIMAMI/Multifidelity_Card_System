@@ -1,4 +1,4 @@
-package fr.polytech.interfaces;
+package fr.polytech.interfaces.Payment;
 
 import fr.polytech.exceptions.MalformedBankInformation;
 import fr.polytech.exceptions.NotEnoughBalanceException;
