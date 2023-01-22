@@ -1,6 +1,5 @@
 package fr.polytech.interfaces.advertiser;
 
-import fr.polytech.exceptions.BadCredentilasException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.NotEnoughPermissionException;
 
