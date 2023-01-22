@@ -2,7 +2,7 @@ package fr.polytech.pojo.structure;
 
 import java.util.Set;
 
-public class Organisation {
+public abstract class Organisation {
     private int id;
     private String name;
 
