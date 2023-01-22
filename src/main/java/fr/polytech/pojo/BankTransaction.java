@@ -1,7 +1,7 @@
 package fr.polytech.pojo;
 
 public class BankTransaction {
-    private Client client;
+    private Customer customer;
 
     private String cardNumber;
     private String cardHolderName;
