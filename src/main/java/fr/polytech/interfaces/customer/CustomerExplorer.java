@@ -1,10 +1,13 @@
 package fr.polytech.interfaces.customer;
 
-import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
-import fr.polytech.exceptions.MalformedCredentialsExceptions;
+import fr.polytech.exceptions.NotEnoughPermissionException;
+import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.pojo.Customer;
+import fr.polytech.pojo.item.Discount;
+import fr.polytech.pojo.structure.Store;
 
+import java.util.List;
 import java.util.Set;
 
 public interface CustomerExplorer {
@@ -23,12 +26,4 @@ public interface CustomerExplorer {
      */
     Set<Customer> findCustomersByName(String name);
 
-    /**
-     * Check the given credentials
-     * @param name The name of the customer
-     * @param password The password of the customer
-     * @throws BadCredentialsException The credentials are mismatched
-     * @throws MalformedCredentialsExceptions The credentials are malformed
-     */
-    void checkCredentials(String name, String password) throws BadCredentialsException, MalformedCredentialsExceptions;
 }
