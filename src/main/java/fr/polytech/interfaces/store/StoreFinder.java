@@ -5,5 +5,5 @@ import fr.polytech.exceptions.store.StoreNotFoundException;
 import fr.polytech.pojo.structure.Store;
 
 public interface StoreFinder {
-    Store findStore(String name, String myName, String myPassword)  throws BadCredentialsException, StoreNotFoundException;
+    Store findStore(String storeName, String myName, String myPassword)  throws BadCredentialsException, StoreNotFoundException;
 }
