@@ -1,5 +1,5 @@
 package fr.polytech.pojo.item;
 
-public class FidelityProduct extends Product {
+public class Discount extends Product {
     private int pointPrice;
 }
