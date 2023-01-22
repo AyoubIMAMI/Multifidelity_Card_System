@@ -4,37 +4,68 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4640eeea-266b-470f-ab18-284d0f3d588c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="c44351a3-ff49-4d89-8d4f-f08843c5539e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/Payment/FidelityCardPurchase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/Payment/IPayment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/Payment/PointPurchase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/Payment/SettledPurchase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/isa-devops-22-23-team-h-23.iml" beforeDir="false" afterPath="$PROJECT_DIR$/isa-devops-22-23-team-h-23.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/BalanceModifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/Payment/BalanceModifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/CustomerAccount/CustomerExplorer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/Customer/CustomerExplorer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/CustomerAccount/CustomerModifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/Customer/CustomerModifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/CustomerAccount/CustomerRegistration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/Customer/CustomerRegistration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/IPayment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/polytech/interfaces/PointPurchase.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+      </list>
+    </option>
   </component>
-  <component name="ProjectId" id="2KgCSMECQPPIEkQ2fKgIW4lLn9B" />
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2KgHWqBr9IQRuZNnaS0YKfYat4P" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Antoine/Desktop/Programmation/Ecole/Polytech_4A/ISA-DevOps",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "spring.configuration.checksum": "01c5fc8d7079bba036f44b7c93e4b3f7",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4640eeea-266b-470f-ab18-284d0f3d588c" name="Changes" comment="" />
-      <created>1674386837655</created>
+      <changelist id="c44351a3-ff49-4d89-8d4f-f08843c5539e" name="Changes" comment="" />
+      <created>1674389339555</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1674386837655</updated>
-      <workItem from="1674386839158" duration="797000" />
+      <updated>1674389339555</updated>
+      <workItem from="1674389347465" duration="2116000" />
     </task>
     <servers />
   </component>
