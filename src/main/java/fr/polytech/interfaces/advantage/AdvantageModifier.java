@@ -3,10 +3,8 @@ package fr.polytech.interfaces.advantage;
 import fr.polytech.exceptions.advantage.AdvantageNotFoundException;
 import fr.polytech.pojo.Advantage;
 
-import java.util.Date;
-
 public interface AdvantageModifier {
-    void modifyAdvantageName(Advantage advantage) throws AdvantageNotFoundException;
-    void modifyExpirationDate(Advantage advantage) throws AdvantageNotFoundException;
-    void modifCounter(Advantage advantage) throws AdvantageNotFoundException;
+    void modifyAdvantageName(Advantage advantage, String newName) throws AdvantageNotFoundException;
+    void modifyExpirationDate(Advantage advantage, String newDate) throws AdvantageNotFoundException;
+    void modifyCounter(Advantage advantage, int newCounter) throws AdvantageNotFoundException;
 }
