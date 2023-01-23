@@ -3,7 +3,7 @@ package fr.polytech.pojo.structure;
 import java.util.Set;
 
 public abstract class Organisation {
-    private int id;
+    private String siret;
     private String name;
     private Set<Employee> employees;
 }
