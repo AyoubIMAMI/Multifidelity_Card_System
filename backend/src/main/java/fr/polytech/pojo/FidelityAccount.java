@@ -2,9 +2,10 @@ package fr.polytech.pojo;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 public class FidelityAccount {
-    private int clientId;
+    private UUID clientId;
     private int points;
     private float balance;
     private boolean isVFP;
@@ -25,5 +26,9 @@ public class FidelityAccount {
 
     public void setBalance(float balance) {
         this.balance = balance;
+    }
+
+    public UUID getClientId() {
+        return clientId;
     }
 }

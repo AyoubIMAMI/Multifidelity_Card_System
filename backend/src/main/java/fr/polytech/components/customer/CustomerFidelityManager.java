@@ -20,12 +20,10 @@ import java.util.List;
 @Component
 public class CustomerFidelityManager implements FidelityExplorer, PointModifier, BalanceModifier {
 
-    PaymentExplorer paymentExplorer;
     FidelityAccountRepository fidelityAccountRepository;
 
     @Autowired
-    public CustomerFidelityManager(PaymentExplorer paymentExplorer, FidelityAccountRepository fidelityAccountRepository){
-        this.paymentExplorer = paymentExplorer;
+    public CustomerFidelityManager(FidelityAccountRepository fidelityAccountRepository){
         this.fidelityAccountRepository = fidelityAccountRepository;
     }
 
@@ -42,11 +40,13 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     @Override
     public void incrementPoints(FidelityAccount fidelityAccount, float price) {
         fidelityAccount.setPoints((int) (fidelityAccount.getPoints()+Math.floor(price)));
+        fidelityAccountRepository.save(fidelityAccount, fidelityAccount.getClientId());
     }
 
     @Override
     public void decrementPoints(FidelityAccount fidelityAccount, int points) {
         fidelityAccount.setPoints(fidelityAccount.getPoints() - points);
+        fidelityAccountRepository.save(fidelityAccount, fidelityAccount.getClientId());
     }
 
     @Override
@@ -54,6 +54,7 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
         float balanceAmount = fidelityAccount.getBalance();
         if(balanceAmount < amount) throw new NotEnoughBalanceException();
         fidelityAccount.setBalance(balanceAmount - amount);
+        fidelityAccountRepository.save(fidelityAccount, fidelityAccount.getClientId());
     }
 
     @Override

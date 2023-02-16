@@ -26,28 +26,24 @@ public class PaymentHandler implements IPayment {
     CustomerFinder customerFinder;
     PointPurchase pointPurchase;
     SettledPurchase settledPurchase;
-    FidelityCardPurchase fidelityCardPurchase;
-    StoreFinder storeFinder;
-    DiscountExplorer discountExplorer;
 
     @Autowired
-    public PaymentHandler(CustomerFinder customerFinder, PointPurchase pointPurchase, SettledPurchase settledPurchase, FidelityCardPurchase fidelityCardPurchase, StoreFinder storeFinder, DiscountExplorer discountExplorer) {
+    public PaymentHandler(CustomerFinder customerFinder, PointPurchase pointPurchase, SettledPurchase settledPurchase) {
         this.customerFinder = customerFinder;
         this.pointPurchase = pointPurchase;
         this.settledPurchase = settledPurchase;
-        this.fidelityCardPurchase = fidelityCardPurchase;
-        this.storeFinder = storeFinder;
-        this.discountExplorer = discountExplorer;
     }
 
     @Override
-    public void pay(Payment payment) throws NotEnoughBalanceException, PurchaseFailedException, NotEnoughPermissionException, PaymentAlreadyExistsException {
+    public void pay(Payment payment) throws NotEnoughBalanceException, PurchaseFailedException, PaymentAlreadyExistsException {
         //Client will pay with is fidelity card
         Customer customer = payment.getCustomer();
         Store store = payment.getStore();
+        /*
         if(!payment.isSettled()){
             fidelityCardPurchase.buyWithFidelityCard(customer, payment, store);
         }
+         */
         //updatePoint
         settledPurchase.winPoint(customer, payment, store);
         //check if purchase contain discount item
