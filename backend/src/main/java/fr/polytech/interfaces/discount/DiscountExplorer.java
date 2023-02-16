@@ -6,8 +6,9 @@ import fr.polytech.pojo.item.Discount;
 import fr.polytech.pojo.structure.Store;
 
 import java.util.List;
+import java.util.Set;
 
 public interface DiscountExplorer {
     Discount findDiscountByName(Store store, String discountName) throws DiscountNotFoundException;
-    List<Discount> getAllDiscount() throws NotEnoughPermissionException;
+    Set<Discount> getAllDiscount() throws NotEnoughPermissionException;
 }
