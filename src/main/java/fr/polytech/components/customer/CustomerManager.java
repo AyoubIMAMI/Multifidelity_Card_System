@@ -1,13 +1,9 @@
 package fr.polytech.components.customer;
 
-import fr.polytech.Repository.CustomerRepository;
-import fr.polytech.exceptions.BadCredentialsException;
+import fr.polytech.repository.CustomerRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
-import fr.polytech.exceptions.MalformedCredentialsExceptions;
-import fr.polytech.interfaces.customer.CustomerExplorer;
 import fr.polytech.interfaces.customer.CustomerFinder;
-import fr.polytech.interfaces.customer.CustomerModifier;
 import fr.polytech.interfaces.customer.CustomerRegistration;
 import fr.polytech.pojo.Customer;
 import org.springframework.beans.factory.annotation.Autowired;

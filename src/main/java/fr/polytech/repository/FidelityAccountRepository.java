@@ -1,7 +1,6 @@
-package fr.polytech.Repository;
+package fr.polytech.repository;
 
-import fr.polytech.Repository.Rep.BasicRepositoryImpl;
-import fr.polytech.pojo.Customer;
+import fr.polytech.repository.Rep.BasicRepositoryImpl;
 import fr.polytech.pojo.FidelityAccount;
 import org.springframework.stereotype.Repository;
 
