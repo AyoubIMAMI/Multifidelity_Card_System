@@ -1,4 +1,4 @@
-package fr.polytech.components;
+package fr.polytech.components.customer;
 
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.pojo.Customer;
