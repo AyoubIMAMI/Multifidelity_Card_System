@@ -30,6 +30,9 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder {
 
     @Override
     public Customer register(String name, String mail, String password) throws MailAlreadyUsedException {
+        /*try{
+            Customer customer = new Customer(name, mail, password);
+        }*/
         return null;
     }
 
