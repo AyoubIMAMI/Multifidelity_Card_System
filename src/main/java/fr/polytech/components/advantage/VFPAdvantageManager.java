@@ -6,7 +6,7 @@ import fr.polytech.pojo.Advantage;
 
 import java.util.List;
 
-public class VFPadvantageManager implements AdvantageConsumer, CustomerAdvantageExplorer {
+public class VFPAdvantageManager implements AdvantageConsumer, CustomerAdvantageExplorer {
     @Override
     public void consumeAdvantage(Advantage advantage) {
 
