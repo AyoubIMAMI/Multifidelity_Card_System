@@ -13,10 +13,13 @@ import fr.polytech.pojo.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Component
-public class CustomerManager implements CustomerRegistration, CustomerModifier, CustomerFinder, CustomerExplorer {
+public class CustomerManager implements CustomerRegistration, CustomerFinder {
 
     CustomerRepository customerRepository;
 
@@ -31,32 +34,9 @@ public class CustomerManager implements CustomerRegistration, CustomerModifier, 
     }
 
     @Override
-    public Customer findCustomerById(int id) throws CustomerNotFoundException {
-        return null;
-    }
-
-    @Override
-    public Set<Customer> findCustomersByName(String name) {
-        return null;
-    }
-
-    @Override
-    public void checkCredentials(String name, String password) throws BadCredentialsException, MalformedCredentialsExceptions {
-
-    }
-
-    @Override
-    public void modifyUsername(Customer customer) {
-
-    }
-
-    @Override
-    public void modifyMail(Customer customer) throws MailAlreadyUsedException {
-
-    }
-
-    @Override
-    public void modifyPassword(Customer customer) {
-
+    public Customer findCustomerById(UUID id) throws CustomerNotFoundException {
+        Optional<Customer> customer= customerRepository.findById(id);
+        if (customer.isEmpty()) throw new CustomerNotFoundException();
+        else return customer.get();
     }
 }
