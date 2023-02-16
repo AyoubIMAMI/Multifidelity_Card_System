@@ -1,4 +1,4 @@
-package fr.unice.polytech.cod.cucumber;
+package fr.polytech.cucumber;
 
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
