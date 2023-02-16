@@ -18,4 +18,6 @@ public class FidelityAccount {
     public void setPoints(int points) {
         this.points = points;
     }
+
+
 }
