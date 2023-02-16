@@ -1,4 +1,4 @@
-package fr.unice.polytech.cod.cucumber;
+package fr.polytech.cucumber;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
