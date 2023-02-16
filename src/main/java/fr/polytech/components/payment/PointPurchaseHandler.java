@@ -2,7 +2,6 @@ package fr.polytech.components.payment;
 
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
-import fr.polytech.interfaces.fidelity.FidelityExplorer;
 import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.PointPurchase;
 import fr.polytech.pojo.Customer;
@@ -26,7 +25,7 @@ public class PointPurchaseHandler implements PointPurchase {
     }
 
     @Override
-    public void buyWithPoint(Customer customer, Payment payment, Store store) throws NotEnoughBalanceException, NoDiscountsFoundException {
+    public void buyWithPoint(Customer customer, Payment payment) throws NotEnoughBalanceException, NoDiscountsFoundException {
         int pointsOnFidelityAccount = customer.getFidelityAccount().getPoints();
         int pointsRequired = computeRequiredPoints(payment);
 
