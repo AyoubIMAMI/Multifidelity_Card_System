@@ -1,7 +1,6 @@
 package fr.polytech.interfaces.store;
 
 import fr.polytech.exceptions.NotEnoughPermissionException;
-import fr.polytech.exceptions.WrongEmployeeNameOrPassword;
 import fr.polytech.exceptions.store.InvalidDayException;
 import fr.polytech.exceptions.store.InvalidHourException;
 import fr.polytech.pojo.Schedule;

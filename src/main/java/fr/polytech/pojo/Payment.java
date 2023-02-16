@@ -40,4 +40,12 @@ public class Payment {
     public void setShoppingList(Set<Item> shoppingList) {
         this.shoppingList = shoppingList;
     }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public Store getStore() {
+        return store;
+    }
 }

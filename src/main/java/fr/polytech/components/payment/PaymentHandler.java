@@ -1,14 +1,11 @@
 package fr.polytech.components.payment;
 
 import fr.polytech.exceptions.NotEnoughBalanceException;
-import fr.polytech.exceptions.WrongEmployeeNameOrPassword;
 import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.payment.*;
 import fr.polytech.interfaces.store.StoreFinder;
-import fr.polytech.pojo.FidelityAccount;
 import fr.polytech.pojo.Payment;
-import io.cucumber.java.zh_tw.並且;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +29,12 @@ public class PaymentHandler implements IPayment {
     }
 
     @Override
-    public void pay(Payment payment, String EmployeeName, String employeePassword) throws NotEnoughBalanceException, WrongEmployeeNameOrPassword {
+    public void pay(Payment payment) throws NotEnoughBalanceException {
+        //Client will pay with is fidelity card
+        if(!payment.isSettled()){
+            fidelityCardPurchase.buyWithFidelityCard(payment.getCustomer(), payment,  payment.getStore());
+        }
 
+        //Check if discount item in the order
     }
 }
