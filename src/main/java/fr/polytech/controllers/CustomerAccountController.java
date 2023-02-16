@@ -1,9 +1,8 @@
 package fr.polytech.controllers;
 
-import fr.polytech.exceptions.CustomerNotFoundException;
-import fr.polytech.exceptions.MailAlreadyUsedException;
-import fr.polytech.exceptions.MalformedBankInformationException;
+import fr.polytech.exceptions.*;
 import fr.polytech.exceptions.paiment.PaymentException;
+import fr.polytech.interfaces.customer.CustomerExplorer;
 import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.customer.CustomerRegistration;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
@@ -35,6 +34,9 @@ public class CustomerAccountController {
     @Autowired
     private CustomerRegistration customerRegistration;
 
+    @Autowired
+    private CustomerExplorer customerExplorer;
+
     @PostMapping(path = CUSTOMER_URI + "/refill")
     public ResponseEntity<String> refillAccount(@PathVariable("customerId") UUID customerId, @RequestBody BankTransaction transaction) throws CustomerNotFoundException, MalformedBankInformationException, PaymentException {
         Date refillTime = refillFidelityCard.refill(customerFinder.findCustomerById(customerId), transaction);
@@ -47,6 +49,15 @@ public class CustomerAccountController {
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(customerRegistration.register(name, mail, password));
         } catch (MailAlreadyUsedException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+    }
+    @PostMapping(path = "/login", consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<UUID> login(String mail, String password) throws MailAlreadyUsedException {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(customerExplorer.checkCredentials(mail, password));
+        } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }

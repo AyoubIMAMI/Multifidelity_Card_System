@@ -11,7 +11,6 @@ public interface CustomerExplorer {
      * @param email The name of the customer
      * @param password The password of the customer
      * @throws BadCredentialsException The credentials are mismatched
-     * @throws MalformedCredentialsExceptions The credentials are malformed
      */
-    UUID checkCredentials(String email, String password) throws BadCredentialsException, MalformedCredentialsExceptions;
+    UUID checkCredentials(String email, String password) throws BadCredentialsException;
 }
