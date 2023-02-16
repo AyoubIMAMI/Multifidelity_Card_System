@@ -13,9 +13,7 @@ import fr.polytech.pojo.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 @Component
@@ -30,10 +28,13 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder {
 
     @Override
     public Customer register(String name, String mail, String password) throws MailAlreadyUsedException {
-        /*try{
+        try{
             Customer customer = new Customer(name, mail, password);
-        }*/
-        return null;
+            customerRepository.save(customer, customer.getId());
+            return customer;
+        } catch (Exception exception) {
+            throw new MailAlreadyUsedException();
+        }
     }
 
     @Override
