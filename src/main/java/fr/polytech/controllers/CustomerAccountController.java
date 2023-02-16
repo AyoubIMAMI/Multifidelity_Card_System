@@ -3,6 +3,7 @@ package fr.polytech.controllers;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.exceptions.MalformedBankInformationException;
+import fr.polytech.exceptions.paiment.PaymentException;
 import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.customer.CustomerRegistration;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
@@ -35,7 +36,7 @@ public class CustomerAccountController {
     private CustomerRegistration customerRegistration;
 
     @PostMapping(path = CUSTOMER_URI + "/refill")
-    public ResponseEntity<String> refillAccount(@PathVariable("customerId") UUID customerId, @RequestBody BankTransaction transaction) throws CustomerNotFoundException, MalformedBankInformationException {
+    public ResponseEntity<String> refillAccount(@PathVariable("customerId") UUID customerId, @RequestBody BankTransaction transaction) throws CustomerNotFoundException, MalformedBankInformationException, PaymentException {
         Date refillTime = refillFidelityCard.refill(customerFinder.findCustomerById(customerId), transaction);
         return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + " . Transaction amount: " + transaction.getAmount());
     }
