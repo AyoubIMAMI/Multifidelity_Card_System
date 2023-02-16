@@ -9,4 +9,8 @@ public class BankTransaction {
     private String cardHolderName;
     private String cvv;
     private String expirationDate;
+
+    public float getAmount() {
+        return amount;
+    }
 }
