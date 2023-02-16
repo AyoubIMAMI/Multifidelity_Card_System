@@ -15,10 +15,4 @@ public interface CustomerFinder {
      */
     Customer findCustomerById(UUID id) throws CustomerNotFoundException;
 
-    /**
-     * For a given id, return all the customers with the given name
-     * @param name The name of the customer to find
-     * @return The customers associated with the given name
-     */
-    Set<Customer> findCustomersByName(String name);
 }
