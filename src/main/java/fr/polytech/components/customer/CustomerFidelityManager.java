@@ -1,6 +1,6 @@
 package fr.polytech.components.customer;
 
-import fr.polytech.Repository.FidelityAccountRepository;
+import fr.polytech.repository.FidelityAccountRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.FidelityAccountNotFoundException;
 import fr.polytech.exceptions.MalformedBankInformationException;
@@ -45,21 +45,22 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
 
     @Override
     public void incrementPoints(FidelityAccount fidelityAccount, float price) {
-        //customer.getFidelityAccount()
+        fidelityAccount.setPoints((int) (fidelityAccount.getPoints()+Math.floor(price)));
     }
 
     @Override
     public void decrementPoints(FidelityAccount fidelityAccount, int points) {
-
+        fidelityAccount.setPoints(fidelityAccount.getPoints() - points);
     }
 
     @Override
-    public void decreaseBalance(Customer customer, float amount) throws NotEnoughBalanceException {
-
+    public void decreaseBalance(FidelityAccount fidelityAccount, float amount) throws NotEnoughBalanceException {
+        float balanceAmount = fidelityAccount.getBalance();
+        if(balanceAmount < amount) throw new NotEnoughBalanceException();
+        fidelityAccount.setBalance(balanceAmount - amount);
     }
 
     @Override
-    public void rechargeBalance(Customer customer, BankTransaction bankTransaction, float amount) throws MalformedBankInformationException {
-
+    public void rechargeBalance(FidelityAccount fidelityAccount, BankTransaction bankTransaction, float amount) throws MalformedBankInformationException {
     }
 }

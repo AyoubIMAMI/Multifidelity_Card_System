@@ -18,4 +18,12 @@ public class FidelityAccount {
     public void setPoints(int points) {
         this.points = points;
     }
+
+    public float getBalance() {
+        return balance;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
 }
