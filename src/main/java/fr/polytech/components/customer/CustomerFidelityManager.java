@@ -9,7 +9,6 @@ import fr.polytech.interfaces.fidelity.FidelityExplorer;
 import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.BalanceModifier;
 import fr.polytech.interfaces.payment.PaymentExplorer;
-import fr.polytech.interfaces.payment.PaymentModifier;
 import fr.polytech.pojo.BankTransaction;
 import fr.polytech.pojo.Customer;
 import fr.polytech.pojo.FidelityAccount;
@@ -21,14 +20,11 @@ import java.util.List;
 @Component
 public class CustomerFidelityManager implements FidelityExplorer, PointModifier, BalanceModifier {
 
-    PaymentModifier paymentModifier;
     PaymentExplorer paymentExplorer;
-
     FidelityAccountRepository fidelityAccountRepository;
 
     @Autowired
-    public CustomerFidelityManager(PaymentModifier paymentModifier, PaymentExplorer paymentExplorer, FidelityAccountRepository fidelityAccountRepository){
-        this.paymentModifier = paymentModifier;
+    public CustomerFidelityManager(PaymentExplorer paymentExplorer, FidelityAccountRepository fidelityAccountRepository){
         this.paymentExplorer = paymentExplorer;
         this.fidelityAccountRepository = fidelityAccountRepository;
     }
