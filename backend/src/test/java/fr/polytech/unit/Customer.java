@@ -19,5 +19,6 @@ public class Customer {
     void setUp() {
         name = "Pierre";
         mail = "pierre@mail.com";
+        password = "myPassword";
     }
 }
