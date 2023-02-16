@@ -24,12 +24,13 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder {
 
     @Override
     public Customer register(String name, String mail, String password) throws MailAlreadyUsedException {
-        try{
+        if(customerRepository.isMailAlreadyUsed(mail))
+            throw new MailAlreadyUsedException();
+
+        else {
             Customer customer = new Customer(name, mail, password);
             customerRepository.save(customer, customer.getId());
             return customer;
-        } catch (Exception exception) {
-            throw new MailAlreadyUsedException();
         }
     }
 
