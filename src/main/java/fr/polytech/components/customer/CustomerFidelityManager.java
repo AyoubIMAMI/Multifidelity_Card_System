@@ -55,11 +55,12 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
 
     @Override
     public void decreaseBalance(FidelityAccount fidelityAccount, float amount) throws NotEnoughBalanceException {
-        //fidelityAccount.
+        float balanceAmount = fidelityAccount.getBalance();
+        if(balanceAmount < amount) throw new NotEnoughBalanceException();
+        fidelityAccount.setBalance(balanceAmount - amount);
     }
 
     @Override
     public void rechargeBalance(FidelityAccount fidelityAccount, BankTransaction bankTransaction, float amount) throws MalformedBankInformationException {
-
     }
 }
