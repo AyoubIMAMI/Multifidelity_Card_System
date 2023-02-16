@@ -13,7 +13,6 @@ public class Payment {
     private int id;
     private Customer customer;
     private Store store;
-    private Employee employee;
 
     private Set<Item> shoppingList;
 
@@ -24,6 +23,8 @@ public class Payment {
     }
 
     private float price;
+
+
 
     public float getPrice() {
         return price;

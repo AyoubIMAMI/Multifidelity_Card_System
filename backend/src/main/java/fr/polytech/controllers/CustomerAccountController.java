@@ -24,22 +24,22 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CustomerAccountController {
     public static final String BASE_URI = "/customers";
     public static final String CUSTOMER_URI = "/{customerId}/";
+    private final RefillFidelityCard refillFidelityCard;
+    private final CustomerFinder customerFinder;
+    private final CustomerRegistration customerRegistration;
+    private final CustomerExplorer customerExplorer;
 
     @Autowired
-    private RefillFidelityCard refillFidelityCard;
-
-    @Autowired
-    private CustomerFinder customerFinder;
-
-    @Autowired
-    private CustomerRegistration customerRegistration;
-
-    @Autowired
-    private CustomerExplorer customerExplorer;
+    public CustomerAccountController(RefillFidelityCard refillFidelityCard, CustomerFinder customerFinder, CustomerRegistration customerRegistration, CustomerExplorer customerExplorer) {
+        this.refillFidelityCard = refillFidelityCard;
+        this.customerFinder = customerFinder;
+        this.customerRegistration = customerRegistration;
+        this.customerExplorer = customerExplorer;
+    }
 
     @PostMapping(path = CUSTOMER_URI + "/refill")
     public ResponseEntity<String> refillAccount(@PathVariable("customerId") UUID customerId, @RequestBody BankTransaction transaction) throws CustomerNotFoundException, MalformedBankInformationException, PaymentException {
-        Date refillTime = refillFidelityCard.refill(customerFinder.findCustomerById(customerId), transaction);
+        Date refillTime = refillFidelityCard.refill(transaction);
         return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + " . Transaction amount: " + transaction.getAmount());
     }
 

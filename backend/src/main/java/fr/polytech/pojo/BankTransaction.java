@@ -33,4 +33,12 @@ public class BankTransaction {
     public String getExpirationDate() {
         return expirationDate;
     }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 }

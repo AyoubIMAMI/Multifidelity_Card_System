@@ -5,5 +5,5 @@ import fr.polytech.pojo.BankTransaction;
 import fr.polytech.pojo.Customer;
 
 public interface Bank {
-    boolean pay(Customer customer, BankTransaction transaction) throws PaymentException;
+    boolean pay(BankTransaction transaction) throws PaymentException;
 }
