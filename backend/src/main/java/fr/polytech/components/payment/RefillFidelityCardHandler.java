@@ -11,19 +11,19 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-@Component
-public class RefillFidelityCardHandler implements RefillFidelityCard {
+    @Component
+    public class RefillFidelityCardHandler implements RefillFidelityCard {
 
-    @Autowired
-    private Bank bank;
+        @Autowired
+        private Bank bank;
 
-    @Override
-    public Date refill(Customer customer, BankTransaction transaction) throws MalformedBankInformationException, PaymentException {
-        if(transaction.getAmount() <= 0 || transaction.getCvv().length() != 3)
-            throw new MalformedBankInformationException();
+        @Override
+        public Date refill(Customer customer, BankTransaction transaction) throws MalformedBankInformationException, PaymentException {
+            if(transaction.getAmount() <= 0 || transaction.getCvv().length() != 3)
+                throw new MalformedBankInformationException();
 
-        if(bank.pay(customer, transaction))
-            return new Date();
-        throw new PaymentException();
+            if(bank.pay(transaction))
+                return new Date();
+            throw new PaymentException();
+        }
     }
-}

@@ -39,7 +39,7 @@ public class CustomerAccountController {
 
     @PostMapping(path = CUSTOMER_URI + "/refill")
     public ResponseEntity<String> refillAccount(@PathVariable("customerId") UUID customerId, @RequestBody BankTransaction transaction) throws CustomerNotFoundException, MalformedBankInformationException, PaymentException {
-        Date refillTime = refillFidelityCard.refill(customerFinder.findCustomerById(customerId), transaction);
+        Date refillTime = refillFidelityCard.refill(transaction);
         return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + " . Transaction amount: " + transaction.getAmount());
     }
 
