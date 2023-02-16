@@ -8,7 +8,6 @@ import fr.polytech.pojo.Customer;
 import fr.polytech.pojo.Payment;
 import fr.polytech.pojo.item.Discount;
 import fr.polytech.pojo.item.Item;
-import fr.polytech.pojo.structure.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
