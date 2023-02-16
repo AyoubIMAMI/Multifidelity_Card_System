@@ -18,7 +18,7 @@ import java.util.Date;
         private Bank bank;
 
         @Override
-        public Date refill(Customer customer, BankTransaction transaction) throws MalformedBankInformationException, PaymentException {
+        public Date refill(BankTransaction transaction) throws MalformedBankInformationException, PaymentException {
             if(transaction.getAmount() <= 0 || transaction.getCvv().length() != 3)
                 throw new MalformedBankInformationException();
 
