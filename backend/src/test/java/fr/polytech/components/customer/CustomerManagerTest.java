@@ -1,4 +1,4 @@
-package fr.polytech.unit;
+package fr.polytech.components.customer;
 
 import fr.polytech.interfaces.customer.CustomerRegistration;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class Customer {
+public class CustomerManagerTest {
 
     @Autowired
     private CustomerRegistration customerRegistration;
