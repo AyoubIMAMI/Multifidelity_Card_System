@@ -10,4 +10,6 @@ public class FidelityAccount {
     private boolean isVFP;
     private Set<Advantage> advantages;
     private String licencePlate;
+
+
 }

@@ -45,7 +45,7 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
 
     @Override
     public void incrementPoints(FidelityAccount fidelityAccount, float price) {
-        //customer.getFidelityAccount()
+        fidelityAccount.
     }
 
     @Override
