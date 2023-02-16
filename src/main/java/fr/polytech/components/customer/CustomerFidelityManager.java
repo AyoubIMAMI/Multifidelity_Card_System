@@ -1,5 +1,6 @@
 package fr.polytech.components.customer;
 
+import fr.polytech.Repository.FidelityAccountRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.FidelityAccountNotFoundException;
 import fr.polytech.exceptions.MalformedBankInformationException;
@@ -13,15 +14,24 @@ import fr.polytech.pojo.BankTransaction;
 import fr.polytech.pojo.Customer;
 import fr.polytech.pojo.FidelityAccount;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class CustomerFidelityManager implements FidelityExplorer, PointModifier, BalanceModifier {
 
-    @Autowired
     PaymentModifier paymentModifier;
-    @Autowired
     PaymentExplorer paymentExplorer;
+
+    FidelityAccountRepository fidelityAccountRepository;
+
+    @Autowired
+    public CustomerFidelityManager(PaymentModifier paymentModifier, PaymentExplorer paymentExplorer, FidelityAccountRepository fidelityAccountRepository){
+        this.paymentModifier = paymentModifier;
+        this.paymentExplorer = paymentExplorer;
+        this.fidelityAccountRepository = fidelityAccountRepository;
+    }
 
     @Override
     public FidelityAccount getFidelityAccountByCustomer(Customer customer) throws CustomerNotFoundException, FidelityAccountNotFoundException {
