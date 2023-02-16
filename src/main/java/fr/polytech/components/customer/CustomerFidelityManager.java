@@ -1,6 +1,6 @@
 package fr.polytech.components.customer;
 
-import fr.polytech.Repository.FidelityAccountRepository;
+import fr.polytech.repository.FidelityAccountRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.FidelityAccountNotFoundException;
 import fr.polytech.exceptions.MalformedBankInformationException;

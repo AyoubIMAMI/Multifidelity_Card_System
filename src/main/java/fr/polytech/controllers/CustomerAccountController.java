@@ -1,4 +1,4 @@
-package fr.polytech.components.rest;
+package fr.polytech.controllers;
 
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.MalformedBankInformationException;
@@ -15,7 +15,7 @@ import java.util.UUID;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(path = CustomerAccountController.BASE_URI, produces = APPLICATION_JSON_VALUE)
+@RequestMapping(path = fr.polytech.controllers.CustomerAccountController.BASE_URI, produces = APPLICATION_JSON_VALUE)
 // referencing the same BASE_URI as Customer care to extend it hierarchically
 public class CustomerAccountController {
     public static final String BASE_URI = "/customers";
