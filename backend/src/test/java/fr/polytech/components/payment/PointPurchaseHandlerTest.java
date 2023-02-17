@@ -1,5 +1,6 @@
 package fr.polytech.components.payment;
 
+import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.payment.PointPurchase;
 import fr.polytech.pojo.Customer;
@@ -9,6 +10,7 @@ import fr.polytech.pojo.item.Item;
 import fr.polytech.pojo.item.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -31,6 +33,8 @@ public class PointPurchaseHandlerTest {
 
     int initialFidelityPoint;
 
+    Executable pay;
+
     @BeforeEach
     void setUp() {
         customer = new Customer("John", "john@doe.com", "pwd");
@@ -38,6 +42,7 @@ public class PointPurchaseHandlerTest {
         product = new Product("Coffee", 5);
         discountedProduct = new Discount("Cake", 10, 7);
         initialFidelityPoint = 100;
+        pay = () -> pointPurchaseHandler.buyWithPoint(customer, payment);
     }
 
     @Test
@@ -55,11 +60,41 @@ public class PointPurchaseHandlerTest {
         payment.setShoppingList(shoppingList);
 
         // When
-        assertDoesNotThrow(() -> pointPurchaseHandler.buyWithPoint(customer, payment));
+        assertDoesNotThrow(pay);
 
         // Then
         int requiredPoints = discountItemQuantity * discountedProduct.getPointPrice();
 
         assertEquals(initialFidelityPoint-requiredPoints,customer.getFidelityAccount().getPoints());
+    }
+
+    @Test
+    void givenCustomerWithNoPointsOnFidelityAccount_whenBuyingWithPoint_thenShouldThrowsNotEnoughBalanceException() {
+        // Given
+        customer.getFidelityAccount().setPoints(0);
+
+        Set<Item> shoppingList = new HashSet<>();
+        Item item = new Item(1, discountedProduct);
+        shoppingList.add(item);
+
+        payment.setShoppingList(shoppingList);
+
+        // When
+        assertThrows(NotEnoughBalanceException.class, pay);
+    }
+
+    @Test
+    void givenCustomerWithPointsOnFidelityAccountButPaymentWithoutDiscountedItems_thenShouldThrowsNoDiscountsFoundException() {
+        // Given
+        customer.getFidelityAccount().setPoints(100);
+
+        Set<Item> shoppingList = new HashSet<>();
+        Item item = new Item(1, product);
+        shoppingList.add(item);
+
+        payment.setShoppingList(shoppingList);
+
+        // When
+        assertThrows(NoDiscountsFoundException.class, pay);
     }
 }

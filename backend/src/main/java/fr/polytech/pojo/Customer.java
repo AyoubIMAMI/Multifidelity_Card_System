@@ -17,7 +17,7 @@ public class Customer {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.fidelityAccount = new FidelityAccount();
+        this.fidelityAccount = new FidelityAccount(id);
         this.history = new ArrayList<>();
     }
 

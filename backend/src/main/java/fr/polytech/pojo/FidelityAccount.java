@@ -12,6 +12,13 @@ public class FidelityAccount {
     private Set<Advantage> advantages;
     private String licencePlate;
 
+    public FidelityAccount(UUID clientId) {
+        this.clientId = clientId;
+        points = 0;
+        balance = 0;
+        isVFP = false;
+    }
+
     public int getPoints() {
         return points;
     }
