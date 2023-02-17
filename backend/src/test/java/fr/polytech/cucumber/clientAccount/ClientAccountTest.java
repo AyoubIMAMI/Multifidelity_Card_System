@@ -1,4 +1,4 @@
-package fr.polytech.cucumber;
+package fr.polytech.cucumber.clientAccount;
 
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
@@ -11,8 +11,8 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("features/client")
+@SelectClasspathResource("features/clientAccount")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "fr.unice.polytech.cod.cucumber")
-public class RunCucumberTest {
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "fr.polytech.cucumber.clientAccount")
+public class ClientAccountTest {
 }

@@ -1,14 +1,13 @@
 package fr.polytech.components.customer;
 
+import fr.polytech.pojo.PaymentDTO;
 import fr.polytech.repository.FidelityAccountRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.FidelityAccountNotFoundException;
-import fr.polytech.exceptions.NegativeAmountException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.interfaces.fidelity.FidelityExplorer;
 import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.BalanceModifier;
-import fr.polytech.pojo.BankTransaction;
 import fr.polytech.pojo.Customer;
 import fr.polytech.pojo.FidelityAccount;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,24 +44,29 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     @Override
     public void incrementPoints(FidelityAccount fidelityAccount, float price) {
         fidelityAccount.setPoints((int) (fidelityAccount.getPoints()+Math.floor(price)));
-        fidelityAccountRepository.save(fidelityAccount, fidelityAccount.getClientId());
+        fidelityAccountRepository.save(fidelityAccount.getClientId(), fidelityAccount);
     }
 
     @Override
     public void decrementPoints(FidelityAccount fidelityAccount, int points) {
         fidelityAccount.setPoints(fidelityAccount.getPoints() - points);
-        fidelityAccountRepository.save(fidelityAccount, fidelityAccount.getClientId());
+        fidelityAccountRepository.save(fidelityAccount.getClientId(), fidelityAccount);
     }
 
     @Override
-    public void decreaseBalance(FidelityAccount fidelityAccount, float amount) throws NotEnoughBalanceException {
-        float balanceAmount = fidelityAccount.getBalance();
-        if(balanceAmount < amount) throw new NotEnoughBalanceException();
-        fidelityAccount.setBalance(balanceAmount - amount);
-        fidelityAccountRepository.save(fidelityAccount, fidelityAccount.getClientId());
+    public void decreaseBalance(FidelityAccount fidelityAccount, double amount) throws NotEnoughBalanceException {
+        double balance = fidelityAccount.getBalance();
+        if(balance < amount)
+            throw new NotEnoughBalanceException();
+
+        fidelityAccount.setBalance(balance - amount);
+        fidelityAccountRepository.save(fidelityAccount.getClientId(), fidelityAccount);
     }
 
     @Override
-    public void rechargeBalance(FidelityAccount fidelityAccount, BankTransaction bankTransaction, float amount) throws NegativeAmountException {
+    public void rechargeBalance(FidelityAccount fidelityAccount, PaymentDTO paymentDTO) {
+        double balance = fidelityAccount.getBalance();
+        fidelityAccount.setBalance(balance + paymentDTO.getAmount());
+        fidelityAccountRepository.save(fidelityAccount.getClientId(), fidelityAccount);
     }
 }

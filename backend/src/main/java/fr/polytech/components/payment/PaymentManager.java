@@ -54,6 +54,6 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
         if (existingPayment.isPresent()) {
             throw new PaymentAlreadyExistsException();
         }
-        paymentRepository.save(payment, paymentID);
+        paymentRepository.save(paymentID, payment);
     }
 }
