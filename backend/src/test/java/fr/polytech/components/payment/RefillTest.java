@@ -1,11 +1,11 @@
 package fr.polytech.components.payment;
 
-import fr.polytech.exceptions.NegativeAmountException;
+import fr.polytech.exceptions.paiment.NegativeAmountException;
 import fr.polytech.exceptions.paiment.PaymentException;
 import fr.polytech.interfaces.payment.Bank;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
-import fr.polytech.pojo.BankTransaction;
 import fr.polytech.pojo.Customer;
+import fr.polytech.pojo.FidelityAccount;
 import fr.polytech.pojo.PaymentDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,11 +31,17 @@ public class RefillTest {
     private final Customer john = new Customer("John", "jhon@mail.com", "password");
     private final Customer mourad = new Customer("Mourad", "mourad@mail.com", "password");
 
+    private FidelityAccount johnFidelityAccount;
+    private FidelityAccount mouradFidelityAccount;
+
     private final String correct_credit_card = "1234-896983";
     private final String bad_credit_card = "1234-137911";
 
     @BeforeEach
     public void setUp() throws Exception {
+        johnFidelityAccount = new FidelityAccount(john.getId());
+        mouradFidelityAccount = new FidelityAccount(mourad.getId());
+
         // Mocking the bank proxy
         when(bankMock.pay(any(PaymentDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
             PaymentDTO arg = invocation.getArgument(0);
@@ -45,14 +51,25 @@ public class RefillTest {
 
     @Test
     public void okTransactionTest() throws PaymentException, NegativeAmountException {
+        // Creating a transaction
         PaymentDTO transaction = new PaymentDTO(correct_credit_card, 120);
-        Date transactionDate = refillFidelityCard.refill(john, transaction);
+
+        // Verifying customer balance
+        assertEquals(0, johnFidelityAccount.getBalance());
+
+        // Making transaction
+        Date transactionDate = refillFidelityCard.refill(johnFidelityAccount, transaction);
+
+        // Verifying if transaction is successful by checking transaction date
         assertNotNull(transactionDate);
+
+        // Verifying balance update on customer account
+        assertEquals(120, johnFidelityAccount.getBalance());
     }
 
     @Test
     public void nokTransactionTest() {
         PaymentDTO transaction = new PaymentDTO(bad_credit_card, 50);
-        assertThrows(PaymentException.class,  () -> refillFidelityCard.refill(mourad, transaction));
+        assertThrows(PaymentException.class,  () -> refillFidelityCard.refill(mouradFidelityAccount, transaction));
     }
 }

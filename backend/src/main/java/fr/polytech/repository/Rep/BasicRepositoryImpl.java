@@ -39,7 +39,7 @@ public class BasicRepositoryImpl<T, ID> implements Repository<T, ID> {
     }
 
     @Override
-    public <S extends T> void save(S entity, ID id) {
+    public <S extends T> void save(ID id, S entity) {
         storage.put(id, entity);
     }
 }

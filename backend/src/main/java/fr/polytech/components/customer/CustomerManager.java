@@ -33,7 +33,7 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder, Cu
 
         else {
             Customer customer = new Customer(name, mail, password);
-            customerRepository.save(customer, customer.getId());
+            customerRepository.save(customer.getId(), customer);
             return customer;
         }
     }

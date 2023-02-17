@@ -1,13 +1,12 @@
 package fr.polytech.pojo;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 public class FidelityAccount {
-    private UUID clientId;
+    private final UUID clientId;
     private int points;
-    private float balance;
+    private double balance;
     private boolean isVFP;
     private Set<Advantage> advantages;
     private String licencePlate;
@@ -27,11 +26,11 @@ public class FidelityAccount {
         this.points = points;
     }
 
-    public float getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(float balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
