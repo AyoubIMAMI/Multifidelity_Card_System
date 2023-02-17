@@ -1,6 +1,6 @@
 package fr.polytech.components.payment;
 
-import fr.polytech.exceptions.PaymentAlreadyExistsException;
+import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.PaymentModifier;
 import fr.polytech.interfaces.payment.SettledPurchase;

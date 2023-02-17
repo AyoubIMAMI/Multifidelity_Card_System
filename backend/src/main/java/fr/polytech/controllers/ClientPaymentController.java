@@ -2,7 +2,8 @@ package fr.polytech.controllers;
 
 import fr.polytech.exceptions.*;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
-import fr.polytech.exceptions.paiment.PaymentException;
+import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
+import fr.polytech.exceptions.payment.PaymentException;
 import fr.polytech.interfaces.payment.IPayment;
 import fr.polytech.pojo.Payment;
 import org.springframework.beans.factory.annotation.Autowired;

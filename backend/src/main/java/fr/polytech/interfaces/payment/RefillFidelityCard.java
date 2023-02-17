@@ -1,8 +1,7 @@
 package fr.polytech.interfaces.payment;
 
 import fr.polytech.exceptions.NegativeAmountException;
-import fr.polytech.exceptions.paiment.PaymentException;
-import fr.polytech.pojo.Customer;
+import fr.polytech.exceptions.payment.PaymentException;
 import fr.polytech.pojo.FidelityAccount;
 import fr.polytech.pojo.PaymentDTO;
 

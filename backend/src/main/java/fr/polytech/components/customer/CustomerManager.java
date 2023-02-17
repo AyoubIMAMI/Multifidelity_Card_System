@@ -3,7 +3,6 @@ package fr.polytech.components.customer;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
-import fr.polytech.exceptions.MalformedCredentialsExceptions;
 import fr.polytech.interfaces.customer.CustomerExplorer;
 import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.customer.CustomerRegistration;
@@ -40,9 +39,7 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder, Cu
 
     @Override
     public Customer findCustomerById(UUID id) throws CustomerNotFoundException {
-        Optional<Customer> customer= customerRepository.findById(id);
-        if (customer.isEmpty()) throw new CustomerNotFoundException();
-        else return customer.get();
+        return customerRepository.findById(id).orElseThrow(CustomerNotFoundException::new);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package fr.polytech.exceptions;
+package fr.polytech.exceptions.payment;
 
 public class PaymentAlreadyExistsException extends Exception {
 }

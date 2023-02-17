@@ -1,16 +1,13 @@
 package fr.polytech.pojo;
 
-import ch.qos.logback.core.net.server.Client;
 import fr.polytech.pojo.item.Item;
-import fr.polytech.components.customer.CustomerFidelityManager;
-import fr.polytech.pojo.item.Product;
-import fr.polytech.pojo.structure.Employee;
 import fr.polytech.pojo.structure.Store;
 
 import java.util.Set;
+import java.util.UUID;
 
 public class Payment {
-    private int id;
+    private UUID id;
     private Customer customer;
     private Store store;
 
@@ -48,5 +45,9 @@ public class Payment {
 
     public Store getStore() {
         return store;
+    }
+
+    public UUID getId() {
+        return id;
     }
 }
