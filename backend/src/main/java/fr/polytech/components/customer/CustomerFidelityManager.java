@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class CustomerFidelityManager implements FidelityExplorer, PointModifier, BalanceModifier {
@@ -27,7 +28,12 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     }
 
     @Override
-    public FidelityAccount getFidelityAccountByCustomer(Customer customer) throws CustomerNotFoundException, FidelityAccountNotFoundException {
+    public FidelityAccount findFidelityAccountByCustomer(Customer customer) throws CustomerNotFoundException, FidelityAccountNotFoundException {
+        return null;
+    }
+
+    @Override
+    public FidelityAccount findFidelityAccountById(UUID id) throws CustomerNotFoundException, FidelityAccountNotFoundException {
         return null;
     }
 
