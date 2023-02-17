@@ -1,6 +1,7 @@
 package fr.polytech.controllers;
 
 import fr.polytech.exceptions.*;
+import fr.polytech.exceptions.paiment.NegativeAmountException;
 import fr.polytech.exceptions.paiment.PaymentException;
 import fr.polytech.interfaces.customer.CustomerExplorer;
 import fr.polytech.interfaces.customer.CustomerRegistration;
