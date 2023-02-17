@@ -29,6 +29,7 @@ public class CustomerManagerTest {
 
     @BeforeEach
     void setUp() {
+        customerRepository.deleteAll();
         name = "Pierre";
         mail = "pierre@mail.com";
         password = "myPassword";
