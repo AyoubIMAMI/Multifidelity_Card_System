@@ -14,17 +14,17 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(path = fr.polytech.controllers.CustomerAccountController.BASE_URI, produces = APPLICATION_JSON_VALUE)
 public class ClientPaymentController {
-    IPayment iPayment;
+    IPayment payment;
     public static final String BASE_URI = "/payment";
 
     @Autowired
     public ClientPaymentController(IPayment iPayment) {
-        this.iPayment = iPayment;
+        this.payment = iPayment;
     }
 
     @PostMapping(path = "/pay")
     public ResponseEntity<String> refillAccount(@RequestBody Payment payment) throws CustomerNotFoundException, NegativeAmountException, PaymentException, NotEnoughPermissionException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException {
-        iPayment.pay(payment);
+        this.payment.pay(payment);
         return ResponseEntity.ok().body("Payment succeed ok!  " + payment.toString());
     }
 }
