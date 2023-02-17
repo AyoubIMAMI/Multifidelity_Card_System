@@ -3,8 +3,10 @@ package fr.polytech.interfaces.customer;
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.pojo.Customer;
 
+import java.util.Date;
+
 public interface CustomerModifier {
-    void modifyUsername(Customer customer);
-    void modifyMail(Customer customer) throws MailAlreadyUsedException;
-    void modifyPassword(Customer customer);
+    Date modifyUsername(Customer customer);
+    Date modifyMail(Customer customer) throws MailAlreadyUsedException;
+    Date modifyPassword(Customer customer);
 }
