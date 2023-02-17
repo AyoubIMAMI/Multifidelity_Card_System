@@ -32,7 +32,7 @@ public class PointPurchaseHandler implements PointPurchase {
             throw new NoDiscountsFoundException();
         }
 
-        if (pointsOnFidelityAccount >= pointsRequired) {
+        if (pointsOnFidelityAccount < pointsRequired) {
             throw new NotEnoughBalanceException();
         }
 

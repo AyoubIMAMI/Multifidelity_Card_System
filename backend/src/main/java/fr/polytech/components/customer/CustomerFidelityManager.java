@@ -3,12 +3,11 @@ package fr.polytech.components.customer;
 import fr.polytech.repository.FidelityAccountRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.FidelityAccountNotFoundException;
-import fr.polytech.exceptions.MalformedBankInformationException;
+import fr.polytech.exceptions.NegativeAmountException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.interfaces.fidelity.FidelityExplorer;
 import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.BalanceModifier;
-import fr.polytech.interfaces.payment.PaymentExplorer;
 import fr.polytech.pojo.BankTransaction;
 import fr.polytech.pojo.Customer;
 import fr.polytech.pojo.FidelityAccount;
@@ -58,6 +57,6 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     }
 
     @Override
-    public void rechargeBalance(FidelityAccount fidelityAccount, BankTransaction bankTransaction, float amount) throws MalformedBankInformationException {
+    public void rechargeBalance(FidelityAccount fidelityAccount, BankTransaction bankTransaction, float amount) throws NegativeAmountException {
     }
 }

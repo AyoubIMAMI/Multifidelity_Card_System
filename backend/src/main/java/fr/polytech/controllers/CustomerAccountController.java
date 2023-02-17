@@ -6,8 +6,8 @@ import fr.polytech.interfaces.customer.CustomerExplorer;
 import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.customer.CustomerRegistration;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
-import fr.polytech.pojo.BankTransaction;
 import fr.polytech.pojo.Customer;
+import fr.polytech.pojo.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +38,8 @@ public class CustomerAccountController {
     }
 
     @PostMapping(path = CUSTOMER_URI + "/refill")
-    public ResponseEntity<String> refillAccount(@PathVariable("customerId") UUID customerId, @RequestBody BankTransaction transaction) throws CustomerNotFoundException, MalformedBankInformationException, PaymentException {
-        Date refillTime = refillFidelityCard.refill(transaction);
+    public ResponseEntity<String> refillAccount(@PathVariable("customerId") UUID customerId, @RequestBody PaymentDTO transaction) throws CustomerNotFoundException, NegativeAmountException, PaymentException {
+        Date refillTime = refillFidelityCard.refill(customerFinder.findCustomerById(customerId), transaction);
         return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + " . Transaction amount: " + transaction.getAmount());
     }
 
