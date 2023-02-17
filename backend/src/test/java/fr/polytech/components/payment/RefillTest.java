@@ -51,9 +51,20 @@ public class RefillTest {
 
     @Test
     public void okTransactionTest() throws PaymentException, NegativeAmountException {
+        // Creating a transaction
         PaymentDTO transaction = new PaymentDTO(correct_credit_card, 120);
+
+        // Verifying customer balance
+        assertEquals(0, johnFidelityAccount.getBalance());
+
+        // Making transaction
         Date transactionDate = refillFidelityCard.refill(johnFidelityAccount, transaction);
+
+        // Verifying if transaction is successful by checking transaction date
         assertNotNull(transactionDate);
+
+        // Verifying balance update on customer account
+        assertEquals(120, johnFidelityAccount.getBalance());
     }
 
     @Test
