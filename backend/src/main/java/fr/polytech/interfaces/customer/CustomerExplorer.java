@@ -1,7 +1,6 @@
 package fr.polytech.interfaces.customer;
 
 import fr.polytech.exceptions.BadCredentialsException;
-import fr.polytech.exceptions.MalformedCredentialsExceptions;
 
 import java.util.UUID;
 

@@ -1,6 +1,9 @@
 package fr.polytech.controllers;
 
-import fr.polytech.exceptions.*;
+import fr.polytech.exceptions.BadCredentialsException;
+import fr.polytech.exceptions.CustomerNotFoundException;
+import fr.polytech.exceptions.FidelityAccountNotFoundException;
+import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentException;
 import fr.polytech.interfaces.customer.CustomerExplorer;

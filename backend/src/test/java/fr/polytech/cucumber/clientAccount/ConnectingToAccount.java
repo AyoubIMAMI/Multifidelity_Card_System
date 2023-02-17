@@ -3,16 +3,12 @@ package fr.polytech.cucumber.clientAccount;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.interfaces.customer.CustomerExplorer;
-import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.customer.CustomerRegistration;
-import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.junit.platform.engine.Cucumber;
 import io.cucumber.spring.CucumberContextConfiguration;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

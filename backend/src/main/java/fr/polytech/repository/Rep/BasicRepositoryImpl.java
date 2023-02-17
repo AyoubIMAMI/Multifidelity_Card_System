@@ -1,7 +1,6 @@
 package fr.polytech.repository.Rep;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 public class BasicRepositoryImpl<T, ID> implements Repository<T, ID> {

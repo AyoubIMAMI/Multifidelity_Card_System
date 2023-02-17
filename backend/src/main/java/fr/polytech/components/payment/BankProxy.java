@@ -1,8 +1,7 @@
 package fr.polytech.components.payment;
 
-import fr.polytech.pojo.PaymentDTO;
 import fr.polytech.interfaces.payment.Bank;
-import fr.polytech.pojo.BankTransaction;
+import fr.polytech.pojo.PaymentDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

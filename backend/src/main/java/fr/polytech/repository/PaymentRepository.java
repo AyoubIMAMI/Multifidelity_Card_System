@@ -6,7 +6,6 @@ import fr.polytech.pojo.structure.Store;
 import fr.polytech.repository.Rep.BasicRepositoryImpl;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 

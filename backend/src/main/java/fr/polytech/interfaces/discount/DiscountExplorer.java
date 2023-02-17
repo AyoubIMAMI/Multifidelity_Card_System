@@ -5,7 +5,6 @@ import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.pojo.item.Discount;
 import fr.polytech.pojo.structure.Store;
 
-import java.util.List;
 import java.util.Set;
 
 public interface DiscountExplorer {

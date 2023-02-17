@@ -1,10 +1,10 @@
 package fr.polytech.interfaces.store;
 
-import fr.polytech.exceptions.*;
-import fr.polytech.pojo.structure.Role;
+import fr.polytech.exceptions.NotEnoughPermissionException;
 import fr.polytech.exceptions.store.EmployeeNotFoundException;
 import fr.polytech.exceptions.store.InvalidDayException;
 import fr.polytech.exceptions.store.InvalidHourException;
+import fr.polytech.pojo.structure.Role;
 
 public interface StoreModifier {
     void addEmployee(String employeeName, String employeePassword, String newEmployeeName, String newEmployeePassword, Role newEmployeeRole) throws NotEnoughPermissionException, EmployeeNotFoundException;
