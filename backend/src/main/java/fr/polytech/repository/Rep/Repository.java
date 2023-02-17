@@ -23,6 +23,6 @@ public interface Repository<T, ID> {
     Optional<T> findById(ID id);
 
     // Saves a given entity through its id.
-    <S extends T> void save(S entity, ID id);
+    <S extends T> void save(ID id, S entity);
 
 }

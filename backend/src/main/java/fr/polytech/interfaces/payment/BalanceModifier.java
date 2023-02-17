@@ -1,12 +1,11 @@
 package fr.polytech.interfaces.payment;
 
-import fr.polytech.exceptions.MalformedBankInformationException;
+import fr.polytech.exceptions.paiment.NegativeAmountException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
-import fr.polytech.pojo.BankTransaction;
-import fr.polytech.pojo.Customer;
 import fr.polytech.pojo.FidelityAccount;
+import fr.polytech.pojo.PaymentDTO;
 
 public interface BalanceModifier {
-    void decreaseBalance(FidelityAccount fidelityAccount, float amount) throws NotEnoughBalanceException;
-    void rechargeBalance(FidelityAccount fidelityAccount, BankTransaction bankTransaction, float amount) throws MalformedBankInformationException;
+    void decreaseBalance(FidelityAccount fidelityAccount, double amount) throws NotEnoughBalanceException;
+    void rechargeBalance(FidelityAccount fidelityAccount, PaymentDTO transaction) throws NegativeAmountException;
 }

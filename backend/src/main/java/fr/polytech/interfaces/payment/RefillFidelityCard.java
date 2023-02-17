@@ -1,12 +1,12 @@
 package fr.polytech.interfaces.payment;
 
-import fr.polytech.exceptions.MalformedBankInformationException;
+import fr.polytech.exceptions.paiment.NegativeAmountException;
 import fr.polytech.exceptions.paiment.PaymentException;
-import fr.polytech.pojo.BankTransaction;
-import fr.polytech.pojo.Customer;
+import fr.polytech.pojo.FidelityAccount;
+import fr.polytech.pojo.PaymentDTO;
 
 import java.util.Date;
 
 public interface RefillFidelityCard {
-    Date refill(BankTransaction transaction) throws MalformedBankInformationException, PaymentException;
+    Date refill(FidelityAccount customer, PaymentDTO transaction) throws NegativeAmountException, PaymentException;
 }
