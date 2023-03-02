@@ -16,15 +16,16 @@ public class Customer {
     private String email;
     @OneToOne
     private FidelityAccount fidelityAccount;
-    @OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "customer")
-    private List<Payment> history;
+
+    //@OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "customer")
+    //private List<Payment> history;
 
     public Customer(String name, String email, String password){
         this.name = name;
         this.email = email;
         this.password = password;
         this.fidelityAccount = new FidelityAccount(id);
-        this.history = new ArrayList<>();
+        //this.history = new ArrayList<>();
     }
 
     public Customer() {
@@ -51,7 +52,4 @@ public class Customer {
         return fidelityAccount;
     }
 
-    public List<Payment> getHistory() {
-        return history;
-    }
 }
