@@ -13,8 +13,10 @@ import fr.polytech.entities.FidelityAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Transactional
 @Component
 public class CustomerFidelityManager implements FidelityExplorer, PointModifier, BalanceModifier {
 
