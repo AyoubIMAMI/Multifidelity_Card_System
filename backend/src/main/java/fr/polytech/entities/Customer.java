@@ -27,6 +27,10 @@ public class Customer {
         this.history = new ArrayList<>();
     }
 
+    public Customer() {
+
+    }
+
     public Long getId() {
         return id;
     }

@@ -2,16 +2,19 @@ package fr.polytech.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.Set;
 @Entity
 public class FidelityAccount {
-    @Id
     private Long clientId;
     private int points;
     private double balance;
     private boolean isVFP;
+    @OneToMany
     private Set<Advantage> advantages;
     private String licencePlate;
+    @Id
+    private Long id;
 
     public FidelityAccount(Long clientId) {
         this.clientId = clientId;
