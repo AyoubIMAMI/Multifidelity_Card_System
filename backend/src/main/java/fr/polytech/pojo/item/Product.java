@@ -3,8 +3,10 @@ package fr.polytech.pojo.item;
 import java.util.UUID;
 
 public class Product {
+
     private final UUID id;
     private String name;
+
     private final UUID storeId;
     private double cashPrice;
 
@@ -13,5 +15,13 @@ public class Product {
         this.name = name;
         this.storeId = storeId;
         this.cashPrice = cashPrice;
+    }
+
+    public UUID getStoreId() {
+        return storeId;
+    }
+
+    public UUID getId() {
+        return id;
     }
 }

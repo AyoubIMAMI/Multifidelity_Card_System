@@ -11,5 +11,5 @@ public interface DiscountExplorer {
 
     Iterable<Discount> findDiscountsByStore(UUID storeId) throws NoDiscountsFoundException;
 
-    Iterable<Discount> getAllDiscount() throws NoDiscountsFoundException ;
+    Iterable<Discount> findAllDiscounts() throws NoDiscountsFoundException ;
 }
