@@ -12,6 +12,8 @@ import fr.polytech.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
@@ -26,14 +28,15 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder, Cu
         this.customerRepository = customerRepository;
     }
 
+
     @Override
     public Customer register(String name, String mail, String password) throws MailAlreadyUsedException {
-        if(customerRepository.isMailAlreadyUsed(mail))
+        if(isMailAlreadyUsed(mail))
             throw new MailAlreadyUsedException();
 
         else {
             Customer customer = new Customer(name, mail, password);
-            customerRepository.save(customer.getId(), customer);
+            customerRepository.save(customer);
             return customer;
         }
     }
@@ -51,5 +54,11 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder, Cu
                 .filter(customer -> email.equals(customer.getEmail())&&password.equals(customer.getPassword())).findAny();
         if (customerCurrent.isEmpty()) throw new BadCredentialsException();
         else return customerCurrent.get().getId();
+    }
+    private boolean isMailAlreadyUsed(String mail) {
+        List<String> mails = new ArrayList<>();
+        Iterable<Customer> storage = customerRepository.findAll();
+        storage.forEach(customer -> mails.add(customer.getEmail()));
+        return mails.contains(mail);
     }
 }

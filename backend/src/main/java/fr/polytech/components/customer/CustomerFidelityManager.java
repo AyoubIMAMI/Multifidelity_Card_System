@@ -45,13 +45,13 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     @Override
     public void incrementPoints(FidelityAccount fidelityAccount, float price) {
         fidelityAccount.setPoints((int) (fidelityAccount.getPoints()+Math.floor(price)));
-        fidelityAccountRepository.save(fidelityAccount.getClientId(), fidelityAccount);
+        fidelityAccountRepository.save(fidelityAccount);
     }
 
     @Override
     public void decrementPoints(FidelityAccount fidelityAccount, int points) {
         fidelityAccount.setPoints(fidelityAccount.getPoints() - points);
-        fidelityAccountRepository.save(fidelityAccount.getClientId(), fidelityAccount);
+        fidelityAccountRepository.save(fidelityAccount);
     }
 
     @Override
@@ -61,13 +61,13 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
             throw new NotEnoughBalanceException();
 
         fidelityAccount.setBalance(balance - amount);
-        fidelityAccountRepository.save(fidelityAccount.getClientId(), fidelityAccount);
+        fidelityAccountRepository.save(fidelityAccount);
     }
 
     @Override
     public void rechargeBalance(FidelityAccount fidelityAccount, PaymentDTO paymentDTO) {
         double balance = fidelityAccount.getBalance();
         fidelityAccount.setBalance(balance + paymentDTO.getAmount());
-        fidelityAccountRepository.save(fidelityAccount.getClientId(), fidelityAccount);
+        fidelityAccountRepository.save(fidelityAccount);
     }
 }
