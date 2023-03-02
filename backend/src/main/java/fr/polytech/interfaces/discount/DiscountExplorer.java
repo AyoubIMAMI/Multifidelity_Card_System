@@ -1,13 +1,15 @@
 package fr.polytech.interfaces.discount;
 
-import fr.polytech.exceptions.NotEnoughPermissionException;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
+import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.pojo.item.Discount;
-import fr.polytech.pojo.structure.Store;
 
-import java.util.Set;
+import java.util.UUID;
 
 public interface DiscountExplorer {
-    Discount findDiscountByName(Store store, String discountName) throws DiscountNotFoundException;
-    Set<Discount> getAllDiscount() throws NotEnoughPermissionException;
+    Discount findDiscountById(UUID id) throws DiscountNotFoundException;
+
+    Iterable<Discount> findDiscountsByStore(UUID storeId) throws NoDiscountsFoundException;
+
+    Iterable<Discount> getAllDiscount() throws NoDiscountsFoundException ;
 }

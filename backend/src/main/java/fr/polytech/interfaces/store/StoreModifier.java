@@ -1,6 +1,5 @@
 package fr.polytech.interfaces.store;
 
-import fr.polytech.exceptions.NotEnoughPermissionException;
 import fr.polytech.exceptions.store.EmployeeNotFoundException;
 import fr.polytech.exceptions.store.InvalidDayException;
 import fr.polytech.exceptions.store.InvalidHourException;

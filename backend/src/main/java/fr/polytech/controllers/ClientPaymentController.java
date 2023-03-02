@@ -2,7 +2,6 @@ package fr.polytech.controllers;
 
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
-import fr.polytech.exceptions.NotEnoughPermissionException;
 import fr.polytech.exceptions.PurchaseFailedException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
