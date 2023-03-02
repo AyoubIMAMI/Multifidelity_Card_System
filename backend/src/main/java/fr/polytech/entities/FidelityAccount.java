@@ -3,8 +3,10 @@ package fr.polytech.entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Set;
+
 @Entity
 public class FidelityAccount {
+
     @Id
     private Long clientId;
     private int points;

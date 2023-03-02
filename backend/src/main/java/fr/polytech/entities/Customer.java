@@ -16,7 +16,7 @@ public class Customer {
     private String email;
     @OneToOne
     private FidelityAccount fidelityAccount;
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "customer")
     private List<Payment> history;
 
     public Customer(String name, String email, String password){

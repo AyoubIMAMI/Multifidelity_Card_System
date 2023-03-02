@@ -3,10 +3,7 @@ package fr.polytech.entities;
 import fr.polytech.entities.item.Item;
 import fr.polytech.entities.structure.Store;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -17,7 +14,7 @@ public class Payment {
     private Customer customer;
     @OneToOne
     private Store store;
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "payment")
     private Set<Item> shoppingList;
 
     private boolean isSettled;

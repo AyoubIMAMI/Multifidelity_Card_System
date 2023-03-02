@@ -2,16 +2,13 @@ package fr.polytech.entities.structure;
 import fr.polytech.entities.Schedule;
 import fr.polytech.entities.item.Discount;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Set;
 @Entity
 public class Store extends Organisation {
     @OneToOne
     Schedule schedule;
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "store")
     private Set<Discount> offers;
     @Id
     private Long id;
