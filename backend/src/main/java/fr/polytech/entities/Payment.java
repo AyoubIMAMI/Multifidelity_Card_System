@@ -16,7 +16,6 @@ public class Payment {
     private Store store;
     @OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "payment")
     private Set<Item> shoppingList;
-
     private boolean isSettled;
 
     public boolean isSettled() {
