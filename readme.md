@@ -13,7 +13,7 @@ TODO : Add installation steps
 ### Smee
 Smee is used to enable jenkins to listen incoming events from github. Please note that NodeJS is required to install and run Smee.
 * Install smee `npm install --global smee-client`
-* Run smee `smee --url https://smee.io/ugXPk3XiT2ED6aZV --path /github-webhook/ --port 8080 &` 
+* Run smee `smee --url https://smee.io/ugXPk3XiT2ED6aZV --path /github-webhook/ --port 8001 &` 
 
 ### Jenkins
 * Go into jenkins_compose folder `cd jenkins_compose`
