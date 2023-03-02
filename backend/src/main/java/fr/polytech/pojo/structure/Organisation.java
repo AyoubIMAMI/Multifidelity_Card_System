@@ -5,5 +5,9 @@ import java.util.Set;
 public abstract class Organisation {
     private String siret;
     private String name;
-    private Set<Employee> employees;
+
+    public Organisation(String siret, String name) {
+        this.siret = siret;
+        this.name = name;
+    }
 }
