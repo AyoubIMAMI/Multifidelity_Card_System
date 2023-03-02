@@ -1,4 +1,4 @@
-package fr.polytech.pojo.structure;
+package fr.polytech.entities.structure;
 
 import java.util.Set;
 

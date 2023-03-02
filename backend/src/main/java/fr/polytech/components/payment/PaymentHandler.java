@@ -1,25 +1,16 @@
 package fr.polytech.components.payment;
 
 import fr.polytech.exceptions.NotEnoughBalanceException;
-import fr.polytech.exceptions.NotEnoughPermissionException;
 import fr.polytech.exceptions.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.PurchaseFailedException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.customer.CustomerFinder;
-import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.payment.*;
-import fr.polytech.interfaces.store.StoreFinder;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.Payment;
-import fr.polytech.pojo.item.Discount;
-import fr.polytech.pojo.item.Item;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Payment;
+import fr.polytech.entities.structure.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class PaymentHandler implements IPayment {

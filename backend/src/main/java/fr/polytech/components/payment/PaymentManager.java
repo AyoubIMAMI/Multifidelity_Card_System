@@ -6,10 +6,9 @@ import fr.polytech.exceptions.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.StoreNotFoundException;
 import fr.polytech.interfaces.payment.PaymentExplorer;
 import fr.polytech.interfaces.payment.PaymentModifier;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.Payment;
-import fr.polytech.pojo.structure.Store;
-import org.springframework.beans.factory.annotation.Autowired;
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Payment;
+import fr.polytech.entities.structure.Store;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -5,7 +5,7 @@ import fr.polytech.exceptions.NotEnoughPermissionException;
 import fr.polytech.exceptions.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.PurchaseFailedException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
-import fr.polytech.pojo.Payment;
+import fr.polytech.entities.Payment;
 
 public interface IPayment {
     void pay(Payment payment) throws NotEnoughBalanceException, PurchaseFailedException, NotEnoughPermissionException, NoDiscountsFoundException, PaymentAlreadyExistsException;

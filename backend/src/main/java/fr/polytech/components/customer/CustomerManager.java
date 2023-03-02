@@ -3,11 +3,10 @@ package fr.polytech.components.customer;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
-import fr.polytech.exceptions.MalformedCredentialsExceptions;
 import fr.polytech.interfaces.customer.CustomerExplorer;
 import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.customer.CustomerRegistration;
-import fr.polytech.pojo.Customer;
+import fr.polytech.entities.Customer;
 import fr.polytech.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.StreamSupport;
 
 @Component
@@ -42,14 +40,14 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder, Cu
     }
 
     @Override
-    public Customer findCustomerById(UUID id) throws CustomerNotFoundException {
+    public Customer findCustomerById(Long id) throws CustomerNotFoundException {
         Optional<Customer> customer= customerRepository.findById(id);
         if (customer.isEmpty()) throw new CustomerNotFoundException();
         else return customer.get();
     }
 
     @Override
-    public UUID checkCredentials(String email, String password) throws BadCredentialsException {
+    public Long checkCredentials(String email, String password) throws BadCredentialsException {
         Optional<Customer> customerCurrent=StreamSupport.stream(customerRepository.findAll().spliterator(), false)
                 .filter(customer -> email.equals(customer.getEmail())&&password.equals(customer.getPassword())).findAny();
         if (customerCurrent.isEmpty()) throw new BadCredentialsException();

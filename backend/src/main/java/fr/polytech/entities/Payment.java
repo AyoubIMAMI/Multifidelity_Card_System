@@ -1,11 +1,7 @@
-package fr.polytech.pojo;
+package fr.polytech.entities;
 
-import ch.qos.logback.core.net.server.Client;
-import fr.polytech.pojo.item.Item;
-import fr.polytech.components.customer.CustomerFidelityManager;
-import fr.polytech.pojo.item.Product;
-import fr.polytech.pojo.structure.Employee;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.entities.item.Item;
+import fr.polytech.entities.structure.Store;
 
 import java.util.Set;
 

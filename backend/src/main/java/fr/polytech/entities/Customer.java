@@ -1,11 +1,16 @@
-package fr.polytech.pojo;
+package fr.polytech.entities;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
+@Entity
 public class Customer {
-    private final UUID id;
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private String name;
     private String password;
     private String email;
@@ -13,7 +18,6 @@ public class Customer {
     private List<Payment> history;
 
     public Customer(String name, String email, String password){
-        this.id = UUID.randomUUID();
         this.name = name;
         this.email = email;
         this.password = password;
@@ -21,7 +25,7 @@ public class Customer {
         this.history = new ArrayList<>();
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 

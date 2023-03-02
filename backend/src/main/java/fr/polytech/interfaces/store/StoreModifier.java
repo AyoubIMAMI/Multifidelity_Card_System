@@ -1,7 +1,7 @@
 package fr.polytech.interfaces.store;
 
 import fr.polytech.exceptions.*;
-import fr.polytech.pojo.structure.Role;
+import fr.polytech.entities.structure.Role;
 import fr.polytech.exceptions.store.EmployeeNotFoundException;
 import fr.polytech.exceptions.store.InvalidDayException;
 import fr.polytech.exceptions.store.InvalidHourException;

@@ -2,10 +2,9 @@ package fr.polytech.interfaces.discount;
 
 import fr.polytech.exceptions.NotEnoughPermissionException;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
-import fr.polytech.pojo.item.Discount;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.entities.item.Discount;
+import fr.polytech.entities.structure.Store;
 
-import java.util.List;
 import java.util.Set;
 
 public interface DiscountExplorer {

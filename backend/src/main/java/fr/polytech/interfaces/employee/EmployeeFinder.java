@@ -3,7 +3,7 @@ package fr.polytech.interfaces.employee;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.MalformedCredentialsExceptions;
 import fr.polytech.exceptions.store.EmployeeNotFoundException;
-import fr.polytech.pojo.structure.Employee;
+import fr.polytech.entities.structure.Employee;
 import java.util.Set;
 
 public interface EmployeeFinder {

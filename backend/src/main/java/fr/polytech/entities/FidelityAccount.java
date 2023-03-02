@@ -1,17 +1,16 @@
-package fr.polytech.pojo;
+package fr.polytech.entities;
 
 import java.util.Set;
-import java.util.UUID;
 
 public class FidelityAccount {
-    private final UUID clientId;
+    private final Long clientId;
     private int points;
     private double balance;
     private boolean isVFP;
     private Set<Advantage> advantages;
     private String licencePlate;
 
-    public FidelityAccount(UUID clientId) {
+    public FidelityAccount(Long clientId) {
         this.clientId = clientId;
         points = 0;
         balance = 0;
@@ -34,7 +33,7 @@ public class FidelityAccount {
         this.balance = balance;
     }
 
-    public UUID getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 }

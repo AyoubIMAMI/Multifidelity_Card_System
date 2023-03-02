@@ -1,4 +1,4 @@
-package fr.polytech.pojo.item;
+package fr.polytech.entities.item;
 
 public class Product {
     private String name;

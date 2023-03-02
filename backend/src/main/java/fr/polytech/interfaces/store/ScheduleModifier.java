@@ -3,7 +3,7 @@ package fr.polytech.interfaces.store;
 import fr.polytech.exceptions.NotEnoughPermissionException;
 import fr.polytech.exceptions.store.InvalidDayException;
 import fr.polytech.exceptions.store.InvalidHourException;
-import fr.polytech.pojo.Schedule;
+import fr.polytech.entities.Schedule;
 
 public interface ScheduleModifier {
     void changeDayOpeningHours(Schedule schedule, String Day, String openingHour, String closingHour) throws NotEnoughPermissionException, InvalidDayException, InvalidHourException;

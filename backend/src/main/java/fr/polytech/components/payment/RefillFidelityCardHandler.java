@@ -5,8 +5,8 @@ import fr.polytech.exceptions.paiment.PaymentException;
 import fr.polytech.interfaces.payment.BalanceModifier;
 import fr.polytech.interfaces.payment.Bank;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
-import fr.polytech.pojo.FidelityAccount;
-import fr.polytech.pojo.PaymentDTO;
+import fr.polytech.entities.FidelityAccount;
+import fr.polytech.entities.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

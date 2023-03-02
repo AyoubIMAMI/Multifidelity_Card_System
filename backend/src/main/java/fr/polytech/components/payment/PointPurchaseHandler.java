@@ -4,10 +4,10 @@ import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.PointPurchase;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.Payment;
-import fr.polytech.pojo.item.Discount;
-import fr.polytech.pojo.item.Item;
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Payment;
+import fr.polytech.entities.item.Discount;
+import fr.polytech.entities.item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

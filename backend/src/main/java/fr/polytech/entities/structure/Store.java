@@ -1,6 +1,6 @@
-package fr.polytech.pojo.structure;
-import fr.polytech.pojo.Schedule;
-import fr.polytech.pojo.item.Discount;
+package fr.polytech.entities.structure;
+import fr.polytech.entities.Schedule;
+import fr.polytech.entities.item.Discount;
 
 import java.util.Set;
 

@@ -2,7 +2,7 @@ package fr.polytech.components.customer;
 
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.interfaces.customer.CustomerRegistration;
-import fr.polytech.pojo.Customer;
+import fr.polytech.entities.Customer;
 import fr.polytech.repository.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

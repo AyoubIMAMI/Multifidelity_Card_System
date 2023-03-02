@@ -2,15 +2,13 @@ package fr.polytech.interfaces.fidelity;
 
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.FidelityAccountNotFoundException;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.FidelityAccount;
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.FidelityAccount;
 import java.util.List;
-
-import java.util.UUID;
 
 public interface FidelityExplorer {
     FidelityAccount findFidelityAccountByCustomer(Customer customer) throws CustomerNotFoundException, FidelityAccountNotFoundException;
 
-    FidelityAccount findFidelityAccountById(UUID id) throws CustomerNotFoundException, FidelityAccountNotFoundException;
+    FidelityAccount findFidelityAccountById(Long id) throws CustomerNotFoundException, FidelityAccountNotFoundException;
     List<FidelityExplorer> getAllEligibleVFPCustomer();
 }

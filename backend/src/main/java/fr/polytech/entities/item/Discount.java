@@ -1,4 +1,4 @@
-package fr.polytech.pojo.item;
+package fr.polytech.entities.item;
 
 public class Discount extends Product {
     private int pointPrice;

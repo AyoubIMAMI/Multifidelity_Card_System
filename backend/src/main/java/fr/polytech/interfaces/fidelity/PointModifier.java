@@ -1,6 +1,6 @@
 package fr.polytech.interfaces.fidelity;
 
-import fr.polytech.pojo.FidelityAccount;
+import fr.polytech.entities.FidelityAccount;
 
 public interface PointModifier {
     //points computed from the price

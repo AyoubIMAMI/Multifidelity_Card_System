@@ -1,9 +1,9 @@
 package fr.polytech.interfaces.store;
 
 import fr.polytech.exceptions.store.StoreNotFoundException;
-import fr.polytech.pojo.Schedule;
-import fr.polytech.pojo.item.Discount;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.entities.Schedule;
+import fr.polytech.entities.item.Discount;
+import fr.polytech.entities.structure.Store;
 
 import java.util.Set;
 

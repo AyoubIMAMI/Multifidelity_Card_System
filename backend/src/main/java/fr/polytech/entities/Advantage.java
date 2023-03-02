@@ -1,6 +1,6 @@
-package fr.polytech.pojo;
+package fr.polytech.entities;
 
-import fr.polytech.pojo.structure.TerritorialCommunity;
+import fr.polytech.entities.structure.TerritorialCommunity;
 
 import java.util.Date;
 

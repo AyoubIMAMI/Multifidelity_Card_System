@@ -4,9 +4,9 @@ import fr.polytech.exceptions.PaymentAlreadyExistsException;
 import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.PaymentModifier;
 import fr.polytech.interfaces.payment.SettledPurchase;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.Payment;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Payment;
+import fr.polytech.entities.structure.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

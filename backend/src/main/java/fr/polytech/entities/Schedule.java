@@ -1,4 +1,4 @@
-package fr.polytech.pojo;
+package fr.polytech.entities;
 
 import java.util.HashMap;
 import java.util.List;

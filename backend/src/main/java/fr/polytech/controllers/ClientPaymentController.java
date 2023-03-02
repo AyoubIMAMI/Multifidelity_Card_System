@@ -5,7 +5,7 @@ import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.paiment.NegativeAmountException;
 import fr.polytech.exceptions.paiment.PaymentException;
 import fr.polytech.interfaces.payment.IPayment;
-import fr.polytech.pojo.Payment;
+import fr.polytech.entities.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
