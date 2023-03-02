@@ -1,9 +1,12 @@
 package fr.polytech.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Set;
-
+@Entity
 public class FidelityAccount {
-    private final Long clientId;
+    @Id
+    private Long clientId;
     private int points;
     private double balance;
     private boolean isVFP;
@@ -15,6 +18,9 @@ public class FidelityAccount {
         points = 0;
         balance = 0;
         isVFP = false;
+    }
+
+    public FidelityAccount() {
     }
 
     public int getPoints() {
@@ -35,5 +41,13 @@ public class FidelityAccount {
 
     public Long getClientId() {
         return clientId;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

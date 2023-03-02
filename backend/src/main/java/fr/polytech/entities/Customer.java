@@ -14,7 +14,9 @@ public class Customer {
     private String name;
     private String password;
     private String email;
+    @OneToOne
     private FidelityAccount fidelityAccount;
+    @OneToMany
     private List<Payment> history;
 
     public Customer(String name, String email, String password){
