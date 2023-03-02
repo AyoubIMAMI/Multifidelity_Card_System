@@ -35,7 +35,7 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
 
     @Override
     public boolean modifyPointPrice(UUID id, int newPointPrice) throws DiscountNotFoundException {
-
+        return true;
     }
 
     @Override

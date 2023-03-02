@@ -30,7 +30,7 @@ public class ClientPaymentController {
     }
 
     @PostMapping(path = "/pay")
-    public ResponseEntity<String> refillAccount(@RequestBody Payment payment) throws CustomerNotFoundException, NegativeAmountException, PaymentException, NotEnoughPermissionException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException {
+    public ResponseEntity<String> refillAccount(@RequestBody Payment payment) throws CustomerNotFoundException, NegativeAmountException, PaymentException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException {
         this.payment.pay(payment);
         return ResponseEntity.ok().body("Payment succeed ok!  " + payment.toString());
     }
