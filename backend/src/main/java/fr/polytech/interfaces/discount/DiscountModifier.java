@@ -9,7 +9,7 @@ public interface DiscountModifier {
 
     public Discount createDiscount(String name, UUID storeId, double cashPrice, int pointPrice);
 
-    boolean modifyPointPrice(UUID id, int newPointPrice) throws DiscountNotFoundException;
+    void modifyPointPrice(UUID id, int newPointPrice) throws DiscountNotFoundException;
 
     boolean deleteDiscount(UUID id) throws DiscountNotFoundException;
 }
