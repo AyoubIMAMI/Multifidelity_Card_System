@@ -1,7 +1,6 @@
 package fr.polytech.interfaces.store;
 
 import fr.polytech.exceptions.BadCredentialsException;
-import fr.polytech.exceptions.NotEnoughPermissionException;
 import fr.polytech.exceptions.store.MissingInformationsException;
 
 public interface StoreRegistration {
