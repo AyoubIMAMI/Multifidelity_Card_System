@@ -4,7 +4,17 @@
 * Connect to the VPN (Cisco) `open.unice.fr`
 * Connect to the VM through SSH `ssh teamh@vmpx08.polytech.unice.fr`
 ## Docker
-TODO : Add installation steps
+### Installation 
+* `sudo apt-get update`
+* ```shell
+  sudo apt-get install \
+  ca-certificates \
+  curl \
+  gnupg \
+  lsb-release
+  ```
+  
+### Configuration
 * Create Docker group `sudo groupadd docker`
 * Add user to group `sudo usermod -aG docker $USER`
 * Update group `newgrp docker`
@@ -42,5 +52,6 @@ Password: `eefe44d7c4694c75aa8fc0680adef5ef`
 * Create a "Secret text" credential and enter your Github token
 * Create a "Username with password" credential and enter your Github username and your github token
 
-### Install Maven
+## Maven
+### Installation
 * Install maven `sudo apt install maven`
