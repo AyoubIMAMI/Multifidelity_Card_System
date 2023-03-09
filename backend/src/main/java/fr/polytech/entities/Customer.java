@@ -3,6 +3,7 @@ package fr.polytech.entities;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Customer {
@@ -51,5 +52,18 @@ public class Customer {
     public FidelityAccount getFidelityAccount() {
         return fidelityAccount;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (!Objects.equals(name, customer.name)) return false;
+        if (!Objects.equals(password, customer.password)) return false;
+        if (!Objects.equals(email, customer.email)) return false;
+        return Objects.equals(fidelityAccount, customer.fidelityAccount);
+    }
+
 
 }

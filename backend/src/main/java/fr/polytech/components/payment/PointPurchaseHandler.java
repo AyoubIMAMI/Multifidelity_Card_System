@@ -36,7 +36,7 @@ public class PointPurchaseHandler implements PointPurchase {
             throw new NotEnoughBalanceException();
         }
 
-        pointModifier.decrementPoints(customer.getFidelityAccount(), pointsRequired);
+        pointModifier.decrementPoints(customer, pointsRequired);
     }
 
     private int computeRequiredPoints(Payment payment) {

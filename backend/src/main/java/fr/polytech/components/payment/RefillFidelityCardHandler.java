@@ -1,5 +1,6 @@
 package fr.polytech.components.payment;
 
+import fr.polytech.entities.Customer;
 import fr.polytech.exceptions.paiment.NegativeAmountException;
 import fr.polytech.exceptions.paiment.PaymentException;
 import fr.polytech.interfaces.payment.BalanceModifier;
@@ -25,7 +26,7 @@ public class RefillFidelityCardHandler implements RefillFidelityCard {
     }
 
     @Override
-    public Date refill(FidelityAccount fidelityAccount, PaymentDTO transaction) throws NegativeAmountException, PaymentException {
+    public Date refill(Customer customer, PaymentDTO transaction) throws NegativeAmountException, PaymentException {
         if(transaction.getAmount() <= 0)
             throw new NegativeAmountException();
 
@@ -34,7 +35,7 @@ public class RefillFidelityCardHandler implements RefillFidelityCard {
 
         Date bankTransactionDate = new Date();
 
-        balanceModifier.rechargeBalance(fidelityAccount, transaction);
+        balanceModifier.rechargeBalance(customer, transaction);
 
         return bankTransactionDate;
     }

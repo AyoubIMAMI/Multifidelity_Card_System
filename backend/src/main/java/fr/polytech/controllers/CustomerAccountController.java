@@ -4,6 +4,7 @@ import fr.polytech.exceptions.*;
 import fr.polytech.exceptions.paiment.NegativeAmountException;
 import fr.polytech.exceptions.paiment.PaymentException;
 import fr.polytech.interfaces.customer.CustomerExplorer;
+import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.customer.CustomerRegistration;
 import fr.polytech.interfaces.fidelity.FidelityExplorer;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
@@ -26,19 +27,21 @@ public class CustomerAccountController {
     private final RefillFidelityCard refillFidelityCard;
     private final CustomerRegistration customerRegistration;
     private final CustomerExplorer customerExplorer;
+    private final CustomerFinder customerFinder;
     private final FidelityExplorer fidelityExplorer;
 
     @Autowired
-    public CustomerAccountController(RefillFidelityCard refillFidelityCard, FidelityExplorer fidelityExplorer, CustomerRegistration customerRegistration, CustomerExplorer customerExplorer) {
+    public CustomerAccountController(RefillFidelityCard refillFidelityCard,CustomerFinder customerFinder, FidelityExplorer fidelityExplorer, CustomerRegistration customerRegistration, CustomerExplorer customerExplorer) {
         this.refillFidelityCard = refillFidelityCard;
         this.customerRegistration = customerRegistration;
         this.customerExplorer = customerExplorer;
         this.fidelityExplorer = fidelityExplorer;
+        this.customerFinder=customerFinder;
     }
 
     @PostMapping(path = CUSTOMER_URI + "/refill")
     public ResponseEntity<String> refillAccount(@PathVariable("customerId") Long customerId, @RequestBody PaymentDTO transaction) throws CustomerNotFoundException, NegativeAmountException, PaymentException, FidelityAccountNotFoundException {
-        Date refillTime = refillFidelityCard.refill(fidelityExplorer.findFidelityAccountById(customerId), transaction);
+        Date refillTime = refillFidelityCard.refill(customerFinder.findCustomerById(customerId), transaction);
         return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + " . Transaction amount: " + transaction.getAmount());
     }
 

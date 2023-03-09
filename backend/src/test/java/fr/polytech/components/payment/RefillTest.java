@@ -39,8 +39,8 @@ public class RefillTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        johnFidelityAccount = new FidelityAccount(john.getId());
-        mouradFidelityAccount = new FidelityAccount(mourad.getId());
+        johnFidelityAccount = john.getFidelityAccount();
+        mouradFidelityAccount = mourad.getFidelityAccount();
 
         // Mocking the bank proxy
         when(bankMock.pay(any(PaymentDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
@@ -58,7 +58,7 @@ public class RefillTest {
         assertEquals(0, johnFidelityAccount.getBalance());
 
         // Making transaction
-        Date transactionDate = refillFidelityCard.refill(johnFidelityAccount, transaction);
+        Date transactionDate = refillFidelityCard.refill(john, transaction);
 
         // Verifying if transaction is successful by checking transaction date
         assertNotNull(transactionDate);
@@ -70,6 +70,6 @@ public class RefillTest {
     @Test
     public void nokTransactionTest() {
         PaymentDTO transaction = new PaymentDTO(bad_credit_card, 50);
-        assertThrows(PaymentException.class,  () -> refillFidelityCard.refill(mouradFidelityAccount, transaction));
+        assertThrows(PaymentException.class,  () -> refillFidelityCard.refill(mourad, transaction));
     }
 }

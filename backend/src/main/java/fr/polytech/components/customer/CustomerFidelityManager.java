@@ -1,7 +1,7 @@
 package fr.polytech.components.customer;
 
 import fr.polytech.entities.PaymentDTO;
-import fr.polytech.repository.FidelityAccountRepository;
+import fr.polytech.repository.CustomerRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.FidelityAccountNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
@@ -20,11 +20,11 @@ import java.util.List;
 @Component
 public class CustomerFidelityManager implements FidelityExplorer, PointModifier, BalanceModifier {
 
-    FidelityAccountRepository fidelityAccountRepository;
+    CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerFidelityManager(FidelityAccountRepository fidelityAccountRepository){
-        this.fidelityAccountRepository = fidelityAccountRepository;
+    public CustomerFidelityManager(CustomerRepository customerRepository){
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -43,31 +43,35 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     }
 
     @Override
-    public void incrementPoints(FidelityAccount fidelityAccount, float price) {
+    public void incrementPoints(Customer customer, float price) {
+        FidelityAccount fidelityAccount = customer.getFidelityAccount();
         fidelityAccount.setPoints((int) (fidelityAccount.getPoints()+Math.floor(price)));
-        fidelityAccountRepository.save(fidelityAccount);
+        customerRepository.save(customer);
     }
 
     @Override
-    public void decrementPoints(FidelityAccount fidelityAccount, int points) {
+    public void decrementPoints(Customer customer, int points) {
+        FidelityAccount fidelityAccount = customer.getFidelityAccount();
         fidelityAccount.setPoints(fidelityAccount.getPoints() - points);
-        fidelityAccountRepository.save(fidelityAccount);
+        customerRepository.save(customer);
     }
 
     @Override
-    public void decreaseBalance(FidelityAccount fidelityAccount, double amount) throws NotEnoughBalanceException {
+    public void decreaseBalance(Customer customer, double amount) throws NotEnoughBalanceException {
+        FidelityAccount fidelityAccount=customer.getFidelityAccount();
         double balance = fidelityAccount.getBalance();
         if(balance < amount)
             throw new NotEnoughBalanceException();
 
         fidelityAccount.setBalance(balance - amount);
-        fidelityAccountRepository.save(fidelityAccount);
+        customerRepository.save(customer);
     }
 
     @Override
-    public void rechargeBalance(FidelityAccount fidelityAccount, PaymentDTO paymentDTO) {
+    public void rechargeBalance(Customer customer, PaymentDTO paymentDTO) {
+        FidelityAccount fidelityAccount=customer.getFidelityAccount();
         double balance = fidelityAccount.getBalance();
         fidelityAccount.setBalance(balance + paymentDTO.getAmount());
-        fidelityAccountRepository.save(fidelityAccount);
+        customerRepository.save(customer);
     }
 }
