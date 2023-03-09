@@ -4,13 +4,9 @@ import fr.polytech.entities.item.Discount;
 
 import javax.persistence.*;
 import java.util.Set;
-@Entity
 public class Store extends Organisation {
-    @OneToOne
     Schedule schedule;
-    @OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "store")
     private Set<Discount> offers;
-    @Id
     private Long id;
 
     public void setId(Long id) {

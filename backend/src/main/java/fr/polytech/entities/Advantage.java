@@ -6,15 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.util.Date;
-@Entity
 public class Advantage {
-    @OneToOne
     private TerritorialCommunity provider;
     private String advantageName;
 
     private Date expirationDate;
     private int counter;
-    @Id
     private Long id;
 
     public void setId(Long id) {
