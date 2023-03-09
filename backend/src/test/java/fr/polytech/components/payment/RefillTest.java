@@ -6,7 +6,7 @@ import fr.polytech.interfaces.payment.Bank;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
 import fr.polytech.pojo.Customer;
 import fr.polytech.pojo.FidelityAccount;
-import fr.polytech.pojo.PaymentDTO;
+import fr.polytech.controllers.dto.PaymentDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.stubbing.Answer;

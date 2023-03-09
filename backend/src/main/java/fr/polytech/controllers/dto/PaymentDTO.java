@@ -1,4 +1,4 @@
-package fr.polytech.pojo;
+package fr.polytech.controllers.dto;
 
 // External DTO (Data Transfer Object) to POST payment to the external Bank system
 public class PaymentDTO {
