@@ -55,3 +55,11 @@ Password: `eefe44d7c4694c75aa8fc0680adef5ef`
 ## Maven
 ### Installation
 * Install maven `sudo apt install maven`
+
+
+## Artifactory
+### Installation
+* Download the docker version `https://jfrog.com/community/download-artifactory-oss/`
+* Copy the downloaded file to the vm `scp .\jfrog-artifactory-oss-7.55.6-compose.tar.gz teamh@vmpx08.polytech.unice.fr:/home/teamh`
+* On the VM, decompress the .tar.gz `tar xvzf jfrog-artifactory-oss-7.55.6-compose.tar.gz`
+* 

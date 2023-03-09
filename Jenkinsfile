@@ -8,9 +8,10 @@ pipeline {
             steps {
                 echo 'config workspace'
                 sh '''
-                    env | grep -e PATH -e JAVA_HOME
-                    which java
                     java -version
+                    javac -version
+                    mvn -v
+                    echo $JAVA_HOME
                 '''
                 //env.JAVA_HOME="${tool 'jdk1.8.0_111'}"
                 //env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
