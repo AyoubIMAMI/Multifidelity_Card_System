@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,8 +38,8 @@ public class PointPurchaseHandlerTest {
     void setUp() {
         customer = new Customer("John", "john@doe.com", "pwd");
         payment = new Payment();
-        product = new Product("Coffee", UUID.randomUUID(), 5);
-        discountedProduct = new Discount("Cake", UUID.randomUUID(),  10, 7);
+        product = new Product("Coffee", Long, 5);
+        discountedProduct = new Discount("Cake", Lon,  10, 7);
         initialFidelityPoint = 100;
         pay = () -> pointPurchaseHandler.buyWithPoint(customer, payment);
     }

@@ -1,27 +1,26 @@
 package fr.polytech.entities.item;
 
-import java.util.UUID;
 
 public class Product {
 
-    private final UUID id;
+    private final Long id;
     private String name;
 
-    private final UUID storeId;
+    private final Long storeId;
     private double cashPrice;
 
-    public Product(String name, UUID storeId, double cashPrice) {
-        this.id = UUID.randomUUID();
+    public Product(String name, Long storeId, double cashPrice) {
+        this.id;
         this.name = name;
         this.storeId = storeId;
         this.cashPrice = cashPrice;
     }
 
-    public UUID getStoreId() {
+    public Long getStoreId() {
         return storeId;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 

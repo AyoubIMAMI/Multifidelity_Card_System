@@ -8,11 +8,10 @@ import fr.polytech.exceptions.payment.PaymentNotFoundException;
 
 import fr.polytech.entities.Store;
 
-import java.util.UUID;
 
 public interface PaymentExplorer {
 
-    Payment findPaymentById(UUID id) throws PaymentNotFoundException;
+    Payment findPaymentById(Long id) throws PaymentNotFoundException;
     Iterable<Payment> findPaymentsByCustomer(Customer customer) throws CustomerNotFoundException, PaymentNotFoundException;
     Iterable<Payment> findPaymentsByStore(Store store) throws StoreNotFoundException, PaymentNotFoundException;
 }

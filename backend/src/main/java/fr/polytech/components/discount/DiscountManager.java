@@ -9,8 +9,6 @@ import fr.polytech.repository.DiscountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 public class DiscountManager implements DiscountModifier, DiscountExplorer {
 
@@ -28,7 +26,7 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
 
     @Override
     public Iterable<Discount> findDiscountsByStore(Long storeId) throws NoDiscountsFoundException {
-        Iterable<Discount> discounts = discountRepository.findByStoreId(storeId);
+        <Discount> discounts = discountRepository.findByStoreId(storeId);
         if(!discounts.iterator().hasNext()) {
             throw new NoDiscountsFoundException();
         }

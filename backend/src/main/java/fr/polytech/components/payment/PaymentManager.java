@@ -11,8 +11,6 @@ import fr.polytech.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 public class PaymentManager implements PaymentExplorer, PaymentModifier {
 
@@ -24,7 +22,7 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
     }
 
     @Override
-    public Payment findPaymentById(UUID id) throws PaymentNotFoundException {
+    public Payment findPaymentById(Long id) throws PaymentNotFoundException {
         return paymentRepository.findById(id).orElseThrow(PaymentNotFoundException::new);
     }
 
@@ -48,7 +46,7 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
 
     @Override
     public void savePayment(Payment payment) throws PaymentAlreadyExistsException {
-        UUID paymentID = payment.getId();
+        Long paymentID = payment.getId();
         if (paymentRepository.existsById(paymentID)) {
             throw new PaymentAlreadyExistsException();
         }
