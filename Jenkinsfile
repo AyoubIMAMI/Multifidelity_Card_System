@@ -1,10 +1,24 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'maven-3.9.0' 
+        jdk 'jse-9.0.4'
+    }
     stages {
+        stage('config workspace') {
+            steps {
+                echo 'config workspace'
+                //env.JAVA_HOME="${tool 'jdk1.8.0_111'}"
+                //env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
+            }
+        }
         stage('Build') {
             steps {
-                echo 'Building..'
+                dir("./backend") {
+                    echo 'Building.. Iraana II'
+                    sh 'ls -l'
+                    sh 'mvn clean package'
+                }
             }
         }
         stage('Test') {
