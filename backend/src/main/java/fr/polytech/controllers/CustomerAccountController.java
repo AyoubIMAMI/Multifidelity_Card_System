@@ -11,7 +11,7 @@ import fr.polytech.interfaces.customer.CustomerRegistration;
 import fr.polytech.interfaces.fidelity.FidelityExplorer;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
 import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.PaymentDTO;
+import fr.polytech.controllers.dto.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
