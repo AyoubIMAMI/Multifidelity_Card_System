@@ -2,7 +2,6 @@ package fr.polytech.components.store;
 
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
-import fr.polytech.exceptions.NotEnoughPermissionException;
 import fr.polytech.exceptions.store.*;
 import fr.polytech.interfaces.store.StoreExplorer;
 import fr.polytech.interfaces.store.StoreFinder;
@@ -42,27 +41,27 @@ public class StoreManager implements StoreFinder, StoreModifier, StoreRegistrati
     }
 
     @Override
-    public void addEmployee(String employeeName, String employeePassword, String newEmployeeName, String newEmployeePassword, Role newEmployeeRole) throws NotEnoughPermissionException, EmployeeNotFoundException {
+    public void addEmployee(String employeeName, String employeePassword, String newEmployeeName, String newEmployeePassword, Role newEmployeeRole) throws EmployeeNotFoundException {
 
     }
 
     @Override
-    public void deleteEmployee(int id, String myName, String myPassword) throws NotEnoughPermissionException, EmployeeNotFoundException {
+    public void deleteEmployee(int id, String myName, String myPassword) throws EmployeeNotFoundException {
 
     }
 
     @Override
-    public void changeDayOpeningHours(String Day, String openingHour, String closingHour, String myName, String myPassword) throws NotEnoughPermissionException, InvalidDayException, InvalidHourException {
+    public void changeDayOpeningHours(String Day, String openingHour, String closingHour, String myName, String myPassword) throws InvalidDayException, InvalidHourException {
 
     }
 
     @Override
-    public void changeDayStatus(String Day, Boolean open, String myName, String myPassword) throws NotEnoughPermissionException, InvalidDayException, InvalidHourException {
+    public void changeDayStatus(String Day, Boolean open, String myName, String myPassword) throws InvalidDayException, InvalidHourException {
 
     }
 
     @Override
-    public Store registerNewStore(String storeName, String storeSiret, String username, String password) throws NotEnoughPermissionException, MissingInformationsException, MailAlreadyUsedException {
+    public Store registerNewStore(String storeName, String storeSiret, String username, String password) throws MissingInformationsException, MailAlreadyUsedException {
         if(storeRepository.isStoreSiretAlreadyUsed(storeSiret))
             throw new MailAlreadyUsedException();
         Store store = new Store(storeName, storeSiret);

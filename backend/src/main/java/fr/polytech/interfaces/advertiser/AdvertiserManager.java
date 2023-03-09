@@ -1,10 +1,9 @@
 package fr.polytech.interfaces.advertiser;
 
 import fr.polytech.exceptions.CustomerNotFoundException;
-import fr.polytech.exceptions.NotEnoughPermissionException;
 
 public interface AdvertiserManager {
-    void createPromotionalOffer(int userId) throws CustomerNotFoundException, NotEnoughPermissionException;
+    void createPromotionalOffer(int userId) throws CustomerNotFoundException;
     void createSatisfactionSurvey(String survey);
-    void createReminderMessage(int userId) throws CustomerNotFoundException, NotEnoughPermissionException;
+    void createReminderMessage(int userId) throws CustomerNotFoundException;
 }

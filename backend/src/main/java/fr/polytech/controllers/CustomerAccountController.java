@@ -48,7 +48,7 @@ public class CustomerAccountController {
     }
 
     @PostMapping(path = "/registration", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Customer> register(String name, String mail, String password) throws MailAlreadyUsedException {
+    public ResponseEntity<Customer> register(String name, String mail, String password) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(customerRegistration.register(name, mail, password));
@@ -57,7 +57,7 @@ public class CustomerAccountController {
         }
     }
     @PostMapping(path = "/login", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<UUID> login(String mail, String password) throws MailAlreadyUsedException {
+    public ResponseEntity<UUID> login(String mail, String password) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(customerExplorer.checkCredentials(mail, password));

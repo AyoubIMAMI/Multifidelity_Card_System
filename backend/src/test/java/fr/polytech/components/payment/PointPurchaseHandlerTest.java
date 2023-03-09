@@ -8,6 +8,7 @@ import fr.polytech.pojo.Payment;
 import fr.polytech.pojo.item.Discount;
 import fr.polytech.pojo.item.Item;
 import fr.polytech.pojo.item.Product;
+import fr.polytech.pojo.structure.Store;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,8 +41,8 @@ public class PointPurchaseHandlerTest {
     void setUp() {
         customer = new Customer("John", "john@doe.com", "pwd");
         payment = new Payment();
-        product = new Product("Coffee", 5);
-        discountedProduct = new Discount("Cake", 10, 7);
+        product = new Product("Coffee", UUID.randomUUID(), 5);
+        discountedProduct = new Discount("Cake", UUID.randomUUID(),  10, 7);
         initialFidelityPoint = 100;
         pay = () -> pointPurchaseHandler.buyWithPoint(customer, payment);
     }
