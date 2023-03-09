@@ -1,10 +1,10 @@
 package fr.polytech.components.discount;
 
+import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
-import fr.polytech.pojo.item.Discount;
 import fr.polytech.repository.DiscountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,13 +22,13 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     }
 
     @Override
-    public Discount findDiscountById(UUID id) throws DiscountNotFoundException {
+    public Discount findDiscountById(Long id) throws DiscountNotFoundException {
         return discountRepository.findById(id).orElseThrow(DiscountNotFoundException::new);
     }
 
     @Override
-    public Iterable<Discount> findDiscountsByStore(UUID storeId) throws NoDiscountsFoundException {
-        Iterable<Discount> discounts = discountRepository.findByStore(storeId);
+    public Iterable<Discount> findDiscountsByStore(Long storeId) throws NoDiscountsFoundException {
+        Iterable<Discount> discounts = discountRepository.findByStoreId(storeId);
         if(!discounts.iterator().hasNext()) {
             throw new NoDiscountsFoundException();
         }
@@ -45,14 +45,14 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     }
 
     @Override
-    public Discount createDiscount(String name, UUID storeId, double cashPrice, int pointPrice){
+    public Discount createDiscount(String name, Long storeId, double cashPrice, int pointPrice){
         Discount discount = new Discount(name, storeId, cashPrice, pointPrice);
         discountRepository.save(discount.getId(), discount);
         return discount;
     }
 
     @Override
-    public void modifyPointPrice(UUID id, int newPointPrice) throws DiscountNotFoundException {
+    public void modifyPointPrice(Long id, int newPointPrice) throws DiscountNotFoundException {
         if(!discountRepository.existsById(id)) {
             throw new DiscountNotFoundException();
         }
@@ -62,7 +62,7 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     }
 
     @Override
-    public boolean deleteDiscount(UUID id) throws DiscountNotFoundException {
+    public boolean deleteDiscount(Long id) throws DiscountNotFoundException {
         if(!discountRepository.existsById(id)) {
             throw new DiscountNotFoundException();
         }

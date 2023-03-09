@@ -1,4 +1,4 @@
-package fr.polytech.pojo;
+package fr.polytech.entities;
 
 public class BankTransaction {
     private Customer customer;

@@ -1,12 +1,12 @@
 package fr.polytech.components.payment;
 
+import fr.polytech.entities.Store;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.PaymentModifier;
 import fr.polytech.interfaces.payment.SettledPurchase;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.Payment;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +28,6 @@ public class SettledPurchaseHandler implements SettledPurchase {
 
     @Override
     public void winPoint(Customer customer, Payment payment, Store store) {
-        pointModifier.incrementPoints(customer.getFidelityAccount(), payment.getPrice());
+        pointModifier.incrementPoints(customer, payment.getPrice());
     }
 }

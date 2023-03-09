@@ -8,7 +8,6 @@ import fr.polytech.pojo.Payment;
 import fr.polytech.pojo.item.Discount;
 import fr.polytech.pojo.item.Item;
 import fr.polytech.pojo.item.Product;
-import fr.polytech.pojo.structure.Store;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;

@@ -1,16 +1,14 @@
 package fr.polytech.repository;
 
-import fr.polytech.pojo.FidelityAccount;
-import fr.polytech.pojo.structure.Store;
-import fr.polytech.repository.Rep.BasicRepositoryImpl;
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Store;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class StoreRepository extends BasicRepositoryImpl<UUID, Store> {
-
-    public boolean isStoreSiretAlreadyUsed(String storeSiret) {
-        return false;
-    }
+public interface StoreRepository extends JpaRepository<Store,Long> {
+    Optional<Store> existsStoreBySiret(String storeSiret);
 }

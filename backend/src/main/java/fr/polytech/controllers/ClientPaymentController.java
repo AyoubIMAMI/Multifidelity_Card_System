@@ -8,7 +8,7 @@ import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.payment.PaymentException;
 import fr.polytech.interfaces.payment.IPayment;
-import fr.polytech.pojo.Payment;
+import fr.polytech.entities.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

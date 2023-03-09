@@ -1,18 +1,14 @@
-package fr.polytech.pojo;
+package fr.polytech.entities;
 
-import fr.polytech.pojo.item.Item;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.entities.item.Item;
 
 import java.util.Set;
-import java.util.UUID;
 
 public class Payment {
-    private UUID id;
+    private long id;
     private Customer customer;
     private Store store;
-
     private Set<Item> shoppingList;
-
     private boolean isSettled;
 
     public boolean isSettled() {
@@ -47,7 +43,11 @@ public class Payment {
         return store;
     }
 
-    public UUID getId() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
         return id;
     }
 }
