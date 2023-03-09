@@ -44,9 +44,9 @@ public class CustomerManagerTest {
         assertEquals(mail, customer.getEmail());
         assertEquals(password, customer.getPassword());
 
-        assertTrue(customerRepository.existsById(customer.getId()));
+        assertTrue(customerRepository.findCustomerByName(name).isPresent());
         assertEquals(1, customerRepository.count());
-        assertEquals(customer, customerRepository.findById(customer.getId()).get());
+        assertEquals(customer, customerRepository.findCustomerByName(name).get());
     }
 
     @Test
