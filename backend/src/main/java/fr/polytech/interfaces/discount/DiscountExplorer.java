@@ -1,8 +1,8 @@
 package fr.polytech.interfaces.discount;
 
+import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
-import fr.polytech.pojo.item.Discount;
 
 import java.util.UUID;
 

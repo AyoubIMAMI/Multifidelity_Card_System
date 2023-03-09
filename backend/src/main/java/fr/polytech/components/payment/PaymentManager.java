@@ -1,17 +1,16 @@
 package fr.polytech.components.payment;
 
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Payment;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.payment.PaymentNotFoundException;
 import fr.polytech.interfaces.payment.PaymentExplorer;
 import fr.polytech.interfaces.payment.PaymentModifier;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.Payment;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.entities.Store;
 import fr.polytech.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Component

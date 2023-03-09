@@ -10,7 +10,7 @@ import fr.polytech.interfaces.store.StoreRegistration;
 import fr.polytech.pojo.Schedule;
 import fr.polytech.pojo.item.Discount;
 import fr.polytech.pojo.structure.Role;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.entities.Store;
 import fr.polytech.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
