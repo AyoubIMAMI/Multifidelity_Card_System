@@ -7,6 +7,11 @@ pipeline {
         stage('config workspace') {
             steps {
                 echo 'config workspace'
+                sh '''
+                    env | grep -e PATH -e JAVA_HOME
+                    which java
+                    java -version
+                '''
                 //env.JAVA_HOME="${tool 'jdk1.8.0_111'}"
                 //env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
             }
