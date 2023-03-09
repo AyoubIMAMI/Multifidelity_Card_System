@@ -15,10 +15,11 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Building.. Iraana II'
-                sh 'cd ./backend'
-                sh 'ls -l'
-                sh 'mvn clean package'
+                dir("./backend") {
+                    echo 'Building.. Iraana II'
+                    sh 'ls -l'
+                    sh 'mvn clean package'
+                }
             }
         }
         stage('Test') {
