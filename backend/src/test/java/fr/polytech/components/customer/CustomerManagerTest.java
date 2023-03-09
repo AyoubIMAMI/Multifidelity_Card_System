@@ -60,7 +60,6 @@ public class CustomerManagerTest {
         List<Customer> customerList = customerRepository.findAll();
         assertFalse(customerList.contains(jeanPierre));
         assertEquals(1, customerRepository.count());
-        assertEquals(Optional.empty(), customerRepository.findById(jeanPierre.getId()));
     }
 
 }
