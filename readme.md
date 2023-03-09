@@ -16,19 +16,31 @@ Smee is used to enable jenkins to listen incoming events from github. Please not
 
 ## Jenkins
 ### Installation
-* Go into jenkins_compose folder `cd jenkins_compose`
-* Start docker container in detached mode `docker compose up -d`
+* Create the Jenkins `docker-compose.yaml` file
+```yaml
+version: '3.8'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - 8001:8080
+    container_name: jenkins
+    volumes:
+      - /home/teamh/jenkins_compose/jenkins_configuration:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+```
+* Start the Jenkins docker container in detached mode `docker compose up -d`
 
 ### Configuration
 * Go to Jenkins web page `vmpx08.polytech.unice.fr:8001`
 * Log into Jenkins: <br>
-Username: `admin`,<br>
+Username: `admin`<br>
 Password: `eefe44d7c4694c75aa8fc0680adef5ef`
 * Go to the credentials configuration's page `http://vmpx08.polytech.unice.fr:8001/manage/credentials/`
-* Create a "Secret text" credential and enter your github token
-* Create a "Username with password" credential and enter your github username and your github token
-
-
+* Create a "Secret text" credential and enter your Github token
+* Create a "Username with password" credential and enter your Github username and your github token
 
 ### Install Maven
 * Install maven `sudo apt install maven`
