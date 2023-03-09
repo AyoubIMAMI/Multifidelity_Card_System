@@ -2,6 +2,7 @@ pipeline {
     agent any
     tools {
         maven 'maven-3.9.0' 
+        jdk 'openjdk-1.7'
     }
     stages {
         stage('config workspace') {
