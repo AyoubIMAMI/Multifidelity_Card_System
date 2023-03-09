@@ -13,9 +13,6 @@ public class FidelityAccount {
     //@OneToMany
     //private Set<Advantage> advantages;
     private String licencePlate;
-    @Id
-    @GeneratedValue
-    private Long id;
 
     public FidelityAccount(Long clientId) {
         this.clientId = clientId;
@@ -41,17 +38,5 @@ public class FidelityAccount {
 
     public void setBalance(double balance) {
         this.balance = balance;
-    }
-
-    public Long getClientId() {
-        return clientId;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 }
