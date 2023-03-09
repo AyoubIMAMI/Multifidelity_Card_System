@@ -6,11 +6,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                ws('/backend'){
-                    echo 'Building.. Iraana II'
-                    sh 'ls -l'
-                    sh 'mvn clean package'
-                }
+                echo 'Building.. Iraana II'
+                sh '/backend'
+                sh 'ls -l'
+                sh 'mvn clean package'
             }
         }
         stage('Test') {
