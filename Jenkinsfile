@@ -4,10 +4,16 @@ pipeline {
         maven 'maven-3.9.0' 
     }
     stages {
+        stage('config workspace') {
+            steps {
+                echo 'config workspace'
+                //sh 'chmod -c -R ./backend'
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Building.. Iraana II'
-                sh '/backend'
+                sh 'cd /backend'
                 sh 'ls -l'
                 sh 'mvn clean package'
             }
