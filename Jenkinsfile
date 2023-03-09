@@ -7,6 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building.. Iraana II'
+                sh 'ls -l'
                 sh 'mvn clean package'
             }
         }
