@@ -3,7 +3,6 @@ package fr.polytech.entities.item;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
 public class Item {
     private int quantity;
     private Product product;

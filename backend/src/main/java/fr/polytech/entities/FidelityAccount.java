@@ -1,11 +1,9 @@
 package fr.polytech.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
-@Entity
+@Embeddable
 public class FidelityAccount {
 
     private Long clientId;
@@ -16,6 +14,7 @@ public class FidelityAccount {
     //private Set<Advantage> advantages;
     private String licencePlate;
     @Id
+    @GeneratedValue
     private Long id;
 
     public FidelityAccount(Long clientId) {

@@ -14,7 +14,7 @@ public class Customer {
     private String name;
     private String password;
     private String email;
-    @OneToOne
+    @Embedded
     private FidelityAccount fidelityAccount;
 
     //@OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "customer")
