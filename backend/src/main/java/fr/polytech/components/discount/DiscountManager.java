@@ -9,6 +9,10 @@ import fr.polytech.repository.DiscountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.Option;
+import java.util.List;
+import java.util.Optional;
+
 @Component
 public class DiscountManager implements DiscountModifier, DiscountExplorer {
 
@@ -25,18 +29,18 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     }
 
     @Override
-    public Iterable<Discount> findDiscountsByStore(Long storeId) throws NoDiscountsFoundException {
-        <Discount> discounts = discountRepository.findByStoreId(storeId);
-        if(!discounts.iterator().hasNext()) {
+    public List<Discount> findDiscountsByStore(Long storeId) throws NoDiscountsFoundException {
+        List<Discount> discounts = discountRepository.findByStoreId(storeId);
+        if(discounts.isEmpty()) {
             throw new NoDiscountsFoundException();
         }
         return discounts;
     }
 
     @Override
-    public Iterable<Discount> findAllDiscounts() throws NoDiscountsFoundException {
-        Iterable<Discount> discounts = discountRepository.findAll();
-        if(!discounts.iterator().hasNext()) {
+    public List<Discount> findAllDiscounts() throws NoDiscountsFoundException {
+        List<Discount> discounts = discountRepository.findAll();
+        if(discounts.isEmpty()) {
             throw new NoDiscountsFoundException();
         }
         return discounts;
@@ -45,7 +49,7 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     @Override
     public Discount createDiscount(String name, Long storeId, double cashPrice, int pointPrice){
         Discount discount = new Discount(name, storeId, cashPrice, pointPrice);
-        discountRepository.save(discount.getId(), discount);
+        discountRepository.save(discount);
         return discount;
     }
 
@@ -56,7 +60,7 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
         }
         Discount discount = findDiscountById(id);
         discount.setPointPrice(newPointPrice);
-        discountRepository.save(id,discount);
+        discountRepository.save(discount);
     }
 
     @Override

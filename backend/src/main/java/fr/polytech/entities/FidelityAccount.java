@@ -7,22 +7,17 @@ import java.util.Set;
 @Embeddable
 public class FidelityAccount {
 
-    private Long clientId;
     private int points;
     private double balance;
     private boolean isVFP;
-    //@OneToMany
-    //private Set<Advantage> advantages;
+
+    private Set<Advantage> advantages;
     private String licencePlate;
 
-    public FidelityAccount(Long clientId) {
-        this.clientId = clientId;
+    public FidelityAccount() {
         points = 0;
         balance = 0;
         isVFP = false;
-    }
-
-    public FidelityAccount() {
     }
 
     public int getPoints() {
@@ -51,7 +46,6 @@ public class FidelityAccount {
         if (points != that.points) return false;
         if (Double.compare(that.balance, balance) != 0) return false;
         if (isVFP != that.isVFP) return false;
-        if (!Objects.equals(clientId, that.clientId)) return false;
         return Objects.equals(licencePlate, that.licencePlate);
     }
 }

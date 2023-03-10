@@ -1,13 +1,13 @@
 package fr.polytech.components.payment;
 
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Payment;
+import fr.polytech.entities.item.Discount;
+import fr.polytech.entities.item.Product;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.payment.PointPurchase;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.Payment;
-import fr.polytech.pojo.item.Discount;
-import fr.polytech.pojo.item.Item;
-import fr.polytech.pojo.item.Product;
+import fr.polytech.entities.item.Item;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,8 +39,8 @@ public class PointPurchaseHandlerTest {
     void setUp() {
         customer = new Customer("John", "john@doe.com", "pwd");
         payment = new Payment();
-        product = new Product("Coffee", Long, 5);
-        discountedProduct = new Discount("Cake", Lon,  10, 7);
+        product = new Product("Coffee", Long.parseLong("0"), 5);
+        discountedProduct = new Discount("Cake", Long.parseLong("1"),  10, 7);
         initialFidelityPoint = 100;
         pay = () -> pointPurchaseHandler.buyWithPoint(customer, payment);
     }

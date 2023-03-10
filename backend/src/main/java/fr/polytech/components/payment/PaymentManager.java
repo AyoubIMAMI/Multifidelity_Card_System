@@ -11,6 +11,9 @@ import fr.polytech.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 @Component
 public class PaymentManager implements PaymentExplorer, PaymentModifier {
 
@@ -27,18 +30,18 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
     }
 
     @Override
-    public Iterable<Payment> findPaymentsByCustomer(Customer customer) throws PaymentNotFoundException {
-        Iterable<Payment> payments = paymentRepository.findByCustomer(customer);
-        if (!payments.iterator().hasNext()) {
+    public Optional<Payment> findPaymentsByCustomer(Customer customer) throws PaymentNotFoundException {
+        Optional<Payment> payments = paymentRepository.findByCustomer(customer);
+        if (payments.isEmpty()) {
             throw new PaymentNotFoundException();
         }
         return payments;
     }
 
     @Override
-    public Iterable<Payment> findPaymentsByStore(Store store) throws PaymentNotFoundException {
-        Iterable<Payment> payments = paymentRepository.findByStore(store);
-        if (!payments.iterator().hasNext()) {
+    public Optional<Payment> findPaymentsByStore(Store store) throws PaymentNotFoundException {
+        Optional<Payment> payments = paymentRepository.findByStore(store);
+        if (payments.isEmpty()) {
             throw new PaymentNotFoundException();
         }
         return payments;
@@ -50,6 +53,6 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
         if (paymentRepository.existsById(paymentID)) {
             throw new PaymentAlreadyExistsException();
         }
-        paymentRepository.save(paymentID, payment);
+        paymentRepository.save(payment);
     }
 }

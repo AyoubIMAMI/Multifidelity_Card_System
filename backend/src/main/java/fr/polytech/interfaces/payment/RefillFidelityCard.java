@@ -1,7 +1,7 @@
 package fr.polytech.interfaces.payment;
 
+import fr.polytech.controllers.dto.PaymentDTO;
 import fr.polytech.entities.Customer;
-import fr.polytech.entities.PaymentDTO;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentException;
 

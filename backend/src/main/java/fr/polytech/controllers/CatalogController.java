@@ -5,7 +5,7 @@ import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
-import fr.polytech.pojo.item.Discount;
+import fr.polytech.entities.item.Discount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

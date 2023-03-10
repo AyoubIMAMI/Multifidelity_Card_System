@@ -10,7 +10,7 @@ public class Product {
     private double cashPrice;
 
     public Product(String name, Long storeId, double cashPrice) {
-        this.id;
+        this.id = storeId; //TODO A changer
         this.name = name;
         this.storeId = storeId;
         this.cashPrice = cashPrice;
