@@ -55,9 +55,6 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
 
     @Override
     public void modifyPointPrice(Long id, int newPointPrice) throws DiscountNotFoundException {
-        if(!discountRepository.existsById(id)) {
-            throw new DiscountNotFoundException();
-        }
         Discount discount = findDiscountById(id);
         discount.setPointPrice(newPointPrice);
         discountRepository.save(discount);
