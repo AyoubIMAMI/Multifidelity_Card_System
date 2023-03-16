@@ -1,18 +1,26 @@
-package fr.polytech.pojo;
+package fr.polytech.entities;
 
-import fr.polytech.pojo.item.Item;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.entities.item.Item;
 
+import javax.annotation.processing.Generated;
+import javax.persistence.*;
 import java.util.Set;
-import java.util.UUID;
 
+@Entity
 public class Payment {
-    private UUID id;
+
+    @Id
+    @GeneratedValue
+    private long id;
+
+    @ManyToOne
     private Customer customer;
+
+    @Embedded
     private Store store;
 
+    @Generated({})
     private Set<Item> shoppingList;
-
     private boolean isSettled;
 
     public boolean isSettled() {
@@ -20,8 +28,6 @@ public class Payment {
     }
 
     private float price;
-
-
 
     public float getPrice() {
         return price;
@@ -47,7 +53,7 @@ public class Payment {
         return store;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 }

@@ -6,15 +6,18 @@ import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.interfaces.customer.CustomerExplorer;
 import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.customer.CustomerRegistration;
-import fr.polytech.pojo.Customer;
+import fr.polytech.entities.Customer;
 import fr.polytech.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.StreamSupport;
 
+@Transactional
 @Component
 public class CustomerManager implements CustomerRegistration, CustomerFinder, CustomerExplorer {
 
@@ -25,28 +28,37 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder, Cu
         this.customerRepository = customerRepository;
     }
 
+
     @Override
     public Customer register(String name, String mail, String password) throws MailAlreadyUsedException {
-        if(customerRepository.isMailAlreadyUsed(mail))
+        if(isMailAlreadyUsed(mail))
             throw new MailAlreadyUsedException();
 
         else {
             Customer customer = new Customer(name, mail, password);
-            customerRepository.save(customer.getId(), customer);
+            customerRepository.save(customer);
             return customer;
         }
     }
 
     @Override
-    public Customer findCustomerById(UUID id) throws CustomerNotFoundException {
-        return customerRepository.findById(id).orElseThrow(CustomerNotFoundException::new);
+    public Customer findCustomerById(Long id) throws CustomerNotFoundException {
+        Optional<Customer> customer= customerRepository.findById(id);
+        if (customer.isEmpty()) throw new CustomerNotFoundException();
+        else return customer.get();
     }
 
     @Override
-    public UUID checkCredentials(String email, String password) throws BadCredentialsException {
+    public Long checkCredentials(String email, String password) throws BadCredentialsException {
         Optional<Customer> customerCurrent=StreamSupport.stream(customerRepository.findAll().spliterator(), false)
                 .filter(customer -> email.equals(customer.getEmail())&&password.equals(customer.getPassword())).findAny();
         if (customerCurrent.isEmpty()) throw new BadCredentialsException();
         else return customerCurrent.get().getId();
+    }
+    private boolean isMailAlreadyUsed(String mail) {
+        List<String> mails = new ArrayList<>();
+        Iterable<Customer> storage = customerRepository.findAll();
+        storage.forEach(customer -> mails.add(customer.getEmail()));
+        return mails.contains(mail);
     }
 }

@@ -1,15 +1,16 @@
 package fr.polytech.interfaces.discount;
 
+import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
-import fr.polytech.pojo.item.Discount;
 
-import java.util.UUID;
+import java.util.List;
+import java.util.Optional;
 
 public interface DiscountExplorer {
-    Discount findDiscountById(UUID id) throws DiscountNotFoundException;
+    Discount findDiscountById(Long id) throws DiscountNotFoundException;
 
-    Iterable<Discount> findDiscountsByStore(UUID storeId) throws NoDiscountsFoundException;
+    List<Discount> findDiscountsByStore(Long storeId) throws NoDiscountsFoundException;
 
-    Iterable<Discount> findAllDiscounts() throws NoDiscountsFoundException ;
+    List<Discount> findAllDiscounts() throws NoDiscountsFoundException ;
 }

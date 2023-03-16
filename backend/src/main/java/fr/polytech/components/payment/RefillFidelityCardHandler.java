@@ -1,12 +1,12 @@
 package fr.polytech.components.payment;
 
+import fr.polytech.controllers.dto.PaymentDTO;
+import fr.polytech.entities.Customer;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentException;
 import fr.polytech.interfaces.payment.BalanceModifier;
 import fr.polytech.interfaces.payment.Bank;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
-import fr.polytech.pojo.FidelityAccount;
-import fr.polytech.controllers.dto.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,14 +24,17 @@ public class RefillFidelityCardHandler implements RefillFidelityCard {
         this.balanceModifier = balanceModifier;
     }
 
-    @Override
-    public Date refill(FidelityAccount fidelityAccount, PaymentDTO transaction) throws NegativeAmountException, PaymentException {
+    public Date refill(Customer customer, PaymentDTO transaction) throws NegativeAmountException, PaymentException {
         if(transaction.getAmount() <= 0)
             throw new NegativeAmountException();
 
         if(!bank.pay(transaction))
             throw new PaymentException();
 
-        return new Date();
+        Date bankTransactionDate = new Date();
+
+        balanceModifier.rechargeBalance(customer, transaction);
+
+        return bankTransactionDate;
     }
 }

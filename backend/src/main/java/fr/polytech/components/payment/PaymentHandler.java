@@ -1,16 +1,14 @@
 package fr.polytech.components.payment;
 
+import fr.polytech.entities.Store;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.PurchaseFailedException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.interfaces.customer.CustomerFinder;
-import fr.polytech.interfaces.payment.IPayment;
-import fr.polytech.interfaces.payment.PointPurchase;
-import fr.polytech.interfaces.payment.SettledPurchase;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.Payment;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.interfaces.payment.*;
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

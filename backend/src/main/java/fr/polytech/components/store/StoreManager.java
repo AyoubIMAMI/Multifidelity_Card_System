@@ -1,5 +1,8 @@
 package fr.polytech.components.store;
 
+import fr.polytech.entities.Schedule;
+import fr.polytech.entities.item.Discount;
+import fr.polytech.entities.structure.Role;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.exceptions.store.*;
@@ -7,10 +10,7 @@ import fr.polytech.interfaces.store.StoreExplorer;
 import fr.polytech.interfaces.store.StoreFinder;
 import fr.polytech.interfaces.store.StoreModifier;
 import fr.polytech.interfaces.store.StoreRegistration;
-import fr.polytech.pojo.Schedule;
-import fr.polytech.pojo.item.Discount;
-import fr.polytech.pojo.structure.Role;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.entities.Store;
 import fr.polytech.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -62,11 +62,11 @@ public class StoreManager implements StoreFinder, StoreModifier, StoreRegistrati
 
     @Override
     public Store registerNewStore(String storeName, String storeSiret, String username, String password) throws MissingInformationsException, MailAlreadyUsedException {
-        if(storeRepository.isStoreSiretAlreadyUsed(storeSiret))
+        if(storeRepository.existsStoreBySiret(storeSiret))
             throw new MailAlreadyUsedException();
         Store store = new Store(storeName, storeSiret);
-            //a voir pouquoi ca marche pas
-            storeRepository.save(store.getId(), store);
+            //TODO a voir pouquoi ca marche pas
+            storeRepository.save(store);
         return store;
 
     }

@@ -1,18 +1,18 @@
 package fr.polytech.components.payment;
 
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Payment;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.payment.PaymentNotFoundException;
 import fr.polytech.interfaces.payment.PaymentExplorer;
 import fr.polytech.interfaces.payment.PaymentModifier;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.Payment;
-import fr.polytech.pojo.structure.Store;
+import fr.polytech.entities.Store;
 import fr.polytech.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class PaymentManager implements PaymentExplorer, PaymentModifier {
@@ -25,13 +25,13 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
     }
 
     @Override
-    public Payment findPaymentById(UUID id) throws PaymentNotFoundException {
+    public Payment findPaymentById(Long id) throws PaymentNotFoundException {
         return paymentRepository.findById(id).orElseThrow(PaymentNotFoundException::new);
     }
 
     @Override
     public Iterable<Payment> findPaymentsByCustomer(Customer customer) throws PaymentNotFoundException {
-        Iterable<Payment> payments = paymentRepository.findByCustomer(customer);
+        Iterable<Payment> payments = paymentRepository.findAllByCustomer(customer);
         if (!payments.iterator().hasNext()) {
             throw new PaymentNotFoundException();
         }
@@ -49,10 +49,10 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
 
     @Override
     public void savePayment(Payment payment) throws PaymentAlreadyExistsException {
-        UUID paymentID = payment.getId();
+        Long paymentID = payment.getId();
         if (paymentRepository.existsById(paymentID)) {
             throw new PaymentAlreadyExistsException();
         }
-        paymentRepository.save(paymentID, payment);
+        paymentRepository.save(payment);
     }
 }

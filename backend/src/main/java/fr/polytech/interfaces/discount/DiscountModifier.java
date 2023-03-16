@@ -1,15 +1,14 @@
 package fr.polytech.interfaces.discount;
 
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
-import fr.polytech.pojo.item.Discount;
+import fr.polytech.entities.item.Discount;
 
-import java.util.UUID;
 
 public interface DiscountModifier {
 
-    public Discount createDiscount(String name, UUID storeId, double cashPrice, int pointPrice);
+    public Discount createDiscount(String name, Long storeId, double cashPrice, int pointPrice);
 
-    void modifyPointPrice(UUID id, int newPointPrice) throws DiscountNotFoundException;
+    void modifyPointPrice(Long id, int newPointPrice) throws DiscountNotFoundException;
 
-    boolean deleteDiscount(UUID id) throws DiscountNotFoundException;
+    boolean deleteDiscount(Long id) throws DiscountNotFoundException;
 }

@@ -2,13 +2,14 @@ package fr.polytech.components.customer;
 
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.interfaces.customer.CustomerRegistration;
-import fr.polytech.pojo.Customer;
+import fr.polytech.entities.Customer;
 import fr.polytech.repository.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,9 +44,9 @@ public class CustomerManagerTest {
         assertEquals(mail, customer.getEmail());
         assertEquals(password, customer.getPassword());
 
-        assertTrue(customerRepository.existsById(customer.getId()));
+        assertTrue(customerRepository.findCustomerByName(name).isPresent());
         assertEquals(1, customerRepository.count());
-        assertEquals(customer, customerRepository.findById(customer.getId()).get());
+        assertEquals(customer, customerRepository.findCustomerByName(name).get());
     }
 
     @Test
@@ -56,9 +57,9 @@ public class CustomerManagerTest {
         assertThrows(MailAlreadyUsedException.class,
                 () -> customerRegistration.register("Jean-Pierre", mail, "anotherPassword"));
 
-        assertFalse(customerRepository.existsById(jeanPierre.getId()));
+        List<Customer> customerList = customerRepository.findAll();
+        assertFalse(customerList.contains(jeanPierre));
         assertEquals(1, customerRepository.count());
-        assertEquals(Optional.empty(), customerRepository.findById(jeanPierre.getId()));
     }
 
 }

@@ -5,7 +5,7 @@ import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
-import fr.polytech.pojo.item.Discount;
+import fr.polytech.entities.item.Discount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -56,7 +55,7 @@ public class CatalogController {
     }
 
     @GetMapping(path = DISCOUNTS_URI + STORE_URI, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<DiscountDTO>> getStoreCatalog(@PathVariable("storeId") UUID storeId) {
+    public ResponseEntity<List<DiscountDTO>> getStoreCatalog(@PathVariable("storeId") Long storeId) {
         try {
             return ResponseEntity.ok().body(convertDiscountsToDtoList(discountExplorer.findDiscountsByStore(storeId)));
         } catch (NoDiscountsFoundException e) {
@@ -65,7 +64,7 @@ public class CatalogController {
     }
 
     @GetMapping(path = DISCOUNTS_URI + "/{discountId}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<DiscountDTO> getDiscount(@PathVariable("discountId") UUID discountId) {
+    public ResponseEntity<DiscountDTO> getDiscount(@PathVariable("discountId") Long discountId) {
         try {
             return ResponseEntity.ok().body(convertDiscountToDto(discountExplorer.findDiscountById(discountId)));
         } catch (DiscountNotFoundException e) {
@@ -74,7 +73,7 @@ public class CatalogController {
     }
 
     @PutMapping(path = DISCOUNTS_URI + "/{discountId}", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updatePointPrice(@PathVariable("discountId") UUID discountId, @RequestBody int pointPrice) {
+    public ResponseEntity<String> updatePointPrice(@PathVariable("discountId") Long discountId, @RequestBody int pointPrice) {
         try {
             discountModifier.modifyPointPrice(discountId, pointPrice);
             return ResponseEntity.ok()
@@ -85,7 +84,7 @@ public class CatalogController {
     }
 
     @DeleteMapping(DISCOUNTS_URI + "/{discountId}")
-    public ResponseEntity<String> deleteDiscount(@PathVariable("discountId") UUID discountId) {
+    public ResponseEntity<String> deleteDiscount(@PathVariable("discountId") Long discountId) {
         try {
             discountModifier.deleteDiscount(discountId);
             return ResponseEntity.ok().body("Discount successfully deleted");

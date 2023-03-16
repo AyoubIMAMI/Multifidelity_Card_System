@@ -1,18 +1,20 @@
-package fr.polytech.pojo;
+package fr.polytech.entities;
 
+import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 
+@Embeddable
 public class FidelityAccount {
-    private final UUID clientId;
+
     private int points;
     private double balance;
     private boolean isVFP;
+
     private Set<Advantage> advantages;
     private String licencePlate;
 
-    public FidelityAccount(UUID clientId) {
-        this.clientId = clientId;
+    public FidelityAccount() {
         points = 0;
         balance = 0;
         isVFP = false;
@@ -34,7 +36,16 @@ public class FidelityAccount {
         this.balance = balance;
     }
 
-    public UUID getClientId() {
-        return clientId;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FidelityAccount that = (FidelityAccount) o;
+
+        if (points != that.points) return false;
+        if (Double.compare(that.balance, balance) != 0) return false;
+        if (isVFP != that.isVFP) return false;
+        return Objects.equals(licencePlate, that.licencePlate);
     }
 }

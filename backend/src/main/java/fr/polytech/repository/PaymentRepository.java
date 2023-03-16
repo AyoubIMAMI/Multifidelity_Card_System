@@ -1,27 +1,18 @@
 package fr.polytech.repository;
 
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.Payment;
-import fr.polytech.pojo.structure.Store;
-import fr.polytech.repository.Rep.BasicRepositoryImpl;
+
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Payment;
+import fr.polytech.entities.Store;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
-public class PaymentRepository extends BasicRepositoryImpl<Payment, UUID> {
-
-    public Iterable<Payment> findByCustomer(Customer customer) {
-        return storage.values().stream()
-                .filter(p -> p.getCustomer().equals(customer))
-                .collect(Collectors.toList());
-    }
-
-    public Iterable<Payment> findByStore(Store store) {
-        return storage.values().stream()
-                .filter(p -> p.getStore().equals(store))
-                .collect(Collectors.toList());
-    }
+public interface PaymentRepository extends JpaRepository<Payment, Long> {
+    Iterable<Payment> findAllByCustomer(Customer customer);
+    Iterable<Payment> findByStore(Store store);
 
 }
