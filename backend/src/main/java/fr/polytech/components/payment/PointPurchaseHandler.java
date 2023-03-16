@@ -4,13 +4,14 @@ import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.PointPurchase;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.Payment;
-import fr.polytech.pojo.item.Discount;
-import fr.polytech.pojo.item.Item;
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Payment;
+import fr.polytech.entities.item.Discount;
+import fr.polytech.entities.item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -36,7 +37,7 @@ public class PointPurchaseHandler implements PointPurchase {
             throw new NotEnoughBalanceException();
         }
 
-        pointModifier.decrementPoints(customer.getFidelityAccount(), pointsRequired);
+        pointModifier.decrementPoints(customer, pointsRequired);
     }
 
     private int computeRequiredPoints(Payment payment) {

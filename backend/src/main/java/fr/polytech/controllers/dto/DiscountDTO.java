@@ -1,18 +1,17 @@
 package fr.polytech.controllers.dto;
 
-import java.util.UUID;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class DiscountDTO {
 
-    private UUID id;
+    private Long id;
 
     @NotBlank(message = "name should not be blank")
     private String name;
 
     @NotNull(message = "storeId should not be null")
-    private UUID storeId;
+    private Long storeId;
 
     @NotNull(message = "cashPrice should not be null")
     private double cashPrice;
@@ -20,7 +19,7 @@ public class DiscountDTO {
     @NotNull(message = "pointPrice should not be null")
     private int pointPrice;
 
-    public DiscountDTO(UUID id, String name, UUID storeId, double cashPrice, int pointPrice) {
+    public DiscountDTO(Long id, String name, Long storeId, double cashPrice, int pointPrice) {
         this.id = id;
         this.name = name;
         this.storeId = storeId;
@@ -28,7 +27,7 @@ public class DiscountDTO {
         this.pointPrice = pointPrice;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
@@ -36,7 +35,7 @@ public class DiscountDTO {
         return name;
     }
 
-    public UUID getStoreId() {
+    public Long getStoreId() {
         return storeId;
     }
 

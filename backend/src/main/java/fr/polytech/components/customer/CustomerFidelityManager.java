@@ -1,29 +1,30 @@
 package fr.polytech.components.customer;
 
+import fr.polytech.controllers.dto.PaymentDTO;
+import fr.polytech.repository.CustomerRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.FidelityAccountNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.interfaces.fidelity.FidelityExplorer;
 import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.BalanceModifier;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.FidelityAccount;
-import fr.polytech.controllers.dto.PaymentDTO;
-import fr.polytech.repository.FidelityAccountRepository;
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.FidelityAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.UUID;
 
+@Transactional
 @Component
 public class CustomerFidelityManager implements FidelityExplorer, PointModifier, BalanceModifier {
 
-    FidelityAccountRepository fidelityAccountRepository;
+    CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerFidelityManager(FidelityAccountRepository fidelityAccountRepository){
-        this.fidelityAccountRepository = fidelityAccountRepository;
+    public CustomerFidelityManager(CustomerRepository customerRepository){
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -32,7 +33,7 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     }
 
     @Override
-    public FidelityAccount findFidelityAccountById(UUID id) throws CustomerNotFoundException, FidelityAccountNotFoundException {
+    public FidelityAccount findFidelityAccountById(Long id) throws CustomerNotFoundException, FidelityAccountNotFoundException {
         return null;
     }
 
@@ -42,31 +43,35 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     }
 
     @Override
-    public void incrementPoints(FidelityAccount fidelityAccount, float price) {
+    public void incrementPoints(Customer customer, float price) {
+        FidelityAccount fidelityAccount = customer.getFidelityAccount();
         fidelityAccount.setPoints((int) (fidelityAccount.getPoints()+Math.floor(price)));
-        fidelityAccountRepository.save(fidelityAccount.getClientId(), fidelityAccount);
+        customerRepository.save(customer);
     }
 
     @Override
-    public void decrementPoints(FidelityAccount fidelityAccount, int points) {
+    public void decrementPoints(Customer customer, int points) {
+        FidelityAccount fidelityAccount = customer.getFidelityAccount();
         fidelityAccount.setPoints(fidelityAccount.getPoints() - points);
-        fidelityAccountRepository.save(fidelityAccount.getClientId(), fidelityAccount);
+        customerRepository.save(customer);
     }
 
     @Override
-    public void decreaseBalance(FidelityAccount fidelityAccount, double amount) throws NotEnoughBalanceException {
+    public void decreaseBalance(Customer customer, double amount) throws NotEnoughBalanceException {
+        FidelityAccount fidelityAccount=customer.getFidelityAccount();
         double balance = fidelityAccount.getBalance();
         if(balance < amount)
             throw new NotEnoughBalanceException();
 
         fidelityAccount.setBalance(balance - amount);
-        fidelityAccountRepository.save(fidelityAccount.getClientId(), fidelityAccount);
+        customerRepository.save(customer);
     }
 
     @Override
-    public void rechargeBalance(FidelityAccount fidelityAccount, PaymentDTO paymentDTO) {
+    public void rechargeBalance(Customer customer, PaymentDTO paymentDTO) {
+        FidelityAccount fidelityAccount=customer.getFidelityAccount();
         double balance = fidelityAccount.getBalance();
         fidelityAccount.setBalance(balance + paymentDTO.getAmount());
-        fidelityAccountRepository.save(fidelityAccount.getClientId(), fidelityAccount);
+        customerRepository.save(customer);
     }
 }

@@ -1,18 +1,13 @@
 package fr.polytech.repository;
 
-import fr.polytech.pojo.item.Discount;
-import fr.polytech.repository.Rep.BasicRepositoryImpl;
+import fr.polytech.entities.item.Discount;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
-public class DiscountRepository extends BasicRepositoryImpl<Discount, UUID> {
-
-    public Iterable<Discount> findByStore(UUID storeId) {
-        return storage.values().stream()
-                .filter(p -> p.getStoreId().equals(storeId))
-                .collect(Collectors.toList());
-    }
+public interface DiscountRepository extends JpaRepository<Discount, Long> {
+    List<Discount> findByStoreId(long storeId);
 }

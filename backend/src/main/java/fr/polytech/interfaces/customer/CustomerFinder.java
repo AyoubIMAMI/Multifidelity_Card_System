@@ -1,9 +1,7 @@
 package fr.polytech.interfaces.customer;
 
 import fr.polytech.exceptions.CustomerNotFoundException;
-import fr.polytech.pojo.Customer;
-
-import java.util.UUID;
+import fr.polytech.entities.Customer;
 
 public interface CustomerFinder {
     /**
@@ -12,6 +10,6 @@ public interface CustomerFinder {
      * @return The customer associated with the given id
      * @throws CustomerNotFoundException The customer wasn't found
      */
-    Customer findCustomerById(UUID id) throws CustomerNotFoundException;
+    Customer findCustomerById(Long id) throws CustomerNotFoundException;
 
 }

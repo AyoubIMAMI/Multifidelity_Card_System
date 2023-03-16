@@ -1,4 +1,4 @@
-package fr.polytech.pojo.item;
+package fr.polytech.entities.item;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -6,7 +6,7 @@ import java.util.UUID;
 public class Discount extends Product {
     private int pointPrice;
 
-    public Discount(String name, UUID storeId, double cashPrice, int pointPrice) {
+    public Discount(String name, Long storeId, double cashPrice, int pointPrice) {
         super(name, storeId, cashPrice);
         this.pointPrice = pointPrice;
     }

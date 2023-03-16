@@ -2,12 +2,18 @@ pipeline {
     agent any
     tools {
         maven 'maven-3.9.0' 
-        jdk 'jse-9.0.4'
+        jdk 'jdk-17.0.6'
     }
     stages {
         stage('config workspace') {
             steps {
                 echo 'config workspace'
+                sh '''
+                    java -version
+                    javac -version
+                    mvn -v
+                    echo $JAVA_HOME
+                '''
                 //env.JAVA_HOME="${tool 'jdk1.8.0_111'}"
                 //env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
             }

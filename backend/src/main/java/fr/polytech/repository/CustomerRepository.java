@@ -1,20 +1,12 @@
 package fr.polytech.repository;
 
-import fr.polytech.pojo.Customer;
-import fr.polytech.repository.Rep.BasicRepositoryImpl;
+import fr.polytech.entities.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @Repository
-public class CustomerRepository extends BasicRepositoryImpl<Customer, UUID> {
-
-    public boolean isMailAlreadyUsed(String mail) {
-        List<String> mails = new ArrayList<>();
-        Iterable<Customer> storage = findAll();
-        storage.forEach(customer -> mails.add(customer.getEmail()));
-        return mails.contains(mail);
-    }
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
+    Optional<Customer> findCustomerByName(String name);
 }

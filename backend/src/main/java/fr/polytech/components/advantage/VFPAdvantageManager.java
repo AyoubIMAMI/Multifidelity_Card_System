@@ -2,7 +2,7 @@ package fr.polytech.components.advantage;
 
 import fr.polytech.interfaces.advantage.AdvantageConsumer;
 import fr.polytech.interfaces.advantage.CustomerAdvantageExplorer;
-import fr.polytech.pojo.Advantage;
+import fr.polytech.entities.Advantage;
 
 import java.util.List;
 

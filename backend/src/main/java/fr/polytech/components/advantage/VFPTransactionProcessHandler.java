@@ -1,7 +1,7 @@
 package fr.polytech.components.advantage;
 
 import fr.polytech.interfaces.advantage.VFPTransaction;
-import fr.polytech.pojo.Advantage;
+import fr.polytech.entities.Advantage;
 
 public class VFPTransactionProcessHandler implements VFPTransaction {
     @Override

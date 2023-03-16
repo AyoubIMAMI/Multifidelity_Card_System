@@ -1,5 +1,6 @@
-package fr.polytech.pojo.structure;
+package fr.polytech.entities.structure;
 
+import fr.polytech.entities.Store;
 import java.util.Set;
 
 public class TownHall {

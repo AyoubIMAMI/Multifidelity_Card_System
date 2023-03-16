@@ -1,15 +1,17 @@
 package fr.polytech.components.discount;
 
+import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
-import fr.polytech.pojo.item.Discount;
 import fr.polytech.repository.DiscountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
+import javax.swing.text.html.Option;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class DiscountManager implements DiscountModifier, DiscountExplorer {
@@ -22,44 +24,44 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     }
 
     @Override
-    public Discount findDiscountById(UUID id) throws DiscountNotFoundException {
+    public Discount findDiscountById(Long id) throws DiscountNotFoundException {
         return discountRepository.findById(id).orElseThrow(DiscountNotFoundException::new);
     }
 
     @Override
-    public Iterable<Discount> findDiscountsByStore(UUID storeId) throws NoDiscountsFoundException {
-        Iterable<Discount> discounts = discountRepository.findByStore(storeId);
-        if(!discounts.iterator().hasNext()) {
+    public List<Discount> findDiscountsByStore(Long storeId) throws NoDiscountsFoundException {
+        List<Discount> discounts = discountRepository.findByStoreId(storeId);
+        if(discounts.isEmpty()) {
             throw new NoDiscountsFoundException();
         }
         return discounts;
     }
 
     @Override
-    public Iterable<Discount> findAllDiscounts() throws NoDiscountsFoundException {
-        Iterable<Discount> discounts = discountRepository.findAll();
-        if(!discounts.iterator().hasNext()) {
+    public List<Discount> findAllDiscounts() throws NoDiscountsFoundException {
+        List<Discount> discounts = discountRepository.findAll();
+        if(discounts.isEmpty()) {
             throw new NoDiscountsFoundException();
         }
         return discounts;
     }
 
     @Override
-    public Discount createDiscount(String name, UUID storeId, double cashPrice, int pointPrice){
+    public Discount createDiscount(String name, Long storeId, double cashPrice, int pointPrice){
         Discount discount = new Discount(name, storeId, cashPrice, pointPrice);
-        discountRepository.save(discount.getId(), discount);
+        discountRepository.save(discount);
         return discount;
     }
 
     @Override
-    public void modifyPointPrice(UUID id, int newPointPrice) throws DiscountNotFoundException {
+    public void modifyPointPrice(Long id, int newPointPrice) throws DiscountNotFoundException {
         Discount discount = findDiscountById(id);
         discount.setPointPrice(newPointPrice);
-        discountRepository.save(id,discount);
+        discountRepository.save(discount);
     }
 
     @Override
-    public boolean deleteDiscount(UUID id) throws DiscountNotFoundException {
+    public boolean deleteDiscount(Long id) throws DiscountNotFoundException {
         if(!discountRepository.existsById(id)) {
             throw new DiscountNotFoundException();
         }
