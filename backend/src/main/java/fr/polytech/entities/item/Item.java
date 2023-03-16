@@ -16,7 +16,7 @@ public class Item {
 
     public Item(int quantity, Product product) {
         this.quantity = quantity;
-        //this.product = product;
+        this.product = product;
     }
 
     public Item() {

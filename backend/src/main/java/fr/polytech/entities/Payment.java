@@ -17,6 +17,7 @@ public class Payment {
     @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private Customer customer;
 
+    //TODO change to OneTomany
     @OneToOne
     private Store store;
 
