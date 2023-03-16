@@ -2,20 +2,23 @@ package fr.polytech.entities;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.structure.Organisation;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Set;
 
+@Entity
 public class Store extends Organisation {
     //TODO
     //Schedule schedule;
     //TODO
     //private Set<Discount> offers;
-    private Long id;
 
     public Store(String storeName, String storeSiret) {
         super(storeSiret, storeName);
     }
 
-    public Object getId() {
-        return id;
+
+    public Store() {
+        super();
     }
 }
