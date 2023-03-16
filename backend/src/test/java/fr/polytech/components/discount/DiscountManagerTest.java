@@ -4,7 +4,7 @@ import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
-import fr.polytech.pojo.item.Discount;
+import fr.polytech.entities.item.Discount;
 import fr.polytech.repository.DiscountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DiscountManagerTest {
 
     private static final String PRODUCT_NAME = "Cake";
-    private static final UUID STORE_ID = UUID.randomUUID();
+    private static final Long STORE_ID = 1234567889L;
     private static final int CASH_PRICE = 10;
     private static final int POINT_PRICE = 7;
 
@@ -45,7 +45,7 @@ class DiscountManagerTest {
     @Test
     void givenADiscountSavedInRepo_whenFindDiscountById_thenShouldReturnTheSameDiscount() throws DiscountNotFoundException {
         // Given
-        discountRepository.save(discount.getId(), discount);
+        discountRepository.save(discount);
 
         // When
         Discount found = discountExplorer.findDiscountById(discount.getId());
@@ -66,12 +66,12 @@ class DiscountManagerTest {
     @Test
     void givenDiscountsFromDifferentStores_whenFindDiscountsByStore_thenShouldReturnsOnlyTheStoreDiscount() throws NoDiscountsFoundException {
         // Given
-        UUID storeId = UUID.randomUUID();
+        Long storeId = 456789L;
 
         Discount storeDiscount = new Discount("Candy", storeId, 3, 2);
 
-        discountRepository.save(discount.getId(), discount);
-        discountRepository.save(storeDiscount.getId(), storeDiscount);
+        discountRepository.save(discount);
+        discountRepository.save(storeDiscount);
 
         // When
         Iterable<Discount> discountsFound = discountExplorer.findDiscountsByStore(storeId);
@@ -84,7 +84,7 @@ class DiscountManagerTest {
     @Test
     void whenFindDiscountsOfStoreWithoutDiscounts_thenShouldThrowsNoDiscountsFoundException() {
         // When
-        Executable find = () -> discountExplorer.findDiscountsByStore(UUID.randomUUID());
+        Executable find = () -> discountExplorer.findDiscountsByStore(1234L);
 
         // Then
         assertThrows(NoDiscountsFoundException.class, find);
@@ -93,12 +93,12 @@ class DiscountManagerTest {
     @Test
     void givenMultipleDiscountsSavedInRepo_whenFindAll_thenShouldReturnsAllDiscounts() throws NoDiscountsFoundException {
         // Given
-        UUID storeId = UUID.randomUUID();
+        Long storeId = 987654321L;
 
         Discount storeDiscount = new Discount("Candy", storeId, 3, 2);
 
-        discountRepository.save(discount.getId(), discount);
-        discountRepository.save(storeDiscount.getId(), storeDiscount);
+        discountRepository.save(discount);
+        discountRepository.save(storeDiscount);
 
         // When
         Iterable<Discount> discountsFound = discountExplorer.findAllDiscounts();
@@ -135,7 +135,7 @@ class DiscountManagerTest {
     @Test
     void givenDiscountSavedInRepo_whenModifyPoint_thenDiscountUpdatedInRepo() throws DiscountNotFoundException {
         // Given
-        discountRepository.save(discount.getId(), discount);
+        discountRepository.save(discount);
 
         // When
         int newPointPrice = 6;
@@ -158,7 +158,7 @@ class DiscountManagerTest {
     @Test
     void givenWithOneDiscount_whenDeleteDiscount_thenRepoShouldBeEmpty() throws DiscountNotFoundException {
         // Given
-        discountRepository.save(discount.getId(), discount);
+        discountRepository.save(discount);
         assertEquals(1, discountRepository.count());
 
         // When
