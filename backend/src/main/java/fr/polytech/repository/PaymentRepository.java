@@ -7,11 +7,12 @@ import fr.polytech.entities.Store;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
-    Optional<Payment> findByCustomer(Customer customer);
-    Optional<Payment> findByStore(Store store);
+    Iterable<Payment> findAllByCustomer(Customer customer);
+    Iterable<Payment> findByStore(Store store);
 
 }

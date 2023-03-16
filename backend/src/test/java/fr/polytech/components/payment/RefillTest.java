@@ -1,12 +1,12 @@
 package fr.polytech.components.payment;
 
-import fr.polytech.exceptions.paiment.NegativeAmountException;
-import fr.polytech.exceptions.paiment.PaymentException;
+import fr.polytech.controllers.dto.PaymentDTO;
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.FidelityAccount;
+import fr.polytech.exceptions.payment.NegativeAmountException;
+import fr.polytech.exceptions.payment.PaymentException;
 import fr.polytech.interfaces.payment.Bank;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
-import fr.polytech.pojo.Customer;
-import fr.polytech.pojo.FidelityAccount;
-import fr.polytech.pojo.PaymentDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.stubbing.Answer;
@@ -52,7 +52,7 @@ public class RefillTest {
     @Test
     public void okTransactionTestvMain() throws PaymentException, NegativeAmountException {
         PaymentDTO transaction = new PaymentDTO(correct_credit_card, 120);
-        Date transactionDate = refillFidelityCard.refill(johnFidelityAccount, transaction);
+        Date transactionDate = refillFidelityCard.refill(john, transaction);
         assertNotNull(transactionDate);
     }
     @Test

@@ -30,18 +30,18 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
     }
 
     @Override
-    public Optional<Payment> findPaymentsByCustomer(Customer customer) throws PaymentNotFoundException {
-        Optional<Payment> payments = paymentRepository.findByCustomer(customer);
-        if (payments.isEmpty()) {
+    public Iterable<Payment> findPaymentsByCustomer(Customer customer) throws PaymentNotFoundException {
+        Iterable<Payment> payments = paymentRepository.findAllByCustomer(customer);
+        if (!payments.iterator().hasNext()) {
             throw new PaymentNotFoundException();
         }
         return payments;
     }
 
     @Override
-    public Optional<Payment> findPaymentsByStore(Store store) throws PaymentNotFoundException {
-        Optional<Payment> payments = paymentRepository.findByStore(store);
-        if (payments.isEmpty()) {
+    public Iterable<Payment> findPaymentsByStore(Store store) throws PaymentNotFoundException {
+        Iterable<Payment> payments = paymentRepository.findByStore(store);
+        if (!payments.iterator().hasNext()) {
             throw new PaymentNotFoundException();
         }
         return payments;

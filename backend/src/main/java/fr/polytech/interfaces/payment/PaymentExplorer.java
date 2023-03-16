@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface PaymentExplorer {
 
     Payment findPaymentById(Long id) throws PaymentNotFoundException;
-    Optional<Payment> findPaymentsByCustomer(Customer customer) throws CustomerNotFoundException, PaymentNotFoundException;
-    Optional<Payment> findPaymentsByStore(Store store) throws StoreNotFoundException, PaymentNotFoundException;
+    Iterable<Payment> findPaymentsByCustomer(Customer customer) throws CustomerNotFoundException, PaymentNotFoundException;
+    Iterable<Payment> findPaymentsByStore(Store store) throws StoreNotFoundException, PaymentNotFoundException;
 }

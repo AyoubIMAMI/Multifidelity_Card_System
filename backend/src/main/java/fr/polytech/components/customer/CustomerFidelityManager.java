@@ -1,5 +1,6 @@
 package fr.polytech.components.customer;
 
+import fr.polytech.controllers.dto.PaymentDTO;
 import fr.polytech.repository.CustomerRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.FidelityAccountNotFoundException;

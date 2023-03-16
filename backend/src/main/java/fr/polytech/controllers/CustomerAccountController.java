@@ -1,15 +1,15 @@
 package fr.polytech.controllers;
 
+import fr.polytech.controllers.dto.PaymentDTO;
 import fr.polytech.exceptions.*;
-import fr.polytech.exceptions.paiment.NegativeAmountException;
-import fr.polytech.exceptions.paiment.PaymentException;
+import fr.polytech.exceptions.payment.NegativeAmountException;
+import fr.polytech.exceptions.payment.PaymentException;
 import fr.polytech.interfaces.customer.CustomerExplorer;
 import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.customer.CustomerRegistration;
 import fr.polytech.interfaces.fidelity.FidelityExplorer;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
 import fr.polytech.entities.Customer;
-import fr.polytech.entities.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +40,7 @@ public class CustomerAccountController {
     }
 
     @PostMapping(path = CUSTOMER_URI + "/refill")
-    public ResponseEntity<String> refillAccount(@PathVariable("customerId") Long customerId, @RequestBody PaymentDTO transaction) throws CustomerNotFoundException, NegativeAmountException, PaymentException, FidelityAccountNotFoundException {
+    public ResponseEntity<String> refillAccount(@PathVariable("customerId") Long customerId, @RequestBody PaymentDTO transaction) throws CustomerNotFoundException, NegativeAmountException, PaymentException, FidelityAccountNotFoundException, NegativeAmountException, PaymentException {
         Date refillTime = refillFidelityCard.refill(customerFinder.findCustomerById(customerId), transaction);
         return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + " . Transaction amount: " + transaction.getAmount());
     }
