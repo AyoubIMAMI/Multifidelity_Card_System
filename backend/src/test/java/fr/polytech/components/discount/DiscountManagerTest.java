@@ -162,8 +162,10 @@ class DiscountManagerTest {
         discountRepository.save(discount);
         assertEquals(1, discountRepository.count());
 
+
+        Discount found = discountExplorer.findDiscountByName(discount.getName());
         // When
-        discountModifier.deleteDiscount(discount.getId());
+        discountModifier.deleteDiscount(found.getId());
 
         // Then
         assertEquals(0, discountRepository.count());
