@@ -9,14 +9,15 @@ import java.util.Set;
 @Entity
 public class Payment {
 
+
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private Customer customer;
 
-    @Embedded
+    @OneToOne
     private Store store;
 
     @OneToMany
@@ -51,6 +52,11 @@ public class Payment {
 
     public Store getStore() {
         return store;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getId() {

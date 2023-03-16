@@ -1,10 +1,8 @@
 package fr.polytech.entities.item;
 
-import fr.polytech.entities.Payment;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -13,6 +11,7 @@ public class Item {
     @OneToOne
     private Product product;
     @Id
+    @GeneratedValue
     private Long id;
 
     public Item(int quantity, Product product) {
