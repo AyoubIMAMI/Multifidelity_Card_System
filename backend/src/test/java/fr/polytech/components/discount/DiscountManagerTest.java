@@ -138,10 +138,12 @@ class DiscountManagerTest {
 
         // When
         int newPointPrice = 6;
-        discountModifier.modifyPointPrice(discount.getId(), newPointPrice);
+        Discount fromRepo = discountExplorer.findDiscountByName(PRODUCT_NAME);
+        discountModifier.modifyPointPrice(fromRepo.getId(), newPointPrice);
 
         // Then
-        assertTrue(newPointPrice != POINT_PRICE);
+        fromRepo = discountExplorer.findDiscountByName(PRODUCT_NAME);
+        assertTrue(fromRepo.getPointPrice() == newPointPrice);
     }
 
     @Test
