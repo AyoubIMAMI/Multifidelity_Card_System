@@ -19,7 +19,7 @@ public class Payment {
     @Embedded
     private Store store;
 
-    @Generated({})
+    @OneToMany
     private Set<Item> shoppingList;
     private boolean isSettled;
 

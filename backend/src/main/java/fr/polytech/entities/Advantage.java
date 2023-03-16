@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.util.Date;
-public class Advantage {
+public class  Advantage {
     private TerritorialCommunity provider;
     private String advantageName;
 
