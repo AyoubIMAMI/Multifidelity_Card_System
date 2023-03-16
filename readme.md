@@ -62,4 +62,18 @@ Password: `eefe44d7c4694c75aa8fc0680adef5ef`
 * Download the docker version `https://jfrog.com/community/download-artifactory-oss/`
 * Copy the downloaded file to the vm `scp .\jfrog-artifactory-oss-7.55.6-compose.tar.gz teamh@vmpx08.polytech.unice.fr:/home/teamh`
 * On the VM, decompress the .tar.gz `tar xvzf jfrog-artifactory-oss-7.55.6-compose.tar.gz`
+* Open the .env file and set the JF_ROUTER_ENTRYPOINTS_EXTERNALPORT to `8002`
+
+### Configuration
+* Create docker volumes<br>
+`docker volume create --name=artifactory_data`<br>
+`docker volume create --name=postgres_data`
+* Copy the docker-compose-volumes.yaml to the extracted folder : `cp templates/docker-compose-volumes.yaml docker-compose.yaml`
+* Add the entries in the .env file.<br>
+`echo -e "JF_SHARED_NODE_IP=$(hostname -i)" >> .env`<br>
+`echo -e "JF_SHARED_NODE_ID=$(hostname -s)" >> .env`<br>
+`echo -e "JF_SHARED_NODE_NAME=$(hostname -s)" >> .env`<br>
 * 
+
+
+
