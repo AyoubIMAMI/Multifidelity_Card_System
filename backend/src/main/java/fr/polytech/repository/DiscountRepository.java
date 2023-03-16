@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface DiscountRepository extends JpaRepository<Discount, Long> {
     List<Discount> findByStoreId(Long storeId);
+
+    Optional<Discount> findDiscountByName(String name);
 }

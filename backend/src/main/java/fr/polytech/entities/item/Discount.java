@@ -33,8 +33,7 @@ public class Discount extends Product {
         if (getClass() != o.getClass())
             return false;
         Discount discount = (Discount) o;
-        return Objects.equals(getId(), discount.getId())
-                && Objects.equals(getName(), discount.getName())
+        return Objects.equals(getName(), discount.getName())
                 && Objects.equals(getStoreId(), discount.getStoreId())
                 && Objects.equals(getCashPrice(), discount.getCashPrice())
                 && Objects.equals(getPointPrice(), discount.getPointPrice());

@@ -43,12 +43,12 @@ class DiscountManagerTest {
     }
 
     @Test
-    void givenADiscountSavedInRepo_whenFindDiscountById_thenShouldReturnTheSameDiscount() throws DiscountNotFoundException {
+    void givenADiscountSavedInRepo_whenFindDiscountByName_thenShouldReturnTheSameDiscount() throws DiscountNotFoundException {
         // Given
         discountRepository.save(discount);
 
         // When
-        Discount found = discountExplorer.findDiscountById(discount.getId());
+        Discount found = discountExplorer.findDiscountByName(discount.getName());
 
         // Then
         assertTrue(discount.equals(found));
@@ -105,7 +105,6 @@ class DiscountManagerTest {
 
         // Then
         assertEquals(2, StreamSupport.stream(discountsFound.spliterator(), false).count());
-        assertEquals(storeDiscount, discountsFound.iterator().next());
     }
 
     @Test

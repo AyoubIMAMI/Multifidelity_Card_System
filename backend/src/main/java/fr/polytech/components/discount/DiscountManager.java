@@ -29,6 +29,11 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     }
 
     @Override
+    public Discount findDiscountByName(String name) throws DiscountNotFoundException {
+        return discountRepository.findDiscountByName(name).orElseThrow(DiscountNotFoundException::new);
+    }
+
+    @Override
     public List<Discount> findDiscountsByStore(Long storeId) throws NoDiscountsFoundException {
         List<Discount> discounts = discountRepository.findByStoreId(storeId);
         if(discounts.isEmpty()) {
