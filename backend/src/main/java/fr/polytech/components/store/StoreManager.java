@@ -65,8 +65,8 @@ public class StoreManager implements StoreFinder, StoreModifier, StoreRegistrati
         if(storeRepository.isStoreSiretAlreadyUsed(storeSiret))
             throw new MailAlreadyUsedException();
         Store store = new Store(storeName, storeSiret);
-            //a voir pouquoi ca marche pas
-            storeRepository.save(store.getId(), store);
+            //a voir pourquoi ca marche pas
+            //storeRepository.save(store.getId(), store);
         return store;
 
     }
