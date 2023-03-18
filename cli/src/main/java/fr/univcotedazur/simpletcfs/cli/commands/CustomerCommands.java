@@ -2,6 +2,7 @@ package fr.univcotedazur.simpletcfs.cli.commands;
 
 import fr.univcotedazur.simpletcfs.cli.CliContext;
 import fr.univcotedazur.simpletcfs.cli.model.CliCustomer;
+import fr.univcotedazur.simpletcfs.cli.model.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -33,8 +34,8 @@ public class CustomerCommands {
 
 
     @ShellMethod("Refill the account of a customer in the CoD backend with his id (login CUSTOMER_EMAIL CUSTOMER_PASSWORD)")
-    public Long refillAccount( Long customerId, PaymentDTO transaction) {
-        Long res = restTemplate.postForObject(BASE_URI + "/login", new CliCustomer("loginUser", email, password), Long.class);
+    public String refill( Long customerId, String creditCard, int amount) {
+        String res = restTemplate.postForObject(BASE_URI + "/"+customerId+"/refill", new PaymentDTO(creditCard, amount), String.class);
         return res;
     }
 
