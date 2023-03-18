@@ -59,10 +59,10 @@ public class CustomerAccountController {
         }
     }
     @PostMapping(path = "/login", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> login(String mail, String password) throws MailAlreadyUsedException {
+    public ResponseEntity<Long> login(@RequestBody @Valid CustomerDTO customerDTO) throws MailAlreadyUsedException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(customerExplorer.checkCredentials(mail, password));
+                    .body(customerExplorer.checkCredentials(customerDTO.getEmail(), customerDTO.getPassword()));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }

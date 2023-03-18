@@ -9,7 +9,7 @@ public class CliCustomer {
     private String name;
     private String password;
     private String email;
-    private CliFidelityAccount fidelityAccount;
+    private FidelityAccount fidelityAccount;
 
     //@OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "customer")
     //private List<Payment> history;
@@ -18,9 +18,11 @@ public class CliCustomer {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.fidelityAccount = new CliFidelityAccount(id);
         //this.history = new ArrayList<>();
     }
+    public CliCustomer(){
+    }
+
 
     public Long getId() {
         return id;
@@ -38,7 +40,7 @@ public class CliCustomer {
         return email;
     }
 
-    public CliFidelityAccount getFidelityAccount() {
+    public FidelityAccount getFidelityAccount() {
         return fidelityAccount;
     }
     @Override

@@ -2,7 +2,7 @@ package fr.univcotedazur.simpletcfs.cli.model;
 
 import java.util.Objects;
 
-public class CliFidelityAccount {
+public class FidelityAccount {
 
     private Long clientId;
     private int points;
@@ -12,11 +12,14 @@ public class CliFidelityAccount {
     //private Set<Advantage> advantages;
     private String licencePlate;
 
-    public CliFidelityAccount(Long clientId) {
+    public FidelityAccount(Long clientId) {
         this.clientId = clientId;
         points = 0;
         balance = 0;
         isVFP = false;
+    }
+
+    public FidelityAccount() {
     }
 
 
@@ -41,7 +44,7 @@ public class CliFidelityAccount {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CliFidelityAccount that = (CliFidelityAccount) o;
+        FidelityAccount that = (FidelityAccount) o;
 
         if (points != that.points) return false;
         if (Double.compare(that.balance, balance) != 0) return false;
