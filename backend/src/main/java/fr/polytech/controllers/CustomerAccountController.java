@@ -1,5 +1,7 @@
 package fr.polytech.controllers;
 
+import fr.polytech.controllers.dto.CustomerDTO;
+import fr.polytech.controllers.dto.DiscountDTO;
 import fr.polytech.controllers.dto.PaymentDTO;
 import fr.polytech.exceptions.*;
 import fr.polytech.exceptions.payment.NegativeAmountException;
@@ -14,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.Date;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -46,19 +50,19 @@ public class CustomerAccountController {
     }
 
     @PostMapping(path = "/registration", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Customer> register(String name, String mail, String password) throws MailAlreadyUsedException {
+    public ResponseEntity<Customer> register(@RequestBody @Valid CustomerDTO customerDTO) throws MailAlreadyUsedException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(customerRegistration.register(name, mail, password));
+                    .body(customerRegistration.register(customerDTO.getName(), customerDTO.getEmail(), customerDTO.getPassword()));
         } catch (MailAlreadyUsedException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
     @PostMapping(path = "/login", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> login(String mail, String password) throws MailAlreadyUsedException {
+    public ResponseEntity<Long> login(@RequestBody @Valid CustomerDTO customerDTO) throws MailAlreadyUsedException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(customerExplorer.checkCredentials(mail, password));
+                    .body(customerExplorer.checkCredentials(customerDTO.getEmail(), customerDTO.getPassword()));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }

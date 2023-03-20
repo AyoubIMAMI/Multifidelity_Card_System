@@ -1,12 +1,18 @@
 package fr.polytech.entities.item;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
 public class Product {
 
-    private final Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String name;
 
-    private final Long storeId;
+    private Long storeId;
     private double cashPrice;
 
     public Product(String name, Long storeId, double cashPrice) {
@@ -14,6 +20,10 @@ public class Product {
         this.name = name;
         this.storeId = storeId;
         this.cashPrice = cashPrice;
+    }
+
+    public Product() {
+
     }
 
     public Long getStoreId() {
