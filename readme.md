@@ -48,7 +48,7 @@ services:
 * Log into Jenkins: <br>
 Username: `admin`<br>
 Password: `eefe44d7c4694c75aa8fc0680adef5ef`
-* Go to the credentials configuration's page `http://vmpx08.polytech.unice.fr:8001/manage/credentials/`
+* Go to the [credentials configuration's page](http://vmpx08.polytech.unice.fr:8001/manage/credentials/)
 * Create a "Secret text" credential and enter your Github token
 * Create a "Username with password" credential and enter your Github username and your github token
 
