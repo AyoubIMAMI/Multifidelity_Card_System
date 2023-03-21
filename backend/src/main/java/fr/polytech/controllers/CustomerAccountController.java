@@ -1,11 +1,10 @@
 package fr.polytech.controllers;
 
 import fr.polytech.controllers.dto.CustomerDTO;
-import fr.polytech.controllers.dto.DiscountDTO;
 import fr.polytech.controllers.dto.PaymentDTO;
 import fr.polytech.exceptions.*;
 import fr.polytech.exceptions.payment.NegativeAmountException;
-import fr.polytech.exceptions.payment.PaymentException;
+import fr.polytech.exceptions.payment.PaymentInBankException;
 import fr.polytech.interfaces.customer.CustomerExplorer;
 import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.customer.CustomerRegistration;
@@ -43,9 +42,10 @@ public class CustomerAccountController {
         this.customerFinder=customerFinder;
     }
 
-    @PostMapping(path = CUSTOMER_URI + "/refill")
-    public ResponseEntity<String> refillAccount(@PathVariable("customerId") Long customerId, @RequestBody PaymentDTO transaction) throws CustomerNotFoundException, NegativeAmountException, PaymentException, FidelityAccountNotFoundException, NegativeAmountException, PaymentException {
-        Date refillTime = refillFidelityCard.refill(customerFinder.findCustomerById(customerId), transaction);
+    @PostMapping(path = "/refill/{customerId}")
+    public ResponseEntity<String> refillAccount(@PathVariable("customerId") Long customerId, @RequestBody PaymentDTO transaction) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, FidelityAccountNotFoundException, NegativeAmountException, PaymentInBankException {
+        Customer customer = customerFinder.findCustomerById(customerId);
+        Date refillTime = refillFidelityCard.refill(customer, transaction);
         return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + " . Transaction amount: " + transaction.getAmount());
     }
 
