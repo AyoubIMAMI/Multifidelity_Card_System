@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'maven-3.9.0' 
+        maven 'maven-3.6.3'
         jdk 'jdk-17.0.6'
     }
     stages {
