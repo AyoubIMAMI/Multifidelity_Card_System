@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <servers>
     <server>
-      <username>${security.getCurrentUsername()}</username>
-      <password>${security.getEscapedEncryptedPassword()!"AP2QjuawZKttSgt1BGyHEe2KZSbB3jGeD8PXc6"}</password>
+      <username>admin</username>
+      <password>zEBf7mD2aCHA8XG4</password>
       <id>central</id>
     </server>
     <server>
-      <username>${security.getCurrentUsername()}</username>
-      <password>${security.getEscapedEncryptedPassword()!"AP2QjuawZKttSgt1BGyHEe2KZSbB3jGeD8PXc6"}</password>
+      <username>admin</username>
+      <password>zEBf7mD2aCHA8XG4</password>
       <id>snapshots</id>
     </server>
   </servers>
@@ -22,13 +22,13 @@
           </snapshots>
           <id>central</id>
           <name>libs-release</name>
-          <url>http://vmpx08.polytech.unice.fr:8081/artifactory/libs-release</url>
+          <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release</url>
         </repository>
         <repository>
           <snapshots />
           <id>snapshots</id>
           <name>libs-snapshot</name>
-          <url>http://vmpx08.polytech.unice.fr:8081/artifactory/libs-snapshot</url>
+          <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot</url>
         </repository>
       </repositories>
       <pluginRepositories>
@@ -38,13 +38,13 @@
           </snapshots>
           <id>central</id>
           <name>libs-release</name>
-          <url>http://vmpx08.polytech.unice.fr:8081/artifactory/libs-release</url>
+          <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release</url>
         </pluginRepository>
         <pluginRepository>
           <snapshots />
           <id>snapshots</id>
           <name>libs-snapshot</name>
-          <url>http://vmpx08.polytech.unice.fr:8081/artifactory/libs-snapshot</url>
+          <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot</url>
         </pluginRepository>
       </pluginRepositories>
       <id>artifactory</id>

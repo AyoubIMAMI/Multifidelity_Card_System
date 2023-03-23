@@ -109,10 +109,6 @@
             <artifactId>spring-boot-maven-plugin</artifactId>
             <version>3.0.4</version>
         </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -179,16 +175,14 @@
         <repository>
             <id>central</id>
             <name>7554d071e04b-releases</name>
-            <url>http://vmpx08.polytech.unice.fr:8081/artifactory/libs-release-local</url>
+            <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release-local</url>
         </repository>
 
         <snapshotRepository>
             <id>snapshots</id>
             <name>7554d071e04b-snapshots</name>
-            <url>http://vmpx08.polytech.unice.fr:8081/artifactory/libs-snapshot-local</url>
+            <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
-
     </distributionManagement>
-
 
 </project>
