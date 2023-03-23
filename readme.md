@@ -55,6 +55,7 @@ Password: `eefe44d7c4694c75aa8fc0680adef5ef`
 ## Maven
 ### Installation
 * Install maven `sudo apt install maven`
+* Push the settings.xml file from local `/backend/assets` to vm `~/.m2` : `scp .\settings.xml teamh@vmpx08.polytech.unice.fr:~/.m2`
 
 
 ## Artifactory
@@ -69,6 +70,4 @@ Note that if you do not download this version, I will not help you, because NO O
 * Say no to everything and select derby as database.
 
 ### Configuration
-
-
 
