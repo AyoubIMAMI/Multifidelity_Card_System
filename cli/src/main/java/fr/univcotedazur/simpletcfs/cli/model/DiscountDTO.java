@@ -1,4 +1,4 @@
-package fr.polytech.controllers.dto;
+package fr.univcotedazur.simpletcfs.cli.model;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
