@@ -8,6 +8,8 @@ pipeline {
         stage('config workspace') {
             steps {
                 echo 'config workspace'
+                sh 'rm -rf $HOME/.m2/repository'
+                sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
                 sh '''
                     java -version
                     javac -version
@@ -20,8 +22,6 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
-
                 dir("./backend") {
                     echo 'Building.. Iraana II'
                     sh 'ls -l'
