@@ -70,5 +70,3 @@ Note that if you do not download this version, I will not help you, because NO O
 
 ### Configuration
 
-
-
