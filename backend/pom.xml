@@ -171,6 +171,24 @@
                     </plugin>
                 </plugins>
             </build>
+
         </profile>
     </profiles>
+
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>7554d071e04b-releases</name>
+            <url>http://vmpx08.polytech.unice.fr:8081/artifactory/libs-release-local</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>7554d071e04b-snapshots</name>
+            <url>http://vmpx08.polytech.unice.fr:8081/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+
+    </distributionManagement>
+
+
 </project>
