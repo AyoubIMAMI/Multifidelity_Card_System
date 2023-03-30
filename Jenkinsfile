@@ -27,14 +27,16 @@ pipeline {
             steps {
                 dir("./backend") {
                     echo 'Building...'
-                    sh 'ls -l'
-                    sh 'mvn clean package -U'
+                    sh 'mvn clean validate'
                 }
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                dir("./backend") {
+                    echo 'Building...'
+                    sh 'mvn clean test'
+                }
             }
         }
         stage('Deploy') {
@@ -42,7 +44,7 @@ pipeline {
                 echo 'Deploying....'
 
                 dir("./backend") {
-                    sh 'mvn clean deploy'
+                    sh 'mvn clean deploy -U'
                 }
 
                 sh 'curl -u admin:zEBf7mD2aCHA8XG4 -O http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local/fr/polytech/isa-devops-22-23-team-h-23/1.0-SNAPSHOT/isa-devops-22-23-team-h-23-1.0-20230330.071841-1.jar'
