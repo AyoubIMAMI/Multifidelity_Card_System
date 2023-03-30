@@ -42,7 +42,7 @@ public class PaymentHandler implements IPayment {
 
     @Override
     public void payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException {
-
+        
     }
 
     /**@Override
