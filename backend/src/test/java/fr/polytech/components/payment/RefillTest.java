@@ -1,6 +1,6 @@
 package fr.polytech.components.payment;
 
-import fr.polytech.controllers.dto.PaymentDTO;
+import fr.polytech.connectors.externaldto.PaymentDTO;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.FidelityAccount;
 import fr.polytech.exceptions.payment.NegativeAmountException;

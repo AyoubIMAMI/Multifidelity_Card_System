@@ -1,4 +1,11 @@
-import {Body, Controller, Get, HttpException, HttpStatus, Post} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 
 import { AppService } from './app.service';
 import { PaymentDto } from './dto/payment.dto';
@@ -17,8 +24,10 @@ export class AppController {
     try {
       return this.appService.pay(paymentDto);
     } catch (e) {
-      throw new HttpException('business error: ' + e.message, HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'business error: ' + e.message,
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
-
 }

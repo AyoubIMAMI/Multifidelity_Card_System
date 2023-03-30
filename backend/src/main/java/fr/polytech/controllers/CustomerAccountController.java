@@ -1,8 +1,7 @@
 package fr.polytech.controllers;
 
 import fr.polytech.controllers.dto.CustomerDTO;
-import fr.polytech.controllers.dto.DiscountDTO;
-import fr.polytech.controllers.dto.PaymentDTO;
+import fr.polytech.connectors.externaldto.PaymentDTO;
 import fr.polytech.exceptions.*;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentException;
