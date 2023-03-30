@@ -7,6 +7,6 @@ import fr.polytech.entities.Payment;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 
 public interface SettledPurchase {
-    void validatePurchase(Customer customer, Payment payment, Store store) throws PurchaseFailedException, PaymentAlreadyExistsException;
-    void winPoint(Customer customer, Payment payment, Store store);
+    void validatePurchase(Payment payment) throws PurchaseFailedException, PaymentAlreadyExistsException;
+    void winPoint(Payment payment);
 }
