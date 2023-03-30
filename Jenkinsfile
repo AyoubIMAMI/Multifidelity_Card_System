@@ -11,6 +11,7 @@ pipeline {
 
                 //sh 'rm $HOME/.m2/settings.xml'
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
+                sh 'cat  $HOME/.m2/settings.xml'
 
                 sh '''
                     java -version
@@ -25,7 +26,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir("./backend") {
-                    echo 'Building.. Iraana II'
+                    echo 'Building...'
                     sh 'ls -l'
                     sh 'mvn clean package -U'
                 }
