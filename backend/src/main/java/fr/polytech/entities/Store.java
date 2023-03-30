@@ -13,8 +13,8 @@ public class Store extends Organisation {
     //TODO
     //private Set<Discount> offers;
 
-    public Store(String storeName, String storeSiret) {
-        super(storeSiret, storeName);
+    public Store(String storeName, String storeSiret, String password) {
+        super(storeSiret, storeName,password);
     }
 
 
