@@ -39,9 +39,9 @@ pipeline {
                 }
             }
         }
-        stage('Build backend') {
+        stage('Build cli') {
             steps {
-                dir("./backend") {
+                dir("./cli") {
                     echo 'Building...'
                     sh 'mvn clean validate'
                 }
