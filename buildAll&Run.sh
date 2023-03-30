@@ -15,4 +15,6 @@ docker build --build-arg JAR_FILE=cli-0.0.1-SNAPSHOT.jar -t nget/spring-cli .
 cd ../
 docker compose up
 
+read -p "Press any key to quit ..."
+
 

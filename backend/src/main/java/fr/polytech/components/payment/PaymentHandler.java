@@ -28,11 +28,11 @@ public class PaymentHandler implements IPayment {
     FidelityCardPurchase fidelityCardPurchase;
 
     @Autowired
-    public PaymentHandler(CustomerFinder customerFinder, PointPurchase pointPurchase, SettledPurchase settledPurchase,FidelityCardPurchase fidelityCardPurchase) {
+    public PaymentHandler(CustomerFinder customerFinder, PointPurchase pointPurchase, SettledPurchase settledPurchase, FidelityCardPurchase fidelityCardPurchase) {
         this.customerFinder = customerFinder;
         this.pointPurchase = pointPurchase;
         this.settledPurchase = settledPurchase;
-        this.fidelityCardPurchase=fidelityCardPurchase;
+        this.fidelityCardPurchase = fidelityCardPurchase;
     }
 
     @Override

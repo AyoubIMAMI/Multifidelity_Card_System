@@ -17,6 +17,13 @@
     <name>cli</name>
     <description>cli</description>
 
+    <scm>
+        <connection>scm:git:https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git</connection>
+        <developerConnection>scm:git:https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git</developerConnection>
+        <url>https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -37,6 +44,13 @@
             <artifactId>spring-shell-starter</artifactId>
             <version>2.1.4</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -45,21 +59,17 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <releaseProfiles>release</releaseProfiles>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>artifactory-central</id>
-            <name>7554d071e04b-releases</name>
-            <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release-local</url>
-        </repository>
-
-        <snapshotRepository>
-            <id>artifactory-snapshots</id>
-            <name>7554d071e04b-snapshots</name>
-            <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>
