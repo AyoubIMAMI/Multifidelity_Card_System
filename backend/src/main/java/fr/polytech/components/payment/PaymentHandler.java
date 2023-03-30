@@ -3,6 +3,7 @@ package fr.polytech.components.payment;
 import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Item;
 import fr.polytech.exceptions.BadCredentialsException;
+import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.PurchaseFailedException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
@@ -36,8 +37,9 @@ public class PaymentHandler implements IPayment {
     }
 
     @Override
-    public void payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException {
-
+    public void payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException {
+        Customer customer=customerFinder.findCustomerById(customerId);
+        Store store= storeFinder.findStoreByID(storeId);
     }
 
     @Override
