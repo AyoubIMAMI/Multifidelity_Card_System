@@ -57,10 +57,6 @@ pipeline {
         }
         stage('Deploy jar') {
             steps {
-                echo 'Deploying....'
-                dir("./cli") {
-                    sh 'mvn deploy -U'
-                }
                 dir("./backend") {
                     sh 'mvn deploy -U'
                 }
