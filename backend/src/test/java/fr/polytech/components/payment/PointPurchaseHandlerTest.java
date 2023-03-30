@@ -33,8 +33,6 @@ public class PointPurchaseHandlerTest {
 
     int initialFidelityPoint;
 
-    Executable pay;
-
     @BeforeEach
     void setUp() {
         customer = new Customer("John", "john@doe.com", "pwd");
@@ -42,7 +40,6 @@ public class PointPurchaseHandlerTest {
         product = new Product("Coffee", Long.parseLong("0"), 5);
         discountedProduct = new Discount("Cake", Long.parseLong("1"),  10, 7);
         initialFidelityPoint = 100;
-        pay = () -> pointPurchaseHandler.buyWithPoint(customer, payment);
     }
 
     @Test
@@ -60,6 +57,7 @@ public class PointPurchaseHandlerTest {
         payment.setShoppingList(shoppingList);
 
         // When
+        Executable pay = () -> pointPurchaseHandler.buyWithPoint(customer, shoppingList);
         assertDoesNotThrow(pay);
 
         // Then
@@ -80,6 +78,7 @@ public class PointPurchaseHandlerTest {
         payment.setShoppingList(shoppingList);
 
         // When
+        Executable pay = () -> pointPurchaseHandler.buyWithPoint(customer, shoppingList);
         assertThrows(NotEnoughBalanceException.class, pay);
     }
 
@@ -95,6 +94,7 @@ public class PointPurchaseHandlerTest {
         payment.setShoppingList(shoppingList);
 
         // When
+        Executable pay = () -> pointPurchaseHandler.buyWithPoint(customer, shoppingList);
         assertThrows(NoDiscountsFoundException.class, pay);
     }
 }
