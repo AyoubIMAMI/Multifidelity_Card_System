@@ -1,6 +1,7 @@
 package fr.polytech.components.payment;
 
 import fr.polytech.entities.Store;
+import fr.polytech.entities.item.Item;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.PurchaseFailedException;
@@ -15,6 +16,8 @@ import fr.polytech.interfaces.store.StoreFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+
 @Component
 public class PaymentHandler implements IPayment {
     CustomerFinder customerFinder;
@@ -22,14 +25,27 @@ public class PaymentHandler implements IPayment {
     SettledPurchase settledPurchase;
     StoreFinder storeFinder;
 
+    FidelityCardPurchase fidelityCardPurchase;
+
     @Autowired
-    public PaymentHandler(CustomerFinder customerFinder, PointPurchase pointPurchase, SettledPurchase settledPurchase) {
+    public PaymentHandler(CustomerFinder customerFinder, PointPurchase pointPurchase, SettledPurchase settledPurchase,FidelityCardPurchase fidelityCardPurchase) {
         this.customerFinder = customerFinder;
         this.pointPurchase = pointPurchase;
         this.settledPurchase = settledPurchase;
+        this.fidelityCardPurchase=fidelityCardPurchase;
     }
 
     @Override
+    public void payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException {
+
+    }
+
+    @Override
+    public void payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException {
+
+    }
+
+    /**@Override
     public void pay(Payment payment) throws NotEnoughBalanceException, PurchaseFailedException, PaymentAlreadyExistsException, BadCredentialsException {
         //Client will pay with is fidelity card
         Customer customer = payment.getCustomer();
@@ -39,11 +55,9 @@ public class PaymentHandler implements IPayment {
         } catch (BadCredentialsException e) {
             throw e;
         }
-        /*
         if(!payment.isSettled()){
             fidelityCardPurchase.buyWithFidelityCard(customer, payment, store);
         }
-         */
         //updatePoint
         settledPurchase.winPoint(customer, payment, store);
         //check if purchase contain discount item
@@ -54,5 +68,5 @@ public class PaymentHandler implements IPayment {
         }
         //validatePurchase
         settledPurchase.validatePurchase(customer, payment, store);
-    }
+    }*/
 }
