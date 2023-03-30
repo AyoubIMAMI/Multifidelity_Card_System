@@ -22,13 +22,13 @@
           </snapshots>
           <id>central</id>
           <name>libs-release</name>
-          <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release</url>
+          <url>http://vmpx08.polytech.unice.fr:8081/artifactory/libs-release</url>
         </repository>
         <repository>
           <snapshots />
           <id>snapshots</id>
           <name>libs-snapshot</name>
-          <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot</url>
+          <url>http://vmpx08.polytech.unice.fr:8081/artifactory/libs-snapshot</url>
         </repository>
       </repositories>
       <pluginRepositories>
@@ -38,13 +38,13 @@
           </snapshots>
           <id>central</id>
           <name>libs-release</name>
-          <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release</url>
+          <url>http://vmpx08.polytech.unice.fr:8081/artifactory/libs-release</url>
         </pluginRepository>
         <pluginRepository>
           <snapshots />
           <id>snapshots</id>
           <name>libs-snapshot</name>
-          <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot</url>
+          <url>http://vmpx08.polytech.unice.fr:8081/artifactory/libs-snapshot</url>
         </pluginRepository>
       </pluginRepositories>
       <id>artifactory</id>
@@ -54,4 +54,3 @@
     <activeProfile>artifactory</activeProfile>
   </activeProfiles>
 </settings>
-
