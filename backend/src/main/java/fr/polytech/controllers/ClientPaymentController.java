@@ -12,6 +12,7 @@ import fr.polytech.exceptions.payment.PaymentInBankException;
 import fr.polytech.interfaces.payment.IPayment;
 import fr.polytech.entities.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,11 +32,15 @@ public class ClientPaymentController {
         this.payment = iPayment;
     }
 
-    @PostMapping(path = PAYMENT_URI+"/payedInStore")
+    @PostMapping(path = PAYMENT_URI+"/settled")
     public ResponseEntity<String> processWithPaymentInStore(@PathVariable("customerId") Long customerId,@PathVariable("storeId") Long storeId,@RequestBody Set<Item> shoppingList) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException, BadCredentialsException {
-        this.payment.payedProcess(customerId,storeId,shoppingList);
-        //TODO rajouter un check pour le payment success
-        return ResponseEntity.ok().body("Payment succeed ok!  ");
+        try {
+            this.payment.payedProcess(customerId, storeId, shoppingList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+        return ResponseEntity.ok().body("Payment succeed!");
     }
 
     @PostMapping(path = PAYMENT_URI+"/fidelity")
