@@ -23,7 +23,7 @@ pipeline {
                 //env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
             }
         }
-        stage('Build') {
+        stage('Build backend') {
             steps {
                 dir("./backend") {
                     echo 'Building...'
@@ -31,7 +31,7 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
+        stage('Test backend') {
             steps {
                 dir("./backend") {
                     echo 'Building...'
@@ -39,16 +39,34 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Build cli') {
+            steps {
+                dir("./cli") {
+                    echo 'Building...'
+                    sh 'mvn clean validate'
+                }
+            }
+        }
+        stage('Test cli') {
+            steps {
+                dir("./cli") {
+                    echo 'Building...'
+                    sh 'mvn test'
+                }
+            }
+        }
+        stage('Deploy jar') {
             steps {
                 echo 'Deploying....'
-
+                dir("./cli") {
+                    sh 'mvn deploy -U'
+                }
                 dir("./backend") {
-                    sh 'mvn package -U'
+                    sh 'mvn deploy -U'
                 }
 
-                sh 'curl -u admin:zEBf7mD2aCHA8XG4 -O http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local/fr/polytech/isa-devops-22-23-team-h-23/1.0-SNAPSHOT/isa-devops-22-23-team-h-23-1.0-20230330.071841-1.jar'
-                sh 'ls -l'
+                //sh 'curl -u admin:zEBf7mD2aCHA8XG4 -O http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local/fr/polytech/isa-devops-22-23-team-h-23/1.0-SNAPSHOT/isa-devops-22-23-team-h-23-1.0-20230330.071841-1.jar'
+                //sh 'ls -l'
             }
         }
     }
