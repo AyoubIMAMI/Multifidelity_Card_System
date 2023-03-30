@@ -31,6 +31,7 @@ public class CustomerCommands {
         Long res = restTemplate.postForObject(BASE_URI + "/login", new CliCustomer("loginUser", email, password), Long.class);
         return res;
     }
+    //helloworld
 
 
     //TODO Proke l'exception PaymentInBankException
