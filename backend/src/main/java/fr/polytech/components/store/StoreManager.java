@@ -35,7 +35,12 @@ public class StoreManager implements StoreFinder, StoreRegistration{
         if (storeCurrent.isEmpty()) throw new BadCredentialsException();
         else return storeCurrent.get();
     }
-
+    @Override
+    public Store findStoreByID(Long storeID) throws BadCredentialsException {
+        Optional<Store> store=storeRepository.findStoreById(storeID);
+        if (store.isEmpty()) throw new BadCredentialsException();
+        return store.get();
+    }
     @Override
     public Store registerNewStore(String storeName, String storeSiret,String password) throws MissingInformationsException, MailAlreadyUsedException {
         if(storeRepository.existsStoreBySiret(storeSiret))
