@@ -24,7 +24,7 @@ public class FidelityCardPurchaseHandler implements FidelityCardPurchase {
     }
     @Override
     public void buyWithFidelityCard(Customer customer, Store store, Set<Item> shoppingList) throws NotEnoughBalanceException {
-        double cashNeeded=computeRequiredCash(shoppingList);
+        double cashNeeded = computeRequiredCash(shoppingList);
         balanceModifier.decreaseBalance(customer,cashNeeded);
     }
     private double computeRequiredCash(Set<Item> shoppingList) {

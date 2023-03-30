@@ -25,9 +25,9 @@ public class PointPurchaseHandler implements PointPurchase {
     }
 
     @Override
-    public void buyWithPoint(Customer customer, Payment payment) throws NotEnoughBalanceException, NoDiscountsFoundException {
+    public void buyWithPoint(Customer customer, Set<Item> shoppingList) throws NotEnoughBalanceException, NoDiscountsFoundException {
         int pointsOnFidelityAccount = customer.getFidelityAccount().getPoints();
-        int pointsRequired = computeRequiredPoints(payment);
+        int pointsRequired = computeRequiredPoints(shoppingList);
 
         if (pointsRequired == 0) {
             throw new NoDiscountsFoundException();
@@ -40,8 +40,7 @@ public class PointPurchaseHandler implements PointPurchase {
         pointModifier.decrementPoints(customer, pointsRequired);
     }
 
-    private int computeRequiredPoints(Payment payment) {
-        Set<Item> shoppingList = payment.getShoppingList();
+    private int computeRequiredPoints(Set<Item> shoppingList) {
         int points = shoppingList.stream()
                 .filter(x -> x.getProduct() instanceof Discount)
                 .map(x -> x.getQuantity() * ((Discount) x.getProduct()).getPointPrice())
