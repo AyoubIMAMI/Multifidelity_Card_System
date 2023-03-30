@@ -32,7 +32,6 @@ public class CustomerCommands {
         return res;
     }
 
-
     //TODO Proke l'exception PaymentInBankException
     @ShellMethod("Refill the account of a customer in the CoD backend with his id (login CUSTOMER_EMAIL CUSTOMER_PASSWORD)")
     public String refill( Long customerId, String creditCard, int amount) {
