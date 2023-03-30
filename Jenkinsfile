@@ -12,6 +12,7 @@ pipeline {
                 sh 'rm -rf $HOME/.m2/repository'
                 sh 'rm $HOME/.m2/settings.xml'
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
+                cat '$HOME/.m2/settings.xml'
 
                 sh '''
                     java -version
