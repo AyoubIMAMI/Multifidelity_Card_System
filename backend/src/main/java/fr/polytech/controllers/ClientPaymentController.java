@@ -1,5 +1,6 @@
 package fr.polytech.controllers;
 
+import fr.polytech.entities.item.Item;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
@@ -12,10 +13,9 @@ import fr.polytech.interfaces.payment.IPayment;
 import fr.polytech.entities.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -23,18 +23,26 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(path = fr.polytech.controllers.CustomerAccountController.BASE_URI, produces = APPLICATION_JSON_VALUE)
 public class ClientPaymentController {
     IPayment payment;
-    public static final String BASE_URI = "/payment";
+    public static final String PAYMENT_URI = "/{customerId}/payment/store/{storeId}";
 
     @Autowired
     public ClientPaymentController(IPayment iPayment) {
         this.payment = iPayment;
     }
 
-    @PostMapping(path = "/pay")
-    public ResponseEntity<String> refillAccount(@RequestBody Payment payment) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException, BadCredentialsException {
-        this.payment.pay(payment);
+    @PostMapping(path = PAYMENT_URI+"/payedInStore")
+    public ResponseEntity<String> processWithPaymentInStore(@PathVariable("customerId") Long customerId,@PathVariable("storeId") Long storeId,@RequestBody Set<Item> shoppingList) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException, BadCredentialsException {
+        this.payment.payedProcess(customerId,storeId,shoppingList);
         return ResponseEntity.ok().body("Payment succeed ok!  " + payment.toString());
     }
+
+    @PostMapping(path = PAYMENT_URI+"/fidelity")
+    public ResponseEntity<String> processWithPaymentFidelity(@PathVariable("customerId") Long customerId,@PathVariable("storeId") Long storeId,@RequestBody Set<Item> shoppingList) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException, BadCredentialsException {
+        this.payment.payWithFidelity(customerId,storeId,shoppingList);
+        return ResponseEntity.ok().body("Payment succeed ok!  " + payment.toString());
+    }
+
+
 
 
 }

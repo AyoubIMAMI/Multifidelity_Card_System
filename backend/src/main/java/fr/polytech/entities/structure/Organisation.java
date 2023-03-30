@@ -1,6 +1,7 @@
 package fr.polytech.entities.structure;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ public abstract class Organisation {
     private String siret;
     private String name;
     @Id
+    @GeneratedValue
     private Long id;
     private String password;
 
