@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface StoreRepository extends JpaRepository<Store,Long> {
     boolean existsStoreBySiret(String storeSiret);
     Optional<Store> findStoreByName(String name);
+    Optional<Store> findStoreById(Long ID);
 
 }

@@ -20,10 +20,11 @@ import java.util.Set;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(path = fr.polytech.controllers.CustomerAccountController.BASE_URI, produces = APPLICATION_JSON_VALUE)
+@RequestMapping(path = fr.polytech.controllers.ClientPaymentController.BASE_URI, produces = APPLICATION_JSON_VALUE)
 public class ClientPaymentController {
     IPayment payment;
-    public static final String PAYMENT_URI = "/{customerId}/payment/store/{storeId}";
+    public static final String BASE_URI ="/pay";
+    public static final String PAYMENT_URI = "/store/{storeId}/customer/{customerId}";
 
     @Autowired
     public ClientPaymentController(IPayment iPayment) {
@@ -33,13 +34,15 @@ public class ClientPaymentController {
     @PostMapping(path = PAYMENT_URI+"/payedInStore")
     public ResponseEntity<String> processWithPaymentInStore(@PathVariable("customerId") Long customerId,@PathVariable("storeId") Long storeId,@RequestBody Set<Item> shoppingList) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException, BadCredentialsException {
         this.payment.payedProcess(customerId,storeId,shoppingList);
-        return ResponseEntity.ok().body("Payment succeed ok!  " + payment.toString());
+        //TODO rajouter un check pour le payment success
+        return ResponseEntity.ok().body("Payment succeed ok!  ");
     }
 
     @PostMapping(path = PAYMENT_URI+"/fidelity")
     public ResponseEntity<String> processWithPaymentFidelity(@PathVariable("customerId") Long customerId,@PathVariable("storeId") Long storeId,@RequestBody Set<Item> shoppingList) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException, BadCredentialsException {
         this.payment.payWithFidelity(customerId,storeId,shoppingList);
-        return ResponseEntity.ok().body("Payment succeed ok!  " + payment.toString());
+        //TODO rajouter un check pour le payment success
+        return ResponseEntity.ok().body("Payment succeed ok!  ");
     }
 
 
