@@ -1,7 +1,6 @@
 package fr.polytech.controllers;
 
 import fr.polytech.controllers.dto.CustomerDTO;
-import fr.polytech.controllers.dto.PaymentDTO;
 import fr.polytech.controllers.dto.StoreDTO;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.Store;
