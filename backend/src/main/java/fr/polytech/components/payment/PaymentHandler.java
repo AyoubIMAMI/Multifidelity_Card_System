@@ -25,7 +25,6 @@ public class PaymentHandler implements IPayment {
     PointPurchase pointPurchase;
     SettledPurchase settledPurchase;
     StoreFinder storeFinder;
-
     FidelityCardPurchase fidelityCardPurchase;
 
     @Autowired
@@ -43,8 +42,10 @@ public class PaymentHandler implements IPayment {
     }
 
     @Override
-    public void payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException {
-        
+    public void payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException {
+        Customer customer = customerFinder.findCustomerById(customerId);
+        Store store = storeFinder.findStoreByID(storeId);
+        Payment payment = new Payment(customer, store, shoppingList, true);
     }
 
     /**@Override

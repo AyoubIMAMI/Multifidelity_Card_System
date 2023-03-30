@@ -28,6 +28,6 @@ public class SettledPurchaseHandler implements SettledPurchase {
 
     @Override
     public void winPoint(Customer customer, Payment payment, Store store) {
-        pointModifier.incrementPoints(customer, payment.getPrice());
+        pointModifier.incrementPoints(customer, payment.getAmount());
     }
 }
