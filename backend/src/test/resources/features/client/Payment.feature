@@ -1,7 +1,10 @@
-# Created by moura at 30/03/2023
+Feature: Payment
 Background:
-//  Given a user
-//  And a store
+  Given a user
+  And a store
 
-  Scenario: # Enter scenario name here
-    # Enter steps here
+Scenario: A user wants to pay with his fidelityCard
+  When he want to buy items
+  And he has enough cash
+  And he pay
+  Then the payment works
