@@ -11,6 +11,7 @@ pipeline {
 
                 //sh 'rm $HOME/.m2/settings.xml'
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
+                sh 'cat  $HOME/.m2/settings.xml'
 
                 sh '''
                     java -version
@@ -25,15 +26,17 @@ pipeline {
         stage('Build') {
             steps {
                 dir("./backend") {
-                    echo 'Building.. Iraana II'
-                    sh 'ls -l'
-                    sh 'mvn clean package -U'
+                    echo 'Building...'
+                    sh 'mvn clean validate'
                 }
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                dir("./backend") {
+                    echo 'Building...'
+                    sh 'mvn test'
+                }
             }
         }
         stage('Deploy') {
@@ -41,7 +44,7 @@ pipeline {
                 echo 'Deploying....'
 
                 dir("./backend") {
-                    sh 'mvn clean deploy'
+                    sh 'mvn package -U'
                 }
 
                 sh 'curl -u admin:zEBf7mD2aCHA8XG4 -O http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local/fr/polytech/isa-devops-22-23-team-h-23/1.0-SNAPSHOT/isa-devops-22-23-team-h-23-1.0-20230330.071841-1.jar'
