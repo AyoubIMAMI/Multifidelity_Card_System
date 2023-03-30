@@ -1,12 +1,13 @@
 package fr.polytech.controllers;
 
+import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.PurchaseFailedException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
-import fr.polytech.exceptions.payment.PaymentException;
+import fr.polytech.exceptions.payment.PaymentInBankException;
 import fr.polytech.interfaces.payment.IPayment;
 import fr.polytech.entities.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,10 @@ public class ClientPaymentController {
     }
 
     @PostMapping(path = "/pay")
-    public ResponseEntity<String> refillAccount(@RequestBody Payment payment) throws CustomerNotFoundException, NegativeAmountException, PaymentException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException {
+    public ResponseEntity<String> refillAccount(@RequestBody Payment payment) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException, BadCredentialsException {
         this.payment.pay(payment);
         return ResponseEntity.ok().body("Payment succeed ok!  " + payment.toString());
     }
+
+
 }

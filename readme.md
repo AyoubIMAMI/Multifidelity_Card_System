@@ -48,32 +48,27 @@ services:
 * Log into Jenkins: <br>
 Username: `admin`<br>
 Password: `eefe44d7c4694c75aa8fc0680adef5ef`
-* Go to the credentials configuration's page `http://vmpx08.polytech.unice.fr:8001/manage/credentials/`
+* Go to the [credentials configuration's page](http://vmpx08.polytech.unice.fr:8001/manage/credentials/)
 * Create a "Secret text" credential and enter your Github token
 * Create a "Username with password" credential and enter your Github username and your github token
 
 ## Maven
 ### Installation
 * Install maven `sudo apt install maven`
+* Push the settings.xml file from local `/backend/assets` to vm `~/.m2` : `scp .\settings.xml teamh@vmpx08.polytech.unice.fr:~/.m2`
 
 
 ## Artifactory
 ### Installation
-* Download the docker version `https://jfrog.com/community/download-artifactory-oss/`
-* Copy the downloaded file to the vm `scp .\jfrog-artifactory-oss-7.55.6-compose.tar.gz teamh@vmpx08.polytech.unice.fr:/home/teamh`
-* On the VM, decompress the .tar.gz `tar xvzf jfrog-artifactory-oss-7.55.6-compose.tar.gz`
+* Download the [docker-compose 7.10.2](https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/oss/docker/jfrog-artifactory-oss/7.10.2/jfrog-artifactory-oss-7.10.2-compose.tar.gz) version.
+Note that if you do not download this version, I will not help you, because NO ONE help me for 2 weeks. 
+* Copy the downloaded file to the vm `scp .\jfrog-artifactory-oss-7.10.2-compose.tar.gz teamh@vmpx08.polytech.unice.fr:/home/teamh`
+* On the VM, decompress the .tar.gz `tar xvzf jfrog-artifactory-oss-7.10.2-compose.tar.gz`
 * Open the .env file and set the JF_ROUTER_ENTRYPOINTS_EXTERNALPORT to `8002`
+* Open the .env file and set the ROOT_DATA_DIR to `/home/teamh/.jfrog/artifactory`
+* Run the config.sh file as root. `sudo ./config.sh`
+* Say no to everything and select derby as database.
 
 ### Configuration
-* Create docker volumes<br>
-`docker volume create --name=artifactory_data`<br>
-`docker volume create --name=postgres_data`
-* Copy the docker-compose-volumes.yaml to the extracted folder : `cp templates/docker-compose-volumes.yaml docker-compose.yaml`
-* Add the entries in the .env file.<br>
-`echo -e "JF_SHARED_NODE_IP=$(hostname -i)" >> .env`<br>
-`echo -e "JF_SHARED_NODE_ID=$(hostname -s)" >> .env`<br>
-`echo -e "JF_SHARED_NODE_NAME=$(hostname -s)" >> .env`<br>
-* 
-
 
 

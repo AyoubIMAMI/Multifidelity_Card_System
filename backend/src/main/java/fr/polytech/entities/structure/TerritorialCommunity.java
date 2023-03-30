@@ -6,8 +6,8 @@ import javax.persistence.Id;
 public class TerritorialCommunity extends Organisation {
     private Long id;
 
-    public TerritorialCommunity(String siret, String name) {
-        super(siret, name);
+    public TerritorialCommunity(String siret, String name,String password) {
+        super(siret, name,password);
     }
 
     public void setId(Long id) {

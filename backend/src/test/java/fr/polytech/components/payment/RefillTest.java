@@ -4,7 +4,7 @@ import fr.polytech.connectors.externaldto.PaymentDTO;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.FidelityAccount;
 import fr.polytech.exceptions.payment.NegativeAmountException;
-import fr.polytech.exceptions.payment.PaymentException;
+import fr.polytech.exceptions.payment.PaymentInBankException;
 import fr.polytech.interfaces.payment.Bank;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,13 +50,13 @@ public class RefillTest {
     }
 
     @Test
-    public void okTransactionTestvMain() throws PaymentException, NegativeAmountException {
+    public void okTransactionTestvMain() throws PaymentInBankException, NegativeAmountException {
         PaymentDTO transaction = new PaymentDTO(correct_credit_card, 120);
         Date transactionDate = refillFidelityCard.refill(john, transaction);
         assertNotNull(transactionDate);
     }
     @Test
-    public void okTransactionTestvBranche() throws PaymentException, NegativeAmountException {
+    public void okTransactionTestvBranche() throws PaymentInBankException, NegativeAmountException {
         // Creating a transaction
         PaymentDTO transaction = new PaymentDTO(correct_credit_card, 120);
 
@@ -76,6 +76,6 @@ public class RefillTest {
     @Test
     public void nokTransactionTest() {
         PaymentDTO transaction = new PaymentDTO(bad_credit_card, 50);
-        assertThrows(PaymentException.class,  () -> refillFidelityCard.refill(mourad, transaction));
+        assertThrows(PaymentInBankException.class,  () -> refillFidelityCard.refill(mourad, transaction));
     }
 }

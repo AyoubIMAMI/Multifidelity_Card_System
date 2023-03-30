@@ -104,9 +104,12 @@
             <version>42.5.4</version>
             <scope>runtime</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>3.0.4</version>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -126,10 +129,17 @@
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.9.1.2184</version>
             </plugin>
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.7</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.0.4</version>
             </plugin>
 
         </plugins>
@@ -160,6 +170,22 @@
                     </plugin>
                 </plugins>
             </build>
+
         </profile>
     </profiles>
+
+    <distributionManagement>
+        <repository>
+            <id>artifactory-central</id>
+            <name>7554d071e04b-releases</name>
+            <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release-local</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>artifactory-snapshots</id>
+            <name>7554d071e04b-snapshots</name>
+            <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>
