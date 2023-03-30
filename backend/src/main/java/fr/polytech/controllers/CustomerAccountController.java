@@ -39,7 +39,7 @@ public class CustomerAccountController {
         this.customerRegistration = customerRegistration;
         this.customerExplorer = customerExplorer;
         this.fidelityExplorer = fidelityExplorer;
-        this.customerFinder=customerFinder;
+        this.customerFinder = customerFinder;
     }
 
     @PostMapping(path = "/refill/{customerId}")

@@ -22,7 +22,7 @@ export class AppController {
   @Post()
   payByCreditCard(@Body() paymentDto: PaymentDto): PaymentDto {
     try {
-      return this.appService.pay(paymentDto);
+      return this.appService.refill(paymentDto);
     } catch (e) {
       throw new HttpException(
         'business error: ' + e.message,

@@ -28,7 +28,7 @@ public class RefillFidelityCardHandler implements RefillFidelityCard {
         if(transaction.getAmount() <= 0)
             throw new NegativeAmountException();
 
-        if(!bank.pay(transaction))
+        if(!bank.refill(transaction))
             throw new PaymentInBankException();
 
         Date bankTransactionDate = new Date();

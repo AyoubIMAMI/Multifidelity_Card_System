@@ -17,7 +17,7 @@ export class AppService {
     return this.transactions;
   }
 
-  pay(paymentDto: PaymentDto): PaymentDto {
+  refill(paymentDto: PaymentDto): PaymentDto {
     if (paymentDto.creditCard.includes(AppService.magicKey)) {
       this.transactions.push(paymentDto);
       return paymentDto;

@@ -43,7 +43,7 @@ public class RefillTest {
         mouradFidelityAccount = mourad.getFidelityAccount();
 
         // Mocking the bank proxy
-        when(bankMock.pay(any(PaymentDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
+        when(bankMock.refill(any(PaymentDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
             PaymentDTO arg = invocation.getArgument(0);
             return correct_credit_card.equals(arg.getCreditCard());
         });
