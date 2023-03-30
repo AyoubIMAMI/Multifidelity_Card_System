@@ -20,13 +20,13 @@
           <snapshots>
             <enabled>false</enabled>
           </snapshots>
-          <id>central</id>
+          <id>artifactory-central</id>
           <name>libs-release</name>
           <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release</url>
         </repository>
         <repository>
           <snapshots />
-          <id>snapshots</id>
+          <id>artifactory-snapshots</id>
           <name>libs-snapshot</name>
           <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot</url>
         </repository>
