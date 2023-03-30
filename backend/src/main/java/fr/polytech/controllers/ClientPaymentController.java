@@ -24,7 +24,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class ClientPaymentController {
     IPayment payment;
     public static final String BASE_URI ="/pay";
-    public static final String PAYMENT_URI = "/{storeId}/{customerId}";
+    public static final String PAYMENT_URI = "/store/{storeId}/customer/{customerId}";
 
     @Autowired
     public ClientPaymentController(IPayment iPayment) {
