@@ -5,12 +5,12 @@
     <server>
       <username>admin</username>
       <password>zEBf7mD2aCHA8XG4</password>
-      <id>central</id>
+      <id>artifactory-central</id>
     </server>
     <server>
       <username>admin</username>
       <password>zEBf7mD2aCHA8XG4</password>
-      <id>snapshots</id>
+      <id>artifactory-snapshots</id>
     </server>
   </servers>
   <profiles>
@@ -20,13 +20,13 @@
           <snapshots>
             <enabled>false</enabled>
           </snapshots>
-          <id>central</id>
+          <id>artifactory-central</id>
           <name>libs-release</name>
           <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release</url>
         </repository>
         <repository>
           <snapshots />
-          <id>snapshots</id>
+          <id>artifactory-snapshots</id>
           <name>libs-snapshot</name>
           <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot</url>
         </repository>
@@ -36,13 +36,13 @@
           <snapshots>
             <enabled>false</enabled>
           </snapshots>
-          <id>central</id>
+          <id>artifactory-central</id>
           <name>libs-release</name>
           <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release</url>
         </pluginRepository>
         <pluginRepository>
           <snapshots />
-          <id>snapshots</id>
+          <id>artifactory-snapshots</id>
           <name>libs-snapshot</name>
           <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot</url>
         </pluginRepository>

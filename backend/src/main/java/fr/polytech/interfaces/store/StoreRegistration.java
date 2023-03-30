@@ -6,5 +6,5 @@ import fr.polytech.exceptions.store.MissingInformationsException;
 import fr.polytech.entities.Store;
 
 public interface StoreRegistration {
-    Store registerNewStore(String storeName, String storeSiret, String username, String password) throws BadCredentialsException, MissingInformationsException, MailAlreadyUsedException;
+    Store registerNewStore(String storeName, String storeSiret, String password) throws BadCredentialsException, MissingInformationsException, MailAlreadyUsedException;
 }

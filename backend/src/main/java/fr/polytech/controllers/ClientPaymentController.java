@@ -1,5 +1,6 @@
 package fr.polytech.controllers;
 
+import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.PurchaseFailedException;
@@ -30,7 +31,7 @@ public class ClientPaymentController {
     }
 
     @PostMapping(path = "/pay")
-    public ResponseEntity<String> refillAccount(@RequestBody Payment payment) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException {
+    public ResponseEntity<String> refillAccount(@RequestBody Payment payment) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException, BadCredentialsException {
         this.payment.pay(payment);
         return ResponseEntity.ok().body("Payment succeed ok!  " + payment.toString());
     }
