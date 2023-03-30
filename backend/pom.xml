@@ -176,13 +176,13 @@
 
     <distributionManagement>
         <repository>
-            <id>central</id>
+            <id>artifactory-central</id>
             <name>7554d071e04b-releases</name>
             <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release-local</url>
         </repository>
 
         <snapshotRepository>
-            <id>snapshots</id>
+            <id>artifactory-snapshots</id>
             <name>7554d071e04b-snapshots</name>
             <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
