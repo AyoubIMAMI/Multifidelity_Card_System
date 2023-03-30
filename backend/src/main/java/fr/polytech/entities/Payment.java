@@ -1,14 +1,13 @@
 package fr.polytech.entities;
 
+import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 public class Payment {
-
 
     @Id
     @GeneratedValue
@@ -25,18 +24,40 @@ public class Payment {
     private Set<Item> shoppingList;
     private boolean isSettled;
 
+    private float amount;
+
+    public Payment(Customer customer, Store store, Set<Item> shoppingList, boolean isSettled) {
+        this.customer = customer;
+        this. store = store;
+        this.shoppingList = shoppingList;
+        this.isSettled = isSettled;
+        this.amount = computeShoppingListPrice(shoppingList);
+    }
+
+    public Payment() {
+
+    }
+
+    private float computeShoppingListPrice(Set<Item> shoppingList) {
+        double amount = shoppingList.stream()
+                .filter(x -> !(x.getProduct() instanceof Discount))
+                .map(x -> x.getQuantity() * x.getProduct().getCashPrice())
+                .reduce(Double::sum).orElse((double) 0);
+        return (float) amount;
+    }
+
     public boolean isSettled() {
         return isSettled;
     }
 
-    private float price;
 
-    public float getPrice() {
-        return price;
+
+    public float getAmount() {
+        return amount;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
     public Set<Item> getShoppingList() {
