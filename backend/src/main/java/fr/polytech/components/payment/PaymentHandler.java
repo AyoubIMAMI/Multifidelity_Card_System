@@ -40,6 +40,8 @@ public class PaymentHandler implements IPayment {
     public void payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException {
         Customer customer=customerFinder.findCustomerById(customerId);
         Store store= storeFinder.findStoreByID(storeId);
+        fidelityCardPurchase.buyWithFidelityCard(customer,store,shoppingList);
+        payedProcess(customerId, storeId, shoppingList);
     }
 
     @Override
