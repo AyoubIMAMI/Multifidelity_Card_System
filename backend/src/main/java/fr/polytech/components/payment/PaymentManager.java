@@ -7,6 +7,7 @@ import fr.polytech.exceptions.payment.PaymentNotFoundException;
 import fr.polytech.interfaces.payment.PaymentExplorer;
 import fr.polytech.interfaces.payment.PaymentModifier;
 import fr.polytech.entities.Store;
+import fr.polytech.interfaces.store.StoreFinder;
 import fr.polytech.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

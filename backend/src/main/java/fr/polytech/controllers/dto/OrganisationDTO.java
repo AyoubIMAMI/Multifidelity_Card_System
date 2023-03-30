@@ -1,25 +1,20 @@
-package fr.polytech.entities.structure;
+package fr.polytech.controllers.dto;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Set;
+import javax.validation.constraints.NotBlank;
 
-@Entity
-public abstract class Organisation {
+public class OrganisationDTO {
+    @NotBlank(message = "name should not be blank")
     private String siret;
+    @NotBlank(message = "name should not be blank")
     private String name;
-    @Id
     private Long id;
     private String password;
 
-    public Organisation(String siret, String name,String password) {
+    public OrganisationDTO(String siret, String name,String password) {
         this.siret = siret;
         this.name = name;
         this.password=password;
-    }
-
-    public Organisation() {
-
     }
 
     public void setId(Long id) {
@@ -30,10 +25,6 @@ public abstract class Organisation {
         return id;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getName() {
         return name;
     }
@@ -42,4 +33,7 @@ public abstract class Organisation {
         return siret;
     }
 
+    public String getPassword() {
+        return password;
+    }
 }

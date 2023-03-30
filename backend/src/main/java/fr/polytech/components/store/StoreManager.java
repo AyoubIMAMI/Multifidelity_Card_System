@@ -1,5 +1,6 @@
 package fr.polytech.components.store;
 
+import fr.polytech.entities.Customer;
 import fr.polytech.entities.Schedule;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.structure.Role;
@@ -15,10 +16,12 @@ import fr.polytech.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.StreamSupport;
 
 @Component
-public class StoreManager implements StoreFinder, StoreModifier, StoreRegistration, StoreExplorer {
+public class StoreManager implements StoreFinder, StoreRegistration{
     StoreRepository storeRepository;
     @Autowired
     StoreManager(StoreRepository storeRepository){
@@ -26,48 +29,19 @@ public class StoreManager implements StoreFinder, StoreModifier, StoreRegistrati
     }
 
     @Override
-    public Schedule getOpeningHours(Store store) throws StoreNotFoundException {
-        return null;
+    public Store findStore(String storeName, String myPassword) throws BadCredentialsException {
+        Optional<Store> storeCurrent= StreamSupport.stream(storeRepository.findAll().spliterator(), false)
+                .filter(store -> storeName.equals(store.getName())&&myPassword.equals(store.getPassword())).findAny();
+        if (storeCurrent.isEmpty()) throw new BadCredentialsException();
+        else return storeCurrent.get();
     }
 
     @Override
-    public Set<Discount> getOffers(Store store) throws StoreNotFoundException {
-        return null;
-    }
-
-    @Override
-    public Store findStore(String storeName, String myName, String myPassword) throws BadCredentialsException, StoreNotFoundException {
-        return null;
-    }
-
-    @Override
-    public void addEmployee(String employeeName, String employeePassword, String newEmployeeName, String newEmployeePassword, Role newEmployeeRole) throws EmployeeNotFoundException {
-
-    }
-
-    @Override
-    public void deleteEmployee(int id, String myName, String myPassword) throws EmployeeNotFoundException {
-
-    }
-
-    @Override
-    public void changeDayOpeningHours(String Day, String openingHour, String closingHour, String myName, String myPassword) throws InvalidDayException, InvalidHourException {
-
-    }
-
-    @Override
-    public void changeDayStatus(String Day, Boolean open, String myName, String myPassword) throws InvalidDayException, InvalidHourException {
-
-    }
-
-    @Override
-    public Store registerNewStore(String storeName, String storeSiret, String username, String password) throws MissingInformationsException, MailAlreadyUsedException {
+    public Store registerNewStore(String storeName, String storeSiret,String password) throws MissingInformationsException, MailAlreadyUsedException {
         if(storeRepository.existsStoreBySiret(storeSiret))
             throw new MailAlreadyUsedException();
-        Store store = new Store(storeName, storeSiret);
-            //TODO a voir pouquoi ca marche pas
-            // storeRepository.save(store);
+        Store store = new Store(storeName, storeSiret,password);
+        storeRepository.save(store);
         return store;
-
     }
 }
