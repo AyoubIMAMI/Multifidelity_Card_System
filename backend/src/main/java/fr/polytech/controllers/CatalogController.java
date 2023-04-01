@@ -22,7 +22,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CatalogController {
     public static final String BASE_URI = "/catalog";
     public static final String DISCOUNTS_URI = "/discounts";
-
     public static final String STORE_URI = "/store/{storeId}";
 
     private final DiscountModifier discountModifier;
@@ -64,7 +63,7 @@ public class CatalogController {
     }
 
     @GetMapping(path = DISCOUNTS_URI+STORE_URI, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<DiscountDTO>> getDiscountByStore(@PathVariable("storeId") Long storeId) {
+    public ResponseEntity<List<DiscountDTO>> getDiscountsByStore(@PathVariable("storeId") Long storeId) {
         try {
             return ResponseEntity.ok().body(convertDiscountsToDtoList(discountExplorer.findDiscountsByStore(storeId)));
         } catch (NoDiscountsFoundException e) {
@@ -73,11 +72,10 @@ public class CatalogController {
     }
 
     @PutMapping(path =DISCOUNTS_URI+"/{discountId}", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updatePointPrice(@PathVariable("discountId") Long discountId, @RequestBody int pointPrice) {
+    public ResponseEntity<DiscountDTO> updatePointPrice(@PathVariable("discountId") Long discountId, @RequestBody int pointPrice) {
         try {
-            discountModifier.modifyPointPrice(discountId, pointPrice);
             return ResponseEntity.ok()
-                    .body("Discount successfully updated with new price: " + pointPrice);
+                    .body(convertDiscountToDto(discountModifier.modifyPointPrice(discountId, pointPrice)));
         } catch (DiscountNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

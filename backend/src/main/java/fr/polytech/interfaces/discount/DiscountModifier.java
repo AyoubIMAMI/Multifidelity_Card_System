@@ -8,7 +8,7 @@ public interface DiscountModifier {
 
     public Discount createDiscount(String name, Long storeId, double cashPrice, int pointPrice);
 
-    void modifyPointPrice(Long id, int newPointPrice) throws DiscountNotFoundException;
+    Discount modifyPointPrice(Long id, int newPointPrice) throws DiscountNotFoundException;
 
     boolean deleteDiscount(Long id) throws DiscountNotFoundException;
 }
