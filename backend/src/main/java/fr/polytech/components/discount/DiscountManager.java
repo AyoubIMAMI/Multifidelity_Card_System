@@ -54,16 +54,14 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     @Override
     public Discount createDiscount(String name, Long storeId, double cashPrice, int pointPrice){
         Discount discount = new Discount(name, storeId, cashPrice, pointPrice);
-        discountRepository.save(discount);
-        return discount;
+        return discountRepository.save(discount);
     }
 
     @Override
     public Discount modifyPointPrice(Long id, int newPointPrice) throws DiscountNotFoundException {
         Discount discount = findDiscountById(id);
         discount.setPointPrice(newPointPrice);
-        discountRepository.save(discount);
-        return discount;
+        return discountRepository.save(discount);
     }
 
     @Override

@@ -28,10 +28,11 @@ public class StorePartenaireController {
     }
 
     @PostMapping(path = "/registration", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Store> register(@RequestBody @Valid StoreDTO storeDTO) throws MailAlreadyUsedException {
+    public ResponseEntity<Store> register(@RequestBody @Valid StoreDTO storeDTO){
+        //TODO return un StoreDTO comme les autre controller
         try {
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(storeRegistration.registerNewStore(storeDTO.getName(),storeDTO.getSiret(),storeDTO.getPassword()));
+                    .body(storeRegistration.registerNewStore(storeDTO.getName(), storeDTO.getSiret(), storeDTO.getPassword()));
         } catch (MailAlreadyUsedException | BadCredentialsException | MissingInformationsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }

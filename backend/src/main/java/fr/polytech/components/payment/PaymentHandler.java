@@ -54,8 +54,7 @@ public class PaymentHandler implements IPayment {
 
     private Payment sendToSettledPayment(Customer customer, Store store, Set<Item> shoppingList) throws PaymentAlreadyExistsException, PurchaseFailedException {
         Payment payment = new Payment(customer, store, shoppingList, true);
-        settledPurchase.validatePurchase(payment);
-        return payment;
+        return settledPurchase.validatePurchase(payment);
     }
 
     private void checkDiscountAndPayWithPointPurchase(Customer customer, Set<Item> shoppingList) throws NoDiscountsFoundException, NotEnoughBalanceException {

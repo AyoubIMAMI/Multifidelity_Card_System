@@ -8,7 +8,6 @@ import fr.polytech.exceptions.payment.PaymentInBankException;
 import fr.polytech.interfaces.customer.CustomerExplorer;
 import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.customer.CustomerRegistration;
-import fr.polytech.interfaces.fidelity.FidelityExplorer;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
 import fr.polytech.entities.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +30,12 @@ public class CustomerAccountController {
     private final CustomerRegistration customerRegistration;
     private final CustomerExplorer customerExplorer;
     private final CustomerFinder customerFinder;
-    private final FidelityExplorer fidelityExplorer;
 
     @Autowired
-    public CustomerAccountController(RefillFidelityCard refillFidelityCard,CustomerFinder customerFinder, FidelityExplorer fidelityExplorer, CustomerRegistration customerRegistration, CustomerExplorer customerExplorer) {
+    public CustomerAccountController(RefillFidelityCard refillFidelityCard,CustomerFinder customerFinder, CustomerRegistration customerRegistration, CustomerExplorer customerExplorer) {
         this.refillFidelityCard = refillFidelityCard;
         this.customerRegistration = customerRegistration;
         this.customerExplorer = customerExplorer;
-        this.fidelityExplorer = fidelityExplorer;
         this.customerFinder = customerFinder;
     }
 
@@ -69,6 +66,6 @@ public class CustomerAccountController {
     }
 
     private CustomerDTO convertCustomerToDto(Customer customer) {
-        return new CustomerDTO(customer.getName(), customer.getEmail(), customer.getPassword());
+        return new CustomerDTO(customer.getId(), customer.getName(), customer.getEmail(), customer.getPassword());
     }
 }

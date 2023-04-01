@@ -43,35 +43,35 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     }
 
     @Override
-    public void incrementPoints(Customer customer, float points) {
+    public Customer incrementPoints(Customer customer, float points) {
         FidelityAccount fidelityAccount = customer.getFidelityAccount();
         fidelityAccount.setPoints((int) (fidelityAccount.getPoints() + Math.floor(points)));
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 
     @Override
-    public void decrementPoints(Customer customer, int points) {
+    public Customer decrementPoints(Customer customer, int points) {
         FidelityAccount fidelityAccount = customer.getFidelityAccount();
         fidelityAccount.setPoints(fidelityAccount.getPoints() - points);
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 
     @Override
-    public void decreaseBalance(Customer customer, double amount) throws NotEnoughBalanceException {
+    public Customer decreaseBalance(Customer customer, double amount) throws NotEnoughBalanceException {
         FidelityAccount fidelityAccount = customer.getFidelityAccount();
         double balance = fidelityAccount.getBalance();
         if(balance < amount)
             throw new NotEnoughBalanceException();
 
         fidelityAccount.setBalance(balance - amount);
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 
     @Override
-    public void rechargeBalance(Customer customer, BankTransactionDTO bankTransactionDTO) {
+    public Customer rechargeBalance(Customer customer, BankTransactionDTO bankTransactionDTO) {
         FidelityAccount fidelityAccount = customer.getFidelityAccount();
         double balance = fidelityAccount.getBalance();
         fidelityAccount.setBalance(balance + bankTransactionDTO.getAmount());
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 }

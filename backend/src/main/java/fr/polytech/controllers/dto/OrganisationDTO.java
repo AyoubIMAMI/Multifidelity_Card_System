@@ -1,6 +1,5 @@
 package fr.polytech.controllers.dto;
 
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 public class OrganisationDTO {
@@ -11,7 +10,8 @@ public class OrganisationDTO {
     private Long id;
     private String password;
 
-    public OrganisationDTO(String siret, String name,String password) {
+    public OrganisationDTO(Long id, String siret, String name,String password) {
+        this.id = id;
         this.siret = siret;
         this.name = name;
         this.password=password;

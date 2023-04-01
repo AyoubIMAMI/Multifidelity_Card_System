@@ -45,11 +45,11 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
     }
 
     @Override
-    public void savePayment(Payment payment) throws PaymentAlreadyExistsException {
+    public Payment savePayment(Payment payment) throws PaymentAlreadyExistsException {
         Long paymentID = payment.getId();
         if (paymentRepository.existsById(paymentID)) {
             throw new PaymentAlreadyExistsException();
         }
-        paymentRepository.save(payment);
+        return paymentRepository.save(payment);
     }
 }

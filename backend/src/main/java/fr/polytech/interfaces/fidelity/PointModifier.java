@@ -4,6 +4,6 @@ import fr.polytech.entities.Customer;
 
 public interface PointModifier {
     //points computed from the price
-    void incrementPoints(Customer customer, float price);
-    void decrementPoints(Customer customer, int points);
+    Customer incrementPoints(Customer customer, float price);
+    Customer decrementPoints(Customer customer, int points);
 }

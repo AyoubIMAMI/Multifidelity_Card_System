@@ -18,13 +18,6 @@ public class DiscountDTO {
     @NotNull(message = "pointPrice should not be null")
     private int pointPrice;
 
-    public DiscountDTO(String name, Long storeId, double cashPrice, int pointPrice) {
-        this.name = name;
-        this.storeId = storeId;
-        this.cashPrice = cashPrice;
-        this.pointPrice = pointPrice;
-    }
-
     public DiscountDTO(Long id, String name, Long storeId, double cashPrice, int pointPrice) {
         this.id = id;
         this.name = name;

@@ -30,7 +30,7 @@ public class StoreManager implements StoreFinder, StoreRegistration{
 
     @Override
     public Store findStore(String storeName, String myPassword) throws BadCredentialsException {
-        Optional<Store> storeCurrent= StreamSupport.stream(storeRepository.findAll().spliterator(), false)
+        Optional<Store> storeCurrent= storeRepository.findAll().stream()
                 .filter(store -> storeName.equals(store.getName())&&myPassword.equals(store.getPassword())).findAny();
         if (storeCurrent.isEmpty()) throw new BadCredentialsException();
         else return storeCurrent.get();
@@ -46,7 +46,6 @@ public class StoreManager implements StoreFinder, StoreRegistration{
         if(storeRepository.existsStoreBySiret(storeSiret))
             throw new MailAlreadyUsedException();
         Store store = new Store(storeName, storeSiret,password);
-        storeRepository.save(store);
-        return store;
+        return storeRepository.save(store);
     }
 }

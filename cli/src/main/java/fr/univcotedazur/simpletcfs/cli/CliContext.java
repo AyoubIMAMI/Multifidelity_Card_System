@@ -11,14 +11,15 @@ import java.util.stream.Collectors;
 @Component
 public class CliContext {
 
-    private Map<String, CliCustomer> customers;
-    private Map<String, DiscountDTO> discounts;
+    private Map<Long, CliCustomer> customers;
+    private Map<Long, DiscountDTO> discounts;
 
-
-    public Map<String, CliCustomer> getCustomers() {
+    public Map<Long, CliCustomer> getCustomers() {
         return customers;
     }
-    public Map<String, DiscountDTO>getDiscounts() {return discounts;}
+    public Map<Long, DiscountDTO>getDiscounts() {
+        return discounts;
+    }
 
     public CliContext() {
         customers = new HashMap<>();
@@ -27,9 +28,15 @@ public class CliContext {
 
     @Override
     public String toString() {
-        return customers.keySet().stream()
+        String customersString = "Customers" + customers.keySet().stream()
                 .map(key -> key + "=" + customers.get(key))
                 .collect(Collectors.joining(", ", "{", "}"));
+
+        String discountsString = "Discounts" + discounts.keySet().stream()
+                .map(key -> key + "=" + discounts.get(key))
+                .collect(Collectors.joining(", ", "{", "}"));
+
+        return customersString + "\n" + discountsString;
     }
 
 

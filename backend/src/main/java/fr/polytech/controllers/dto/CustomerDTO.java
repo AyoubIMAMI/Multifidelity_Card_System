@@ -1,10 +1,11 @@
 package fr.polytech.controllers.dto;
 
-import fr.polytech.entities.FidelityAccount;
-
 import javax.validation.constraints.NotBlank;
 
 public class CustomerDTO {
+
+    private Long id;
+
     @NotBlank(message = "name should not be blank")
     private String name;
     @NotBlank(message = "password should not be blank")
@@ -12,7 +13,8 @@ public class CustomerDTO {
     @NotBlank(message = "email should not be blank")
     private String email;
 
-    public CustomerDTO(String name, String email, String password){
+    public CustomerDTO(Long id, String name, String email, String password){
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;

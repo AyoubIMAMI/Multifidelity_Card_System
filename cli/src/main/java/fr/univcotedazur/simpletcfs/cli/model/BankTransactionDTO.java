@@ -1,16 +1,13 @@
 package fr.univcotedazur.simpletcfs.cli.model;
 
 // External DTO (Data Transfer Object) to POST payment to the external Bank system
-public class PaymentDTO {
+public class BankTransactionDTO {
 
     private String creditCard;
 
     private double amount;
 
-    public PaymentDTO() {
-    }
-
-    public PaymentDTO(String creditCard, double amount) {
+    public BankTransactionDTO(String creditCard, double amount) {
         this.creditCard = creditCard;
         this.amount = amount;
     }

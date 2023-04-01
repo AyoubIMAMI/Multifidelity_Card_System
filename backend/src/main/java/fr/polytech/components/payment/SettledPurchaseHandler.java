@@ -20,9 +20,9 @@ public class SettledPurchaseHandler implements SettledPurchase {
     }
 
     @Override
-    public void validatePurchase(Payment payment) throws PaymentAlreadyExistsException {
+    public Payment validatePurchase(Payment payment) throws PaymentAlreadyExistsException {
         winPoint(payment);
-        paymentModifier.savePayment(payment);
+        return paymentModifier.savePayment(payment);
     }
 
     @Override
