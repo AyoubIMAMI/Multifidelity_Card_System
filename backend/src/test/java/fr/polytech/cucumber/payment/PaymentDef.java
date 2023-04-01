@@ -27,18 +27,20 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
+import org.antlr.v4.runtime.misc.Array2DHashSet;
 import org.h2.engine.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import javax.validation.constraints.AssertTrue;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@CucumberContextConfiguration
 @SpringBootTest
 public class PaymentDef {
     Store store;
@@ -80,6 +82,7 @@ public class PaymentDef {
 
     @When("he want to buy items")
     public void heWantToBuyItems() {
+        shoppingList=new HashSet<>();
         shoppingList.add(new Item(2,new Product("Coffee", store.getId(), 5)));
         shoppingList.add(new Item(2,new Discount("Cake", store.getId(),  10, 7)));
     }
@@ -87,7 +90,6 @@ public class PaymentDef {
     @And("he has enough cash")
     public void heHasEnoughCash() throws NegativeAmountException, PaymentInBankException {
         refillFidelityCard.refill(customer,new PaymentDTO("l", 100));
-
     }
 
     @And("he pay")
