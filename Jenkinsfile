@@ -24,6 +24,7 @@ pipeline {
             }
         }
         stage('Build backend') {
+            when { branch "Develop" }
             steps {
                 dir("./backend") {
                     echo 'Building...'
@@ -32,6 +33,7 @@ pipeline {
             }
         }
         stage('Test backend') {
+            when { branch "Develop" }
             steps {
                 dir("./backend") {
                     echo 'Building...'
@@ -40,6 +42,7 @@ pipeline {
             }
         }
         stage('Build cli') {
+            when { branch "Develop" }
             steps {
                 dir("./cli") {
                     echo 'Building...'
@@ -48,6 +51,7 @@ pipeline {
             }
         }
         stage('Test cli') {
+            when { branch "Develop" }
             steps {
                 dir("./cli") {
                     echo 'Building...'
@@ -56,6 +60,7 @@ pipeline {
             }
         }
         stage('Deploy jar') {
+            when { branch "Develop" }
             steps {
                 dir("./backend") {
                     sh 'mvn deploy -U -e'
