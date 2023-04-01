@@ -18,7 +18,7 @@
       <repositories>
         <repository>
           <snapshots>
-            <enabled>false</enabled>
+            <enabled>true</enabled>
           </snapshots>
           <id>artifactory-central</id>
           <name>libs-release</name>
