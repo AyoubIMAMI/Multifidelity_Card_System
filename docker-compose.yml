@@ -25,5 +25,5 @@ services:
 
   # An external bank service in NestJs
   bank-system:
-    image: pcollet/tcf-bank-service
+    image: nget/bank-service
     container_name: bank
