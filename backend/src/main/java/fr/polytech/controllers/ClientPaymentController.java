@@ -1,5 +1,10 @@
 package fr.polytech.controllers;
 
+import fr.polytech.controllers.dto.CustomerDTO;
+import fr.polytech.controllers.dto.PaymentDTO;
+import fr.polytech.controllers.dto.StoreDTO;
+import fr.polytech.entities.Customer;
+import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Item;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
@@ -33,24 +38,33 @@ public class ClientPaymentController {
     }
 
     @PostMapping(path = PAYMENT_URI+"/settled")
-    public ResponseEntity<String> processWithPaymentInStore(@PathVariable("customerId") Long customerId,@PathVariable("storeId") Long storeId,@RequestBody Set<Item> shoppingList) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException, BadCredentialsException {
+    public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId,@PathVariable("storeId") Long storeId,@RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException, BadCredentialsException {
         try {
-            this.payment.payedProcess(customerId, storeId, shoppingList);
+            return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payedProcess(customerId, storeId, shoppingList)));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
-        return ResponseEntity.ok().body("Payment succeed!");
     }
 
     @PostMapping(path = PAYMENT_URI+"/fidelity")
-    public ResponseEntity<String> processWithPaymentFidelity(@PathVariable("customerId") Long customerId,@PathVariable("storeId") Long storeId,@RequestBody Set<Item> shoppingList) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, PaymentAlreadyExistsException, NoDiscountsFoundException, NotEnoughBalanceException, PurchaseFailedException, BadCredentialsException {
-        this.payment.payWithFidelity(customerId,storeId,shoppingList);
-        //TODO rajouter un check pour le payment success
-        return ResponseEntity.ok().body("Payment succeed ok!  ");
+    public ResponseEntity<PaymentDTO> processWithPaymentFidelity(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException {
+        try {
+            return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payWithFidelity(customerId,storeId,shoppingList)));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
+    private PaymentDTO convertPaymentToDto(Payment payment) {
+        return new PaymentDTO(payment.getId(), convertCustomerToDto(payment.getCustomer()), convertStoreToDto(payment.getStore()), payment.getShoppingList(), payment.isSettled(), payment.getAmount());
+    }
 
+    private CustomerDTO convertCustomerToDto(Customer customer) {
+        return new CustomerDTO(customer.getName(), customer.getEmail(), customer.getPassword());
+    }
 
+    private StoreDTO convertStoreToDto(Store store) {
+        return new StoreDTO(store.getName(), store.getSiret(), store.getSiret());
+    }
 
 }

@@ -36,25 +36,26 @@ public class PaymentHandler implements IPayment {
     }
 
     @Override
-    public void payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException {
+    public Payment payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException {
         Customer customer = customerFinder.findCustomerById(customerId);
         Store store = storeFinder.findStoreByID(storeId);
         checkDiscountAndPayWithPointPurchase(customer, shoppingList);
-        fidelityCardPurchase.buyWithFidelityCard(customer,store,shoppingList);
-        sendToSettledPayment(customer, store, shoppingList);
+        fidelityCardPurchase.buyWithFidelityCard(customer, store, shoppingList);
+        return sendToSettledPayment(customer, store, shoppingList);
     }
 
     @Override
-    public void payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException {
+    public Payment payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException {
         Customer customer = customerFinder.findCustomerById(customerId);
         Store store = storeFinder.findStoreByID(storeId);
         checkDiscountAndPayWithPointPurchase(customer, shoppingList);
-        sendToSettledPayment(customer, store, shoppingList);
+        return sendToSettledPayment(customer, store, shoppingList);
     }
 
-    private void sendToSettledPayment(Customer customer, Store store, Set<Item> shoppingList) throws PaymentAlreadyExistsException, PurchaseFailedException {
+    private Payment sendToSettledPayment(Customer customer, Store store, Set<Item> shoppingList) throws PaymentAlreadyExistsException, PurchaseFailedException {
         Payment payment = new Payment(customer, store, shoppingList, true);
         settledPurchase.validatePurchase(payment);
+        return payment;
     }
 
     private void checkDiscountAndPayWithPointPurchase(Customer customer, Set<Item> shoppingList) throws NoDiscountsFoundException, NotEnoughBalanceException {
@@ -64,29 +65,4 @@ public class PaymentHandler implements IPayment {
             }
         }
     }
-
-    /**@Override
-    public void pay(Payment payment) throws NotEnoughBalanceException, PurchaseFailedException, PaymentAlreadyExistsException, BadCredentialsException {
-        //Client will pay with is fidelity card
-        Customer customer = payment.getCustomer();
-        Store store = payment.getStore();
-        try {
-            storeFinder.findStore(store.getName(),store.getPassword());
-        } catch (BadCredentialsException e) {
-            throw e;
-        }
-        if(!payment.isSettled()){
-            fidelityCardPurchase.buyWithFidelityCard(customer, payment, store);
-        }
-        //updatePoint
-        settledPurchase.winPoint(customer, payment, store);
-        //check if purchase contain discount item
-        try {
-            pointPurchase.buyWithPoint(customer, payment);
-        } catch (NoDiscountsFoundException e) {
-            System.out.println(e);
-        }
-        //validatePurchase
-        settledPurchase.validatePurchase(customer, payment, store);
-    }*/
 }

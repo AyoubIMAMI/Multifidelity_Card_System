@@ -16,8 +16,7 @@ public class Payment {
     @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private Customer customer;
 
-    //TODO change to OneTomany
-    @OneToOne
+    @ManyToOne
     private Store store;
 
     @OneToMany
@@ -28,7 +27,7 @@ public class Payment {
 
     public Payment(Customer customer, Store store, Set<Item> shoppingList, boolean isSettled) {
         this.customer = customer;
-        this. store = store;
+        this.store = store;
         this.shoppingList = shoppingList;
         this.isSettled = isSettled;
         this.amount = computeShoppingListPrice(shoppingList);

@@ -1,7 +1,6 @@
 package fr.polytech.cucumber.payment;
 
-import fr.polytech.connectors.externaldto.PaymentDTO;
-import fr.polytech.controllers.StorePartenaireController;
+import fr.polytech.connectors.externaldto.BankTransactionDTO;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.Payment;
 import fr.polytech.entities.Store;
@@ -16,7 +15,6 @@ import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.payment.PaymentInBankException;
-import fr.polytech.interfaces.payment.FidelityCardPurchase;
 import fr.polytech.interfaces.payment.IPayment;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
 import fr.polytech.repository.CustomerRepository;
@@ -26,15 +24,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.spring.CucumberContextConfiguration;
-import org.antlr.v4.runtime.misc.Array2DHashSet;
-import org.h2.engine.User;
-import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.transaction.Transactional;
-import javax.validation.constraints.AssertTrue;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -89,7 +81,7 @@ public class PaymentDef {
 
     @And("he has enough cash")
     public void heHasEnoughCash() throws NegativeAmountException, PaymentInBankException {
-        refillFidelityCard.refill(customer,new PaymentDTO("l", 100));
+        refillFidelityCard.refill(customer,new BankTransactionDTO("896983", 100));
     }
 
     @And("he pay")

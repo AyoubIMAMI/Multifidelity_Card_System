@@ -1,6 +1,6 @@
 package fr.polytech.components.customer;
 
-import fr.polytech.connectors.externaldto.PaymentDTO;
+import fr.polytech.connectors.externaldto.BankTransactionDTO;
 import fr.polytech.repository.CustomerRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.FidelityAccountNotFoundException;
@@ -43,9 +43,9 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     }
 
     @Override
-    public void incrementPoints(Customer customer, float price) {
+    public void incrementPoints(Customer customer, float points) {
         FidelityAccount fidelityAccount = customer.getFidelityAccount();
-        fidelityAccount.setPoints((int) (fidelityAccount.getPoints()+Math.floor(price)));
+        fidelityAccount.setPoints((int) (fidelityAccount.getPoints() + Math.floor(points)));
         customerRepository.save(customer);
     }
 
@@ -58,7 +58,7 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
 
     @Override
     public void decreaseBalance(Customer customer, double amount) throws NotEnoughBalanceException {
-        FidelityAccount fidelityAccount=customer.getFidelityAccount();
+        FidelityAccount fidelityAccount = customer.getFidelityAccount();
         double balance = fidelityAccount.getBalance();
         if(balance < amount)
             throw new NotEnoughBalanceException();
@@ -68,10 +68,10 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     }
 
     @Override
-    public void rechargeBalance(Customer customer, PaymentDTO paymentDTO) {
-        FidelityAccount fidelityAccount=customer.getFidelityAccount();
+    public void rechargeBalance(Customer customer, BankTransactionDTO bankTransactionDTO) {
+        FidelityAccount fidelityAccount = customer.getFidelityAccount();
         double balance = fidelityAccount.getBalance();
-        fidelityAccount.setBalance(balance + paymentDTO.getAmount());
+        fidelityAccount.setBalance(balance + bankTransactionDTO.getAmount());
         customerRepository.save(customer);
     }
 }

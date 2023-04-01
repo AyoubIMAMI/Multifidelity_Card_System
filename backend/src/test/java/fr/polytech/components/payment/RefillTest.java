@@ -1,6 +1,6 @@
 package fr.polytech.components.payment;
 
-import fr.polytech.connectors.externaldto.PaymentDTO;
+import fr.polytech.connectors.externaldto.BankTransactionDTO;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.FidelityAccount;
 import fr.polytech.exceptions.payment.NegativeAmountException;
@@ -43,22 +43,22 @@ public class RefillTest {
         mouradFidelityAccount = mourad.getFidelityAccount();
 
         // Mocking the bank proxy
-        when(bankMock.refill(any(PaymentDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
-            PaymentDTO arg = invocation.getArgument(0);
+        when(bankMock.refill(any(BankTransactionDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
+            BankTransactionDTO arg = invocation.getArgument(0);
             return correct_credit_card.equals(arg.getCreditCard());
         });
     }
 
     @Test
     public void okTransactionTestvMain() throws PaymentInBankException, NegativeAmountException {
-        PaymentDTO transaction = new PaymentDTO(correct_credit_card, 120);
+        BankTransactionDTO transaction = new BankTransactionDTO(correct_credit_card, 120);
         Date transactionDate = refillFidelityCard.refill(john, transaction);
         assertNotNull(transactionDate);
     }
     @Test
     public void okTransactionTestvBranche() throws PaymentInBankException, NegativeAmountException {
         // Creating a transaction
-        PaymentDTO transaction = new PaymentDTO(correct_credit_card, 120);
+        BankTransactionDTO transaction = new BankTransactionDTO(correct_credit_card, 120);
 
         // Verifying customer balance
         assertEquals(0, johnFidelityAccount.getBalance());
@@ -75,7 +75,7 @@ public class RefillTest {
 
     @Test
     public void nokTransactionTest() {
-        PaymentDTO transaction = new PaymentDTO(bad_credit_card, 50);
+        BankTransactionDTO transaction = new BankTransactionDTO(bad_credit_card, 50);
         assertThrows(PaymentInBankException.class,  () -> refillFidelityCard.refill(mourad, transaction));
     }
 }
