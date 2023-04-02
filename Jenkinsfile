@@ -6,8 +6,11 @@ def directories = [
 pipeline {
     agent any
 
+    environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
+	}
+
     stages {
-    //
         stage('config workspace') {
             steps {
                 echo 'config workspace'
@@ -57,7 +60,8 @@ pipeline {
                             echo "$directory"
                             dir("./$directory") {
                                 echo 'Testing...'
-                                sh 'sudo ./build.sh'
+                                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                                sh './build.sh'
                             }
                         }
                     }
