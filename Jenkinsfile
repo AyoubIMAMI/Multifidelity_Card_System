@@ -16,9 +16,6 @@ pipeline {
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
                 sh 'cat  $HOME/.m2/settings.xml'
                 sh 'docker images'
-
-                //install docker
-                sh 'sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin'
             }
         }
         stage('Export backend and cli') {
@@ -66,6 +63,11 @@ pipeline {
                     }
                 }
                 sh 'docker images'
+            }
+        }
+        stage('Start containers') {
+            steps {
+                sh './build-all.sh'
             }
         }
     }
