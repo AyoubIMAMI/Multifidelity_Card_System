@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.7.7</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>fr.polytech</groupId>
     <artifactId>isa-devops-22-23-team-h-23</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <java.version>17</java.version>
@@ -19,13 +21,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <cucumber.version>7.9.0</cucumber.version>
     </properties>
-
-    <scm>
-        <connection>scm:git:https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git</connection>
-        <developerConnection>scm:git:https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git</developerConnection>
-        <url>https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23</url>
-        <tag>HEAD</tag>
-    </scm>
 
     <dependencyManagement>
         <dependencies>
@@ -114,19 +109,6 @@
             <artifactId>spring-boot-maven-plugin</artifactId>
             <version>3.0.4</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-release-plugin</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-release-plugin</artifactId>
-            <version>3.0.0</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -159,16 +141,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.0.4</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <tagNameFormat>v@{project.version}</tagNameFormat>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <releaseProfiles>release</releaseProfiles>
-                </configuration>
-            </plugin>
+
         </plugins>
     </build>
 
@@ -203,16 +176,15 @@
 
     <distributionManagement>
         <repository>
-            <id>artifactory-central</id>
-            <name>7554d071e04b-releases</name>
-            <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release-local</url>
+            <id>central</id>
+            <name>ba326f25b8dc-releases</name>
+            <url>http://134.59.213.138:8002/artifactory/libs-release-local</url>
         </repository>
 
         <snapshotRepository>
-            <id>artifactory-snapshots</id>
-            <name>7554d071e04b-snapshots</name>
-            <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local</url>
+            <id>snapshots</id>
+            <name>ba326f25b8dc-snapshots</name>
+            <url>http://134.59.213.138:8002/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
-
 </project>
