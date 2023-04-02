@@ -1,17 +1,10 @@
 package fr.univcotedazur.simpletcfs.cli.model;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 public class DiscountDTO {
     private Long id;
-
     private String name;
-
     private Long storeId;
-
     private double cashPrice;
-
     private int pointPrice;
 
     public DiscountDTO(String name, Long storeId, double cashPrice, int pointPrice) {

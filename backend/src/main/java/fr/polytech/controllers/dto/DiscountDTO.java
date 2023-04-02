@@ -26,8 +26,6 @@ public class DiscountDTO {
         this.pointPrice = pointPrice;
     }
 
-    public DiscountDTO(){}
-
     public Long getId() {
         return id;
     }
@@ -48,10 +46,6 @@ public class DiscountDTO {
         return pointPrice;
     }
 
-    public void setPointPrice(int pointPrice) {
-        this.pointPrice = pointPrice;
-    }
-
     @Override
     public String toString() {
         return "DiscountDTO{" +
@@ -61,5 +55,25 @@ public class DiscountDTO {
                 ", cashPrice=" + cashPrice +
                 ", pointPrice=" + pointPrice +
                 '}';
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
+
+    public void setCashPrice(double cashPrice) {
+        this.cashPrice = cashPrice;
+    }
+
+    public void setPointPrice(int pointPrice) {
+        this.pointPrice = pointPrice;
     }
 }

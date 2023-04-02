@@ -3,7 +3,7 @@ version: "3"
 services:
   # The Cookie Factory backend in SpringBoot
   teamh-server:
-    image: nget/spring-backend
+    image: teamh-backend
     container_name: server
     environment:
       - BANK_WITH_PORT=bank-system:9090

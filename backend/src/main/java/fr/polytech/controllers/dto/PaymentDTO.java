@@ -63,4 +63,28 @@ public class PaymentDTO {
     public float getAmount() {
         return amount;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCustomer(CustomerDTO customer) {
+        this.customer = customer;
+    }
+
+    public void setStore(StoreDTO store) {
+        this.store = store;
+    }
+
+    public void setShoppingList(Set<Item> shoppingList) {
+        this.shoppingList = shoppingList;
+    }
+
+    public void setSettled(boolean settled) {
+        isSettled = settled;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
 }
