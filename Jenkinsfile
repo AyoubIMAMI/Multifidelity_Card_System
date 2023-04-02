@@ -41,23 +41,7 @@ pipeline {
                     }
                 }
             }
-            stage('Export cli jar') {
-                when { branch "Develop" }
-                stages {
-                    when { branch "Develop" }
-                    stage('This is a level 2 stage') { steps{} }
-                    stage('This is a level 2 stage') { steps{} }
-                    stage('This is a level 2 stage') { steps{} }
-                }
-            }
-            stage('Export docker images') {
-                when { branch "Develop" }
-                stages {
-                    stage('This is a level 2 stage') { steps{} }
-                    stage('This is a level 2 stage') { steps{} }
-                    stage('This is a level 2 stage') { steps{} }
-                }
-            }
+
 
         }
 }
