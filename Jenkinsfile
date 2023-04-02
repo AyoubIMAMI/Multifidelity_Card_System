@@ -70,13 +70,13 @@ pipeline {
             }
         }
         stage('Start containers') {
-            when(false)
+            //when(false)
             steps {
                 sh './build-all.sh'
             }
         }
         stage('Test end to end') {
-            when(false)
+            //when(false)
             steps {
 
                 sh './endToEnd.sh'
