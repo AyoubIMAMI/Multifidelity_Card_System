@@ -1,4 +1,2 @@
 #!/bin/bash
-help < winpty docker attach cli
-
-pause
+winpty docker attach cli
