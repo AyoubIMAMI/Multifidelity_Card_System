@@ -11,12 +11,11 @@ public class Customer {
     @Id
     @GeneratedValue
     private Long id;
-
     private String name;
     private String password;
     private String email;
     @Embedded
-    private FidelityAccount fidelityAccount;
+    private FidelityAccount fidelityAccount = new FidelityAccount();;
 
     @OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "customer")
     private List<Payment> history;
@@ -25,7 +24,6 @@ public class Customer {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.fidelityAccount = new FidelityAccount();
     }
 
     public Customer() {
@@ -51,6 +49,7 @@ public class Customer {
     public FidelityAccount getFidelityAccount() {
         return fidelityAccount;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,5 +63,8 @@ public class Customer {
         return Objects.equals(fidelityAccount, customer.fidelityAccount);
     }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, password, email, fidelityAccount, history);
+    }
 }

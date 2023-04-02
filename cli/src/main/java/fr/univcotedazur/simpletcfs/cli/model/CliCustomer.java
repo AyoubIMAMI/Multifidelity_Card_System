@@ -3,7 +3,6 @@ import java.util.Objects;
 
 
 public class CliCustomer {
-
     private Long id;
     private String name;
     private String password;
