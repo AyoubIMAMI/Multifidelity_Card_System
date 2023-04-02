@@ -49,7 +49,7 @@ public class ClientPaymentController {
     }
 
     private PaymentDTO convertPaymentToDto(Payment payment) {
-        return new PaymentDTO(payment.getId(), convertCustomerToDto(payment.getCustomer()), convertStoreToDto(payment.getStore()), payment.getShoppingList(), payment.isSettled(), payment.getAmount());
+        return new PaymentDTO(payment.getId(), convertCustomerToDto(payment.getCustomer())/*, convertStoreToDto(payment.getStore()), payment.getShoppingList(), payment.isSettled(), payment.getAmount()*/);
     }
 
     private CustomerDTO convertCustomerToDto(Customer customer) {

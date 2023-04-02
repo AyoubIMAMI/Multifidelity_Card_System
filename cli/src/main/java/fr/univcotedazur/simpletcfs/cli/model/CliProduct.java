@@ -1,17 +1,16 @@
 package fr.univcotedazur.simpletcfs.cli.model;
 
-public class DiscountDTO {
+public class CliProduct {
+
     private Long id;
     private String name;
     private Long storeId;
     private double cashPrice;
-    private int pointPrice;
 
-    public DiscountDTO(String name, Long storeId, double cashPrice, int pointPrice) {
+    public CliProduct(String name, Long storeId, double cashPrice) {
         this.name = name;
         this.storeId = storeId;
         this.cashPrice = cashPrice;
-        this.pointPrice = pointPrice;
     }
 
     @Override
@@ -21,7 +20,6 @@ public class DiscountDTO {
                 ", name='" + name + '\'' +
                 ", storeId=" + storeId +
                 ", cashPrice=" + cashPrice +
-                ", pointPrice=" + pointPrice +
                 '}';
     }
 
@@ -55,13 +53,5 @@ public class DiscountDTO {
 
     public void setCashPrice(double cashPrice) {
         this.cashPrice = cashPrice;
-    }
-
-    public int getPointPrice() {
-        return pointPrice;
-    }
-
-    public void setPointPrice(int pointPrice) {
-        this.pointPrice = pointPrice;
     }
 }

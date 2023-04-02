@@ -36,9 +36,9 @@ public class StoreManager implements StoreFinder, StoreRegistration{
         else return storeCurrent.get();
     }
     @Override
-    public Store findStoreByID(Long storeID) throws BadCredentialsException {
+    public Store findStoreByID(Long storeID) throws StoreNotFoundException {
         Optional<Store> store=storeRepository.findStoreById(storeID);
-        if (store.isEmpty()) throw new BadCredentialsException();
+        if (store.isEmpty()) throw new StoreNotFoundException();
         return store.get();
     }
     @Override

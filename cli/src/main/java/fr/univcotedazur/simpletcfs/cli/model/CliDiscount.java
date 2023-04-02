@@ -1,19 +1,11 @@
-package fr.polytech.controllers.dto;
+package fr.univcotedazur.simpletcfs.cli.model;
 
-import javax.validation.constraints.NotNull;
-
-public class DiscountDTO extends ProductDTO {
-
-    @NotNull(message = "pointPrice should not be null")
+public class CliDiscount extends CliProduct {
     private int pointPrice;
 
-    public DiscountDTO(Long id, String name, Long storeId, double cashPrice, int pointPrice) {
-        super(id, name, storeId, cashPrice);
+    public CliDiscount(String name, Long storeId, double cashPrice, int pointPrice) {
+        super(name, storeId, cashPrice);
         this.pointPrice = pointPrice;
-    }
-
-    public int getPointPrice() {
-        return pointPrice;
     }
 
     @Override
@@ -25,6 +17,10 @@ public class DiscountDTO extends ProductDTO {
                 ", cashPrice=" + getCashPrice() +
                 ", pointPrice=" + pointPrice +
                 '}';
+    }
+
+    public int getPointPrice() {
+        return pointPrice;
     }
 
     public void setPointPrice(int pointPrice) {

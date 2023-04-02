@@ -14,7 +14,7 @@ public class OrganisationDTO {
         this.id = id;
         this.siret = siret;
         this.name = name;
-        this.password=password;
+        this.password = password;
     }
 
     public void setId(Long id) {
@@ -35,5 +35,27 @@ public class OrganisationDTO {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setSiret(String siret) {
+        this.siret = siret;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "OrganisationDTO{" +
+                "siret='" + siret + '\'' +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
