@@ -16,7 +16,7 @@ pipeline {
                     stage('Build') {
                         steps {
                             dir("./backend") {
-                                echo 'Building...'
+                                echo 'Building'
                                 sh 'mvn clean validate'
                             }
                         }
@@ -24,7 +24,7 @@ pipeline {
                     stage('Test') {
                         steps {
                             dir("./backend") {
-                                echo 'Building...'
+                                echo 'Building'
                                 sh 'mvn test'
                             }
                         }
@@ -45,17 +45,17 @@ pipeline {
                 when { branch "Develop" }
                 stages {
                     when { branch "Develop" }
-                    stage('This is a level 2 stage') {}
-                    stage('This is a level 2 stage') {}
-                    stage('This is a level 2 stage') {}
+                    stage('This is a level 2 stage') { steps{} }
+                    stage('This is a level 2 stage') { steps{} }
+                    stage('This is a level 2 stage') { steps{} }
                 }
             }
             stage('Export docker images') {
                 when { branch "Develop" }
                 stages {
-                    stage('This is a level 2 stage') {}
-                    stage('This is a level 2 stage') {}
-                    stage('This is a level 2 stage') {}
+                    stage('This is a level 2 stage') { steps{} }
+                    stage('This is a level 2 stage') { steps{} }
+                    stage('This is a level 2 stage') { steps{} }
                 }
             }
 
