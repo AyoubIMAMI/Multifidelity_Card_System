@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    tools {
-        maven 'maven-3.6.3'
-        jdk 'jdk-17.0.6'
-    }
     stages {
         stage('config workspace') {
             steps {
@@ -60,12 +56,11 @@ pipeline {
             }
         }
         stage('Deploy jar') {
-            when { branch "Develop" }
+            when { branch "devops" }
             steps {
                 dir("./backend") {
                     sh 'mvn deploy -U -e'
                 }
-
                 //sh 'curl -u admin:zEBf7mD2aCHA8XG4 -O http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local/fr/polytech/isa-devops-22-23-team-h-23/1.0-SNAPSHOT/isa-devops-22-23-team-h-23-1.0-20230330.071841-1.jar'
                 //sh 'ls -l'
             }
