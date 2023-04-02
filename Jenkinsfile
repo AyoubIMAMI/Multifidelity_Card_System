@@ -7,7 +7,9 @@ pipeline {
     agent any
 
     environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred'),
+		containerWork = false,
+		endToEndAvailable
 	}
 
     stages {
@@ -70,13 +72,13 @@ pipeline {
             }
         }
         stage('Start containers') {
-            //when(false)
+            when { expression { "${containerWork}" == 'true' } }
             steps {
                 sh './build-all.sh'
             }
         }
         stage('Test end to end') {
-            //when(false)
+            when { expression { "${endToEndAvailable}" == 'true' } }
             steps {
 
                 sh './endToEnd.sh'
