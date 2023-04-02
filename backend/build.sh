@@ -2,7 +2,7 @@
 
 echo "Maven Clean Package"
 
-mvn clean verify package
+#mvn clean verify package
 
 echo "Compiling the Spring BACKEND within a multi-stage docker build"
 

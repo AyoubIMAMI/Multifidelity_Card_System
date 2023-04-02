@@ -1,9 +1,7 @@
 #!/bin/bash
 
 echo "Maven Clean Package"
-mvn -N wrapper:wrapper
-
-mvn clean package
+#mvn -N wrapper:wrapper
 
 echo "Compiling the TCF Spring CLI within a multi-stage docker build"
 
