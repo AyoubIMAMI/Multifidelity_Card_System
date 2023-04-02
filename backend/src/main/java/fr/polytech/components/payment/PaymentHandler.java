@@ -9,6 +9,7 @@ import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.PurchaseFailedException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
+import fr.polytech.exceptions.store.StoreNotFoundException;
 import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.payment.*;
 import fr.polytech.entities.Customer;
@@ -36,7 +37,7 @@ public class PaymentHandler implements IPayment {
     }
 
     @Override
-    public Payment payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException {
+    public Payment payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, StoreNotFoundException {
         Customer customer = customerFinder.findCustomerById(customerId);
         Store store = storeFinder.findStoreByID(storeId);
         checkDiscountAndPayWithPointPurchase(customer, shoppingList);
@@ -45,7 +46,7 @@ public class PaymentHandler implements IPayment {
     }
 
     @Override
-    public Payment payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException {
+    public Payment payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, StoreNotFoundException {
         Customer customer = customerFinder.findCustomerById(customerId);
         Store store = storeFinder.findStoreByID(storeId);
         checkDiscountAndPayWithPointPurchase(customer, shoppingList);

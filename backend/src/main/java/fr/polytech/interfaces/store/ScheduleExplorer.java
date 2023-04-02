@@ -1,7 +1,7 @@
 package fr.polytech.interfaces.store;
 
 import fr.polytech.entities.Store;
-import fr.polytech.exceptions.StoreNotFoundException;
+import fr.polytech.exceptions.store.StoreNotFoundException;
 import fr.polytech.exceptions.store.InvalidDayException;
 
 public interface ScheduleExplorer {

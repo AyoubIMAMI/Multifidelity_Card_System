@@ -1,16 +1,14 @@
 package fr.univcotedazur.simpletcfs.cli.commands;
 
 import fr.univcotedazur.simpletcfs.cli.CliContext;
-import fr.univcotedazur.simpletcfs.cli.model.DiscountDTO;
+import fr.univcotedazur.simpletcfs.cli.model.CliDiscount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
-import javax.validation.Valid;
 import java.util.Arrays;
 
 @ShellComponent
@@ -25,46 +23,44 @@ public class CatalogCommands {
     @Autowired
     private CliContext cliContext;
 
-    @ShellMethod("Create a new Discount in the backend (create-discount NAME STOREID CASHPRICE POINTPRICE)")
-    public DiscountDTO createDiscount(String name, Long storeId, double cashPrice, int pointPrice) {
-        DiscountDTO res = restTemplate.postForObject(BASE_URI + DISCOUNTS_URI, new DiscountDTO(name, storeId, cashPrice, pointPrice), DiscountDTO.class);
+    @ShellMethod("Create a new Discount in the backend (create-discount NAME STORE_ID CASH_PRICE POINT_PRICE)")
+    public CliDiscount createDiscount(String name, Long storeId, double cashPrice, int pointPrice) {
+        CliDiscount res = restTemplate.postForObject(BASE_URI + DISCOUNTS_URI, new CliDiscount(name, storeId, cashPrice, pointPrice), CliDiscount.class);
         cliContext.getDiscounts().put(res.getId(), res);
         return res;
     }
 
-    @ShellMethod("Get all the discounts from the catalog of the backend")
+    @ShellMethod("List all the discounts")
     public String discounts() {
-        DiscountDTO[] res = restTemplate.getForObject(BASE_URI+DISCOUNTS_URI, DiscountDTO[].class);
-        Arrays.stream(res).forEach(discount -> cliContext.getDiscounts().put(discount.getId(), discount));
         return cliContext.getDiscounts().toString();
     }
 
-    @ShellMethod("Get a discount from the catalog of the backend with its id (get-discount-by-id DISCOUNTID)")
-    public DiscountDTO getDiscountById(Long discountId) {
-        DiscountDTO res = restTemplate.getForObject(BASE_URI+DISCOUNTS_URI+"/" + discountId, DiscountDTO.class);
+    @ShellMethod("Get a discount from the catalog of the backend with its id (get-discount-by-id DISCOUNT_ID)")
+    public CliDiscount getDiscountById(Long discountId) {
+        CliDiscount res = restTemplate.getForObject(BASE_URI+DISCOUNTS_URI+"/" + discountId, CliDiscount.class);
         cliContext.getDiscounts().put(res.getId(), res);
         return res;
     }
 
-    @ShellMethod("Get all the discounts from the catalog of the backend witch match with one store (get-discounts-by-store STOREID)")
+    @ShellMethod("Get all the discounts from the catalog of the backend witch match with one store (get-discounts-by-store STORE_ID)")
     public String getDiscountsByStore(Long storeId) {
-        DiscountDTO[] res = restTemplate.getForObject(BASE_URI + DISCOUNTS_URI + STORE_URI + "/" + storeId, DiscountDTO[].class);
+        CliDiscount[] res = restTemplate.getForObject(BASE_URI + DISCOUNTS_URI + STORE_URI + "/" + storeId, CliDiscount[].class);
         Arrays.stream(res).forEach(discount -> cliContext.getDiscounts().put(discount.getId(), discount));
         return Arrays.toString(res);
     }
 
-    @ShellMethod("Update an existing discount in the backend (update-discount-point-price DISCOUNTID POINTPRICE)")
-    public DiscountDTO updateDiscountPointPrice(Long discountId, int pointPrice) {
+    @ShellMethod("Update an existing discount in the backend (update-discount-point-price DISCOUNT_ID POINT_PRICE)")
+    public CliDiscount updateDiscountPointPrice(Long discountId, int pointPrice) {
         HttpEntity<Integer> entity = new HttpEntity<Integer>(pointPrice);
-        DiscountDTO res = restTemplate.exchange(BASE_URI + DISCOUNTS_URI + "/" + discountId, HttpMethod.PUT, entity, DiscountDTO.class).getBody();
+        CliDiscount res = restTemplate.exchange(BASE_URI + DISCOUNTS_URI + "/" + discountId, HttpMethod.PUT, entity, CliDiscount.class).getBody();
         cliContext.getDiscounts().put(res.getId(), res);
         return res;
     }
 
-    @ShellMethod("Delete a discount in the backend (delete-discount DISCOUNTID)")
+    @ShellMethod("Delete a discount in the backend (delete-discount DISCOUNT_ID)")
     public String deleteDiscount(Long discountId) {
-        DiscountDTO discount = getDiscountById(discountId);
-        HttpEntity<DiscountDTO> entity = new HttpEntity<DiscountDTO>(discount);
+        CliDiscount discount = getDiscountById(discountId);
+        HttpEntity<CliDiscount> entity = new HttpEntity<CliDiscount>(discount);
         String res = restTemplate.exchange(BASE_URI + DISCOUNTS_URI + "/" + discountId, HttpMethod.DELETE, entity, String.class).getBody();
         cliContext.getDiscounts().remove(discount.getId());
         return res;
