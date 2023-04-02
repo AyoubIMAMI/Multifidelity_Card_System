@@ -50,15 +50,15 @@
 
     <distributionManagement>
         <repository>
-            <id>artifactory-central</id>
-            <name>7554d071e04b-releases</name>
-            <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release-local</url>
+            <id>central</id>
+            <name>ba326f25b8dc-releases</name>
+            <url>http://134.59.213.138:8002/artifactory/libs-release-local</url>
         </repository>
 
         <snapshotRepository>
-            <id>artifactory-snapshots</id>
-            <name>7554d071e04b-snapshots</name>
-            <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local</url>
+            <id>snapshots</id>
+            <name>ba326f25b8dc-snapshots</name>
+            <url>http://134.59.213.138:8002/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
 
