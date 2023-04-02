@@ -16,14 +16,14 @@ import javax.validation.Valid;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(path = fr.polytech.controllers.StorePartenaireController.BASE_URI, produces = APPLICATION_JSON_VALUE)
-public class StorePartenaireController {
+@RequestMapping(path = PartnerStoreController.BASE_URI, produces = APPLICATION_JSON_VALUE)
+public class PartnerStoreController {
     public static final String BASE_URI = "/stores";
 
     StoreRegistration storeRegistration;
 
     @Autowired
-    public StorePartenaireController(StoreRegistration storeRegistration) {
+    public PartnerStoreController(StoreRegistration storeRegistration) {
         this.storeRegistration=storeRegistration;
     }
 
