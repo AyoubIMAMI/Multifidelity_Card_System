@@ -10,33 +10,35 @@ pipeline {
                     sh 'cat  $HOME/.m2/settings.xml'
                 }
             }
-            stage('Export backend jar') {
-                when { branch "Develop" }
-                dir("./backend") {
-                stages {
-                    stage('Build') {
-                        steps {
+            dir("./backend") {
+                stage('Export backend jar') {
+                    when { branch "Develop" }
+                    stages {
+                        stage('Build') {
+                            steps {
 
-                                echo 'Building'
-                                sh 'mvn clean validate'
+                                    echo 'Building'
+                                    sh 'mvn clean validate'
+                                }
                             }
-                        }
-                        stage('Test') {
-                        steps {
-                                echo 'Building'
-                                sh 'mvn test'
+                            stage('Test') {
+                            steps {
+                                    echo 'Building'
+                                    sh 'mvn test'
+                                }
                             }
-                        }
-                        stage('Deploy') {
-                        when { branch "devops" }
-                        steps {
-                                sh 'mvn deploy -U -e'
+                            stage('Deploy') {
+                            when { branch "devops" }
+                            steps {
+                                    sh 'mvn deploy -U -e'
+                                }
+                                //sh 'curl -u admin:zEBf7mD2aCHA8XG4 -O http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local/fr/polytech/isa-devops-22-23-team-h-23/1.0-SNAPSHOT/isa-devops-22-23-team-h-23-1.0-20230330.071841-1.jar'
+                                //sh 'ls -l'
                             }
-                            //sh 'curl -u admin:zEBf7mD2aCHA8XG4 -O http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local/fr/polytech/isa-devops-22-23-team-h-23/1.0-SNAPSHOT/isa-devops-22-23-team-h-23-1.0-20230330.071841-1.jar'
-                            //sh 'ls -l'
                         }
                     }
                 }
             }
-        }
+
+
 }
