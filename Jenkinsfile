@@ -7,8 +7,8 @@ pipeline {
     agent any
 
     environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred'),
-		containerWork = false,
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
+		containerWork = false
 		endToEndAvailable
 	}
 
