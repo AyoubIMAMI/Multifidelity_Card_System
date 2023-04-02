@@ -61,7 +61,6 @@ pipeline {
                             echo "$directory"
                             dir("./$directory") {
                                 echo 'Testing...'
-                                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                                 sh './build.sh'
                             }
                         }
@@ -79,11 +78,13 @@ pipeline {
         stage('Test end to end') {
             when(false)
             steps {
+
                 sh './endToEnd.sh'
             }
         }
         stage('Export images on DockerHub') {
             steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh './exportImages.sh'
             }
         }
