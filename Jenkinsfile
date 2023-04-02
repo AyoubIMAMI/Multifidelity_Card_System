@@ -16,12 +16,12 @@ pipeline {
             }
         }
         stage('Test and Export') {
+            when { branch "Develop" }
             steps {
                 script {
                     def directories = ['backend', 'cli']
                     for (directory in directories) {
                         stage ("Export $directory jar") {
-                            when { branch "Develop" }
                             stages {
                                 stage('Build') {
                                     steps {
@@ -40,7 +40,6 @@ pipeline {
                                     }
                                 }
                                 stage('Deploy') {
-                                    when { branch "devops" }
                                     steps {
                                         dir("./$directory") {
                                             sh 'mvn deploy -U -e'
