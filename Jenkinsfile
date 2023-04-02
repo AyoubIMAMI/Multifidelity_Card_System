@@ -9,7 +9,7 @@ pipeline {
     environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
 		containerWork = false
-		endToEndAvailable
+		endToEndAvailable = false
 	}
 
     stages {
