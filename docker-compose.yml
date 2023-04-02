@@ -3,7 +3,7 @@ version: "3"
 services:
   # The Cookie Factory backend in SpringBoot
   teamh-server:
-    image: nget/spring-backend
+    image: teamh-backend
     container_name: server
     environment:
       - BANK_WITH_PORT=bank-system:9090
@@ -13,7 +13,7 @@ services:
 
   # A simple java CLI
   teamh-cli:
-    image: nget/spring-cli
+    image: teamh-cli
     container_name: cli
     environment:
       - SERVER_WITH_PORT=teamh-server:8080
@@ -25,5 +25,5 @@ services:
 
   # An external bank service in NestJs
   bank-system:
-    image: nget/bank-service
+    image: teamh-bank
     container_name: bank
