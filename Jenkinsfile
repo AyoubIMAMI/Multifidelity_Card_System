@@ -11,18 +11,18 @@ pipeline {
             steps {
                 script {
                     directories.each { directory ->
-                        stage ("Build $directory") {
-                            echo "$directory"
-                            dir("./$directory") {
-                                echo 'Building...'
-                                sh 'mvn clean validate'
-                            }
-                        }
                         stage ("Test $directory") {
                             echo "$directory"
                             dir("./$directory") {
                                 echo 'Testing...'
                                 sh 'mvn test'
+                            }
+                        }
+                        stage ("Building $directory") {
+                            echo "$directory"
+                            dir("./$directory") {
+                                echo 'Testing...'
+                                sh 'mvn clean package'
                             }
                         }
                         if(env.BRANCH_NAME == 'devops'){
