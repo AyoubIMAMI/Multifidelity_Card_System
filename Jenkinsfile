@@ -38,5 +38,21 @@ pipeline {
                 }
             }
         }
+        stage('Create dockers images') {
+            steps {
+                script {
+                    directories.each { directory ->
+                        stage ("Create $directory image") {
+                            echo "$directory"
+                            dir("./$directory") {
+                                echo 'Testing...'
+                                sh './build.sh'
+                            }
+                        }
+                    }
+                }
+                sh 'docker images'
+            }
+        }
     }
 }
