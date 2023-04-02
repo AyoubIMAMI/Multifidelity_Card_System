@@ -1,50 +1,36 @@
-def map = [
-        Bob  : 42,
-        Alice: 54,
-        Max  : 33
+def directories = [
+        "backend",
+        "cli"
 ]
 
 pipeline {
     agent any
+
     stages {
-        stage('config workspace') {
-            steps {
-                echo 'config workspace'
-                //sh 'rm $HOME/.m2/settings.xml'
-                sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
-                sh 'cat  $HOME/.m2/settings.xml'
-            }
-        }
-        stage('Test and Export') {
-            when { branch "Develop" }
+        stage('Export backend and cli') {
             steps {
                 script {
-                    def directories = ['backend', 'cli']
-                    for (directory in directories) {
-                        stage ("Export $directory jar") {
-                            stages {
-                                stage('Build') {
-                                    steps {
-                                        dir("./$directory") {
-                                            echo 'Building'
-                                            sh 'mvn clean validate'
-                                        }
-                                    }
-                                }
-                                stage('Test') {
-                                    steps {
-                                        dir("./$directory") {
-                                            echo 'Building'
-                                            sh 'mvn test'
-                                        }
-                                    }
-                                }
-                                stage('Deploy') {
-                                    steps {
-                                        dir("./$directory") {
-                                            sh 'mvn deploy -U -e'
-                                        }
-                                    }
+                    directories.each { directory ->
+                        stage ("Build $directory") {
+                            echo "$directory"
+                            dir("./$directory") {
+                                echo 'Building...'
+                                sh 'mvn clean validate'
+                            }
+                        }
+                        stage ("Test $directory") {
+                            echo "$directory"
+                            dir("./$directory") {
+                                echo 'Testing...'
+                                sh 'mvn test'
+                            }
+                        }
+                        if(env.BRANCH_NAME == 'devops'){
+                            stage ("Deploy $directory") {
+                                echo "$directory"
+                                dir("./$directory") {
+                                    echo 'Deploying...'
+                                    sh 'mvn deploy'
                                 }
                             }
                         }
