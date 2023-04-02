@@ -88,7 +88,7 @@ pipeline {
             when { expression { "${containerWork}" == 'true' } }
             steps {
                 //sh './build-all.sh'
-                //sh './run-all.sh'
+                sh './run-all.sh'
             }
         }
         stage('Test end to end') {
