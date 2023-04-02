@@ -1,10 +1,13 @@
+def directories = [
+        "backend",
+        "cli"
+]
+
 pipeline {
     agent any
-    tools {
-        maven 'maven-3.6.3'
-        jdk 'jdk-17.0.6'
-    }
+
     stages {
+    //
         stage('config workspace') {
             steps {
                 echo 'config workspace'
@@ -12,64 +15,60 @@ pipeline {
                 //sh 'rm $HOME/.m2/settings.xml'
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
                 sh 'cat  $HOME/.m2/settings.xml'
-
-                sh '''
-                    java -version
-                    javac -version
-                    mvn -v
-                    echo $JAVA_HOME
-                '''
-                //env.JAVA_HOME="${tool 'jdk1.8.0_111'}"
-                //env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
+                //sh 'docker images'
             }
         }
-        stage('Build backend') {
-            when { branch "Develop" }
+        stage('Export backend and cli') {
             steps {
-                dir("./backend") {
-                    echo 'Building...'
-                    sh 'mvn clean validate'
+                script {
+                    directories.each { directory ->
+                        stage ("Test $directory") {
+                            echo "$directory"
+                            dir("./$directory") {
+                                echo 'Testing...'
+                                sh 'mvn test'
+                            }
+                        }
+                        stage ("Building $directory") {
+                            echo "$directory"
+                            dir("./$directory") {
+                                echo 'Testing...'
+                                sh 'mvn clean package'
+                            }
+                        }
+                        if(env.BRANCH_NAME == 'devops'){
+                            stage ("Deploy $directory") {
+                                echo "$directory"
+                                dir("./$directory") {
+                                    echo 'Deploying...'
+                                    sh 'mvn deploy'
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
-        stage('Test backend') {
-            when { branch "Develop" }
+        stage('Create dockers images') {
             steps {
-                dir("./backend") {
-                    echo 'Building...'
-                    sh 'mvn test'
+                script {
+                    directories.each { directory ->
+                        stage ("Create $directory image") {
+                            echo "$directory"
+                            dir("./$directory") {
+                                echo 'Testing...'
+                                sh 'sudo ./build.sh'
+                            }
+                        }
+                    }
                 }
+                sh 'docker images'
             }
         }
-        stage('Build cli') {
-            when { branch "Develop" }
+        stage('Start containers') {
             steps {
-                dir("./cli") {
-                    echo 'Building...'
-                    sh 'mvn clean validate'
-                }
-            }
-        }
-        stage('Test cli') {
-            when { branch "Develop" }
-            steps {
-                dir("./cli") {
-                    echo 'Building...'
-                    sh 'mvn test'
-                }
-            }
-        }
-        stage('Deploy jar') {
-            when { branch "Develop" }
-            steps {
-                dir("./backend") {
-                    sh 'mvn deploy -U -e'
-                }
-
-                //sh 'curl -u admin:zEBf7mD2aCHA8XG4 -O http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local/fr/polytech/isa-devops-22-23-team-h-23/1.0-SNAPSHOT/isa-devops-22-23-team-h-23-1.0-20230330.071841-1.jar'
-                //sh 'ls -l'
+                sh './build-all.sh'
             }
         }
     }
-
 }
