@@ -15,7 +15,7 @@ pipeline {
                 //sh 'rm $HOME/.m2/settings.xml'
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
                 sh 'cat  $HOME/.m2/settings.xml'
-                sh 'docker images'
+                //sh 'docker images'
             }
         }
         stage('Export backend and cli') {
