@@ -17,7 +17,9 @@ pipeline {
             steps {
                 echo 'config workspace'
 
-                //sh 'rm $HOME/.m2/settings.xml'
+                sh 'rm $HOME/.m2'
+                sh 'mkdir $HOME/.m2'
+
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
                 sh 'cat  $HOME/.m2/settings.xml'
                 sh 'chmod -R 777 ./'
@@ -86,6 +88,7 @@ pipeline {
             when { expression { "${containerWork}" == 'true' } }
             steps {
                 sh './build-all.sh'
+                sh './run-all.sh'
             }
         }
         stage('Test end to end') {
@@ -95,7 +98,7 @@ pipeline {
                 sh './endToEnd.sh'
             }
         }
-        stage('Export images on DockerHub') {
+        stage('Export images on DockerHub (main)') {
             when { branch 'main' }
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
