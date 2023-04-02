@@ -18,7 +18,7 @@ pipeline {
                 //sh 'rm $HOME/.m2/settings.xml'
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
                 sh 'cat  $HOME/.m2/settings.xml'
-                sh 'chmod -r 777 ./'
+                sh 'chmod -R 777 ./'
                 //sh 'docker images'
             }
         }
