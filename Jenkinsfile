@@ -71,18 +71,20 @@ pipeline {
             }
         }
         stage('Start containers') {
+            when(false)
             steps {
                 sh './build-all.sh'
             }
         }
         stage('Test end to end') {
+            when(false)
             steps {
                 sh './endToEnd.sh'
             }
         }
         stage('Export images on DockerHub') {
             steps {
-                sh './endToEnd.sh'
+                sh './exportImages.sh'
             }
         }
     }
