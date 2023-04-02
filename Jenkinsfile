@@ -8,6 +8,8 @@ pipeline {
 
     environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
+		containerWork = false
+		endToEndAvailable = false
 	}
 
     stages {
@@ -37,7 +39,7 @@ pipeline {
                             stage ("Building $directory") {
                                 echo "$directory"
                                 dir("./$directory") {
-                                    echo 'Testing...'
+                                    echo 'Building...'
                                     sh 'mvn clean package'
                                 }
                             }
@@ -46,6 +48,17 @@ pipeline {
                                 dir("./$directory") {
                                     echo 'Deploying...'
                                     sh 'mvn deploy'
+                                }
+                            }
+                        }
+                    }else{
+                        directories.each { directory ->
+                            stage ("Prepare and Perform release $directory") {
+                                echo "$directory"
+                                dir("./$directory") {
+                                    echo 'Testing...'
+                                    sh 'mvn release:prepare'
+                                    sh 'mvn release:perform'
                                 }
                             }
                         }
@@ -61,7 +74,6 @@ pipeline {
                             echo "$directory"
                             dir("./$directory") {
                                 echo 'Testing...'
-                                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                                 sh './build.sh'
                             }
                         }
@@ -71,18 +83,22 @@ pipeline {
             }
         }
         stage('Start containers') {
+            when { expression { "${containerWork}" == 'true' } }
             steps {
                 sh './build-all.sh'
             }
         }
         stage('Test end to end') {
+            when { expression { "${endToEndAvailable}" == 'true' } }
             steps {
+
                 sh './endToEnd.sh'
             }
         }
         stage('Export images on DockerHub') {
             steps {
-                sh './endToEnd.sh'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh './exportImages.sh'
             }
         }
     }
