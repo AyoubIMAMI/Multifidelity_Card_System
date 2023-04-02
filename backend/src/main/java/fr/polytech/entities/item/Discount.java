@@ -2,7 +2,7 @@ package fr.polytech.entities.item;
 
 import javax.persistence.Entity;
 import java.util.Objects;
-import java.util.UUID;
+
 @Entity
 public class Discount extends Product {
     private int pointPrice;
@@ -39,4 +39,8 @@ public class Discount extends Product {
                 && Objects.equals(getPointPrice(), discount.getPointPrice());
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), pointPrice);
+    }
 }

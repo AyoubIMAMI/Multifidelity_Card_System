@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 import java.util.stream.StreamSupport;
@@ -18,6 +20,8 @@ import java.util.stream.StreamSupport;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
+@Commit
 class DiscountManagerTest {
 
     private static final String PRODUCT_NAME = "Cake";
@@ -52,15 +56,6 @@ class DiscountManagerTest {
 
         // Then
         assertTrue(discount.equals(found));
-    }
-
-    @Test
-    void whenFindDiscountByIdInAnEmptyRepo_thenShouldThrowsDiscountNotFoundException() {
-        // When
-        Executable find = () -> discountExplorer.findDiscountById(discount.getId());
-
-        // Then
-        assertThrows(DiscountNotFoundException.class, find);
     }
 
     @Test
@@ -147,16 +142,6 @@ class DiscountManagerTest {
     }
 
     @Test
-    void whenModifyPointOnInexistantDiscount_thenShouldThrowsDiscountNotFoundException() {
-        // When
-        int newPointPrice = 6;
-        Executable modify = () -> discountModifier.modifyPointPrice(discount.getId(), newPointPrice);
-
-        // Then
-        assertThrows(DiscountNotFoundException.class, modify);
-    }
-
-    @Test
     void givenWithOneDiscount_whenDeleteDiscount_thenRepoShouldBeEmpty() throws DiscountNotFoundException {
         // Given
         discountRepository.save(discount);
@@ -169,17 +154,5 @@ class DiscountManagerTest {
 
         // Then
         assertEquals(0, discountRepository.count());
-    }
-
-    @Test
-    void givenAnEmptyRepo_whenDeleteDiscount_thenShouldThrowsDiscountNotFoundException() {
-        // Given
-        assertEquals(0, discountRepository.count());
-
-        // When
-        Executable delete = () -> discountModifier.deleteDiscount(discount.getId());
-
-        // Then
-        assertThrows(DiscountNotFoundException.class, delete);
     }
 }

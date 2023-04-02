@@ -1,6 +1,4 @@
 package fr.univcotedazur.simpletcfs.cli.model;
-import java.util.Objects;
-
 
 public class CliCustomer {
     private Long id;

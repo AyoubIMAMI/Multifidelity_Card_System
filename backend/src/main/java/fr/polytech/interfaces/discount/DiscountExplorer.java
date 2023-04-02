@@ -5,7 +5,6 @@ import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DiscountExplorer {
     Discount findDiscountById(Long id) throws DiscountNotFoundException;

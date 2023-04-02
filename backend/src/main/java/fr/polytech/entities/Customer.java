@@ -1,7 +1,6 @@
 package fr.polytech.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +13,7 @@ public class Customer {
     private String name;
     private String password;
     private String email;
+
     @Embedded
     private FidelityAccount fidelityAccount = new FidelityAccount();;
 

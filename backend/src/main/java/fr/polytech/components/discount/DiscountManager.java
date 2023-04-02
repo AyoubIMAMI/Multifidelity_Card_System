@@ -66,7 +66,7 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
 
     @Override
     public boolean deleteDiscount(Long id) throws DiscountNotFoundException {
-        if(!discountRepository.existsById(id)) {
+        if(discountRepository.findById(id).isEmpty()) {
             throw new DiscountNotFoundException();
         }
         discountRepository.deleteById(id);

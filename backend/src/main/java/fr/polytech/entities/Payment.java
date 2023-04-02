@@ -4,6 +4,7 @@ import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -22,7 +23,6 @@ public class Payment {
     @OneToMany
     private Set<Item> shoppingList;
     private boolean isSettled;
-
     private float amount;
 
     public Payment(Customer customer, Store store, Set<Item> shoppingList, boolean isSettled) {
@@ -82,5 +82,18 @@ public class Payment {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Payment payment = (Payment) o;
+        return Objects.equals(isSettled, payment.isSettled) && Objects.equals(amount, payment.amount) && Objects.equals(customer, payment.customer) && Objects.equals(store, payment.store) && Objects.equals(shoppingList, payment.shoppingList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customer, store, shoppingList, isSettled, amount);
     }
 }
