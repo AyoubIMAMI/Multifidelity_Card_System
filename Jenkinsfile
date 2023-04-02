@@ -1,44 +1,57 @@
+def map = [
+        Bob  : 42,
+        Alice: 54,
+        Max  : 33
+]
+
 pipeline {
     agent any
-
     stages {
-            stage('config workspace') {
-                steps {
-                    echo 'config workspace'
-                    //sh 'rm $HOME/.m2/settings.xml'
-                    sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
-                    sh 'cat  $HOME/.m2/settings.xml'
-                }
+        stage('config workspace') {
+            steps {
+                echo 'config workspace'
+                //sh 'rm $HOME/.m2/settings.xml'
+                sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
+                sh 'cat  $HOME/.m2/settings.xml'
             }
-            dir("./backend") {
-                stage('Export backend jar') {
-                    when { branch "Develop" }
-                    stages {
-                        stage('Build') {
-                            steps {
-
-                                    echo 'Building'
-                                    sh 'mvn clean validate'
+        }
+        stage('Test and Export') {
+            steps {
+                script {
+                    def directories = ['backend', 'cli']
+                    for (directory in directories) {
+                        stage ("Export $directory jar") {
+                            when { branch "Develop" }
+                            stages {
+                                stage('Build') {
+                                    steps {
+                                        dir("./$directory") {
+                                            echo 'Building'
+                                            sh 'mvn clean validate'
+                                        }
+                                    }
                                 }
-                            }
-                            stage('Test') {
-                            steps {
-                                    echo 'Building'
-                                    sh 'mvn test'
+                                stage('Test') {
+                                    steps {
+                                        dir("./$directory") {
+                                            echo 'Building'
+                                            sh 'mvn test'
+                                        }
+                                    }
                                 }
-                            }
-                            stage('Deploy') {
-                            when { branch "devops" }
-                            steps {
-                                    sh 'mvn deploy -U -e'
+                                stage('Deploy') {
+                                    when { branch "devops" }
+                                    steps {
+                                        dir("./$directory") {
+                                            sh 'mvn deploy -U -e'
+                                        }
+                                    }
                                 }
-                                //sh 'curl -u admin:zEBf7mD2aCHA8XG4 -O http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local/fr/polytech/isa-devops-22-23-team-h-23/1.0-SNAPSHOT/isa-devops-22-23-team-h-23-1.0-20230330.071841-1.jar'
-                                //sh 'ls -l'
                             }
                         }
                     }
                 }
             }
-
-
+        }
+    }
 }
