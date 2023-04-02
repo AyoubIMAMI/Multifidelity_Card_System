@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo 'config workspace'
 
-                sh 'rm $HOME/.m2'
+                sh 'rm -r -v $HOME/.m2'
                 sh 'mkdir $HOME/.m2'
 
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
