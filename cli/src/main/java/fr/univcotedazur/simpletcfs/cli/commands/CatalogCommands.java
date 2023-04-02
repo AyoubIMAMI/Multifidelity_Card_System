@@ -55,9 +55,7 @@ public class CatalogCommands {
 
     @ShellMethod("Update an existing discount in the backend (update-discount-point-price DISCOUNTID POINTPRICE)")
     public DiscountDTO updateDiscountPointPrice(Long discountId, int pointPrice) {
-        DiscountDTO discount = getDiscountById(discountId);
-        discount.setPointPrice(pointPrice);
-        HttpEntity<DiscountDTO> entity = new HttpEntity<DiscountDTO>(discount);
+        HttpEntity<Integer> entity = new HttpEntity<Integer>(pointPrice);
         DiscountDTO res = restTemplate.exchange(BASE_URI + DISCOUNTS_URI + "/" + discountId, HttpMethod.PUT, entity, DiscountDTO.class).getBody();
         cliContext.getDiscounts().put(res.getId(), res);
         return res;
