@@ -21,22 +21,22 @@ pipeline {
         stage('Export backend and cli') {
             steps {
                 script {
-                    directories.each { directory ->
-                        stage ("Test $directory") {
-                            echo "$directory"
-                            dir("./$directory") {
-                                echo 'Testing...'
-                                sh 'mvn test'
+                    if(env.BRANCH_NAME != 'main'){
+                        directories.each { directory ->
+                            stage ("Test $directory") {
+                                echo "$directory"
+                                dir("./$directory") {
+                                    echo 'Testing...'
+                                    sh 'mvn test'
+                                }
                             }
-                        }
-                        stage ("Building $directory") {
-                            echo "$directory"
-                            dir("./$directory") {
-                                echo 'Testing...'
-                                sh 'mvn clean package'
+                            stage ("Building $directory") {
+                                echo "$directory"
+                                dir("./$directory") {
+                                    echo 'Testing...'
+                                    sh 'mvn clean package'
+                                }
                             }
-                        }
-                        if(env.BRANCH_NAME == 'devops'){
                             stage ("Deploy $directory") {
                                 echo "$directory"
                                 dir("./$directory") {
@@ -68,6 +68,16 @@ pipeline {
         stage('Start containers') {
             steps {
                 sh './build-all.sh'
+            }
+        }
+        stage('Test end to end') {
+            steps {
+                sh './endToEnd.sh'
+            }
+        }
+        stage('Export images on DockerHub') {
+            steps {
+                sh './endToEnd.sh'
             }
         }
     }
