@@ -7,6 +7,20 @@ pipeline {
     agent any
 
     stages {
+    //
+        stage('config workspace') {
+            steps {
+                echo 'config workspace'
+
+                //sh 'rm $HOME/.m2/settings.xml'
+                sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
+                sh 'cat  $HOME/.m2/settings.xml'
+                sh 'docker images'
+
+                //install docker
+                //sh 'sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin'
+            }
+        }
         stage('Export backend and cli') {
             steps {
                 script {
@@ -46,7 +60,7 @@ pipeline {
                             echo "$directory"
                             dir("./$directory") {
                                 echo 'Testing...'
-                                sh './build.sh'
+                                sh 'sudo ./build.sh'
                             }
                         }
                     }
