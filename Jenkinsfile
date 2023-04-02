@@ -39,7 +39,7 @@ pipeline {
                             stage ("Building $directory") {
                                 echo "$directory"
                                 dir("./$directory") {
-                                    echo 'Testing...'
+                                    echo 'Building...'
                                     sh 'mvn clean package'
                                 }
                             }
@@ -48,6 +48,17 @@ pipeline {
                                 dir("./$directory") {
                                     echo 'Deploying...'
                                     sh 'mvn deploy'
+                                }
+                            }
+                        }
+                    }else{
+                        directories.each { directory ->
+                            stage ("Prepare and Perform release $directory") {
+                                echo "$directory"
+                                dir("./$directory") {
+                                    echo 'Testing...'
+                                    sh 'mvn release:prepare'
+                                    sh 'mvn release:perform'
                                 }
                             }
                         }
