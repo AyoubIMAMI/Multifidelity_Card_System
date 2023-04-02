@@ -56,7 +56,7 @@ pipeline {
                             stage ("Prepare and Perform release $directory") {
                                 echo "$directory"
                                 dir("./$directory") {
-                                    echo 'Testing...'
+                                    echo 'Prepare and perform...'
                                     sh 'mvn release:prepare'
                                     sh 'mvn release:perform'
                                 }
