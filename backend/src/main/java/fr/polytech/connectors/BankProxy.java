@@ -1,7 +1,7 @@
 package fr.polytech.connectors;
 
 
-import fr.polytech.connectors.externaldto.PaymentDTO;
+import fr.polytech.connectors.externaldto.BankTransactionDTO;
 import fr.polytech.interfaces.payment.Bank;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -19,12 +19,12 @@ public class BankProxy implements Bank {
     private RestTemplate restTemplate = new RestTemplate();
 
     @Override
-    public boolean refill(PaymentDTO paymentDTO) {
+    public boolean refill(BankTransactionDTO bankTransactionDTO) {
         try {
-            ResponseEntity<PaymentDTO> result = restTemplate.postForEntity(
+            ResponseEntity<BankTransactionDTO> result = restTemplate.postForEntity(
                     bankHostandPort + "/cctransactions",
-                    paymentDTO,
-                    PaymentDTO.class
+                    bankTransactionDTO,
+                    BankTransactionDTO.class
             );
             return (result.getStatusCode().equals(HttpStatus.CREATED));
         }

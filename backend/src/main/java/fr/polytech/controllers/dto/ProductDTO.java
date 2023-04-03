@@ -1,9 +1,9 @@
-package fr.univcotedazur.simpletcfs.cli.model;
+package fr.polytech.controllers.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class DiscountDTO {
+public class ProductDTO {
     private Long id;
 
     @NotBlank(message = "name should not be blank")
@@ -15,25 +15,12 @@ public class DiscountDTO {
     @NotNull(message = "cashPrice should not be null")
     private double cashPrice;
 
-    @NotNull(message = "pointPrice should not be null")
-    private int pointPrice;
-
-    public DiscountDTO(String name, Long storeId, double cashPrice, int pointPrice) {
-        this.name = name;
-        this.storeId = storeId;
-        this.cashPrice = cashPrice;
-        this.pointPrice = pointPrice;
-    }
-
-    public DiscountDTO(Long id, String name, Long storeId, double cashPrice, int pointPrice) {
+    public ProductDTO(Long id, String name, Long storeId, double cashPrice) {
         this.id = id;
         this.name = name;
         this.storeId = storeId;
         this.cashPrice = cashPrice;
-        this.pointPrice = pointPrice;
     }
-
-    public DiscountDTO(){}
 
     public Long getId() {
         return id;
@@ -51,14 +38,6 @@ public class DiscountDTO {
         return cashPrice;
     }
 
-    public int getPointPrice() {
-        return pointPrice;
-    }
-
-    public void setPointPrice(int pointPrice) {
-        this.pointPrice = pointPrice;
-    }
-
     @Override
     public String toString() {
         return "DiscountDTO{" +
@@ -66,7 +45,22 @@ public class DiscountDTO {
                 ", name='" + name + '\'' +
                 ", storeId=" + storeId +
                 ", cashPrice=" + cashPrice +
-                ", pointPrice=" + pointPrice +
                 '}';
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
+
+    public void setCashPrice(double cashPrice) {
+        this.cashPrice = cashPrice;
     }
 }

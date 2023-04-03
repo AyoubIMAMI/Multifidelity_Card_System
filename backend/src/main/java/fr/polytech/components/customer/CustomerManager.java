@@ -34,11 +34,8 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder, Cu
         if(isMailAlreadyUsed(mail))
             throw new MailAlreadyUsedException();
 
-        else {
-            Customer customer = new Customer(name, mail, password);
-            customerRepository.save(customer);
-            return customer;
-        }
+        Customer customer = new Customer(name, mail, password);
+        return customerRepository.save(customer);
     }
 
     @Override

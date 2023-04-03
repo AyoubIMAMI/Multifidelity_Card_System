@@ -13,7 +13,7 @@
 
     <groupId>fr.polytech</groupId>
     <artifactId>isa-devops-22-23-team-h-23</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
 
     <properties>
         <java.version>17</java.version>
@@ -21,6 +21,12 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <cucumber.version>7.9.0</cucumber.version>
     </properties>
+
+    <scm>
+        <connection>scm:git:https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git</connection>
+        <developerConnection>scm:git:https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git</developerConnection>
+        <url>https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git</url>
+    </scm>
 
     <dependencyManagement>
         <dependencies>
@@ -142,6 +148,18 @@
                 <version>3.0.4</version>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.0-M1</version>
+
+                <configuration>
+                    <tagNameFormat>backend-v@{project.version}</tagNameFormat>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+
+            </plugin>   
+
         </plugins>
     </build>
 
@@ -168,33 +186,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.jfrog.buildinfo</groupId>
-                        <artifactId>artifactory-maven-plugin</artifactId>
-                        <version>3.4.0</version>
-                        <inherited>false</inherited>
-                        <executions>
-                            <execution>
-                                <id>build-info</id>
-                                <goals>
-                                    <goal>publish</goal>
-                                </goals>
-                                <configuration>
-                                    <deployProperties>
-                                        <gradle>awesome</gradle>
-                                        <review.team>qa</review.team>
-                                    </deployProperties>
-                                    <publisher>
-                                        <contextUrl>https://oss.jfrog.org</contextUrl>
-                                        <username>deployer</username>
-                                        <password>{DESede}...</password>
-                                        <repoKey>libs-release-local</repoKey>
-                                        <snapshotRepoKey>libs-snapshot-local</snapshotRepoKey>
-                                    </publisher>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
 
@@ -203,16 +194,15 @@
 
     <distributionManagement>
         <repository>
-            <id>artifactory-central</id>
-            <name>7554d071e04b-releases</name>
-            <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release-local</url>
+            <id>central</id>
+            <name>ba326f25b8dc-releases</name>
+            <url>http://134.59.213.138:8002/artifactory/libs-release-local</url>
         </repository>
 
         <snapshotRepository>
-            <id>artifactory-snapshots</id>
-            <name>7554d071e04b-snapshots</name>
-            <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot-local</url>
+            <id>snapshots</id>
+            <name>ba326f25b8dc-snapshots</name>
+            <url>http://134.59.213.138:8002/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
-
 </project>

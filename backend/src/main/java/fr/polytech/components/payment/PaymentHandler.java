@@ -1,8 +1,10 @@
 package fr.polytech.components.payment;
 
 import fr.polytech.entities.Store;
+import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import fr.polytech.exceptions.BadCredentialsException;
+import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.PurchaseFailedException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
@@ -24,49 +26,48 @@ public class PaymentHandler implements IPayment {
     PointPurchase pointPurchase;
     SettledPurchase settledPurchase;
     StoreFinder storeFinder;
-
     FidelityCardPurchase fidelityCardPurchase;
 
     @Autowired
-    public PaymentHandler(CustomerFinder customerFinder, PointPurchase pointPurchase, SettledPurchase settledPurchase,FidelityCardPurchase fidelityCardPurchase) {
+    public PaymentHandler(CustomerFinder customerFinder, PointPurchase pointPurchase, SettledPurchase settledPurchase, FidelityCardPurchase fidelityCardPurchase, StoreFinder storeFinder) {
         this.customerFinder = customerFinder;
         this.pointPurchase = pointPurchase;
         this.settledPurchase = settledPurchase;
-        this.fidelityCardPurchase=fidelityCardPurchase;
+        this.fidelityCardPurchase = fidelityCardPurchase;
+        this.storeFinder = storeFinder;
     }
 
     @Override
-    public void payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException {
-
+    public Payment payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, StoreNotFoundException {
+        Customer customer = customerFinder.findCustomerById(customerId);
+        Store store = storeFinder.findStoreByID(storeId);
+        checkDiscountAndPayWithPointPurchase(customer, shoppingList);
+        fidelityCardPurchase.buyWithFidelityCard(customer, store, shoppingList);
+        return sendToSettledPayment(customer, store, shoppingList);
     }
 
     @Override
-    public void payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException {
-
+    public Payment payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, StoreNotFoundException {
+        Customer customer = customerFinder.findCustomerById(customerId);
+        System.out.println("Customer find : " + customer.getName());
+        Store store = storeFinder.findStoreByID(storeId);
+        System.out.println("Store find : " + store.getName());
+        checkDiscountAndPayWithPointPurchase(customer, shoppingList);
+        return sendToSettledPayment(customer, store, shoppingList);
     }
 
-    /**@Override
-    public void pay(Payment payment) throws NotEnoughBalanceException, PurchaseFailedException, PaymentAlreadyExistsException, BadCredentialsException {
-        //Client will pay with is fidelity card
-        Customer customer = payment.getCustomer();
-        Store store = payment.getStore();
-        try {
-            storeFinder.findStore(store.getName(),store.getPassword());
-        } catch (BadCredentialsException e) {
-            throw e;
+    private Payment sendToSettledPayment(Customer customer, Store store, Set<Item> shoppingList) throws PaymentAlreadyExistsException, PurchaseFailedException {
+        Payment payment = new Payment(customer, store, shoppingList, true);
+        System.out.println("Payment created : " + payment);
+        return settledPurchase.validatePurchase(payment);
+    }
+
+    private void checkDiscountAndPayWithPointPurchase(Customer customer, Set<Item> shoppingList) throws NoDiscountsFoundException, NotEnoughBalanceException {
+        for (Item item: shoppingList) {
+            if(item.getProduct() instanceof Discount) {
+                pointPurchase.buyWithPoint(customer, shoppingList);
+                System.out.println("Discount found!");
+            }
         }
-        if(!payment.isSettled()){
-            fidelityCardPurchase.buyWithFidelityCard(customer, payment, store);
-        }
-        //updatePoint
-        settledPurchase.winPoint(customer, payment, store);
-        //check if purchase contain discount item
-        try {
-            pointPurchase.buyWithPoint(customer, payment);
-        } catch (NoDiscountsFoundException e) {
-            System.out.println(e);
-        }
-        //validatePurchase
-        settledPurchase.validatePurchase(customer, payment, store);
-    }*/
+    }
 }

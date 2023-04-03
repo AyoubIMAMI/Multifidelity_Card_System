@@ -1,14 +1,13 @@
 package fr.polytech.controllers;
 
 import fr.polytech.controllers.dto.CustomerDTO;
-import fr.polytech.connectors.externaldto.PaymentDTO;
+import fr.polytech.connectors.externaldto.BankTransactionDTO;
 import fr.polytech.exceptions.*;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentInBankException;
 import fr.polytech.interfaces.customer.CustomerExplorer;
 import fr.polytech.interfaces.customer.CustomerFinder;
 import fr.polytech.interfaces.customer.CustomerRegistration;
-import fr.polytech.interfaces.fidelity.FidelityExplorer;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
 import fr.polytech.entities.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,40 +30,42 @@ public class CustomerAccountController {
     private final CustomerRegistration customerRegistration;
     private final CustomerExplorer customerExplorer;
     private final CustomerFinder customerFinder;
-    private final FidelityExplorer fidelityExplorer;
 
     @Autowired
-    public CustomerAccountController(RefillFidelityCard refillFidelityCard,CustomerFinder customerFinder, FidelityExplorer fidelityExplorer, CustomerRegistration customerRegistration, CustomerExplorer customerExplorer) {
+    public CustomerAccountController(RefillFidelityCard refillFidelityCard,CustomerFinder customerFinder, CustomerRegistration customerRegistration, CustomerExplorer customerExplorer) {
         this.refillFidelityCard = refillFidelityCard;
         this.customerRegistration = customerRegistration;
         this.customerExplorer = customerExplorer;
-        this.fidelityExplorer = fidelityExplorer;
         this.customerFinder = customerFinder;
     }
 
     @PostMapping(path = "/refill/{customerId}")
-    public ResponseEntity<String> refillAccount(@PathVariable("customerId") Long customerId, @RequestBody PaymentDTO transaction) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, FidelityAccountNotFoundException, NegativeAmountException, PaymentInBankException {
+    public ResponseEntity<String> refillAccount(@PathVariable("customerId") Long customerId, @RequestBody BankTransactionDTO transaction) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, FidelityAccountNotFoundException, NegativeAmountException, PaymentInBankException {
         Customer customer = customerFinder.findCustomerById(customerId);
         Date refillTime = refillFidelityCard.refill(customer, transaction);
         return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + " . Transaction amount: " + transaction.getAmount());
     }
 
     @PostMapping(path = "/registration", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Customer> register(@RequestBody @Valid CustomerDTO customerDTO) throws MailAlreadyUsedException {
+    public ResponseEntity<CustomerDTO> register(@RequestBody @Valid CustomerDTO customerDTO){
         try {
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(customerRegistration.register(customerDTO.getName(), customerDTO.getEmail(), customerDTO.getPassword()));
+                    .body(convertCustomerToDto(customerRegistration.register(customerDTO.getName(), customerDTO.getEmail(), customerDTO.getPassword())));
         } catch (MailAlreadyUsedException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
     @PostMapping(path = "/login", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> login(@RequestBody @Valid CustomerDTO customerDTO) throws MailAlreadyUsedException {
+    public ResponseEntity<Long> login(@RequestBody @Valid CustomerDTO customerDTO){
         try {
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(customerExplorer.checkCredentials(customerDTO.getEmail(), customerDTO.getPassword()));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
+    }
+
+    private CustomerDTO convertCustomerToDto(Customer customer) {
+        return new CustomerDTO(customer.getId(), customer.getName(), customer.getEmail(), customer.getPassword());
     }
 }

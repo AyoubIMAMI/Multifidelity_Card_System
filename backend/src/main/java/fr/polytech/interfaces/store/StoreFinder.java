@@ -6,4 +6,5 @@ import fr.polytech.exceptions.store.StoreNotFoundException;
 
 public interface StoreFinder {
     Store findStore(String storeName, String myPassword)  throws BadCredentialsException;
+    Store findStoreByID(Long storeID) throws StoreNotFoundException;
 }

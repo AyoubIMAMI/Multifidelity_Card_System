@@ -8,11 +8,13 @@ import fr.polytech.interfaces.discount.DiscountModifier;
 import fr.polytech.repository.DiscountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Component
 public class DiscountManager implements DiscountModifier, DiscountExplorer {
 
@@ -54,20 +56,19 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     @Override
     public Discount createDiscount(String name, Long storeId, double cashPrice, int pointPrice){
         Discount discount = new Discount(name, storeId, cashPrice, pointPrice);
-        discountRepository.save(discount);
-        return discount;
+        return discountRepository.save(discount);
     }
 
     @Override
-    public void modifyPointPrice(Long id, int newPointPrice) throws DiscountNotFoundException {
+    public Discount modifyPointPrice(Long id, int newPointPrice) throws DiscountNotFoundException {
         Discount discount = findDiscountById(id);
         discount.setPointPrice(newPointPrice);
-        discountRepository.save(discount);
+        return discountRepository.save(discount);
     }
 
     @Override
     public boolean deleteDiscount(Long id) throws DiscountNotFoundException {
-        if(!discountRepository.existsById(id)) {
+        if(discountRepository.findById(id).isEmpty()) {
             throw new DiscountNotFoundException();
         }
         discountRepository.deleteById(id);

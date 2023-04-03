@@ -1,56 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.2.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
   <servers>
     <server>
       <username>admin</username>
-      <password>zEBf7mD2aCHA8XG4</password>
-      <id>artifactory-central</id>
+      <password>zEzEBf7mD2aCHA8XG4!</password>
+      <id>central</id>
     </server>
+
     <server>
       <username>admin</username>
-      <password>zEBf7mD2aCHA8XG4</password>
-      <id>artifactory-snapshots</id>
+      <password>zEzEBf7mD2aCHA8XG4!</password>
+      <id>snapshots</id>
     </server>
   </servers>
+
   <profiles>
     <profile>
+
       <repositories>
         <repository>
           <snapshots>
             <enabled>false</enabled>
           </snapshots>
-          <id>artifactory-central</id>
+
+          <id>central</id>
           <name>libs-release</name>
-          <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release</url>
+          <url>http://134.59.213.138:8002/artifactory/libs-release</url>
         </repository>
+
         <repository>
           <snapshots />
-          <id>artifactory-snapshots</id>
+          <id>snapshots</id>
           <name>libs-snapshot</name>
-          <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot</url>
+          <url>http://134.59.213.138:8002/artifactory/libs-snapshot</url>
         </repository>
       </repositories>
+
       <pluginRepositories>
         <pluginRepository>
           <snapshots>
             <enabled>false</enabled>
           </snapshots>
-          <id>artifactory-central</id>
+
+          <id>central</id>
           <name>libs-release</name>
-          <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-release</url>
+          <url>http://134.59.213.138:8002/artifactory/libs-release</url>
         </pluginRepository>
+
         <pluginRepository>
           <snapshots />
-          <id>artifactory-snapshots</id>
+          <id>snapshots</id>
           <name>libs-snapshot</name>
-          <url>http://vmpx08.polytech.unice.fr:8002/artifactory/libs-snapshot</url>
+          <url>http://134.59.213.138:8002/artifactory/libs-snapshot</url>
         </pluginRepository>
       </pluginRepositories>
+
       <id>artifactory</id>
     </profile>
   </profiles>
+
   <activeProfiles>
     <activeProfile>artifactory</activeProfile>
   </activeProfiles>
+
 </settings>
