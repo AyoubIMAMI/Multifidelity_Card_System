@@ -23,6 +23,10 @@ services:
       - POSTGRES_PASSWORD=postgrespass
       - POSTGRES_USER=postgresuser
       - POSTGRES_DB=tcf-db
+    ports:
+      - "5432:5432"
+
+
 
   # A simple java CLI
   teamh-cli:
