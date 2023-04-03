@@ -135,4 +135,3 @@ Setting up Artifactory repos
 * Click on "Welcome, admin" at the top right of the website homepage
 * Click on "Quick Repository Creation"
 * Click on "Maven" and follow the steps
-
