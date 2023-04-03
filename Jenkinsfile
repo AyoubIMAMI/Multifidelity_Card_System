@@ -22,7 +22,6 @@ pipeline {
                     def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
                     if (commitMessage.contains('[maven-release-plugin]')) {
                         echo "Commit is from maven-release-plugin. Stopping build and validating commit."
-                        sh 'git commit -m "Validated [maven-release-plugin] commit"'
                         currentBuild.result = 'SUCCESS'
                         return
                     }
