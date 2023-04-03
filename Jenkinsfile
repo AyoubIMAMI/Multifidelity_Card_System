@@ -10,6 +10,7 @@ pipeline {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
 		containerWork = false
 		endToEndAvailable = false
+        skipSteps = false
 	}
 
     stages {
@@ -23,6 +24,7 @@ pipeline {
                     if (commitMessage.contains('[maven-release-plugin]')) {
                         echo 'Exiting building'
                         // Sortir de la pipeline et ne pas executer les aures stage avec SUCCESS
+                        skipSteps = true
                         return
                     }
                 }
@@ -41,6 +43,7 @@ pipeline {
             }
         }
         stage('Export backend and cli') {
+            when { expression { ${containerWork} == false }}
             steps {
                 script {
                     if(env.BRANCH_NAME != 'main'){
@@ -83,6 +86,7 @@ pipeline {
             }
         }
         stage('Create dockers images') {
+            when { expression { ${containerWork} == false }}
             steps {
                 script {
                     directories.each { directory ->
@@ -99,21 +103,21 @@ pipeline {
             }
         }
         stage('Start containers') {
-            when { expression { "${containerWork}" == 'true' } }
+            when { expression { "${containerWork}" == 'true' && ${containerWork} == false} }
             steps {
                 //sh './build-all.sh'
                 sh './run-all.sh'
             }
         }
         stage('Test end to end') {
-            when { expression { "${endToEndAvailable}" == 'true' } }
+            when { expression { "${endToEndAvailable}" == 'true' && ${containerWork} == false } }
             steps {
 
                 sh './endToEnd.sh'
             }
         }
         stage('Export images on DockerHub (main)') {
-            when { branch 'main' }
+            when { branch 'main' && expression { ${containerWork} == false } }
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh './exportImages.sh'
