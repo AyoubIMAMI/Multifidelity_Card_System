@@ -15,7 +15,8 @@ cd ..
 
 docker compose up -d
 
-read -p "Press to open CLI"
 clear
+
+echo "*** Lancement de la Cli ***"
 
 winpty docker attach cli

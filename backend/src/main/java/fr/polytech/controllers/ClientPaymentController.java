@@ -33,13 +33,8 @@ public class ClientPaymentController {
     }
 
     @PostMapping(path = PAYMENT_URI+"/settled")
-    public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId/*, @RequestBody Set<Item> shoppingList*/) throws NoDiscountsFoundException {
+    public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException {
         try {
-            Set<Item> shoppingList = new HashSet<Item>(){{
-                add(new Item(1, new Product("Biscuit", 123L, 2)));
-                add(new Item(3, new Product("Lait", 456L, 4)));
-                add(new Item(4, new Product("Pomme", 789L, 6)));
-            }};
             return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payedProcess(customerId, storeId, shoppingList)));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
