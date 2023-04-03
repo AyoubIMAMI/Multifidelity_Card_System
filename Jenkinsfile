@@ -23,7 +23,7 @@ pipeline {
                     def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
                     if (commitMessage.contains('[maven-release-plugin]')) {
                         currentBuild.result = 'SUCCESS'
-                        error('Skipping further steps as the commit message contains [maven-release-plugin]')
+                        return
                     }
                 }
                 
