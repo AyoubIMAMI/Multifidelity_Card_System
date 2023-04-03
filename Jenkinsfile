@@ -16,7 +16,8 @@ pipeline {
         stage('config workspace') {
             steps {
                 echo 'config workspace'
-                echo "Le message de commit est : ${env.GIT_COMMIT_MESSAGE}"
+                env.GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
+                echo "Le message de commit est : ${GIT_COMMIT_MSG}"
                 
                 // Cleaning .m2 folder
                 sh 'if [ -d "$HOME/.m2" ]; then rm -rf $HOME/.m2; fi'
