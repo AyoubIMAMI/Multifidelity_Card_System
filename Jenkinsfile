@@ -20,10 +20,10 @@ pipeline {
                 // Check if the commit is from maven-release-plugin
                 script {
                     def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-                    echo commitMessage
                     if (commitMessage.contains('[maven-release-plugin]')) {
-                        currentBuild.result = 'SUCCESS'
-                        return
+                        echo 'Exiting building'
+                        currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
+                        sleep(1)   // Interrupt is not blocking and does not take effect immediately
                     }
                 }
                 
