@@ -37,4 +37,9 @@ public class CliItem {
     public void setProduct(CliProduct cliProduct) {
         this.cliProduct = cliProduct;
     }
+
+    @Override
+    public String toString() {
+        return "CliItem{" + quantity + " * '" + cliProduct.getName() + "'" + " @ " + cliProduct.getCashPrice() + "}";
+    }
 }

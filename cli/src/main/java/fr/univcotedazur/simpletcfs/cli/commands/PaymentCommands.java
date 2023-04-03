@@ -28,7 +28,6 @@ public class PaymentCommands {
             add(new CliItem(3, new CliProduct("Lait", 456L, 4)));
             add(new CliItem(4, new CliProduct("Pomme", 789L, 6)));
         }};
-
         CliPayment res = restTemplate.postForObject(BASE_URI + "/store/" + storeId + "/customer/" + customerId + "/settled", shoppingList, CliPayment.class, CliCustomer.class);
         cliContext.getPayments().put(res.getId(), res);
         return res;
