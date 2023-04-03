@@ -15,7 +15,7 @@ public class Customer {
     private String email;
 
     @Embedded
-    private FidelityAccount fidelityAccount = new FidelityAccount();;
+    private FidelityAccount fidelityAccount = new FidelityAccount();
 
     @OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "customer")
     private List<Payment> history;

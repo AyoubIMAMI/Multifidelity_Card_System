@@ -58,7 +58,7 @@ public class ClientPaymentController {
     }
 
     private CustomerDTO convertCustomerToDto(Customer customer) {
-        return new CustomerDTO(customer.getId(), customer.getName(), customer.getEmail(), customer.getPassword());
+        return new CustomerDTO(customer.getId(), customer.getName(), customer.getEmail(), customer.getPassword(), customer.getFidelityAccount());
     }
 
     private StoreDTO convertStoreToDto(Store store) {
