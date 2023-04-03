@@ -16,9 +16,16 @@ pipeline {
         stage('config workspace') {
             steps {
                 echo 'config workspace'
+
                 script {
+                    // Check if the commit is from maven-release-plugin
                     def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-                    echo "The commit message is: ${commitMessage}"
+                    if (commitMessage.contains('[maven-release-plugin]')) {
+                        echo "Commit is from maven-release-plugin. Stopping build and validating commit."
+                        sh 'git commit -m "Validated [maven-release-plugin] commit"'
+                        currentBuild.result = 'SUCCESS'
+                        return
+                    }
                 }
                 
                 // Cleaning .m2 folder
