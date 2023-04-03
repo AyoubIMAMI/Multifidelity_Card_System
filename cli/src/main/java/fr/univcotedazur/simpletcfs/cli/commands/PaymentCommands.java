@@ -28,8 +28,15 @@ public class PaymentCommands {
             add(new CliItem(3, new CliProduct("Lait", 456L, 4)));
             add(new CliItem(4, new CliProduct("Pomme", 789L, 6)));
         }};
-        CliPayment res = restTemplate.postForObject(BASE_URI + "/store/" + storeId + "/customer/" + customerId + "/settled", shoppingList, CliPayment.class, CliCustomer.class);
+        CliPayment res = restTemplate.postForObject(BASE_URI + "/store/" + storeId + "/customer/" + customerId + "/settled", cliContext.getCart(), CliPayment.class, CliCustomer.class);
         cliContext.getPayments().put(res.getId(), res);
         return res;
+    }
+
+    @ShellMethod("Add a Product Item to cart (add-product QUANTITY PRODUCT_NAME STORE_ID CASH_PRICE")
+    public CliItem addProduct(int quantity, String productName, Long storeId, double cashPrice) {
+        CliItem item = new CliItem(quantity, new CliProduct(productName, storeId, cashPrice));
+        cliContext.getCart().add(item);
+        return item;
     }
 }
