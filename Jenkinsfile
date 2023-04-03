@@ -16,8 +16,10 @@ pipeline {
         stage('config workspace') {
             steps {
                 echo 'config workspace'
-                def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-                echo "The commit message is: ${commitMessage}"
+                script {
+                    def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+                    echo "The commit message is: ${commitMessage}"
+                }
                 
                 // Cleaning .m2 folder
                 sh 'if [ -d "$HOME/.m2" ]; then rm -rf $HOME/.m2; fi'
