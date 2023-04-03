@@ -22,8 +22,8 @@ pipeline {
                     def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
                     if (commitMessage.contains('[maven-release-plugin]')) {
                         echo 'Exiting building'
-                        currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
-                        sleep(1)   // Interrupt is not blocking and does not take effect immediately
+                        // Sortir de la pipeline et ne pas executer les aures stage avec SUCCESS
+                        return
                     }
                 }
                 
