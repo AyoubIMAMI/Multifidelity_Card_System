@@ -16,7 +16,11 @@ pipeline {
         stage('config workspace') {
             steps {
                 echo 'config workspace'
-
+                script {
+                    def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+                    echo "The commit message is: ${commitMessage}"
+                }
+                
                 // Cleaning .m2 folder
                 sh 'if [ -d "$HOME/.m2" ]; then rm -rf $HOME/.m2; fi'
                 sh 'mkdir $HOME/.m2'
@@ -63,7 +67,7 @@ pipeline {
                                 echo "$directory"
                                 dir("./$directory") {
                                     echo 'Prepare and perform...'
-                                    sh 'mvn release:prepare'
+                                    sh 'echo -e "\\n\\n\\n" | mvn release:prepare -Dresume=false'
                                     sh 'mvn release:perform'
                                 }
                             }
