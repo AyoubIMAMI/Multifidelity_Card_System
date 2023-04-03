@@ -155,7 +155,6 @@
                 <configuration>
                     <tagNameFormat>@{project.artifactId}-@{project.version}</tagNameFormat>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <branchName>test</branchName>
                 </configuration>
 
             </plugin>   
