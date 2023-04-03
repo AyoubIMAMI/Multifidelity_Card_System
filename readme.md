@@ -57,6 +57,9 @@ RUN chown 1000:1000 /.jfrog
 # Python 3
 RUN apt-get install -y python3
 
+# Socat
+RUN apt-get install -y socat
+
 USER jenkins
 ```
 
