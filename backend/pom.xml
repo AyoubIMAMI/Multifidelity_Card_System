@@ -152,7 +152,7 @@
                 <version>3.0.0-M1</version>
 
                 <configuration>
-                    <tagFormat>v.@{project.version}</tagFormat>
+                    <tagNameFormat>v.@{project.version}</tagNameFormat>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
 
