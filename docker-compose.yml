@@ -23,8 +23,6 @@ services:
       - POSTGRES_PASSWORD=postgrespass
       - POSTGRES_USER=postgresuser
       - POSTGRES_DB=tcf-db
-    ports:
-      - "5432:5432"
 
 
 
@@ -39,7 +37,7 @@ services:
       - teamh-server
     volumes:
       - ./cli/scripts/demo.txt:/opt/app/demo.txt
-      - ./cli/scripts/register1CustomerAnd1Store.txt:/opt/app/register1CustomerAnd1Store.txt
+      - ./cli/scripts/register1Customer1Store.txt:/opt/app/register1Customer1Store.txt
     stdin_open: true
     tty: true
 
