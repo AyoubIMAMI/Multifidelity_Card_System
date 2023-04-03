@@ -63,7 +63,7 @@ pipeline {
                                 echo "$directory"
                                 dir("./$directory") {
                                     echo 'Prepare and perform...'
-                                    sh 'mvn release:prepare'
+                                    sh 'echo -e "\\n\\n\\n" | mvn release:prepare'
                                     sh 'mvn release:perform'
                                 }
                             }
