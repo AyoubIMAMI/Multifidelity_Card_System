@@ -23,11 +23,6 @@ public class PaymentCommands {
 
     @ShellMethod("Do a settled payment (settled-payment CUSTOMER_ID STORE_ID)")
     public CliPayment settledPayment(Long customerId, Long storeId) {
-        Set<CliItem> shoppingList = new HashSet<CliItem>(){{
-            add(new CliItem(1, new CliProduct("Biscuit", 123L, 2)));
-            add(new CliItem(3, new CliProduct("Lait", 456L, 4)));
-            add(new CliItem(4, new CliProduct("Pomme", 789L, 6)));
-        }};
         CliPayment res = restTemplate.postForObject(BASE_URI + "/store/" + storeId + "/customer/" + customerId + "/settled", cliContext.getCart(), CliPayment.class, CliCustomer.class);
         cliContext.getPayments().put(res.getId(), res);
         return res;
