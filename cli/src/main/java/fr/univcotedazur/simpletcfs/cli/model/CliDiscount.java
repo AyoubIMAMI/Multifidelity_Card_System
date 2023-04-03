@@ -8,19 +8,18 @@ public class CliDiscount extends CliProduct {
         this.pointPrice = pointPrice;
     }
 
-    public CliDiscount() {
-        super();
-    }
-
     @Override
     public String toString() {
-        return "DiscountDTO{" +
-                "id=" + getId() +
-                ", name='" + getName() + '\'' +
+        return "CliDiscount{" +
+                "name='" + getName() + '\'' +
                 ", storeId=" + getStoreId() +
                 ", cashPrice=" + getCashPrice() +
                 ", pointPrice=" + pointPrice +
                 '}';
+    }
+
+    public CliDiscount() {
+        super();
     }
 
     public int getPointPrice() {

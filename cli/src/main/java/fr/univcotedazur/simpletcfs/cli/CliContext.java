@@ -16,7 +16,6 @@ public class CliContext {
     private Map<Long, CliDiscount> discounts;
     private Map<Long, CliPayment> payments;
     private Map<Long, CliStore> stores;
-
     private Set<CliItem> cart;
 
     public Map<Long, CliCustomer> getCustomers() {
