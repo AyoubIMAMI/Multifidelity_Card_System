@@ -11,6 +11,9 @@ public class CliItem {
         this.cliProduct = cliProduct;
     }
 
+    public CliItem() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -33,14 +36,5 @@ public class CliItem {
 
     public void setProduct(CliProduct cliProduct) {
         this.cliProduct = cliProduct;
-    }
-
-    @Override
-    public String toString() {
-        return "CliItem{" +
-                "id=" + id +
-                ", quantity=" + quantity +
-                ", product=" + cliProduct +
-                '}';
     }
 }

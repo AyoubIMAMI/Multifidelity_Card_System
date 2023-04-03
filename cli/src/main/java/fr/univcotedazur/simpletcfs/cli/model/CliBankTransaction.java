@@ -12,6 +12,9 @@ public class CliBankTransaction {
         this.amount = amount;
     }
 
+    public CliBankTransaction() {
+    }
+
     public String getCreditCard() {
         return creditCard;
     }

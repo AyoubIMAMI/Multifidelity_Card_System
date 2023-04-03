@@ -13,6 +13,9 @@ public class CliStore {
         this.password = password;
     }
 
+    public CliStore() {
+    }
+
     public String getSiret() {
         return siret;
     }
