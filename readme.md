@@ -47,12 +47,15 @@ ENV PATH="/opt/apache-maven-3.6.3/bin:${PATH}"
 RUN curl -fsSL https://get.docker.com -o get-docker.sh
 RUN sh get-docker.sh
 
-# Jfrog cli
+# Jfrig cli
 RUN curl -fL https://install-cli.jfrog.io | sh
 RUN chown 1000:1000 /usr/local/bin/jf
 RUN mkdir /.jfrog
 RUN chmod 775 /.jfrog
 RUN chown 1000:1000 /.jfrog
+
+# Python 3
+RUN apt-get install -y python3
 
 USER jenkins
 ```
