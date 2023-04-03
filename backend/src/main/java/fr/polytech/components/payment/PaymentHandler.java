@@ -29,11 +29,12 @@ public class PaymentHandler implements IPayment {
     FidelityCardPurchase fidelityCardPurchase;
 
     @Autowired
-    public PaymentHandler(CustomerFinder customerFinder, PointPurchase pointPurchase, SettledPurchase settledPurchase, FidelityCardPurchase fidelityCardPurchase) {
+    public PaymentHandler(CustomerFinder customerFinder, PointPurchase pointPurchase, SettledPurchase settledPurchase, FidelityCardPurchase fidelityCardPurchase, StoreFinder storeFinder) {
         this.customerFinder = customerFinder;
         this.pointPurchase = pointPurchase;
         this.settledPurchase = settledPurchase;
         this.fidelityCardPurchase = fidelityCardPurchase;
+        this.storeFinder = storeFinder;
     }
 
     @Override
@@ -48,13 +49,16 @@ public class PaymentHandler implements IPayment {
     @Override
     public Payment payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, StoreNotFoundException {
         Customer customer = customerFinder.findCustomerById(customerId);
+        System.out.println("Customer find : " + customer.getName());
         Store store = storeFinder.findStoreByID(storeId);
+        System.out.println("Store find : " + store.getName());
         checkDiscountAndPayWithPointPurchase(customer, shoppingList);
         return sendToSettledPayment(customer, store, shoppingList);
     }
 
     private Payment sendToSettledPayment(Customer customer, Store store, Set<Item> shoppingList) throws PaymentAlreadyExistsException, PurchaseFailedException {
         Payment payment = new Payment(customer, store, shoppingList, true);
+        System.out.println("Payment created : " + payment);
         return settledPurchase.validatePurchase(payment);
     }
 
@@ -62,6 +66,7 @@ public class PaymentHandler implements IPayment {
         for (Item item: shoppingList) {
             if(item.getProduct() instanceof Discount) {
                 pointPurchase.buyWithPoint(customer, shoppingList);
+                System.out.println("Discount found!");
             }
         }
     }

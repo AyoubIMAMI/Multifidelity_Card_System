@@ -17,6 +17,10 @@ public class CliPayment {
         this.customer = customer;
     }
 
+    public CliPayment() {
+
+    }
+
     public Long getId() {
         return id;
     }

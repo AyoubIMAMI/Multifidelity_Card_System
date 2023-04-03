@@ -4,6 +4,7 @@ import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,18 +12,21 @@ import java.util.Set;
 public class Payment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue()
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ManyToOne
+    @JoinColumn(name = "store_id")
     private Store store;
 
-    @OneToMany
-    private Set<Item> shoppingList;
     private boolean isSettled;
+
+    @OneToMany(mappedBy = "payment")
+    private Set<Item> shoppingList = new HashSet<>();
     private float amount;
 
     public Payment(Customer customer, Store store, Set<Item> shoppingList, boolean isSettled) {
@@ -42,21 +46,42 @@ public class Payment {
                 .filter(x -> !(x.getProduct() instanceof Discount))
                 .map(x -> x.getQuantity() * x.getProduct().getCashPrice())
                 .reduce(Double::sum).orElse((double) 0);
+
+        System.out.println("Amount du payment : " + amount);
+
         return (float) amount;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 
     public boolean isSettled() {
         return isSettled;
     }
 
-
-
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
+    public void setSettled(boolean settled) {
+        isSettled = settled;
     }
 
     public Set<Item> getShoppingList() {
@@ -67,21 +92,12 @@ public class Payment {
         this.shoppingList = shoppingList;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public float getAmount() {
+        return amount;
     }
 
-    public Store getStore() {
-        return store;
-    }
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
     @Override
@@ -89,11 +105,23 @@ public class Payment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Payment payment = (Payment) o;
-        return Objects.equals(isSettled, payment.isSettled) && Objects.equals(amount, payment.amount) && Objects.equals(customer, payment.customer) && Objects.equals(store, payment.store) && Objects.equals(shoppingList, payment.shoppingList);
+        return isSettled == payment.isSettled && Float.compare(payment.amount, amount) == 0 && Objects.equals(customer, payment.customer) && Objects.equals(store, payment.store) && Objects.equals(shoppingList, payment.shoppingList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customer, store, shoppingList, isSettled, amount);
+        return Objects.hash(customer, store, isSettled, shoppingList, amount);
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", store=" + store +
+                ", isSettled=" + isSettled +
+                ", shoppingList=" + shoppingList +
+                ", amount=" + amount +
+                '}';
     }
 }
