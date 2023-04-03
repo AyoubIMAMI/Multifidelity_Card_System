@@ -6,7 +6,7 @@ public class StoreDTO extends OrganisationDTO {
 
     //private Set<Discount> offers;
 
-    public StoreDTO(Long id, String storeName, String storeSiret, String password) {
+    public StoreDTO(Long id, String storeSiret, String storeName, String password) {
         super(id, storeSiret, storeName, password);
     }
 }

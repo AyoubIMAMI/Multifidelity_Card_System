@@ -38,7 +38,8 @@ services:
     depends_on:
       - teamh-server
     volumes:
-      - ./cli/demo.txt:/opt/app/demo.txt
+      - ./cli/scripts/demo.txt:/opt/app/demo.txt
+      - ./cli/scripts/register1CustomerAnd1Store.txt:/opt/app/register1CustomerAnd1Store.txt
     stdin_open: true
     tty: true
 

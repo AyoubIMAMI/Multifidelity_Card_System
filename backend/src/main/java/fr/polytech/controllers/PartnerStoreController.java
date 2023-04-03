@@ -5,6 +5,7 @@ import fr.polytech.entities.Store;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.exceptions.store.MissingInformationsException;
+import fr.polytech.exceptions.store.StoreSiretAlreadyUsedException;
 import fr.polytech.interfaces.store.StoreRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,13 +29,18 @@ public class PartnerStoreController {
     }
 
     @PostMapping(path = "/registration", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Store> register(@RequestBody @Valid StoreDTO storeDTO){
-        //TODO return un StoreDTO comme les autre controller
+    public ResponseEntity<StoreDTO> register(@RequestBody @Valid StoreDTO storeDTO){
         try {
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(storeRegistration.registerNewStore(storeDTO.getName(), storeDTO.getSiret(), storeDTO.getPassword()));
-        } catch (MailAlreadyUsedException | BadCredentialsException | MissingInformationsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+                    .body(convertStoreToDto(storeRegistration.registerNewStore(storeDTO.getName(), storeDTO.getSiret(), storeDTO.getPassword())));
+        } catch (BadCredentialsException | MissingInformationsException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (StoreSiretAlreadyUsedException e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    private StoreDTO convertStoreToDto(Store store) {
+        return new StoreDTO(store.getId(), store.getSiret(), store.getName(), store.getPassword());
     }
 }

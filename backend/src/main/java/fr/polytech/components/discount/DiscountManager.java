@@ -8,11 +8,13 @@ import fr.polytech.interfaces.discount.DiscountModifier;
 import fr.polytech.repository.DiscountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Component
 public class DiscountManager implements DiscountModifier, DiscountExplorer {
 

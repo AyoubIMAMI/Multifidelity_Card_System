@@ -3,6 +3,7 @@ package fr.univcotedazur.simpletcfs.cli;
 import fr.univcotedazur.simpletcfs.cli.model.CliCustomer;
 import fr.univcotedazur.simpletcfs.cli.model.CliDiscount;
 import fr.univcotedazur.simpletcfs.cli.model.CliPayment;
+import fr.univcotedazur.simpletcfs.cli.model.CliStore;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public class CliContext {
     private Map<Long, CliCustomer> customers;
     private Map<Long, CliDiscount> discounts;
     private Map<Long, CliPayment> payments;
+    private Map<Long, CliStore> stores;
 
     public Map<Long, CliCustomer> getCustomers() {
         return customers;
@@ -22,15 +24,18 @@ public class CliContext {
     public Map<Long, CliDiscount>getDiscounts() {
         return discounts;
     }
-
     public Map<Long, CliPayment> getPayments() {
         return payments;
+    }
+    public Map<Long, CliStore> getStores() {
+        return stores;
     }
 
     public CliContext() {
         customers = new HashMap<>();
         discounts = new HashMap<>();
         payments = new HashMap<>();
+        stores = new HashMap<>();
     }
 
     @Override
@@ -47,7 +52,11 @@ public class CliContext {
                 .map(key -> key + "=" + payments.get(key))
                 .collect(Collectors.joining(", ", "{", "}"));
 
-        return customersString + "\n" + discountsString + "\n" + paymentsString;
+        String storesString = "Stores" + stores.keySet().stream()
+                .map(key -> key + "=" + stores.get(key))
+                .collect(Collectors.joining(", ", "{", "}"));
+
+        return customersString + "\n" + discountsString + "\n" + paymentsString + "\n" + storesString;
     }
 
 

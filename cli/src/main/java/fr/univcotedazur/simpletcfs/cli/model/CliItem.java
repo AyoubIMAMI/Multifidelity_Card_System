@@ -11,6 +11,9 @@ public class CliItem {
         this.cliProduct = cliProduct;
     }
 
+    public CliItem() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -37,10 +40,6 @@ public class CliItem {
 
     @Override
     public String toString() {
-        return "CliItem{" +
-                "id=" + id +
-                ", quantity=" + quantity +
-                ", product=" + cliProduct +
-                '}';
+        return "CliItem{" + quantity + " * '" + cliProduct.getName() + "'" + " @ " + cliProduct.getCashPrice() + "}";
     }
 }

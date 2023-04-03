@@ -48,4 +48,14 @@ public class FidelityAccount {
         if (isVFP != that.isVFP) return false;
         return Objects.equals(licencePlate, that.licencePlate);
     }
+
+    @Override
+    public String toString() {
+        return "FidelityAccount{" +
+                "points=" + points +
+                ", balance=" + balance +
+                ", isVFP=" + isVFP +
+                ", licencePlate='" + licencePlate + '\'' +
+                '}';
+    }
 }
