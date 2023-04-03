@@ -17,11 +17,15 @@ pipeline {
             steps {
                 echo 'config workspace'
 
-                sh 'rm -r -v $HOME/.m2'
+                // Cleaning .m2 folder
+                sh 'if [ -d "$HOME/.m2" ]; then rm -rf $HOME/.m2; fi'
                 sh 'mkdir $HOME/.m2'
 
+                // Copying settings.xml into .m2 folder
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
                 sh 'cat  $HOME/.m2/settings.xml'
+
+
                 sh 'chmod -R 777 ./'
                 //sh 'docker images'
             }
