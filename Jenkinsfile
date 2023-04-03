@@ -24,6 +24,7 @@ pipeline {
                     if (commitMessage.contains('[maven-release-plugin]')) {
                         currentBuild.result = 'SUCCESS'
                         return
+                        
                     }
                 }
                 
