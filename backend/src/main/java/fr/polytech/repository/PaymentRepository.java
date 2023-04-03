@@ -8,11 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
-    Iterable<Payment> findAllByCustomer(Customer customer);
-    Iterable<Payment> findByStore(Store store);
+    List<Payment> findAllByCustomer(Customer customer);
+
+    List<Payment> findByStore(Store store);
 
 }

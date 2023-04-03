@@ -15,6 +15,7 @@ import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.payment.PaymentInBankException;
+import fr.polytech.exceptions.store.StoreNotFoundException;
 import fr.polytech.interfaces.payment.IPayment;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
 import fr.polytech.repository.CustomerRepository;
@@ -85,7 +86,7 @@ public class PaymentDef {
     }
 
     @And("he pay")
-    public void hePay() throws PaymentAlreadyExistsException, NoDiscountsFoundException, BadCredentialsException, CustomerNotFoundException, NotEnoughBalanceException, PurchaseFailedException {
+    public void hePay() throws PaymentAlreadyExistsException, NoDiscountsFoundException, BadCredentialsException, CustomerNotFoundException, NotEnoughBalanceException, PurchaseFailedException, StoreNotFoundException {
         payment.payWithFidelity(customer.getId(),store.getId(),shoppingList);
     }
 

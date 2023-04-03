@@ -10,6 +10,10 @@ import fr.polytech.entities.Store;
 import fr.polytech.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Objects;
 
 @Component
 public class PaymentManager implements PaymentExplorer, PaymentModifier {
@@ -47,9 +51,23 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
     @Override
     public Payment savePayment(Payment payment) throws PaymentAlreadyExistsException {
         Long paymentID = payment.getId();
-        if (paymentRepository.existsById(paymentID)) {
+        System.out.println("Payment a save :" + payment);
+        System.out.println("Id du payment a check : " + paymentID);
+
+        if(paymentAlreadyExists(paymentID)) {
+            System.out.println("Ce payment existe deja");
             throw new PaymentAlreadyExistsException();
         }
-        return paymentRepository.save(payment);
+
+        System.out.println("Aucun payment avec cet id dans la DB donc on peut le save");
+        Payment newPayment = paymentRepository.save(payment);
+        System.out.println("New payment created with id : " + newPayment);
+        return newPayment;
+    }
+
+    private boolean paymentAlreadyExists(Long paymentID) {
+        System.out.println("On check");
+        if (paymentID == null) return false;
+        return paymentRepository.findById(paymentID).isPresent();
     }
 }

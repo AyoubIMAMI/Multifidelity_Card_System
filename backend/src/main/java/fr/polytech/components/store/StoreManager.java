@@ -15,11 +15,13 @@ import fr.polytech.entities.Store;
 import fr.polytech.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.StreamSupport;
 
+@Transactional
 @Component
 public class StoreManager implements StoreFinder, StoreRegistration{
     StoreRepository storeRepository;
@@ -30,22 +32,26 @@ public class StoreManager implements StoreFinder, StoreRegistration{
 
     @Override
     public Store findStore(String storeName, String myPassword) throws BadCredentialsException {
-        Optional<Store> storeCurrent= storeRepository.findAll().stream()
+        Optional<Store> storeCurrent = storeRepository.findAll().stream()
                 .filter(store -> storeName.equals(store.getName())&&myPassword.equals(store.getPassword())).findAny();
         if (storeCurrent.isEmpty()) throw new BadCredentialsException();
         else return storeCurrent.get();
     }
     @Override
-    public Store findStoreByID(Long storeID) throws BadCredentialsException {
-        Optional<Store> store=storeRepository.findStoreById(storeID);
-        if (store.isEmpty()) throw new BadCredentialsException();
+    public Store findStoreByID(Long storeID) throws StoreNotFoundException {
+        System.out.println("On cherche le store avec l'id : " + storeID);
+        Optional<Store> store = storeRepository.findStoreById(storeID);
+        if (store.isEmpty()) {
+            System.out.println("Aucun store trouvé");
+            throw new StoreNotFoundException();
+        }
         return store.get();
     }
     @Override
-    public Store registerNewStore(String storeName, String storeSiret,String password) throws MissingInformationsException, MailAlreadyUsedException {
+    public Store registerNewStore(String storeName, String storeSiret, String password) throws StoreSiretAlreadyUsedException {
         if(storeRepository.existsStoreBySiret(storeSiret))
-            throw new MailAlreadyUsedException();
-        Store store = new Store(storeName, storeSiret,password);
+            throw new StoreSiretAlreadyUsedException();
+        Store store = new Store(storeName, storeSiret, password);
         return storeRepository.save(store);
     }
 }

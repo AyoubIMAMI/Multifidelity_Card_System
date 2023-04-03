@@ -22,11 +22,14 @@ public class SettledPurchaseHandler implements SettledPurchase {
     @Override
     public Payment validatePurchase(Payment payment) throws PaymentAlreadyExistsException {
         winPoint(payment);
-        return paymentModifier.savePayment(payment);
+        Payment newPayment = paymentModifier.savePayment(payment);
+        System.out.println("Payment returned correctly");
+        return newPayment;
     }
 
     @Override
     public void winPoint(Payment payment) {
+        System.out.println("On ajoute des points");
         pointModifier.incrementPoints(payment.getCustomer(), payment.getAmount());
     }
 }

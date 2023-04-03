@@ -2,7 +2,7 @@ package fr.univcotedazur.simpletcfs.cli.commands;
 
 import fr.univcotedazur.simpletcfs.cli.CliContext;
 import fr.univcotedazur.simpletcfs.cli.model.CliCustomer;
-import fr.univcotedazur.simpletcfs.cli.model.BankTransactionDTO;
+import fr.univcotedazur.simpletcfs.cli.model.CliBankTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -34,7 +34,7 @@ public class CustomerCommands {
     //TODO Proke l'exception PaymentInBankException
     @ShellMethod("Refill the account of a customer in the backend with his id (refill-customer CUSTOMER_EMAIL CUSTOMER_PASSWORD)")
     public String refillCustomer(Long customerId, String creditCard, int amount) {
-        String result = restTemplate.postForObject(BASE_URI + "/refill/" + customerId, new BankTransactionDTO(creditCard, amount), String.class);
+        String result = restTemplate.postForObject(BASE_URI + "/refill/" + customerId, new CliBankTransaction(creditCard, amount), String.class);
         return result;
     }
 

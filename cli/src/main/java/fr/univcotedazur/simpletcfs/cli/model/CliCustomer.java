@@ -12,11 +12,15 @@ public class CliCustomer {
         this.password = password;
     }
 
+    public CliCustomer() {
+
+    }
+
 
     @Override
     public String toString() {
         return "Customer{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
