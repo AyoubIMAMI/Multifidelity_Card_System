@@ -79,7 +79,7 @@ public class CliPayment {
     public String toString() {
         return "CliPayment{" +
                 "id=" + id +
-                ", customer=" + customer +
+                ", customerId=" + customer +
                 ", store=" + store +
                 ", shoppingList=" + shoppingList +
                 ", isSettled=" + isSettled +

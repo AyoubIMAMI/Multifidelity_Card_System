@@ -51,8 +51,7 @@ public class CliProduct {
     @Override
     public String toString() {
         return "CliProduct{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", storeId=" + storeId +
                 ", cashPrice=" + cashPrice +
                 '}';

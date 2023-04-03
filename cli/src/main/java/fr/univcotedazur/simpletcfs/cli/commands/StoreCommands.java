@@ -7,6 +7,8 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 @ShellComponent
 public class StoreCommands {
     public static final String BASE_URI = "/stores";
@@ -17,15 +19,19 @@ public class StoreCommands {
     @Autowired
     private CliContext cliContext;
 
+    @ShellMethod("List all stores")
+    public String stores() {
+        StringBuilder stores = new StringBuilder("List of stores:\n");
+        for (Map.Entry<Long, CliStore> entry : cliContext.getStores().entrySet()) {
+            stores.append(entry.getKey()).append(" : ").append(entry.getValue()).append("\n");
+        }
+        return stores.toString();
+    }
+
     @ShellMethod("Register a store in the backend (register-store SIRET STORE_NAME STORE_PASSWORD)")
     public CliStore registerStore(String siret, String name, String password) {
         CliStore res = restTemplate.postForObject(BASE_URI + "/registration", new CliStore(siret, name, password), CliStore.class);
         cliContext.getStores().put(res.getId(), res);
         return res;
-    }
-
-    @ShellMethod("List all stores")
-    public String stores() {
-        return cliContext.getStores().toString();
     }
 }
