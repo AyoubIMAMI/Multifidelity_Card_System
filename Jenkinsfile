@@ -81,7 +81,7 @@ pipeline {
                                     // Check for unpushed modifications
                                     def unpushedChanges = sh(returnStatus: true, script: 'git diff --exit-code && git diff --cached --exit-code')
                                     if (unpushedChanges != 0) {
-                                        withCredentials([usernamePassword(credentialsId: 'my-cred-id',
+                                        withCredentials([usernamePassword(credentialsId: 'KilianBonnet-GitHub-creds',
                                                                         usernameVariable: 'USERNAME',
                                                                         passwordVariable: 'PASSWORD')])
                                         {
