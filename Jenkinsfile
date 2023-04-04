@@ -77,10 +77,6 @@ pipeline {
                                 echo "$directory"
 
                                 dir("./$directory") {
-                                    withCredentials([gitUsernamePassword(credentialsId: 'KilianBonnet-GitHub-creds', gitToolName: 'git-tool')]) {
-                                        sh 'git pull'
-                                    }
-
                                     // Check for unpushed modifications
                                     def unpushedChanges = sh(returnStatus: true, script: 'git diff --exit-code && git diff --cached --exit-code')
                                     if (unpushedChanges != 0) {
@@ -103,6 +99,7 @@ pipeline {
                                     echo 'Prepare and perform...'
                                     withCredentials([gitUsernamePassword(credentialsId: 'KilianBonnet-GitHub-creds', gitToolName: 'git-tool')]) {
                                         sh 'git checkout main'
+                                        sh 'git pull'
                                         sh 'echo "\\n\\n\\n" | mvn release:prepare -Dresume=false'
                                         sh 'mvn release:perform'
                                     }
