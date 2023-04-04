@@ -81,11 +81,17 @@ pipeline {
                                     // Check for unpushed modifications
                                     def unpushedChanges = sh(returnStatus: true, script: 'git diff --exit-code && git diff --cached --exit-code')
                                     if (unpushedChanges != 0) {
-                                        withCredentials([usernamePassword(credentialsId: 'KilianBonnet-GitHub-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                                        withCredentials([usernamePassword(credentialsId: 'my-cred-id',
+                                                                        usernameVariable: 'USERNAME',
+                                                                        passwordVariable: 'PASSWORD')])
+                                        {
+                                            git config --global user.email "kilian.bonnet1@etu.univ-cotedazur.fr"
+                                            git config --global user.name "KilianBonnet"
+
                                             sh 'git add .'
-                                            sh 'git -c credential.username=$USERNAME -c credential.helper=store commit -m "Jenkins auto-validation"'
-                                            sh 'git -c credential.username=$USERNAME -c credential.helper=store pull'
-                                            sh 'git -c credential.username=$USERNAME -c credential.helper=store push'
+                                            sh 'git -c commit -m "Jenkins auto-validation"'
+                                            sh 'git -c pull'
+                                            sh 'git -c push'
                                         }
                                     }
 
