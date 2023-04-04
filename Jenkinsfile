@@ -89,9 +89,9 @@ pipeline {
                                             sh 'git config --global user.name "KilianBonnet"'
 
                                             sh 'git add .'
-                                            sh 'git -c commit -m "Jenkins auto-validation"'
-                                            sh 'git -c pull'
-                                            sh 'git -c push'
+                                            sh 'git commit -m "Jenkins auto-validation"'
+                                            sh 'git pull'
+                                            sh 'git push'
                                         }
                                     }
 
