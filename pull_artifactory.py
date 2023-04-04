@@ -21,13 +21,15 @@ def download_latest(artifactory_path):
 
     # Removing all .xml elements
     artifactory_verisons_list = [ x for x in artifactory_verisons_list if ".xml" not in x ]
+    print(artifactory_verisons_list)
 
     # Sorting versions by date
     artifactory_verisons_list_sorted = sorted(artifactory_verisons_list, key=lambda x: x['modified'], reverse=True)
 
     # Find the latest version path
     latest_full_path = artifactory_verisons_list_sorted[0]['path']
-    latest_path = '/'.join(latest_full_path.split('/')[:5]) + '/*'
+    splitted_path = latest_full_path.split('/')
+    latest_path = '/'.join(splitted_path[:len(splitted_path) - 1]) + '/*'
     
     print("Downloading : " + latest_path)
 
