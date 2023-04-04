@@ -24,7 +24,7 @@ services:
       - POSTGRES_USER=postgresuser
       - POSTGRES_DB=tcf-db
     ports:
-      - "5432:8003"
+      - "8003:5432"
 
 
   # A simple java CLI
