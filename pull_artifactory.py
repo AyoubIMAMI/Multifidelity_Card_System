@@ -21,7 +21,6 @@ def download_latest(artifactory_path):
 
     # Removing all .xml elements
     artifactory_verisons_list = [ x for x in artifactory_verisons_list if ".xml" not in x['path']]
-    print(artifactory_verisons_list)
 
     # Sorting versions by date
     artifactory_verisons_list_sorted = sorted(artifactory_verisons_list, key=lambda x: x['modified'], reverse=True)
@@ -33,10 +32,8 @@ def download_latest(artifactory_path):
     
     print("Downloading : " + latest_path)
 
-    command = f'echo \\n | jf rt dl  --recursive --user={ARTIFACTORY_USER} --password={ARTIFACTORY_PASSWORD} --url={ARTIFACTORY_URL} "{latest_path}" "{DOWNLOAD_DESTINATION}"'
+    command = f'echo \\n | jf rt dl  --recursive --user={ARTIFACTORY_USER} --password={ARTIFACTORY_PASSWORD} --url={ARTIFACTORY_URL} "{latest_path}" "{os.path.abspath(DOWNLOAD_DESTINATION)}"'
     os.system(command)
-
-    print("ls -l ./releases after add jar= " + os.popen('ls -l ./releases').read())
 
 
 if __name__ == "__main__":
