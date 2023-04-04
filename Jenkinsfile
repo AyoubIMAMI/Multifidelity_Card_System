@@ -89,10 +89,8 @@ pipeline {
                                             sh 'git add .'
                                             sh 'git stash'
                                             sh 'git checkout main'
-                                            sh 'git pull'
+                                            sh 'git pull $MY_CREDENTIALS_PSW'
                                             sh 'git stash apply'
-
-                                            
                                             sh 'git push origin main $MY_CREDENTIALS_PSW'
                                         }
                                     }
