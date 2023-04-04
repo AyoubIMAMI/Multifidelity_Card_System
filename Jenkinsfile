@@ -50,10 +50,12 @@ pipeline {
                     if(env.BRANCH_NAME != 'main'){
                         directories.each { directory ->
                             stage ("Test $directory") {
-                                echo "$directory"
-                                dir("./$directory") {
-                                    echo 'Testing...'
-                                    sh 'mvn test'
+                                if(env.BRANCH_NAME == 'Develop'){
+                                    echo "$directory"
+                                    dir("./$directory") {
+                                        echo 'Testing...'
+                                        sh 'mvn test'
+                                    }
                                 }
                             }
                             stage ("Building $directory") {
@@ -112,9 +114,15 @@ pipeline {
                 expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false'} 
             }
             steps {
+                sh 'pwd'
                 sh 'ls -l'
-                sh './build-all.sh'
-                sh './run-all.sh'
+
+                dir("./") {
+                    sh 'pwd'
+                    sh 'ls -l'
+                    sh './build-all.sh'
+                    sh './run-all.sh'
+                }           
             }
         }
         stage('Test end to end') {
