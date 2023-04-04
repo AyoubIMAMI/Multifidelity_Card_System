@@ -19,14 +19,17 @@ def download_latest(artifactory_path):
     output_str = output_bytes.decode().strip()
     artifactory_verisons_list = json.loads(output_str)
 
-    # Sort the 
+    # Removing all .xml elements
+    artifactory_verisons_list = [ x for x in artifactory_verisons_list if ".xml" not in x ]
+
+    # Sorting versions by date
     artifactory_verisons_list_sorted = sorted(artifactory_verisons_list, key=lambda x: x['modified'], reverse=True)
 
     # Find the latest version path
-    latest_full_path = artifactory_verisons_list_sorted[1]['path']
+    latest_full_path = artifactory_verisons_list_sorted[0]['path']
     latest_path = '/'.join(latest_full_path.split('/')[:5]) + '/*'
     
-    print("latest_path= " + latest_path)
+    print("Downloading : " + latest_path)
 
     command = f'echo \\n | jf rt dl  --recursive --user={ARTIFACTORY_USER} --password={ARTIFACTORY_PASSWORD} --url={ARTIFACTORY_URL} "{latest_path}" "{DOWNLOAD_DESTINATION}"'
     os.system(command)
