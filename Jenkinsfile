@@ -128,13 +128,14 @@ pipeline {
                 branch 'main'
                 expression { "${skipSteps}" == 'false' } 
             }
-
-            try {
-                sh 'rmdir releases'
-            } catch (Exception e) {
-               echo "The directory doesn't exist"
+            script {
+                try {
+                    sh 'rmdir releases'
+                } catch (Exception e) {
+                echo "The directory doesn't exist"
+                }
             }
-
+            
             sh 'mkdir releases'
             echo 'Pulling releases ...'
             sh 'python pull_artifactory.py'
