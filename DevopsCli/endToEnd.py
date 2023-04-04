@@ -26,7 +26,7 @@ def connect():
     global cursor
     # Définir les informations de connexion à la base de données
     connection = psycopg2.connect(
-        host="postgres",
+        host="172.21.0.3",
         database="tcf-db",
         user="postgresuser",
         password="postgrespass",
