@@ -33,9 +33,10 @@ def download_latest(artifactory_path):
     
 
     
-    command = f'echo \\n | jf rt dl  --recursive --user={ARTIFACTORY_USER} --password={ARTIFACTORY_PASSWORD} --url={ARTIFACTORY_URL} "{latest_path}" "{os.path.abspath(DOWNLOAD_DESTINATION)}"'
+    command = f'echo \\n | jf rt dl  --recursive --user={ARTIFACTORY_USER} --password={ARTIFACTORY_PASSWORD} --url={ARTIFACTORY_URL} "{latest_path}" "{DOWNLOAD_DESTINATION}"'
     print("Command : " + command)
-    os.system(command)
+    print("Downloading ...")
+    subprocess.run(command, shell=True, check=True)
 
 
 if __name__ == "__main__":
