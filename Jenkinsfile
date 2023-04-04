@@ -139,7 +139,7 @@ pipeline {
 
                 sh 'mkdir releases'
                 echo 'Pulling releases ...'
-                sh 'python pull_artifactory.py'
+                sh 'python3 pull_artifactory.py'
                 sh "ls -l"
             }       
         }
