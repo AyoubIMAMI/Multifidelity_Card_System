@@ -1,9 +1,14 @@
 def directories = [
-        "backend"
+        "backend",
+        "cli"
 ]
 
 pipeline {
     agent any
+
+    options {
+        disableConcurrentBuilds()
+    }
 
     environment {
         GITHUB_CREDENTIALS=credentials('github')
