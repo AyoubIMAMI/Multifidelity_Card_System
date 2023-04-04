@@ -7,7 +7,6 @@ pipeline {
     agent any
 
     environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
         GITHUB_CREDENTIALS=credentials('github')
 		containerWork = false
 		endToEndAvailable = false
@@ -78,11 +77,13 @@ pipeline {
                                     def unpushedChanges = sh(returnStatus: true, script: 'git diff --exit-code && git diff --cached --exit-code')
 
                                     if (unpushedChanges != 0) {
-                                        sh 'git add .'
-                                        sh 'git stash'
-                                        sh 'git checkout main'
-                                        sh 'git pull'
-                                        sh 'git stash apply'
+                                        withCredentials([gitUsernamePassword(credentialsId: 'KilianBonnet-GitHub-creds', gitToolName: 'git-tool')]) {
+                                            sh 'git add .'
+                                            sh 'git stash'
+                                            sh 'git checkout main'
+                                            sh 'git pull'
+                                            sh 'git stash apply'
+                                        }
                                     }
 
                                     // Performing release
