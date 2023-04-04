@@ -78,22 +78,15 @@ pipeline {
                                     def unpushedChanges = sh(returnStatus: true, script: 'git diff --exit-code && git diff --cached --exit-code')
 
                                     if (unpushedChanges != 0) {
-                                        withCredentials([usernamePassword(credentialsId: 'KilianBonnet-GitHub-creds',
-                                                                        usernameVariable: 'USERNAME',
-                                                                        passwordVariable: '$MY_CREDENTIALS_PSW')])
-                                        {
-                                            sh 'git config --global user.email "kilian.bonnet1@etu.univ-cotedazur.fr"'
-                                            sh 'git config --global user.name "KilianBonnet"'
-                                            sh' git remote set-url origin https://$USERNAME:$MY_CREDENTIALS_PSW@github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git'
+                                        sh 'git config --global user.email "kilian.bonnet1@etu.univ-cotedazur.fr"'
+                                        sh 'git config --global user.name "KilianBonnet"'
 
-                                            sh 'git add .'
-                                            sh 'git stash'
-                                            sh 'git checkout main'
-                                            sh 'echo git pull $MY_CREDENTIALS_PSW'
-                                            sh 'git pull $MY_CREDENTIALS_PSW'
-                                            sh 'git stash apply'
-                                            sh 'git push origin main $MY_CREDENTIALS_PSW'
-                                        }
+                                        sh 'git add .'
+                                        sh 'git stash'
+                                        sh 'git checkout main'
+                                        sh 'echo git pull $GITHUB_CREDENTIALS_PWD'
+                                        sh 'git pull $GITHUB_CREDENTIALS_PWD'
+                                        sh 'git stash apply'
                                     }
 
                                     // Performing release
