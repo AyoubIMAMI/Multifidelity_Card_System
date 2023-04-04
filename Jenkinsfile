@@ -110,7 +110,7 @@ pipeline {
                 expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false'} 
             }
             steps {
-                //sh './build-all.sh'
+                sh './build-all.sh'
                 sh './run-all.sh'
             }
         }
@@ -118,8 +118,7 @@ pipeline {
             when { 
                 expression { "${endToEndAvailable}" == 'true' && "${skipSteps}" == 'false' } }
             steps {
-
-                sh './endToEnd.sh'
+                sh './DevopsCli/endToEnd.sh'
             }
         }
         stage('Export images on DockerHub (main)') {
