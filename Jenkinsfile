@@ -86,11 +86,12 @@ pipeline {
                                             sh 'git config --global user.name "KilianBonnet"'
                                             sh' git remote set-url origin https://$USERNAME:$USERNAME@github.com/$USERNAME/project.git'
 
-                                            sh 'git reset --hard'
-                                            sh 'git checkout main'
-
                                             sh 'git add .'
-                                            sh 'git commit -m "Jenkins auto-validation"'
+                                            sh 'git stash'
+                                            sh 'git checkout main'
+                                            sh 'git pull'
+                                            sh 'git stash apply'
+
                                             
                                             sh 'git push origin main'
                                         }
