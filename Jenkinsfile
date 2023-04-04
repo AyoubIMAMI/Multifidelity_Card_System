@@ -123,6 +123,21 @@ pipeline {
                 }
             }
         }
+        stage('Pull ltest artifacts'){
+            when { 
+                branch 'main'
+                expression { "${skipSteps}" == 'false' } 
+            }
+
+            try {
+                sh 'rmdir releases'
+            } catch (Exception e) {
+               echo "The directory doesn't exist"
+            }
+
+            sh 'mkdir releases'
+                 
+        }
         stage('Create dockers images') {
             when { 
                 expression { "${skipSteps}" == 'false' }
