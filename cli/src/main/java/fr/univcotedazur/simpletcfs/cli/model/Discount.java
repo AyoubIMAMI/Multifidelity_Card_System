@@ -1,13 +1,18 @@
-package fr.univcotedazur.simpletcfs.cli.model.test;
+package fr.univcotedazur.simpletcfs.cli.model;
 
-public class Test2 extends Test {
+public class Discount extends Buyable {
 
     private int pointPrice;
 
-    public Test2(String name, Long storeId, int pointPrice) {
+    public Discount(String name, Long storeId, int pointPrice) {
         super(name, storeId);
         this.pointPrice = pointPrice;
     }
+
+    public Discount() {
+
+    }
+
 
     public int getPointPrice() {
         return pointPrice;
@@ -19,7 +24,7 @@ public class Test2 extends Test {
 
     @Override
     public String toString() {
-        return "Test2{" +
+        return "Discount{" +
                 "pointPrice=" + pointPrice +
                 '}';
     }

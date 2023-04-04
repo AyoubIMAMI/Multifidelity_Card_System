@@ -2,24 +2,24 @@ package fr.univcotedazur.simpletcfs.cli.model;
 
 import java.util.Set;
 
-public class CliPayment {
+public class Payment {
     private Long id;
 
-    private CliCustomer customer;
+    private Customer customer;
 
-    private CliStore store;
+    private Store store;
 
-    private Set<CliItem> shoppingList;
+    private Set<Item> shoppingList;
 
     private boolean isSettled;
 
     private float amount;
 
-    public CliPayment() {
+    public Payment() {
 
     }
 
-    public CliPayment(CliCustomer customer, CliStore store, Set<CliItem> shoppingList, boolean isSettled, float amount) {
+    public Payment(Customer customer, Store store, Set<Item> shoppingList, boolean isSettled, float amount) {
         this.customer = customer;
         this.store = store;
         this.shoppingList = shoppingList;
@@ -35,27 +35,27 @@ public class CliPayment {
         this.id = id;
     }
 
-    public CliCustomer getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(CliCustomer customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public CliStore getStore() {
+    public Store getStore() {
         return store;
     }
 
-    public void setStore(CliStore store) {
+    public void setStore(Store store) {
         this.store = store;
     }
 
-    public Set<CliItem> getShoppingList() {
+    public Set<Item> getShoppingList() {
         return shoppingList;
     }
 
-    public void setShoppingList(Set<CliItem> shoppingList) {
+    public void setShoppingList(Set<Item> shoppingList) {
         this.shoppingList = shoppingList;
     }
 

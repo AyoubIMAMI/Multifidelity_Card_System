@@ -1,20 +1,21 @@
 package fr.polytech.entities.item;
 
 import javax.persistence.Entity;
-import java.util.Objects;
 
 @Entity
-public class Discount extends Product {
+public class Discount extends Buyable {
+
     private int pointPrice;
 
-    public Discount(String name, Long storeId, double cashPrice, int pointPrice) {
-        super(name, storeId, cashPrice);
+    public Discount(String name, Long storeId, int pointPrice) {
+        super(name, storeId);
         this.pointPrice = pointPrice;
     }
 
     public Discount() {
 
     }
+
 
     public int getPointPrice() {
         return pointPrice;
@@ -25,22 +26,9 @@ public class Discount extends Product {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null)
-            return false;
-        if (getClass() != o.getClass())
-            return false;
-        Discount discount = (Discount) o;
-        return Objects.equals(getName(), discount.getName())
-                && Objects.equals(getStoreId(), discount.getStoreId())
-                && Objects.equals(getCashPrice(), discount.getCashPrice())
-                && Objects.equals(getPointPrice(), discount.getPointPrice());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), pointPrice);
+    public String toString() {
+        return "Discount{" +
+                "pointPrice=" + pointPrice +
+                '}';
     }
 }

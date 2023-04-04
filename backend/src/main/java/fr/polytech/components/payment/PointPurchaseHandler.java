@@ -1,11 +1,11 @@
 package fr.polytech.components.payment;
 
+import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.PointPurchase;
 import fr.polytech.entities.Customer;
-import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class PointPurchaseHandler implements PointPurchase {
     }
 
     @Override
-    public void buyWithPoint(Customer customer, Set<Item> shoppingList) throws NotEnoughBalanceException, NoDiscountsFoundException {
+    public Customer buyWithPoint(Customer customer, Set<Item> shoppingList) throws NotEnoughBalanceException, NoDiscountsFoundException {
         int pointsOnFidelityAccount = customer.getFidelityAccount().getPoints();
         int pointsRequired = computeRequiredPoints(shoppingList);
 
@@ -35,14 +35,14 @@ public class PointPurchaseHandler implements PointPurchase {
             throw new NotEnoughBalanceException();
         }
 
-        pointModifier.decrementPoints(customer, pointsRequired);
+        return pointModifier.decrementPoints(customer, pointsRequired);
     }
 
     private int computeRequiredPoints(Set<Item> shoppingList) {
 
         return shoppingList.stream()
-                .filter(x -> x.getProduct() instanceof Discount)
-                .map(x -> x.getQuantity() * ((Discount) x.getProduct()).getPointPrice())
+                .filter(x -> x.getBuyable() instanceof Discount)
+                .map(x -> x.getQuantity() * ((Discount) x.getBuyable()).getPointPrice())
                 .reduce(Integer::sum).orElse(0);
     }
 }

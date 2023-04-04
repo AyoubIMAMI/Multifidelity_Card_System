@@ -1,36 +1,39 @@
-package fr.polytech.entities.test;
+package fr.univcotedazur.simpletcfs.cli.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = Test1.class, name = "test1"),
-        @JsonSubTypes.Type(value = Test2.class, name = "test2")
+        @JsonSubTypes.Type(value = Product.class, name = "product"),
+        @JsonSubTypes.Type(value = Discount.class, name = "discount")
 })
-public abstract class Test {
+public abstract class Buyable {
+
+    private Long id;
 
     private String name;
 
     private Long storeId;
 
-    public Test(String name, Long storeId) {
+    public Buyable(String name, Long storeId) {
         this.name = name;
         this.storeId = storeId;
     }
 
-    @Override
-    public String toString() {
-        return "Test{" +
-                ", name='" + name + '\'' +
-                ", storeId=" + storeId +
-                '}';
+    public Buyable() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -47,5 +50,14 @@ public abstract class Test {
 
     public void setStoreId(Long storeId) {
         this.storeId = storeId;
+    }
+
+    @Override
+    public String toString() {
+        return "Buyable{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", storeId=" + storeId +
+                '}';
     }
 }

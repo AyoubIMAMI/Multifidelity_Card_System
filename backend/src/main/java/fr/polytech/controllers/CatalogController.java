@@ -1,11 +1,10 @@
 package fr.polytech.controllers;
 
-import fr.polytech.controllers.dto.DiscountDTO;
+import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
-import fr.polytech.entities.item.Discount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,48 +33,46 @@ public class CatalogController {
     }
 
     @PostMapping(path = DISCOUNTS_URI, consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<DiscountDTO> create(@RequestBody @Valid DiscountDTO discountDTO) {
+    public ResponseEntity<Discount> create(@RequestBody @Valid Discount discount) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(
-                            convertDiscountToDto(discountModifier.createDiscount(
-                                    discountDTO.getName(),
-                                    discountDTO.getStoreId(),
-                                    discountDTO.getCashPrice(),
-                                    discountDTO.getPointPrice())));
+                    .body(discountModifier.createDiscount(
+                            discount.getName(),
+                            discount.getStoreId(),
+                            discount.getPointPrice()));
     }
 
     @GetMapping(path = DISCOUNTS_URI, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<DiscountDTO>> getDiscountsCatalog() {
+    public ResponseEntity<List<Discount>> getDiscountsCatalog() {
         try {
-            return ResponseEntity.ok().body(convertDiscountsToDtoList(discountExplorer.findAllDiscounts()));
+            return ResponseEntity.ok().body(discountExplorer.findAllDiscounts());
         } catch (NoDiscountsFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
     @GetMapping(path = DISCOUNTS_URI+"/{discountId}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<DiscountDTO> getDiscountById(@PathVariable("discountId") Long discountId) {
+    public ResponseEntity<Discount> getDiscountById(@PathVariable("discountId") Long discountId) {
         try {
-            return ResponseEntity.ok().body(convertDiscountToDto(discountExplorer.findDiscountById(discountId)));
+            return ResponseEntity.ok().body(discountExplorer.findDiscountById(discountId));
         } catch (DiscountNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
     @GetMapping(path = DISCOUNTS_URI+STORE_URI, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<DiscountDTO>> getDiscountsByStore(@PathVariable("storeId") Long storeId) {
+    public ResponseEntity<List<Discount>> getDiscountsByStore(@PathVariable("storeId") Long storeId) {
         try {
-            return ResponseEntity.ok().body(convertDiscountsToDtoList(discountExplorer.findDiscountsByStore(storeId)));
+            return ResponseEntity.ok().body(discountExplorer.findDiscountsByStore(storeId));
         } catch (NoDiscountsFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
     @PutMapping(path =DISCOUNTS_URI+"/{discountId}", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<DiscountDTO> updatePointPrice(@PathVariable("discountId") Long discountId, @RequestBody int pointPrice) {
+    public ResponseEntity<Discount> updatePointPrice(@PathVariable("discountId") Long discountId, @RequestBody int pointPrice) {
         try {
             return ResponseEntity.ok()
-                    .body(convertDiscountToDto(discountModifier.modifyPointPrice(discountId, pointPrice)));
+                    .body(discountModifier.modifyPointPrice(discountId, pointPrice));
         } catch (DiscountNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -89,17 +86,5 @@ public class CatalogController {
         } catch (DiscountNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-    }
-
-    private DiscountDTO convertDiscountToDto(Discount discount) {
-        return new DiscountDTO(discount.getId(), discount.getName(), discount.getStoreId(), discount.getCashPrice(), discount.getPointPrice());
-    }
-
-    private List<DiscountDTO> convertDiscountsToDtoList(Iterable<Discount> discounts) {
-        List<DiscountDTO> discountsDTO = new ArrayList<>();
-
-        discounts.forEach(d -> discountsDTO.add(new DiscountDTO(d.getId(), d.getName(), d.getStoreId(), d.getCashPrice(), d.getPointPrice())));
-
-        return discountsDTO;
     }
 }

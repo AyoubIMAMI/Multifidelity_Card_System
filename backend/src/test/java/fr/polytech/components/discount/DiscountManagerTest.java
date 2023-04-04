@@ -1,10 +1,10 @@
 package fr.polytech.components.discount;
 
+import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
-import fr.polytech.entities.item.Discount;
 import fr.polytech.repository.DiscountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
 import java.util.stream.StreamSupport;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,7 +42,7 @@ class DiscountManagerTest {
     @BeforeEach
     void setUp() {
         discountRepository.deleteAll();
-        discount = new Discount(PRODUCT_NAME, STORE_ID,  CASH_PRICE, POINT_PRICE);
+        discount = new Discount(PRODUCT_NAME, STORE_ID, POINT_PRICE);
     }
 
     @Test
@@ -63,7 +62,7 @@ class DiscountManagerTest {
         // Given
         Long storeId = 456789L;
 
-        Discount storeDiscount = new Discount("Candy", storeId, 3, 2);
+        Discount storeDiscount = new Discount("Candy", storeId, 2);
 
         discountRepository.save(discount);
         discountRepository.save(storeDiscount);
@@ -90,7 +89,7 @@ class DiscountManagerTest {
         // Given
         Long storeId = 987654321L;
 
-        Discount storeDiscount = new Discount("Candy", storeId, 3, 2);
+        Discount storeDiscount = new Discount("Candy", storeId, 2);
 
         discountRepository.save(discount);
         discountRepository.save(storeDiscount);
@@ -120,7 +119,7 @@ class DiscountManagerTest {
         assertEquals(0, discountRepository.count());
 
         // When
-        discountModifier.createDiscount(PRODUCT_NAME, STORE_ID, CASH_PRICE, POINT_PRICE);
+        discountModifier.createDiscount(PRODUCT_NAME, STORE_ID, POINT_PRICE);
 
         // Then
         assertEquals(1, discountRepository.count());

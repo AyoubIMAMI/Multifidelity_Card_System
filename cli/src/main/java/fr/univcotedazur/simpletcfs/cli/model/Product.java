@@ -1,14 +1,16 @@
-package fr.polytech.entities.test;
+package fr.univcotedazur.simpletcfs.cli.model;
 
-import java.util.Objects;
-
-public class Test1 extends Test {
+public class Product extends Buyable {
 
     private double cashPrice;
 
-    public Test1(String name, Long storeId, double cashPrice) {
+    public Product(String name, Long storeId, double cashPrice) {
         super(name, storeId);
         this.cashPrice = cashPrice;
+    }
+
+    public Product() {
+
     }
 
     public double getCashPrice() {
@@ -19,9 +21,10 @@ public class Test1 extends Test {
         this.cashPrice = cashPrice;
     }
 
+
     @Override
     public String toString() {
-        return "Test1{" +
+        return "Product{" +
                 "cashPrice=" + cashPrice +
                 '}';
     }

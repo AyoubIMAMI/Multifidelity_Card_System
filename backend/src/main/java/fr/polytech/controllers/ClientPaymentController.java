@@ -4,9 +4,6 @@ import fr.polytech.controllers.dto.*;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Item;
-import fr.polytech.entities.item.Product;
-import fr.polytech.entities.test.ItemTest;
-import fr.polytech.entities.test.Test;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.payment.IPayment;
 import fr.polytech.entities.Payment;
@@ -15,10 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -35,20 +29,13 @@ public class ClientPaymentController {
     }
 
     @PostMapping(path = PAYMENT_URI+"/settled")
-    public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<ItemDTO> shoppingListDto) throws NoDiscountsFoundException {
+    public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException {
         try {
-            System.out.println("Shopping List received : " + shoppingListDto);
-            //return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payedProcess(customerId, storeId, shoppingList)));
-            return ResponseEntity.ok().build();
+            System.out.println("Shopping List received : " + shoppingList);
+            return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payedProcess(customerId, storeId, shoppingList)));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }
-
-    @PostMapping(path = "/test")
-    public ResponseEntity<String> test(@RequestBody Set<ItemTest> items) {
-        System.out.println("Received:" + items);
-        return ResponseEntity.ok().body("ouais");
     }
 
     @PostMapping(path = PAYMENT_URI+"/fidelity")

@@ -1,23 +1,14 @@
-package fr.polytech.entities.item;
+package fr.univcotedazur.simpletcfs.cli.model;
 
-import fr.polytech.entities.Payment;
 
-import javax.persistence.*;
-import java.util.Objects;
-
-@Entity
 public class Item {
 
-    @Id
-    @GeneratedValue()
     private Long id;
 
     private int quantity;
 
-    @ManyToOne
     private Buyable buyable;
 
-    @ManyToOne
     private Payment payment;
 
     public Item(int quantity, Buyable buyable) {
@@ -61,18 +52,6 @@ public class Item {
         this.payment = payment;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Item item = (Item) o;
-        return quantity == item.quantity && Objects.equals(buyable, item.buyable) && Objects.equals(payment, item.payment);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(quantity, buyable, payment);
-    }
 
     @Override
     public String toString() {

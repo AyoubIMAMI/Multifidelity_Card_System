@@ -2,6 +2,7 @@ package fr.polytech.entities;
 
 import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
+import fr.polytech.entities.item.Product;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -43,8 +44,8 @@ public class Payment {
 
     private float computeShoppingListPrice(Set<Item> shoppingList) {
         double amount = shoppingList.stream()
-                .filter(x -> !(x.getProduct() instanceof Discount))
-                .map(x -> x.getQuantity() * x.getProduct().getCashPrice())
+                .filter(x -> (x.getBuyable() instanceof Product))
+                .map(x -> x.getQuantity() * ((Product) x.getBuyable()).getCashPrice())
                 .reduce(Double::sum).orElse((double) 0);
 
         System.out.println("Amount du payment : " + amount);
