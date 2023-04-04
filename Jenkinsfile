@@ -93,10 +93,11 @@ pipeline {
                                     // Performing release
                                     echo 'Verifying ...'
                                     sh 'mvn clean verify'
-
                                     echo 'Prepare and perform...'
-                                    sh 'echo -e "\\n\\n\\n" | mvn release:prepare -Dresume=false'
-                                    sh 'mvn release:perform'
+                                    withCredentials([gitUsernamePassword(credentialsId: 'KilianBonnet-GitHub-creds', gitToolName: 'git-tool')]) {
+                                        sh 'echo -e "\\n\\n\\n" | mvn release:prepare -Dresume=false'
+                                        sh 'mvn release:perform'
+                                    }
                                 }
                             }
                         }
