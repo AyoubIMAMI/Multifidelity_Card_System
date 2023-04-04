@@ -23,5 +23,5 @@ def get_latest_version(artifactory_path):
     # Find the latest version path
     latest_full_path = artifactory_verisons_list_sorted[0]['path']
     splitted_path = latest_full_path.split('/')
-    return splitted_path[-2]
+    print(splitted_path[-2])
 
