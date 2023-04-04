@@ -19,4 +19,3 @@ docker image rm teamh-bank
 build_dir "bank"
 
 echo "** Done all"
-read -p "Press any key to quit ..."

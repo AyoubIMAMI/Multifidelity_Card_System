@@ -51,7 +51,8 @@ printTable(userTable)
 organisationTable = getTable("organisation")
 printTable(organisationTable)
 
-os.system('start ./DevopsCli/test.sh')
+os.system('ls -l')
+os.system('./inputInCli.sh')
 time.sleep(3)
 
 userTable = getTable("customer")
