@@ -80,11 +80,11 @@ pipeline {
                                     if (unpushedChanges != 0) {
                                         withCredentials([usernamePassword(credentialsId: 'KilianBonnet-GitHub-creds',
                                                                         usernameVariable: 'USERNAME',
-                                                                        passwordVariable: 'PASSWORD')])
+                                                                        passwordVariable: '$MY_CREDENTIALS_PSW')])
                                         {
                                             sh 'git config --global user.email "kilian.bonnet1@etu.univ-cotedazur.fr"'
                                             sh 'git config --global user.name "KilianBonnet"'
-                                            sh' git remote set-url origin https://$USERNAME:$USERNAME@github.com/$USERNAME/project.git'
+                                            sh' git remote set-url origin https://$USERNAME:$MY_CREDENTIALS_PSW@github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git'
 
                                             sh 'git add .'
                                             sh 'git stash'
@@ -93,7 +93,7 @@ pipeline {
                                             sh 'git stash apply'
 
                                             
-                                            sh 'git push origin main'
+                                            sh 'git push origin main $MY_CREDENTIALS_PSW'
                                         }
                                     }
 
