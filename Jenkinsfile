@@ -125,7 +125,7 @@ pipeline {
                 expression { "${endToEndAvailable}" == 'true' && "${skipSteps}" == 'false' } }
             steps {
                 sh 'apt-get install -y socat'
-                sh 'sudo apt install python3-pip'
+                sh 'apt install python3-pip'
                 sh 'pip install psycopg2-binary'
                 sh 'python3 ./DevopsCli/endToEnd.py'
             }
