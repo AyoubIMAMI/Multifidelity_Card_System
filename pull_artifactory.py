@@ -30,6 +30,19 @@ def download_latest(artifactory_path):
     print(os.getcwd())
     print(os.popen('ls -l ./releases').read())
 
+def create_directory_if_not_exists(directory_path):
+    """
+    Check if a directory exists and create it if it doesn't exist.
+    :param directory_path: the path of the directory to check/create.
+    """
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
+        print(f"Directory {directory_path} created.")
+    else:
+        print(f"Directory {directory_path} already exists.")
+
+
 if __name__ == "__main__":
+    create_directory_if_not_exists("./releases")
     download_latest(BACKEND_PATH)
     download_latest(CLI_PATH)
