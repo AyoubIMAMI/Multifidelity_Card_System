@@ -125,7 +125,7 @@ pipeline {
         }
         stage('Pull ltest artifacts'){
             when { 
-                //branch 'main'
+                branch 'main'
                 expression { "${skipSteps}" == 'false' } 
             }
             steps {
@@ -150,11 +150,7 @@ pipeline {
                     sh "cd ./releases && echo \\n | jf rt dl  --recursive --user=admin --password=zEzEBf7mD2aCHA8XG4! --url=http://134.59.213.138:8002/artifactory 'libs-release-local/fr/univcotedazur/fidelity/cli/${last_cli_version}/*'"
                 
                     sh "ls -l ./releases"
-
                 }
-
-
-
             }       
         }
         stage('Create dockers images') {
