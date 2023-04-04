@@ -12,7 +12,7 @@ BACKEND_PATH = "libs-release-local/fr/polytech/isa-devops-22-23-team-h-23/"
 DOWNLOAD_DESTINATION = "./releases"
 
 
-def download_lastest(artifactory_path):
+def download_latest(artifactory_path):
     # Search all file in the given folder path and convert the std output to json
     command = f'echo \\n | jf rt s --user={ARTIFACTORY_USER} --password={ARTIFACTORY_PASSWORD} --url={ARTIFACTORY_URL} "{artifactory_path}"'
     output_bytes = subprocess.check_output(command, shell=True)
@@ -27,8 +27,9 @@ def download_lastest(artifactory_path):
     latest_path = '/'.join(latest_full_path.split('/')[:5]) + '*'
     command = f'echo \\n | jf rt dl  --recursive --user={ARTIFACTORY_USER} --password={ARTIFACTORY_PASSWORD} --url={ARTIFACTORY_URL} "{latest_path}" "{DOWNLOAD_DESTINATION}"'
     os.system(command)
-
+    print(os.getcwd())
+    print(os.popen('ls -l').read())
 
 if __name__ == "__main__":
-    download_lastest(BACKEND_PATH)
-    download_lastest(CLI_PATH)
+    download_latest(BACKEND_PATH)
+    download_latest(CLI_PATH)
