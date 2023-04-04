@@ -90,7 +90,6 @@ pipeline {
 
                                             sh 'git add .'
                                             sh 'git commit -m "Jenkins auto-validation"'
-                                            sh 'git pull'
                                             sh 'git push'
                                         }
                                     }
