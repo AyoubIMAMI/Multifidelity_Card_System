@@ -28,7 +28,7 @@ def download_latest(artifactory_path):
     command = f'echo \\n | jf rt dl  --recursive --user={ARTIFACTORY_USER} --password={ARTIFACTORY_PASSWORD} --url={ARTIFACTORY_URL} "{latest_path}" "{DOWNLOAD_DESTINATION}"'
     os.system(command)
     print(os.getcwd())
-    print(os.popen('ls -l').read())
+    print(os.popen('ls -l ./releases').read())
 
 if __name__ == "__main__":
     download_latest(BACKEND_PATH)
