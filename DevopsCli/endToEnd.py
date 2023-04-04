@@ -16,7 +16,8 @@ def getTable(tableName):
     return userTable
 
 def printTable(table):
-    print("print ",table[0])
+    #print("printTable")
+    #print("print ",table[0])
     for row in table:
         print(row)
 
@@ -50,7 +51,7 @@ printTable(userTable)
 organisationTable = getTable("organisation")
 printTable(organisationTable)
 
-os.system('./test.sh')
+os.system('start ./DevopsCli/test.sh')
 time.sleep(3)
 
 userTable = getTable("customer")
