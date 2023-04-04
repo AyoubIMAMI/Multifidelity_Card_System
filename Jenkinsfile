@@ -107,11 +107,12 @@ pipeline {
                 sh 'docker images'
             }
         }
-        stage('Start containers') {
+        stage('Start containers') {            
             when { 
                 expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false'} 
             }
             steps {
+                sh 'ls -l'
                 sh './build-all.sh'
                 sh './run-all.sh'
             }
