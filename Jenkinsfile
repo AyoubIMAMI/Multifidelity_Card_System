@@ -127,6 +127,7 @@ pipeline {
                 sh 'apt-get install -y socat'
                 sh 'apt install -y python3-pip'
                 sh 'pip install psycopg2-binary'
+                sh 'docker ps'
                 sh 'python3 ./DevopsCli/endToEnd.py'
             }
         }
