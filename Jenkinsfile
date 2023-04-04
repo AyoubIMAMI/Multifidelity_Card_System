@@ -27,7 +27,7 @@ pipeline {
                         skipSteps = true
                         return
                     }
-                     try {
+                    try {
                         sh 'docker rm bank db server cli'
                     } catch (Exception e) {
                         echo "no container to close"
