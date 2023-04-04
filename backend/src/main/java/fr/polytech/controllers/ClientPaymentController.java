@@ -35,6 +35,7 @@ public class ClientPaymentController {
     @PostMapping(path = PAYMENT_URI+"/settled")
     public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException {
         try {
+            System.out.println("Shopping List received : " + shoppingList);
             return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payedProcess(customerId, storeId, shoppingList)));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -44,7 +45,7 @@ public class ClientPaymentController {
     @PostMapping(path = PAYMENT_URI+"/fidelity")
     public ResponseEntity<PaymentDTO> processWithPaymentFidelity(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException {
         try {
-            return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payWithFidelity(customerId,storeId,shoppingList)));
+            return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payWithFidelity(customerId, storeId, shoppingList)));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

@@ -40,6 +40,9 @@ public class CliItem {
 
     @Override
     public String toString() {
-        return "CliItem{" + quantity + " * '" + cliProduct.getName() + "'" + " @ " + cliProduct.getCashPrice() + "}";
+        return "CliItem{" +
+                "quantity=" + quantity +
+                ", cliProduct=" + cliProduct +
+                '}';
     }
 }

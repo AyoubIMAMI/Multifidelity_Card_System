@@ -79,10 +79,9 @@ public class CliPayment {
     public String toString() {
         return "CliPayment{" +
                 "id=" + id +
-                ", customerId=" + customer +
-                ", store=" + store +
+                ", customer=" + customer +
+                ", storeId=" + store.getId() +
                 ", shoppingList=" + shoppingList +
-                ", isSettled=" + isSettled +
                 ", amount=" + amount +
                 '}';
     }

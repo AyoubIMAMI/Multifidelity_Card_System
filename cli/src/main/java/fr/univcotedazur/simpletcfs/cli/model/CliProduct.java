@@ -52,7 +52,6 @@ public class CliProduct {
     public String toString() {
         return "CliProduct{" +
                 "name='" + name + '\'' +
-                ", storeId=" + storeId +
                 ", cashPrice=" + cashPrice +
                 '}';
     }

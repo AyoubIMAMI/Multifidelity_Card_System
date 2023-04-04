@@ -12,7 +12,6 @@ public class CliDiscount extends CliProduct {
     public String toString() {
         return "CliDiscount{" +
                 "name='" + getName() + '\'' +
-                ", storeId=" + getStoreId() +
                 ", cashPrice=" + getCashPrice() +
                 ", pointPrice=" + pointPrice +
                 '}';

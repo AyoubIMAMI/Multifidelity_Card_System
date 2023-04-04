@@ -8,5 +8,5 @@ import fr.polytech.entities.Customer;
 import java.util.Set;
 
 public interface FidelityCardPurchase {
-    void buyWithFidelityCard(Customer customer, Store store, Set<Item> shoppingList) throws NotEnoughBalanceException;
+    Customer buyWithFidelityCard(Customer customer, Store store, Set<Item> shoppingList) throws NotEnoughBalanceException;
 }
