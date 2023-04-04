@@ -25,10 +25,13 @@ def download_latest(artifactory_path):
     # Find the latest version path
     latest_full_path = artifactory_verisons_list_sorted[0]['path']
     latest_path = '/'.join(latest_full_path.split('/')[:5]) + '*'
+    
+    print("latest_path= " + latest_path)
+
     command = f'echo \\n | jf rt dl  --recursive --user={ARTIFACTORY_USER} --password={ARTIFACTORY_PASSWORD} --url={ARTIFACTORY_URL} "{latest_path}" "{DOWNLOAD_DESTINATION}"'
     os.system(command)
-    print(os.getcwd())
-    print(os.popen('ls -l ./releases').read())
+
+    print("ls -l ./releases after add jar= " + os.popen('ls -l ./releases').read())
 
 def create_directory_if_not_exists(directory_path):
     """
