@@ -43,7 +43,7 @@ public class CustomerCommands {
     }
 
     //TODO Proke l'exception PaymentInBankException
-    @ShellMethod("Refill the account of a customer in the backend with his id (refill-customer CUSTOMER_EMAIL CUSTOMER_PASSWORD)")
+    @ShellMethod("Refill the account of a customer in the backend with his id (refill-customer CUSTOMER_ID CREDIT_CARD AMOUNT)")
     public String refillCustomer(Long customerId, String creditCard, int amount) {
         String result = restTemplate.postForObject(BASE_URI + "/refill/" + customerId, new CliBankTransaction(creditCard, amount), String.class);
         return result;

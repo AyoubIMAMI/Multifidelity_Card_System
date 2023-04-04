@@ -3,11 +3,12 @@ package fr.polytech.controllers.dto;
 import javax.validation.constraints.NotBlank;
 
 public class OrganisationDTO {
-    @NotBlank(message = "name should not be blank")
+    @NotBlank(message = "siret should not be blank")
     private String siret;
     @NotBlank(message = "name should not be blank")
     private String name;
     private Long id;
+    @NotBlank(message = "password should not be blank")
     private String password;
 
     public OrganisationDTO(Long id, String siret, String name, String password) {

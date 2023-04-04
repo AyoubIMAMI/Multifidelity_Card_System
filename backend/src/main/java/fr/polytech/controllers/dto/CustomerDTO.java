@@ -1,5 +1,7 @@
 package fr.polytech.controllers.dto;
 
+import fr.polytech.entities.FidelityAccount;
+
 import javax.validation.constraints.NotBlank;
 
 public class CustomerDTO {
@@ -13,11 +15,14 @@ public class CustomerDTO {
     @NotBlank(message = "email should not be blank")
     private String email;
 
-    public CustomerDTO(Long id, String name, String email, String password){
+    private FidelityAccount fidelityAccount;
+
+    public CustomerDTO(Long id, String name, String email, String password, FidelityAccount fidelityAccount){
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.fidelityAccount = fidelityAccount;
     }
 
     public String getName() {
@@ -52,13 +57,11 @@ public class CustomerDTO {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "CustomerDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    public FidelityAccount getFidelityAccount() {
+        return fidelityAccount;
+    }
+
+    public void setFidelityAccount(FidelityAccount fidelityAccount) {
+        this.fidelityAccount = fidelityAccount;
     }
 }

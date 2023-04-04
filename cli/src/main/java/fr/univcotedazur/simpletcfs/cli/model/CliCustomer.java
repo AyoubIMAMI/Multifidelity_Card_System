@@ -6,6 +6,8 @@ public class CliCustomer {
     private String password;
     private String email;
 
+    private CliFidelityAccount fidelityAccount;
+
     public CliCustomer(String name, String email, String password){
         this.name = name;
         this.email = email;
@@ -14,17 +16,6 @@ public class CliCustomer {
 
     public CliCustomer() {
 
-    }
-
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 
     public Long getId() {
@@ -57,6 +48,25 @@ public class CliCustomer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public CliFidelityAccount getFidelityAccount() {
+        return fidelityAccount;
+    }
+
+    public void setFidelityAccount(CliFidelityAccount fidelityAccount) {
+        this.fidelityAccount = fidelityAccount;
+    }
+
+    @Override
+    public String toString() {
+        return "CliCustomer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", fidelityAccount=" + fidelityAccount +
+                '}';
     }
 }
 
