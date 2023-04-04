@@ -27,9 +27,12 @@ pipeline {
                         skipSteps = true
                         return
                     }
+                     try {
+                        sh 'docker rm bank db server cli'
+                    } catch (Exception e) {
+                        echo "no container to close"
+                    }
                 }
-                sh 'docker compose down'
-                sh 'docker rm bank db server cli'
                 // Cleaning .m2 folder
                 sh 'if [ -d "$HOME/.m2" ]; then rm -rf $HOME/.m2; fi'
                 sh 'mkdir $HOME/.m2'
