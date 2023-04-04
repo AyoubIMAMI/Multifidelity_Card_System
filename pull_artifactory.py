@@ -15,6 +15,7 @@ DOWNLOAD_DESTINATION = "./releases"
 def download_latest(artifactory_path):
     # Search all file in the given folder path and convert the std output to json
     command = f'echo \\n | jf rt s --user={ARTIFACTORY_USER} --password={ARTIFACTORY_PASSWORD} --url={ARTIFACTORY_URL} "{artifactory_path}"'
+    print("Command : " + command)
     output_bytes = subprocess.check_output(command, shell=True)
     output_str = output_bytes.decode().strip()
     artifactory_verisons_list = json.loads(output_str)
@@ -30,9 +31,10 @@ def download_latest(artifactory_path):
     splitted_path = latest_full_path.split('/')
     latest_path = '/'.join(splitted_path[:len(splitted_path) - 1]) + '/*'
     
-    print("Downloading : " + latest_path)
 
+    
     command = f'echo \\n | jf rt dl  --recursive --user={ARTIFACTORY_USER} --password={ARTIFACTORY_PASSWORD} --url={ARTIFACTORY_URL} "{latest_path}" "{os.path.abspath(DOWNLOAD_DESTINATION)}"'
+    print("Command : " + command)
     os.system(command)
 
 
