@@ -83,10 +83,15 @@ pipeline {
                                             sh 'git checkout main'
                                             sh 'git pull'
                                             sh 'git stash apply'
+                                            sh 'git commit -m "Applying Jenkins changes"'
+                                            
                                         }
                                     }
 
                                     // Performing release
+                                    echo 'Verifying ...'
+                                    sh 'mvn clean verify'
+
                                     echo 'Prepare and perform...'
                                     sh 'echo -e "\\n\\n\\n" | mvn release:prepare -Dresume=false'
                                     sh 'mvn release:perform'
