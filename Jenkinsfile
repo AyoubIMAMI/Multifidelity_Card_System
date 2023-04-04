@@ -85,8 +85,7 @@ pipeline {
                                             sh 'git pull'
 
                                             sh 'git stash apply'
-                                            sh 'git add .'
-                                            sh 'git commit -m "[Jenkins] Applying changes"'
+                                            sh 'git commit -a -m "[Jenkins] Applying changes"'
                                             sh 'git push'
                                         }
                                     }
