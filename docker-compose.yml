@@ -38,6 +38,7 @@ services:
     volumes:
       - ./cli/scripts/demo.txt:/opt/app/demo.txt
       - ./cli/scripts/register1Customer1Store.txt:/opt/app/register1Customer1Store.txt
+      - ./cli/scripts/test.txt:/opt/app/test.txt
     stdin_open: true
     tty: true
 

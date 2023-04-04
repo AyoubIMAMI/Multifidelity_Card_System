@@ -2,12 +2,17 @@ package fr.univcotedazur.simpletcfs.cli.commands;
 
 import fr.univcotedazur.simpletcfs.cli.CliContext;
 import fr.univcotedazur.simpletcfs.cli.model.*;
+import fr.univcotedazur.simpletcfs.cli.model.test.ItemTest;
+import fr.univcotedazur.simpletcfs.cli.model.test.Test1;
+import fr.univcotedazur.simpletcfs.cli.model.test.Test2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @ShellComponent
 public class PaymentCommands {
@@ -74,6 +79,16 @@ public class PaymentCommands {
         cliContext.getPayments().put(res.getId(), res);
         cliContext.getCart().clear();
         cliContext.getCustomers().put(res.getCustomer().getId(),res.getCustomer());
+        return res;
+    }
+
+    @ShellMethod("test")
+    public CliPayment test() {
+        Set<ItemTest> items = new HashSet<>(){{
+            add(new ItemTest(1, new Test1("n", 2L, 5)));
+            add(new ItemTest(1, new Test2("n", 2L, 10)));
+        }};
+        CliPayment res = restTemplate.postForObject(BASE_URI + "/test", items, CliPayment.class);
         return res;
     }
 }

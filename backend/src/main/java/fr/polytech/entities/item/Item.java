@@ -80,7 +80,6 @@ public class Item {
                 "id=" + id +
                 ", quantity=" + quantity +
                 ", product=" + product +
-                ", payment=" + payment +
                 '}';
     }
 }

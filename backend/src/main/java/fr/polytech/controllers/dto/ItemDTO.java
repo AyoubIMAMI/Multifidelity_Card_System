@@ -1,18 +1,22 @@
-package fr.univcotedazur.simpletcfs.cli.model;
+package fr.polytech.controllers.dto;
 
-public class CliItem {
 
+import javax.validation.constraints.NotNull;
+
+public class ItemDTO {
     private Long id;
-    private int quantity;
-    private CliProduct product;
 
-    public CliItem(int quantity, CliProduct product) {
+    @NotNull(message = "quantity should not be null")
+    private int quantity;
+
+    private ProductDTO product;
+
+    public ItemDTO(Long id, int quantity, ProductDTO product) {
+        this.id = id;
         this.quantity = quantity;
         this.product = product;
     }
 
-    public CliItem() {
-    }
 
     public Long getId() {
         return id;
@@ -30,18 +34,19 @@ public class CliItem {
         this.quantity = quantity;
     }
 
-    public CliProduct getProduct() {
+    public ProductDTO getProduct() {
         return product;
     }
 
-    public void setProduct(CliProduct product) {
+    public void setProduct(ProductDTO product) {
         this.product = product;
     }
 
     @Override
     public String toString() {
-        return "CliItem{" +
-                "quantity=" + quantity +
+        return "ItemDTO{" +
+                "id=" + id +
+                ", quantity=" + quantity +
                 ", product=" + product +
                 '}';
     }

@@ -1,5 +1,7 @@
 package fr.polytech.controllers.dto;
 
+import fr.polytech.entities.item.Product;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -38,16 +40,6 @@ public class ProductDTO {
         return cashPrice;
     }
 
-    @Override
-    public String toString() {
-        return "DiscountDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", storeId=" + storeId +
-                ", cashPrice=" + cashPrice +
-                '}';
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -62,5 +54,15 @@ public class ProductDTO {
 
     public void setCashPrice(double cashPrice) {
         this.cashPrice = cashPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", storeId=" + storeId +
+                ", cashPrice=" + cashPrice +
+                '}';
     }
 }

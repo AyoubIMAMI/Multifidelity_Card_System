@@ -1,5 +1,6 @@
 package fr.polytech.controllers.dto;
 
+
 import javax.validation.constraints.NotNull;
 
 public class DiscountDTO extends ProductDTO {
@@ -16,6 +17,10 @@ public class DiscountDTO extends ProductDTO {
         return pointPrice;
     }
 
+    public void setPointPrice(int pointPrice) {
+        this.pointPrice = pointPrice;
+    }
+
     @Override
     public String toString() {
         return "DiscountDTO{" +
@@ -25,9 +30,5 @@ public class DiscountDTO extends ProductDTO {
                 ", cashPrice=" + getCashPrice() +
                 ", pointPrice=" + pointPrice +
                 '}';
-    }
-
-    public void setPointPrice(int pointPrice) {
-        this.pointPrice = pointPrice;
     }
 }
