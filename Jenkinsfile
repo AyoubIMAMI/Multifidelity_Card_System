@@ -80,11 +80,14 @@ pipeline {
                                         withCredentials([gitUsernamePassword(credentialsId: 'KilianBonnet-GitHub-creds', gitToolName: 'git-tool')]) {
                                             sh 'git add .'
                                             sh 'git stash'
+
                                             sh 'git checkout main'
                                             sh 'git pull'
+
                                             sh 'git stash apply'
+                                            sh 'git add .'
                                             sh 'git commit -m "Applying Jenkins changes"'
-                                            
+                                            sh 'git push'
                                         }
                                     }
 
