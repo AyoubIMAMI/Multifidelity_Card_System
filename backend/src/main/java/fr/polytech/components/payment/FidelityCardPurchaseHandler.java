@@ -19,9 +19,9 @@ public class FidelityCardPurchaseHandler implements FidelityCardPurchase {
         this.balanceModifier= balanceModifier;
     }
     @Override
-    public void buyWithFidelityCard(Customer customer, Store store, Set<Item> shoppingList) throws NotEnoughBalanceException {
+    public Customer buyWithFidelityCard(Customer customer, Store store, Set<Item> shoppingList) throws NotEnoughBalanceException {
         double cashNeeded = computeRequiredCash(shoppingList);
-        balanceModifier.decreaseBalance(customer,cashNeeded);
+        return balanceModifier.decreaseBalance(customer, cashNeeded);
     }
     private double computeRequiredCash(Set<Item> shoppingList) {
 
