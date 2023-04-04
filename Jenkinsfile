@@ -32,7 +32,10 @@ pipeline {
                         return
                     }
                     try {
-                        sh 'docker stop bank db server cli'
+                        sh 'docker stop bank'
+                        sh 'docker stop db'
+                        sh 'docker stop server'
+                        sh 'docker stop cli'
                         sh 'docker rm bank db server cli'
                     } catch (Exception e) {
                         echo "no container to close"
