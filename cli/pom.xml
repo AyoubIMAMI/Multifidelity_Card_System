@@ -11,10 +11,18 @@
 
     <groupId>fr.univcotedazur.fidelity</groupId>
     <artifactId>cli</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>cli</name>
     <description>cli</description>
+
+    <scm>
+        <connection>scm:git:https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git</connection>
+        <developerConnection>scm:git:https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git</developerConnection>
+        <url>https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git</url>
+      <tag>HEAD</tag>
+  </scm>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -53,9 +61,14 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <tagNameFormat>cli-v@{project.version}</tagNameFormat>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>   
         </plugins>
     </build>
 

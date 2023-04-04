@@ -6,8 +6,12 @@ def directories = [
 pipeline {
     agent any
 
+    options {
+        disableConcurrentBuilds()
+    }
+
     environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
+        GITHUB_CREDENTIALS=credentials('github')
 		containerWork = false
 		endToEndAvailable = false
         skipSteps = false
@@ -21,18 +25,14 @@ pipeline {
                 // Check if the commit is from maven-release-plugin
                 script {
                     def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-                    if (commitMessage.contains('[maven-release-plugin]')) {
+                    if (commitMessage.contains('[maven-release-plugin]') || commitMessage.contains('[Jenkins]')) {
                         echo 'Exiting building'
                         // Sortir de la pipeline et ne pas executer les aures stage avec SUCCESS
                         skipSteps = true
                         return
                     }
                 }
-                
-                // Cleaning .m2 folder
-                sh 'if [ -d "$HOME/.m2" ]; then rm -rf $HOME/.m2; fi'
-                sh 'mkdir $HOME/.m2'
-
+            
                 // Copying settings.xml into .m2 folder
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
                 sh 'cat  $HOME/.m2/settings.xml'
@@ -75,10 +75,34 @@ pipeline {
                         directories.each { directory ->
                             stage ("Prepare and Perform release $directory") {
                                 echo "$directory"
+
                                 dir("./$directory") {
+                                    // Check for unpushed modifications
+                                    def unpushedChanges = sh(returnStatus: true, script: 'git diff --exit-code && git diff --cached --exit-code')
+                                    if (unpushedChanges != 0) {
+                                        withCredentials([gitUsernamePassword(credentialsId: 'KilianBonnet-GitHub-creds', gitToolName: 'git-tool')]) {
+                                            sh 'git add .'
+                                            sh 'git stash'
+
+                                            sh 'git checkout main'
+                                            sh 'git pull'
+
+                                            sh 'git stash apply'
+                                            sh 'git commit -a -m "[Jenkins] Applying changes"'
+                                            sh 'git push'
+                                        }
+                                    }
+
+                                    // Performing release
+                                    echo 'Verifying ...'
+                                    sh 'mvn clean verify'
                                     echo 'Prepare and perform...'
-                                    sh 'echo -e "\\n\\n\\n" | mvn release:prepare -Dresume=false'
-                                    sh 'mvn release:perform'
+                                    withCredentials([gitUsernamePassword(credentialsId: 'KilianBonnet-GitHub-creds', gitToolName: 'git-tool')]) {
+                                        sh 'git checkout main'
+                                        sh 'git pull'
+                                        sh 'echo "\\n\\n\\n" | mvn release:prepare -Dresume=false'
+                                        sh 'mvn release:perform'
+                                    }
                                 }
                             }
                         }
