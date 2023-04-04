@@ -11,9 +11,9 @@ pipeline {
     }
 
     environment {
-        GITHUB_CREDENTIALS=credentials('github')
-		containerWork = false
-		endToEndAvailable = false
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
+		containerWork = true
+		endToEndAvailable = true
         skipSteps = false
 	}
 
@@ -31,8 +31,17 @@ pipeline {
                         skipSteps = true
                         return
                     }
+                    try {
+                        sh 'docker stop bank'
+                        sh 'docker stop db'
+                        sh 'docker stop server'
+                        sh 'docker stop cli'
+                        sh 'docker rm bank db server cli'
+                    } catch (Exception e) {
+                        echo "no container to close"
+                    }
                 }
-            
+               
                 // Copying settings.xml into .m2 folder
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
                 sh 'cat  $HOME/.m2/settings.xml'
@@ -50,10 +59,12 @@ pipeline {
                     if(env.BRANCH_NAME != 'main'){
                         directories.each { directory ->
                             stage ("Test $directory") {
-                                echo "$directory"
-                                dir("./$directory") {
-                                    echo 'Testing...'
-                                    sh 'mvn test'
+                                if(env.BRANCH_NAME == 'Develop'){
+                                    echo "$directory"
+                                    dir("./$directory") {
+                                        echo 'Testing...'
+                                        sh 'mvn test'
+                                    }
                                 }
                             }
                             stage ("Building $directory") {
@@ -64,11 +75,13 @@ pipeline {
                                 }
                             }
                             stage ("Deploy $directory") {
-                                echo "$directory"
-                                dir("./$directory") {
-                                    echo 'Deploying...'
-                                    sh 'mvn deploy'
-                                }
+                                if(env.BRANCH_NAME == 'Develop'){
+                                    echo "$directory"
+                                    dir("./$directory") {
+                                        echo 'Deploying...'
+                                        sh 'mvn deploy'
+                                    }
+                                }                                
                             }
                         }
                     }else{
@@ -110,6 +123,40 @@ pipeline {
                 }
             }
         }
+        stage('Pull ltest artifacts'){
+            when { 
+                //branch 'main'
+                expression { "${skipSteps}" == 'false' } 
+            }
+            steps {
+                script {
+                    try {
+                        sh 'rmdir releases'
+                    } catch (Exception e) {
+                    echo "The directory doesn't exist"
+                    }
+
+                    sh 'mkdir releases'
+                    echo 'Pulling releases ...'
+
+                    // Backend pulling
+                    def last_backend_version = sh(returnStdout: true, script: 'python3 artifactory_pull/backend_latest_version.py').split("\n")[1]
+                    echo "Downloading backend (v${last_backend_version})"
+                    sh "cd ./releases && echo \\n | jf rt dl  --recursive --user=admin --password=zEzEBf7mD2aCHA8XG4! --url=http://134.59.213.138:8002/artifactory 'libs-release-local/fr/polytech/isa-devops-22-23-team-h-23/${last_backend_version}/*'"
+                    
+                    // Cli pulling
+                    def last_cli_version = sh(returnStdout: true, script: 'python3 artifactory_pull/cli_latest_version.py').split("\n")[1]
+                    echo "Downloading cli (v${last_cli_version})"
+                    sh "cd ./releases && echo \\n | jf rt dl  --recursive --user=admin --password=zEzEBf7mD2aCHA8XG4! --url=http://134.59.213.138:8002/artifactory 'libs-release-local/fr/univcotedazur/fidelity/cli/${last_cli_version}/*'"
+                
+                    sh "ls -l ./releases"
+
+                }
+
+
+
+            }       
+        }
         stage('Create dockers images') {
             when { 
                 expression { "${skipSteps}" == 'false' }
@@ -129,21 +176,25 @@ pipeline {
                 sh 'docker images'
             }
         }
-        stage('Start containers') {
+        stage('Start containers') {            
             when { 
                 expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false'} 
             }
-            steps {
-                //sh './build-all.sh'
-                sh './run-all.sh'
+            steps{
+                sh 'docker ps'
+                sh './build-all.sh'
+                sh './run-all.sh'                        
             }
         }
         stage('Test end to end') {
             when { 
                 expression { "${endToEndAvailable}" == 'true' && "${skipSteps}" == 'false' } }
             steps {
-
-                sh './endToEnd.sh'
+                sh 'apt-get install -y socat'
+                sh 'apt install -y python3-pip'
+                sh 'pip install psycopg2-binary'
+                sh 'docker ps'
+                sh 'python3 ./DevopsCli/endToEnd.py'
             }
         }
         stage('Export images on DockerHub (main)') {

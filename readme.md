@@ -135,3 +135,15 @@ Setting up Artifactory repos
 * Click on "Welcome, admin" at the top right of the website homepage
 * Click on "Quick Repository Creation"
 * Click on "Maven" and follow the steps
+
+
+## Problème sur jenkins
+Si vous avez cette erreur alors que le fichier est au bon endroit:
+```
++ ./build-all.sh
+/var/jenkins_home/workspace/2-23-team-h-23_cli-intoo-jenkins@tmp/durable-7332bef8/script.sh: 1: ./build-all.sh: not found
+```
+Il faut vérifier si la première ligne du fichier est bien exactement:
+```
+#!/bin/bash
+```

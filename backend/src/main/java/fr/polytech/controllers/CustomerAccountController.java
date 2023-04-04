@@ -43,7 +43,7 @@ public class CustomerAccountController {
     public ResponseEntity<String> refillAccount(@PathVariable("customerId") Long customerId, @RequestBody BankTransactionDTO transaction) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, FidelityAccountNotFoundException, NegativeAmountException, PaymentInBankException {
         Customer customer = customerFinder.findCustomerById(customerId);
         Date refillTime = refillFidelityCard.refill(customer, transaction);
-        return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + " . Transaction amount: " + transaction.getAmount());
+        return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + ". Transaction amount: " + transaction.getAmount());
     }
 
     @PostMapping(path = "/registration", consumes = APPLICATION_JSON_VALUE)
@@ -55,6 +55,7 @@ public class CustomerAccountController {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
+
     @PostMapping(path = "/login", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> login(@RequestBody @Valid CustomerDTO customerDTO){
         try {
@@ -66,6 +67,6 @@ public class CustomerAccountController {
     }
 
     private CustomerDTO convertCustomerToDto(Customer customer) {
-        return new CustomerDTO(customer.getId(), customer.getName(), customer.getEmail(), customer.getPassword());
+        return new CustomerDTO(customer.getId(), customer.getName(), customer.getEmail(), customer.getPassword(), customer.getFidelityAccount());
     }
 }

@@ -64,6 +64,16 @@ public class PaymentCommands {
         CliPayment res = restTemplate.postForObject(BASE_URI + "/store/" + storeId + "/customer/" + customerId + "/settled", cliContext.getCart(), CliPayment.class);
         cliContext.getPayments().put(res.getId(), res);
         cliContext.getCart().clear();
+        cliContext.getCustomers().put(res.getCustomer().getId(),res.getCustomer());
+        return res;
+    }
+
+    @ShellMethod("Do a payment with balance on fidelity account (fidelity-payment CUSTOMER_ID STORE_ID)")
+    public CliPayment fidelityPayment(Long customerId, Long storeId) {
+        CliPayment res = restTemplate.postForObject(BASE_URI + "/store/" + storeId + "/customer/" + customerId + "/fidelity", cliContext.getCart(), CliPayment.class);
+        cliContext.getPayments().put(res.getId(), res);
+        cliContext.getCart().clear();
+        cliContext.getCustomers().put(res.getCustomer().getId(),res.getCustomer());
         return res;
     }
 }

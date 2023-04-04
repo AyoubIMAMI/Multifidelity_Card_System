@@ -1,4 +1,4 @@
-#!/bin/bashs
+#!/bin/bash
 
 function build_dir()  # $1 is the dir to get it
 {
@@ -19,4 +19,3 @@ docker image rm teamh-bank
 build_dir "bank"
 
 echo "** Done all"
-read -p "Press any key to quit ..."

@@ -1,6 +1,8 @@
 import psycopg2
 import os
 import time
+import subprocess
+
 #apt-get install -y socat
 #sudo apt install python3-pip
 #pip install psycopg2-binary
@@ -16,7 +18,8 @@ def getTable(tableName):
     return userTable
 
 def printTable(table):
-    print("print ",table[0])
+    #print("printTable")
+    #print("print ",table[0])
     for row in table:
         print(row)
 
@@ -25,11 +28,11 @@ def connect():
     global cursor
     # Définir les informations de connexion à la base de données
     connection = psycopg2.connect(
-        host="localhost",
+        host="134.59.213.138",
         database="tcf-db",
         user="postgresuser",
         password="postgrespass",
-        port=5432
+        port=8003
     )
     return connection
 
@@ -50,7 +53,8 @@ printTable(userTable)
 organisationTable = getTable("organisation")
 printTable(organisationTable)
 
-os.system('./test.sh')
+os.system('ls -l')
+os.system('./inputInCli.sh')
 time.sleep(3)
 
 userTable = getTable("customer")
