@@ -113,7 +113,7 @@ pipeline {
             when { 
                 expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false'} 
             }
-            steps 
+            steps{}
                 sh './build-all.sh'
                 sh './run-all.sh'                        
             }
