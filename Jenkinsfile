@@ -125,7 +125,7 @@ pipeline {
         }
         stage('Pull ltest artifacts'){
             when { 
-                branch 'main'
+                //branch 'main'
                 expression { "${skipSteps}" == 'false' } 
             }
             steps {
