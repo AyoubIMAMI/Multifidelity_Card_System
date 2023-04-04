@@ -23,8 +23,8 @@ def download_latest(artifactory_path):
     artifactory_verisons_list_sorted = sorted(artifactory_verisons_list, key=lambda x: x['modified'], reverse=True)
 
     # Find the latest version path
-    latest_full_path = artifactory_verisons_list_sorted[0]['path']
-    latest_path = '/'.join(latest_full_path.split('/')[:4]) + '*'
+    latest_full_path = artifactory_verisons_list_sorted[1]['path']
+    latest_path = '/'.join(latest_full_path.split('/')[:5]) + '*'
     
     print("latest_path= " + latest_path)
 
