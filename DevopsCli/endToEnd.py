@@ -1,6 +1,8 @@
 import psycopg2
 import os
 import time
+import subprocess
+
 #apt-get install -y socat
 #sudo apt install python3-pip
 #pip install psycopg2-binary
@@ -24,11 +26,11 @@ def printTable(table):
 def connect():
     global connection
     global cursor
-    db_ip = os.system("docker inspect \
-  -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' db")
+    ip_address = subprocess.check_output(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", container_name_or_id])
+
     # Définir les informations de connexion à la base de données
     connection = psycopg2.connect(
-        host=db_ip,
+        host=ip_address,
         database="tcf-db",
         user="postgresuser",
         password="postgrespass",
