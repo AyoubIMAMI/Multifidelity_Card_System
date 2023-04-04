@@ -139,7 +139,7 @@ pipeline {
 
                 sh 'mkdir releases'
                 echo 'Pulling releases ...'
-                sh 'echo \n | jf rt dl  --recursive --user=admin --password=zEzEBf7mD2aCHA8XG4! --url=http://134.59.213.138:8002/artifactory "libs-release-local/fr/polytech/isa-devops-22-23-team-h-23/1.2/*" "./releases"'
+                sh 'echo \\n | jf rt dl  --recursive --user=admin --password=zEzEBf7mD2aCHA8XG4! --url=http://134.59.213.138:8002/artifactory "libs-release-local/fr/polytech/isa-devops-22-23-team-h-23/1.2/*" "./releases"'
 
                 //sh 'python3 pull_artifactory.py'
                 sh "ls -l ./releases"
