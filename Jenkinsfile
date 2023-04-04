@@ -76,8 +76,20 @@ pipeline {
                                 dir("./$directory") {
                                     // Check for unpushed modifications
                                     def unpushedChanges = sh(returnStatus: true, script: 'git diff --exit-code && git diff --cached --exit-code')
+
                                     if (unpushedChanges != 0) {
-                                        sh 'git reset --hard'
+                                        withCredentials([usernamePassword(credentialsId: 'KilianBonnet-GitHub-creds',
+                                                                        usernameVariable: 'USERNAME',
+                                                                        passwordVariable: 'PASSWORD')])
+                                        {
+                                            sh 'git config --global user.email "kilian.bonnet1@etu.univ-cotedazur.fr"'
+                                            sh 'git config --global user.name "KilianBonnet"'
+                                            
+                                            sh 'git checkout main'
+                                            sh 'git add .'
+                                            sh 'git commit -m "Jenkins auto-validation"'
+                                            sh 'git push origin main'
+                                        }
                                     }
 
                                     // Performing release
