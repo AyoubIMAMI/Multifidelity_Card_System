@@ -8,6 +8,7 @@ pipeline {
 
     environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
+        GITHUB_CREDENTIALS=credentials('KilianBonnet-GitHub-creds')
 		containerWork = false
 		endToEndAvailable = false
         skipSteps = false
@@ -75,7 +76,18 @@ pipeline {
                         directories.each { directory ->
                             stage ("Prepare and Perform release $directory") {
                                 echo "$directory"
+
                                 dir("./$directory") {
+                                    // Check for unpushed modifications
+                                    def unpushedChanges = sh(returnStatus: true, script: 'git diff --exit-code && git diff --cached --exit-code', returnStdout: true).trim()
+                                    if (unpushedChanges) {
+                                        withCredentials([usernamePassword(credentialsId: 'KilianBonnet-GitHub-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                                            sh 'git add .'
+                                            sh 'git -c credential.username=${{USERNAME}} -c credential.helper=store pull -m "Jenkins auto-validation"'
+                                            sh 'git -c credential.username=${{USERNAME}} -c credential.helper=store push'
+                                    }
+
+                                    // Performing release
                                     echo 'Prepare and perform...'
                                     sh 'echo -e "\\n\\n\\n" | mvn release:prepare -Dresume=false'
                                     sh 'mvn release:perform'
