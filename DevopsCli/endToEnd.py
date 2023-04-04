@@ -30,7 +30,7 @@ def connect():
         database="tcf-db",
         user="postgresuser",
         password="postgrespass",
-        port=5432
+        port=8003
     )
     return connection
 
