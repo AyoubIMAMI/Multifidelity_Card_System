@@ -26,8 +26,6 @@ def printTable(table):
 def connect():
     global connection
     global cursor
-    ip_address = subprocess.check_output(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "db"])
-
     # Définir les informations de connexion à la base de données
     connection = psycopg2.connect(
         host="134.59.213.138",
