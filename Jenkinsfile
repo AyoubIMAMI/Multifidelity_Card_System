@@ -128,19 +128,20 @@ pipeline {
                 branch 'main'
                 expression { "${skipSteps}" == 'false' } 
             }
-            script {
-                try {
-                    sh 'rmdir releases'
-                } catch (Exception e) {
-                echo "The directory doesn't exist"
+            steps {
+                script {
+                    try {
+                        sh 'rmdir releases'
+                    } catch (Exception e) {
+                    echo "The directory doesn't exist"
+                    }
                 }
-            }
-            
-            sh 'mkdir releases'
-            echo 'Pulling releases ...'
-            sh 'python pull_artifactory.py'
-            sh "ls -l"
-                 
+
+                sh 'mkdir releases'
+                echo 'Pulling releases ...'
+                sh 'python pull_artifactory.py'
+                sh "ls -l"
+            }       
         }
         stage('Create dockers images') {
             when { 
