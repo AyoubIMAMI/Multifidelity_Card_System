@@ -29,11 +29,7 @@ pipeline {
                         return
                     }
                 }
-                
-                // Cleaning .m2 folder
-                sh 'if [ -d "$HOME/.m2" ]; then rm -rf $HOME/.m2; fi'
-                sh 'mkdir $HOME/.m2'
-
+            
                 // Copying settings.xml into .m2 folder
                 sh 'cp ./backend/assets/settings.xml $HOME/.m2/settings.xml'
                 sh 'cat  $HOME/.m2/settings.xml'
@@ -81,17 +77,7 @@ pipeline {
                                     // Check for unpushed modifications
                                     def unpushedChanges = sh(returnStatus: true, script: 'git diff --exit-code && git diff --cached --exit-code')
                                     if (unpushedChanges != 0) {
-                                        withCredentials([usernamePassword(credentialsId: 'KilianBonnet-GitHub-creds',
-                                                                        usernameVariable: 'USERNAME',
-                                                                        passwordVariable: 'PASSWORD')])
-                                        {
-                                            sh 'git config --global user.email "kilian.bonnet1@etu.univ-cotedazur.fr"'
-                                            sh 'git config --global user.name "KilianBonnet"'
-
-                                            sh 'git add .'
-                                            sh 'git commit -m "Jenkins auto-validation"'
-                                            sh 'git push origin main'
-                                        }
+                                        sh 'git reset --hard'
                                     }
 
                                     // Performing release
