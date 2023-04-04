@@ -32,7 +32,7 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder, Cu
     @Override
     public Customer register(String name, String mail, String password) throws MailAlreadyUsedException {
         if(isMailAlreadyUsed(mail))
-            throw new MailAlreadyUsedException();
+            throw new MailAlreadyUsedException(mail);
 
         Customer customer = new Customer(name, mail, password);
         return customerRepository.save(customer);
