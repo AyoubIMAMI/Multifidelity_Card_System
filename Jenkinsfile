@@ -77,9 +77,12 @@ pipeline {
                                 echo "$directory"
 
                                 dir("./$directory") {
+                                    withCredentials([gitUsernamePassword(credentialsId: 'KilianBonnet-GitHub-creds', gitToolName: 'git-tool')]) {
+                                        sh 'git pull'
+                                    }
+
                                     // Check for unpushed modifications
                                     def unpushedChanges = sh(returnStatus: true, script: 'git diff --exit-code && git diff --cached --exit-code')
-
                                     if (unpushedChanges != 0) {
                                         withCredentials([gitUsernamePassword(credentialsId: 'KilianBonnet-GitHub-creds', gitToolName: 'git-tool')]) {
                                             sh 'git add .'
