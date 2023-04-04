@@ -95,6 +95,7 @@ pipeline {
                                     sh 'mvn clean verify'
                                     echo 'Prepare and perform...'
                                     withCredentials([gitUsernamePassword(credentialsId: 'KilianBonnet-GitHub-creds', gitToolName: 'git-tool')]) {
+                                        sh 'git checkout main'
                                         sh 'echo -e "\\n\\n\\n" | mvn release:prepare -Dresume=false'
                                         sh 'mvn release:perform'
                                     }
