@@ -113,16 +113,9 @@ pipeline {
             when { 
                 expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false'} 
             }
-            steps {
-                sh 'pwd'
-                sh 'ls -l'
-
-                dir("./") {
-                    sh 'pwd'
-                    sh 'ls -l'
-                    sh './build-all.sh'
-                    sh './run-all.sh'
-                }           
+            steps 
+                sh './build-all.sh'
+                sh './run-all.sh'                        
             }
         }
         stage('Test end to end') {
