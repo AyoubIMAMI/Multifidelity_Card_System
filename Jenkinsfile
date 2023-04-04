@@ -8,8 +8,8 @@ pipeline {
 
     environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
-		containerWork = false
-		endToEndAvailable = false
+		containerWork = true
+		endToEndAvailable = true
         skipSteps = false
 	}
 
@@ -64,11 +64,13 @@ pipeline {
                                 }
                             }
                             stage ("Deploy $directory") {
-                                echo "$directory"
-                                dir("./$directory") {
-                                    echo 'Deploying...'
-                                    sh 'mvn deploy'
-                                }
+                                if(env.BRANCH_NAME == 'Develop'){
+                                    echo "$directory"
+                                    dir("./$directory") {
+                                        echo 'Deploying...'
+                                        sh 'mvn deploy'
+                                    }
+                                }                                
                             }
                         }
                     }else{
