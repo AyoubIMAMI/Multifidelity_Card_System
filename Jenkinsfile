@@ -29,7 +29,7 @@ pipeline {
                     }
                 }
                 sh 'docker compose down'
-                sh 'docker rm'
+                sh 'docker rm bank'
                 // Cleaning .m2 folder
                 sh 'if [ -d "$HOME/.m2" ]; then rm -rf $HOME/.m2; fi'
                 sh 'mkdir $HOME/.m2'
