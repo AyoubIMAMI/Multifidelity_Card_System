@@ -20,7 +20,7 @@ def download_latest(artifactory_path):
     artifactory_verisons_list = json.loads(output_str)
 
     # Removing all .xml elements
-    artifactory_verisons_list = [ x for x in artifactory_verisons_list if ".xml" not in x ]
+    artifactory_verisons_list = [ x for x in artifactory_verisons_list if ".xml" not in x['path']]
     print(artifactory_verisons_list)
 
     # Sorting versions by date
