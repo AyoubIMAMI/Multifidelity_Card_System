@@ -12,8 +12,8 @@ pipeline {
 
     environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
-		containerWork = true
-		endToEndAvailable = true
+		containerWork = false
+		endToEndAvailable = false
         skipSteps = false
 	}
 
