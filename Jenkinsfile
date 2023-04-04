@@ -85,8 +85,8 @@ pipeline {
                                                                         usernameVariable: 'USERNAME',
                                                                         passwordVariable: 'PASSWORD')])
                                         {
-                                            git config --global user.email "kilian.bonnet1@etu.univ-cotedazur.fr"
-                                            git config --global user.name "KilianBonnet"
+                                            sh 'git config --global user.email "kilian.bonnet1@etu.univ-cotedazur.fr"'
+                                            sh 'git config --global user.name "KilianBonnet"'
 
                                             sh 'git add .'
                                             sh 'git -c commit -m "Jenkins auto-validation"'
