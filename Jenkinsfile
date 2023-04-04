@@ -8,7 +8,7 @@ pipeline {
 
     environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
-        GITHUB_CREDENTIALS=credentials('KilianBonnet-GitHub-creds')
+        GITHUB_CREDENTIALS=credentials('github')
 		containerWork = false
 		endToEndAvailable = false
         skipSteps = false
@@ -80,8 +80,8 @@ pipeline {
                                     if (unpushedChanges != 0) {
                                         sh 'git config --global user.email "kilian.bonnet1@etu.univ-cotedazur.fr"'
                                         sh 'git config --global user.name "KilianBonnet"'
-                                        sh 'git remote set-url origin https://$GITHUB_CREDENTIALS_PWD@github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git'
-                                        sh 'git remote set-url --push origin https://$GITHUB_CREDENTIALS_PWD@github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git'
+                                        sh 'git remote set-url origin https://$GITHUB_CREDENTIALS_USR:$GITHUB_CREDENTIALS_PWD@github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git'
+                                        sh 'git remote set-url --push origin https://$GITHUB_CREDENTIALS_USR:$GITHUB_CREDENTIALS_PWD@github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git'
                                         sh 'git add .'
                                         sh 'git stash'
                                         sh 'git checkout main'
