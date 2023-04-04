@@ -85,6 +85,7 @@ pipeline {
                                             sh 'git add .'
                                             sh 'git -c credential.username=${{USERNAME}} -c credential.helper=store pull -m "Jenkins auto-validation"'
                                             sh 'git -c credential.username=${{USERNAME}} -c credential.helper=store push'
+                                        }
                                     }
 
                                     // Performing release
