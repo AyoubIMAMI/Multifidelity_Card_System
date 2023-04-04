@@ -1,4 +1,4 @@
-from artifactory_pull import get_latest_version
+from latest_version_query import get_latest_version
 
 
 CLI_PATH = "libs-release-local/fr/univcotedazur/fidelity/cli/"
