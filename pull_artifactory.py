@@ -2,7 +2,7 @@ import json
 import os
 import subprocess
 
-ARTIFACTORY_URL = "http://vmpx08.polytech.unice.fr:8002/artifactory"
+ARTIFACTORY_URL = "http://134.59.213.138:8002/artifactory"
 ARTIFACTORY_USER = "admin"
 ARTIFACTORY_PASSWORD = "zEzEBf7mD2aCHA8XG4!"
 
