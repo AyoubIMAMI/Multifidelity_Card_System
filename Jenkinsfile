@@ -21,7 +21,7 @@ pipeline {
                 // Check if the commit is from maven-release-plugin
                 script {
                     def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-                    if (commitMessage.contains('[maven-release-plugin]' || commitMessage.contains('[Jenkins]')) {
+                    if (commitMessage.contains('[maven-release-plugin]') || commitMessage.contains('[Jenkins]')) {
                         echo 'Exiting building'
                         // Sortir de la pipeline et ne pas executer les aures stage avec SUCCESS
                         skipSteps = true
