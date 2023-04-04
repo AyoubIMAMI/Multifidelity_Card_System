@@ -24,7 +24,7 @@ def download_latest(artifactory_path):
 
     # Find the latest version path
     latest_full_path = artifactory_verisons_list_sorted[1]['path']
-    latest_path = '/'.join(latest_full_path.split('/')[:5]) + '*'
+    latest_path = '/'.join(latest_full_path.split('/')[:5]) + '/*'
     
     print("latest_path= " + latest_path)
 
@@ -33,19 +33,7 @@ def download_latest(artifactory_path):
 
     print("ls -l ./releases after add jar= " + os.popen('ls -l ./releases').read())
 
-def create_directory_if_not_exists(directory_path):
-    """
-    Check if a directory exists and create it if it doesn't exist.
-    :param directory_path: the path of the directory to check/create.
-    """
-    if not os.path.exists(directory_path):
-        os.makedirs(directory_path)
-        print(f"Directory {directory_path} created.")
-    else:
-        print(f"Directory {directory_path} already exists.")
-
 
 if __name__ == "__main__":
-    create_directory_if_not_exists("./releases")
     download_latest(BACKEND_PATH)
     download_latest(CLI_PATH)
