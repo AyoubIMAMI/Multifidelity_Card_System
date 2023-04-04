@@ -24,9 +24,11 @@ def printTable(table):
 def connect():
     global connection
     global cursor
+    db_ip = os.system("docker inspect \
+  -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' db")
     # Définir les informations de connexion à la base de données
     connection = psycopg2.connect(
-        host="172.21.0.3",
+        host=db_ip,
         database="tcf-db",
         user="postgresuser",
         password="postgrespass",
