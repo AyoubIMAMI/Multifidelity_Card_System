@@ -30,11 +30,11 @@ def connect():
 
     # Définir les informations de connexion à la base de données
     connection = psycopg2.connect(
-        host=ip_address,
+        host="134.59.213.138",
         database="tcf-db",
         user="postgresuser",
         password="postgrespass",
-        port=5432
+        port=8003
     )
     return connection
 
