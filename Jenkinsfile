@@ -141,12 +141,12 @@ pipeline {
 
                     // Backend pulling
                     def last_backend_version = sh(returnStdout: true, script: 'python3 artifactory_pull/backend_latest_version.py').split("\n")[1]
-                    echo "Downloading backend (${last_backend_version})"
-                    sh "cd ./releases && echo \\n | jf rt dl  --recursive --user=admin --password=zEzEBf7mD2aCHA8XG4! --url=http://134.59.213.138:8002/artifactory 'libs-release-local/fr/polytech/isa-devops-22-23-team-h-23/${last_version}/*'"
+                    echo "Downloading backend (v${last_backend_version})"
+                    sh "cd ./releases && echo \\n | jf rt dl  --recursive --user=admin --password=zEzEBf7mD2aCHA8XG4! --url=http://134.59.213.138:8002/artifactory 'libs-release-local/fr/polytech/isa-devops-22-23-team-h-23/${last_backend_version}/*'"
                     
                     // Cli pulling
                     def last_cli_version = sh(returnStdout: true, script: 'python3 artifactory_pull/cli_latest_version.py').split("\n")[1]
-                    echo "Downloading cli (${last_cli_version})"
+                    echo "Downloading cli (v${last_cli_version})"
                     sh "cd ./releases && echo \\n | jf rt dl  --recursive --user=admin --password=zEzEBf7mD2aCHA8XG4! --url=http://134.59.213.138:8002/artifactory 'libs-release-local/fr/univcotedazur/fidelity/cli/${last_cli_version}/*'"
                 
                     sh "ls -l ./releases"
