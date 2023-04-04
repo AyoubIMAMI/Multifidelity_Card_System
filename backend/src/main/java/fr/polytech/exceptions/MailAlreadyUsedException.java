@@ -8,7 +8,7 @@ public class MailAlreadyUsedException extends Exception {
         this.mail = mail;
     }
 
-    MailAlreadyUsedException(){}
+    public MailAlreadyUsedException(){}
 
     public String getMail() {
         return mail;
