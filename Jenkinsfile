@@ -81,12 +81,10 @@ pipeline {
                                         sh 'git config --global user.email "kilian.bonnet1@etu.univ-cotedazur.fr"'
                                         sh 'git config --global user.name "KilianBonnet"'
                                         sh' git remote set-url origin https://$GITHUB_CREDENTIALS_USR:$GITHUB_CREDENTIALS_PWD@github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git'
-                                        sh 'echo login with $GITHUB_CREDENTIALS_USR'
                                         sh 'git add .'
                                         sh 'git stash'
                                         sh 'git checkout main'
-                                        sh 'echo git pull $GITHUB_CREDENTIALS_PWD'
-                                        sh 'git pull $GITHUB_CREDENTIALS_PWD'
+                                        sh 'git pull'
                                         sh 'git stash apply'
                                     }
 
