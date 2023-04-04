@@ -29,8 +29,7 @@ pipeline {
                     }
                 }
                 sh 'docker compose down'
-                sh 'docker ps -q | xargs docker stop'
-                sh 'docker ps -q | xargs docker rm'
+                sh 'docker rm'
                 // Cleaning .m2 folder
                 sh 'if [ -d "$HOME/.m2" ]; then rm -rf $HOME/.m2; fi'
                 sh 'mkdir $HOME/.m2'
@@ -116,6 +115,7 @@ pipeline {
                 expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false'} 
             }
             steps{
+                sh 'docker ps'
                 sh './build-all.sh'
                 sh './run-all.sh'                        
             }
