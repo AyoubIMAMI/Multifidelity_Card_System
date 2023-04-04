@@ -59,7 +59,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>3.0.0-M1</version>
                 <configuration>
-                    <tagNameFormat>backend-v@{project.version}</tagNameFormat>
+                    <tagNameFormat>cli-v@{project.version}</tagNameFormat>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
             </plugin>   
