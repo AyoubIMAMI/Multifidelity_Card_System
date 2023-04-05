@@ -40,7 +40,7 @@ public class CustomerAccountController {
     }
 
     @PostMapping(path = "/refill/{customerId}")
-    public ResponseEntity<String> refillAccount(@PathVariable("customerId") Long customerId, @RequestBody BankTransactionDTO transaction) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException, FidelityAccountNotFoundException, NegativeAmountException, PaymentInBankException {
+    public ResponseEntity<String> refillAccount(@PathVariable("customerId") Long customerId, @RequestBody BankTransactionDTO transaction) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException {
         Customer customer = customerFinder.findCustomerById(customerId);
         Date refillTime = refillFidelityCard.refill(customer, transaction);
         return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + ". Transaction amount: " + transaction.getAmount());
