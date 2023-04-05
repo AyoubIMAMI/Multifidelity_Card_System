@@ -12,6 +12,8 @@ import java.util.Map;
 @ShellComponent
 public class StoreCommands {
     public static final String BASE_URI = "/stores";
+    public static final String COST_URI = "/statistics/cost";
+    public static final String POINTS_URI = "/statistics/points";
 
     @Autowired
     RestTemplate restTemplate;
@@ -33,5 +35,10 @@ public class StoreCommands {
         CliStore res = restTemplate.postForObject(BASE_URI + "/registration", new CliStore(siret, name, password), CliStore.class);
         cliContext.getStores().put(res.getId(), res);
         return res;
+    }
+
+    @ShellMethod("Statistics on the total cost of the discounts operations since the beginning")
+    public Double getStatsCost() {
+        return restTemplate.getForObject(BASE_URI + COST_URI, Double.class);
     }
 }
