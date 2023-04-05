@@ -42,7 +42,7 @@ public class VFPAdvantageManager implements AdvantageCustomer, CustomerAdvantage
             customerAdvantageRepository.save(customerAdvantage);
         }
         else
-            throw new AdvantageAlreadyConsumedException();
+            throw new AdvantageAlreadyConsumedException(advantageID);
     }
 
     @Override
