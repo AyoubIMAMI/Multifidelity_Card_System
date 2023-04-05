@@ -39,10 +39,11 @@ services:
     volumes:
       - ./cli/scripts/demo.txt:/opt/app/demo.txt
       - ./cli/scripts/register.txt:/opt/app/register.txt
-      - ./cli/scripts/settled-payment.txt:/opt/app/settled-payment.txt
-      - ./cli/scripts/fidelity-payment.txt:/opt/app/fidelity-payment.txt
-      - ./cli/scripts/discount-payment.txt:/opt/app/discount-payment.txt
-      - ./cli/scripts/full-payment-scripts.txt:/opt/app/full-payment-scripts.txt
+      - ./cli/scripts/payments/settled-payment.txt:/opt/app/settled-payment.txt
+      - ./cli/scripts/payments/fidelity-payment.txt:/opt/app/fidelity-payment.txt
+      - ./cli/scripts/payments/discount-payment.txt:/opt/app/discount-payment.txt
+      - ./cli/scripts/payments/full-payment-scripts.txt:/opt/app/full-payment-scripts.txt
+      - ./cli/scripts/payments/payment-errors.txt:/opt/app/payment-errors.txt
     stdin_open: true
     tty: true
 

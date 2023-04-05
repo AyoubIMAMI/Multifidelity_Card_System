@@ -2,7 +2,6 @@ package fr.polytech.components.store;
 
 import fr.polytech.entities.Store;
 import fr.polytech.exceptions.BadCredentialsException;
-import fr.polytech.exceptions.store.MissingInformationsException;
 import fr.polytech.exceptions.store.StoreSiretAlreadyUsedException;
 import fr.polytech.interfaces.store.StoreFinder;
 import fr.polytech.interfaces.store.StoreRegistration;
@@ -37,7 +36,7 @@ public class StoreTest {
         siret="numSiret";
     }
     @Test
-    void registrationTest() throws MissingInformationsException, BadCredentialsException, StoreSiretAlreadyUsedException {
+    void registrationTest() throws BadCredentialsException, StoreSiretAlreadyUsedException {
         Store store = storeRegistration.registerNewStore(name,siret, password);
 
         assertEquals(name, store.getName());
