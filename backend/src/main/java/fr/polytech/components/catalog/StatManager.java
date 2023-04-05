@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import fr.polytech.entities.Payment;
+import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,26 +27,41 @@ public class StatManager implements StatsExplorer {
 
     @Override
     public double getOperationCost() {
-        /**List<Payment> payments = paymentRepository.findAll();
-        double givenPoints = 0;
-        for(Payment payment : payments)
-            for(Item item : payment.getShoppingList())
-                givenPoints += item.getQuantity() * item.getProduct().getCashPrice();
-        return givenPoints; // Discount offer a 10% reduction : 200$ == 20 points**/
-        return 0;
+        return getTotalPointUsed() / (double) 10;
     }
-
-    
 
     @Override
     public double getOperationCost(Date date) throws IllegalDateException {
+        if(date.after(new Date()))
+            throw new IllegalDateException();
+
         return 0;
     }
 
     @Override
-    public int getTotalPointGenerated() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTotalPointGenerated'");
+    public int getTotalPointUsed() {
+        return countNumberOfPoints(paymentRepository.findAll());
     }
 
+    @Override
+    public int getTotalPointUsed(Date date) throws IllegalDateException {
+        if(date.after(new Date()))
+            throw new IllegalDateException();
+
+        return 0;
+    }
+
+    /**
+     * Count the number of points used for a given list of payment
+     * @param payments The list of payments to count the total points used.
+     * @return The number of used points.
+     */
+    private int countNumberOfPoints(List<Payment> payments) {
+        int givenPoints = 0;
+        for(Payment payment : payments)
+            for(Item item : payment.getShoppingList())
+                if(item.getBuyable() instanceof Discount)
+                    givenPoints += ((Discount) item.getBuyable()).getPointPrice() * item.getQuantity();
+        return givenPoints;
+    }
 }

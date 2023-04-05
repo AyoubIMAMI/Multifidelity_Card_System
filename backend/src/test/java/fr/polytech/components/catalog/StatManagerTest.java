@@ -15,7 +15,9 @@ import fr.polytech.entities.Payment;
 import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
+import fr.polytech.entities.item.Product;
 import fr.polytech.interfaces.catalog.StatsExplorer;
+import fr.polytech.repository.CustomerRepository;
 import fr.polytech.repository.PaymentRepository;
 import fr.polytech.repository.StoreRepository;
 
@@ -31,23 +33,29 @@ public class StatManagerTest {
     @Autowired
     private StoreRepository storeRepository;
 
-    private Customer mourad = new Customer("Mourad", "mourad@mail.com", "password");;
-    private Customer leo = new Customer("Leo", "leo@mail.com", "password");;
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    private Customer mourad;
+    private Customer leo;
 
     private Store polyStore;
-    private Store polygone ;
+    private Store polyGone ;
 
     @BeforeEach
     public void init() {
         // Managing stores
-        polyStore = new Store("Polystore", "101112", "password");
-        polygone = new Store("Polygone", "121314", "password");
         storeRepository.deleteAll();
-        polyStore = storeRepository.save(polyStore);
-        polygone = storeRepository.save(polygone);
+        polyStore = storeRepository.save(new Store("Polystore", "101112", "password"));
+        polyGone = storeRepository.save(new Store("Polygone", "121314", "password"));
 
         // Managing payment
         paymentRepository.deleteAll();
+
+
+        // Managing customers
+        mourad = customerRepository.save(new Customer("Mourad", "mourad@mail.com", "password"));
+        leo = customerRepository.save(new Customer("Leo", "leo@mail.com", "password"));
     }
 
     @Test
@@ -58,7 +66,12 @@ public class StatManagerTest {
     @Test
     public void getAllPaymentInDataTest() {
         Set<Item> li1 = new HashSet<>();
-        //li1.add(new Item(2, new Discount("Table trop cool", polyStore.getId(), 0, 100)));
-        //Payment p1 = new Payment(mourad, polyStore, li1);
+        li1.add(new Item(1, new Discount("Table trop cool", polyStore.getId(), 1000)));
+        li1.add(new Item(4, new Discount("Chaises du swag", polyStore.getId(), 200)));
+        li1.add(new Item(4, new Product("Set de table", polyStore.getId(), 10)));
+        Payment p1 = new Payment(mourad, polyStore, li1);
+        paymentRepository.save(p1);
+
+        assertEquals(1 * 1000 + 4 * 200, statsExplorer.getTotalPointUsed());
     }
 }
