@@ -2,6 +2,7 @@ package fr.polytech.controllers.dto;
 
 import fr.polytech.entities.item.Item;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class PaymentDTO {
@@ -14,30 +15,14 @@ public class PaymentDTO {
 
     private Set<Item> shoppingList;
 
-    private boolean isSettled;
-
     private float amount;
 
-    public PaymentDTO(Long id, CustomerDTO customer, StoreDTO store, Set<Item> shoppingList, boolean isSettled, float amount) {
+    public PaymentDTO(Long id, CustomerDTO customer, StoreDTO store, Set<Item> shoppingList, float amount) {
         this.id = id;
         this.customer = customer;
         this.store = store;
         this.shoppingList = shoppingList;
-        this.isSettled = isSettled;
         this.amount = amount;
-    }
-
-
-    @Override
-    public String toString() {
-        return "PaymentDTO{" +
-                "id=" + id +
-                ", customer=" + customer +
-                ", store=" + store +
-                ", shoppingList=" + shoppingList +
-                ", isSettled=" + isSettled +
-                ", amount=" + amount +
-                '}';
     }
 
     public Long getId() {
@@ -54,10 +39,6 @@ public class PaymentDTO {
 
     public Set<Item> getShoppingList() {
         return shoppingList;
-    }
-
-    public boolean isSettled() {
-        return isSettled;
     }
 
     public float getAmount() {
@@ -80,11 +61,32 @@ public class PaymentDTO {
         this.shoppingList = shoppingList;
     }
 
-    public void setSettled(boolean settled) {
-        isSettled = settled;
-    }
 
     public void setAmount(float amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PaymentDTO that = (PaymentDTO) o;
+        return Float.compare(that.amount, amount) == 0 && Objects.equals(customer, that.customer) && Objects.equals(store, that.store) && Objects.equals(shoppingList, that.shoppingList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customer, store, shoppingList, amount);
+    }
+
+    @Override
+    public String toString() {
+        return "PaymentDTO{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", store=" + store +
+                ", shoppingList=" + shoppingList +
+                ", amount=" + amount +
+                '}';
     }
 }

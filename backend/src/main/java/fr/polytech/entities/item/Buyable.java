@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @JsonTypeInfo(
@@ -23,8 +25,10 @@ public abstract class Buyable {
     @GeneratedValue()
     private Long id;
 
+    @NotBlank(message = "name should not be blank")
     private String name;
 
+    @NotNull(message = "storeId should not be null")
     private Long storeId;
 
     public Buyable(String name, Long storeId) {

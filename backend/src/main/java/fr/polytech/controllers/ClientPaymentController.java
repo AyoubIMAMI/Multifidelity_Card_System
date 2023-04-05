@@ -51,7 +51,7 @@ public class ClientPaymentController {
 
     private PaymentDTO convertPaymentToDto(Payment payment) {
         System.out.println("Payment received in converter : " + payment);
-        PaymentDTO paymentDTO = new PaymentDTO(payment.getId(), convertCustomerToDto(payment.getCustomer()), convertStoreToDto(payment.getStore()), payment.getShoppingList(), payment.isSettled(), payment.getAmount());
+        PaymentDTO paymentDTO = new PaymentDTO(payment.getId(), convertCustomerToDto(payment.getCustomer()), convertStoreToDto(payment.getStore()), payment.getShoppingList(), payment.getAmount());
         System.out.println("Payment DTO created : " + paymentDTO);
         return paymentDTO;
     }

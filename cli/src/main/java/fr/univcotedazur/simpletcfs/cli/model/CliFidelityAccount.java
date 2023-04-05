@@ -1,19 +1,19 @@
 package fr.univcotedazur.simpletcfs.cli.model;
 
-public class FidelityAccount {
+public class CliFidelityAccount {
     private int points;
     private double balance;
     private boolean isVFP;
     private String licencePlate;
 
-    public FidelityAccount(int points, double balance, boolean isVFP, String licencePlate) {
+    public CliFidelityAccount(int points, double balance, boolean isVFP, String licencePlate) {
         this.points = points;
         this.balance = balance;
         this.isVFP = isVFP;
         this.licencePlate = licencePlate;
     }
 
-    public FidelityAccount() {
+    public CliFidelityAccount() {
     }
 
     public int getPoints() {
