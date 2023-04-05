@@ -10,5 +10,7 @@ public interface FidelityExplorer {
     FidelityAccount findFidelityAccountByCustomer(Customer customer) throws CustomerNotFoundException, FidelityAccountNotFoundException;
 
     FidelityAccount findFidelityAccountById(Long id) throws CustomerNotFoundException, FidelityAccountNotFoundException;
-    List<FidelityExplorer> getAllEligibleVFPCustomer();
+    boolean checkIfPossibleToBecomeVfp(Customer customer);
+
+
 }

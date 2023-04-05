@@ -92,7 +92,7 @@ public class PaymentDef {
 
     @Then("the payment works")
     public void thePaymentWorks() {
-        ArrayList<Payment> payments=new ArrayList<Payment>();
+        ArrayList<Payment> payments=new ArrayList<>();
         paymentRepository.findAllByCustomer(customer).forEach(pay->payments.add(pay));
         assertEquals(0,payments.size());
     }

@@ -22,6 +22,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CatalogController {
     public static final String BASE_URI = "/catalog";
     public static final String DISCOUNTS_URI = "/discounts";
+
+    public static final String ADVANTAGE_URI = "/advantage";
     public static final String STORE_URI = "/store/{storeId}";
 
     private final DiscountModifier discountModifier;

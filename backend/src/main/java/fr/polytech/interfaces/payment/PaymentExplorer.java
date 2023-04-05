@@ -16,4 +16,6 @@ public interface PaymentExplorer {
     Payment findPaymentById(Long id) throws PaymentNotFoundException;
     Iterable<Payment> findPaymentsByCustomer(Customer customer) throws CustomerNotFoundException, PaymentNotFoundException;
     Iterable<Payment> findPaymentsByStore(Store store) throws StoreNotFoundException, PaymentNotFoundException;
+
+    boolean customerReached10Payments(Customer customer);
 }

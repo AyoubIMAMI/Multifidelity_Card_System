@@ -49,6 +49,11 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
     }
 
     @Override
+    public boolean customerReached10Payments(Customer customer) {
+        return(paymentRepository.findAllByCustomer(customer).size()==10);
+    }
+
+    @Override
     public Payment savePayment(Payment payment) throws PaymentAlreadyExistsException {
         Long paymentID = payment.getId();
         System.out.println("Payment a save :" + payment);

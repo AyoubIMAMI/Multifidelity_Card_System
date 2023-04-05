@@ -1,6 +1,8 @@
 package fr.polytech.components.customer;
 
+import fr.polytech.components.advantage.VFPAdvantageManager;
 import fr.polytech.connectors.externaldto.BankTransactionDTO;
+import fr.polytech.interfaces.payment.PaymentExplorer;
 import fr.polytech.repository.CustomerRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.FidelityAccountNotFoundException;
@@ -22,9 +24,14 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
 
     CustomerRepository customerRepository;
 
+    PaymentExplorer paymentExplorer;
+
+    VFPAdvantageManager vfpAdvantageManager;
+
     @Autowired
-    public CustomerFidelityManager(CustomerRepository customerRepository){
+    public CustomerFidelityManager(CustomerRepository customerRepository,PaymentExplorer paymentExplorer){
         this.customerRepository = customerRepository;
+        this.paymentExplorer=paymentExplorer;
     }
 
     @Override
@@ -38,9 +45,11 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     }
 
     @Override
-    public List<FidelityExplorer> getAllEligibleVFPCustomer() {
-        return null;
+    public boolean checkIfPossibleToBecomeVfp(Customer customer) {
+        vfpAdvantageManager.addCustomerToProgramVFP(customer);
+        return paymentExplorer.customerReached10Payments(customer);
     }
+
 
     @Override
     public Customer incrementPoints(Customer customer, float points) {
