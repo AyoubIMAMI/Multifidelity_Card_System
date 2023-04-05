@@ -15,8 +15,8 @@ import fr.polytech.repository.PaymentRepository;
 
 import javax.transaction.Transactional;
 
-@Transactional
 @Component
+@Transactional
 public class StatManager implements StatsExplorer {
     private final PaymentRepository paymentRepository;
 
@@ -35,7 +35,7 @@ public class StatManager implements StatsExplorer {
         if(date.after(new Date()))
             throw new IllegalDateException();
 
-        return 0;
+        return getTotalPointUsed(date) / (double) 10;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class StatManager implements StatsExplorer {
         if(date.after(new Date()))
             throw new IllegalDateException();
 
-        return 0;
+        return countNumberOfPoints(paymentRepository.findAllByTransactionDateAfter(date));
     }
 
     /**
