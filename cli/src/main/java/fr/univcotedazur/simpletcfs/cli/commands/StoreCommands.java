@@ -45,16 +45,32 @@ public class StoreCommands {
     }
 
     @ShellMethod("Statistics on the total cost of the discounts operations since the beginning")
-    public Double getStatsCost() {
+    public Double getCostStats() {
         return restTemplate.getForObject(BASE_URI + COST_URI, Double.class);
     }
 
-    @ShellMethod("Statistics on the total cost of the discounts operations since the beginning")
-    public String getStatsCostDate(String stringDate) {
+    @ShellMethod("Statistics on the total cost of the discounts operations since the given date")
+    public String getDateCostStats(String stringDate) {
         try {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date date = dateFormat.parse(stringDate);
             return "" + restTemplate.postForObject(BASE_URI + COST_URI, date, Double.class);
+        } catch (Exception e) {
+            return "Wrong format date! Format date expected: dd/MM/yyyy";
+        }
+    }
+
+    @ShellMethod("Statistics on the total points of the discounts operations since the beginning")
+    public Double getPointsStats() {
+        return restTemplate.getForObject(BASE_URI + POINTS_URI, Double.class);
+    }
+
+    @ShellMethod("Statistics on the total points of the discounts operations since the given date")
+    public String getDatePointsStats(String stringDate) {
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = dateFormat.parse(stringDate);
+            return "" + restTemplate.postForObject(BASE_URI + POINTS_URI, date, Double.class);
         } catch (Exception e) {
             return "Wrong format date! Format date expected: dd/MM/yyyy";
         }
