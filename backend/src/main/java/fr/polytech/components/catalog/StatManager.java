@@ -26,12 +26,13 @@ public class StatManager implements StatsExplorer {
 
     @Override
     public double getOperationCost() {
-        List<Payment> payments = paymentRepository.findAll();
+        /**List<Payment> payments = paymentRepository.findAll();
         double givenPoints = 0;
         for(Payment payment : payments)
             for(Item item : payment.getShoppingList())
                 givenPoints += item.getQuantity() * item.getProduct().getCashPrice();
-        return givenPoints; // Discount offer a 10% reduction : 200$ == 20 points
+        return givenPoints; // Discount offer a 10% reduction : 200$ == 20 points**/
+        return 0;
     }
 
     

@@ -108,7 +108,6 @@ public class Payment {
                 "id=" + id +
                 ", customer=" + customer +
                 ", store=" + store +
-                ", isSettled=" + isSettled +
                 ", shoppingList=" + shoppingList +
                 ", amount=" + amount +
                 '}';

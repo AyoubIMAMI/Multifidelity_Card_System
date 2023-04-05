@@ -16,9 +16,9 @@ public class PaymentDTO {
 
     private Set<Item> shoppingList;
 
-    private boolean isSettled;
-
     private float amount;
+
+    private Date transactionDate;
 
     public PaymentDTO(Long id, CustomerDTO customer, StoreDTO store, Set<Item> shoppingList, Date transactionDate, float amount) {
         this.id = id;
@@ -27,19 +27,6 @@ public class PaymentDTO {
         this.shoppingList = shoppingList;
         this.transactionDate = transactionDate;
         this.amount = amount;
-    }
-
-
-    @Override
-    public String toString() {
-        return "PaymentDTO{" +
-                "id=" + id +
-                ", customer=" + customer +
-                ", store=" + store +
-                ", shoppingList=" + shoppingList +
-                ", isSettled=" + isSettled +
-                ", amount=" + amount +
-                '}';
     }
 
     public Long getId() {

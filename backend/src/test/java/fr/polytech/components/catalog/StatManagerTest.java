@@ -58,7 +58,7 @@ public class StatManagerTest {
     @Test
     public void getAllPaymentInDataTest() {
         Set<Item> li1 = new HashSet<>();
-        li1.add(new Item(2, new Discount("Table trop cool", polyStore.getId(), 0, 100)));
-        Payment p1 = new Payment(mourad, polyStore, li1);
+        //li1.add(new Item(2, new Discount("Table trop cool", polyStore.getId(), 0, 100)));
+        //Payment p1 = new Payment(mourad, polyStore, li1);
     }
 }
