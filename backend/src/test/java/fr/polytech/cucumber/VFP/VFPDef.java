@@ -86,7 +86,7 @@ public class VFPDef {
     @When("we try to use the parking advantage")
     public void weTryToUseTheParkingAdvantage() {
         try {
-            vfpTransaction.tryUseAdvantage(customer.getId(),advantageParking.getId(),Long.valueOf(12));
+            vfpTransaction.tryUseParkingAdvantage(customer.getId(),advantageParking.getId(),Long.valueOf(12));
         } catch (Exception e) {
             exception=e;
         }
@@ -95,7 +95,7 @@ public class VFPDef {
     @And("he tries to use a not valid AdvantageID")
     public void heTriesToUseANotValidAdvantageID() {
         try {
-            vfpTransaction.tryUseAdvantage(customer.getId(),Long.valueOf(10),Long.valueOf(12));
+            vfpTransaction.tryUseParkingAdvantage(customer.getId(),Long.valueOf(10),Long.valueOf(12));
         } catch (Exception e) {
             exception=e;
         }

@@ -46,8 +46,9 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
 
     @Override
     public boolean checkIfPossibleToBecomeVfp(Customer customer) {
-        vfpAdvantageManager.addCustomerToProgramVFP(customer);
-        return paymentExplorer.customerReached10Payments(customer);
+        boolean hasReached10Payments = paymentExplorer.customerReached10Payments(customer);
+        if (hasReached10Payments) vfpAdvantageManager.addCustomerToProgramVFP(customer);
+        return hasReached10Payments;
     }
 
 
