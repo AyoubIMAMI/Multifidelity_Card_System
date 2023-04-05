@@ -1,12 +1,23 @@
 package fr.polytech.interfaces.catalog;
 
+import java.util.Date;
+
+import org.springframework.stereotype.Component;
+
+import fr.polytech.exceptions.IllegalDateException;
+
+@Component
 public interface StatsExplorer {
-    //return the ratio between the total of people payment and the total of the advantage unlocked
-    double advantageRatio();
-    //return the ratio between the total of people payment and the total of the discount unlocked
-    double discountRatio();
-    //return the ratio between the total of people payment and the total of the advantage unlocked for a given store
-    double advantageRatioByStore(String storeName, String myName, String myPassword);
-    //return the ratio between the total of people payment and the total of the discount unlocked for a given store
-    double discountRatioByStore(String storeName, String myName, String myPassword);
+    /**
+     * Give the total cost of the discount operation since the begining.
+     * @return cost of the operation
+     */
+    double getOperationCost();
+
+    /**
+     * Give the total cost of the discount operation since the given date.
+     * @param date The starting date to check the cost of the operation
+     * @return
+     */
+    double getOperationCost(Date date) throws IllegalDateException;
 }
