@@ -9,4 +9,3 @@ export MY_JAR_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -Dforc
 
 docker build --build-arg JAR_FILE=isa-devops-22-23-team-h-23-$MY_JAR_VERSION.jar -t teamh-backend .
 
-

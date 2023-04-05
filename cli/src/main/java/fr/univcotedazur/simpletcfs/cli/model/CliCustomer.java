@@ -5,7 +5,6 @@ public class CliCustomer {
     private String name;
     private String password;
     private String email;
-
     private CliFidelityAccount fidelityAccount;
 
     public CliCustomer(String name, String email, String password){
@@ -63,8 +62,8 @@ public class CliCustomer {
         return "CliCustomer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", fidelityAccount=" + fidelityAccount +
                 '}';
     }

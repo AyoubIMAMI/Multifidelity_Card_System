@@ -8,5 +8,5 @@ import fr.polytech.entities.Customer;
 import java.util.Set;
 
 public interface PointPurchase {
-    void buyWithPoint(Customer customer, Set<Item> shoppingList) throws NotEnoughBalanceException, NoDiscountsFoundException;
+    Customer buyWithPoint(Customer customer, Set<Item> shoppingList) throws NotEnoughBalanceException, NoDiscountsFoundException;
 }
