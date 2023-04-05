@@ -37,7 +37,7 @@ public class VFPTransactionProcessHandler implements VFPTransaction {
         Customer customer=this.customerFinder.findCustomerById(userID);
         Optional<Advantage> advantageOptional = advantageExplorer.VerifyAdvantage(advantageID);
         if (advantageOptional.isEmpty())
-            throw new NoAdvantageFoundException();
+            throw new NoAdvantageFoundException(advantageID);
         Optional< CustomerAdvantage> customerAdvantageOptional=advantageCustomer.findCustomerAdvantageAccount(userID);
         if (customerAdvantageOptional.isEmpty())
             throw new VFPNotFoundException();

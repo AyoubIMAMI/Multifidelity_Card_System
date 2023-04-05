@@ -4,6 +4,8 @@ import fr.polytech.controllers.dto.ErrorDTO;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
+import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
+import fr.polytech.exceptions.advantage.VFPNotFoundException;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice(assignableTypes = {CustomerAccountController.class, CatalogController.class,
-        ClientPaymentController.class})
+        ClientPaymentController.class, VFPController.class})
 public class GlobalControllerAdvice {
 
     @ExceptionHandler({MailAlreadyUsedException.class})
@@ -98,6 +100,24 @@ public class GlobalControllerAdvice {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setError("Payment already exists!");
         errorDTO.setDetails("The payment with id #" + e.getId() + "already exists...");
+        return errorDTO;
+    }
+
+    @ExceptionHandler({NoAdvantageFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDTO handleExceptions(NoAdvantageFoundException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("No advantage found!");
+        errorDTO.setDetails("The advantage with id #" + e.getId() + "does not exist...");
+        return errorDTO;
+    }
+
+    @ExceptionHandler({VFPNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDTO handleExceptions(VFPNotFoundException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("No advantage found!");
+        errorDTO.setDetails("The advantage with id #does not exist...");
         return errorDTO;
     }
 

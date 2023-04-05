@@ -1,16 +1,14 @@
 package fr.polytech.controllers;
 
-import fr.polytech.controllers.dto.PaymentDTO;
-import fr.polytech.entities.item.Item;
+import fr.polytech.exceptions.CustomerNotFoundException;
+import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
+import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
+import fr.polytech.exceptions.advantage.VFPNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
-import fr.polytech.interfaces.advantage.CustomerAdvantageExplorer;
 import fr.polytech.interfaces.advantage.VFPTransaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Set;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -29,15 +27,9 @@ public class VFPController {
         this.vfpTransaction = vfpTransaction;
     }
     @PostMapping(path = VFP_URI+"/advantage")
-    public ResponseEntity<String> processWithPaymentFidelity(@PathVariable("customerID") Long customerId, Long advantageID,Long parkingID) throws NoDiscountsFoundException {
-        try {
-            vfpTransaction.tryUseAdvantage(customerId,advantageID,parkingID);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-        finally{
-            return ResponseEntity.ok().body("Advantage OK");
-        }
+    public ResponseEntity<String> processWithPaymentFidelity(@PathVariable("customerID") Long customerId, Long advantageID,Long parkingID) throws NoAdvantageFoundException, VFPNotFoundException, CustomerNotFoundException, AdvantageAlreadyConsumedException {
+        vfpTransaction.tryUseAdvantage(customerId,advantageID,parkingID);
+        return ResponseEntity.ok().body("Advantage OK");
     }
 
 }
