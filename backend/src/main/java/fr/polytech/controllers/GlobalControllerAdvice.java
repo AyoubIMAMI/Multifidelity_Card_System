@@ -116,8 +116,8 @@ public class GlobalControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorDTO handleExceptions(VFPNotFoundException e) {
         ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setError("No advantage found!");
-        errorDTO.setDetails("The advantage with id #does not exist...");
+        errorDTO.setError("VFP not found!");
+        errorDTO.setDetails("The customer with id #" + e.getUserId() + "is not VFP...");
         return errorDTO;
     }
 
