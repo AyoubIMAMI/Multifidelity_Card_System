@@ -4,6 +4,7 @@ import fr.polytech.controllers.dto.ErrorDTO;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
+import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentInBankException;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice(assignableTypes = {CustomerAccountController.class, CustomerNotFoundException.class,
-        NegativeAmountException.class, PaymentInBankException.class, NoDiscountsFoundException.class})
+        NegativeAmountException.class, PaymentInBankException.class, NoDiscountsFoundException.class,
+        DiscountNotFoundException.class})
 public class GlobalControllerAdvice {
 
     @ExceptionHandler({MailAlreadyUsedException.class})
@@ -69,5 +71,17 @@ public class GlobalControllerAdvice {
         errorDTO.setDetails("No discounts were found...");
         return errorDTO;
     }
+
+    @ExceptionHandler({DiscountNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDTO handleExceptions(DiscountNotFoundException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Discount not found!");
+        if (e.getId() != null) errorDTO.setDetails("The discount with id #" + e.getId() + "has not been found...");
+        else errorDTO.setDetails("The discount with with name" + e.getName() + "has not been found...");
+        return errorDTO;
+    }
+
+
 
 }

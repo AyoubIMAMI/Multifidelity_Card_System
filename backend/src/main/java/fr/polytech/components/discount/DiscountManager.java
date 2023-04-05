@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Component
@@ -26,12 +27,16 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
 
     @Override
     public Discount findDiscountById(Long id) throws DiscountNotFoundException {
-        return discountRepository.findById(id).orElseThrow(DiscountNotFoundException::new);
+        Optional<Discount> discount = discountRepository.findById(id);
+        if (discount.isEmpty()) throw new DiscountNotFoundException(id);
+        return discount.get();
     }
 
     @Override
     public Discount findDiscountByName(String name) throws DiscountNotFoundException {
-        return discountRepository.findDiscountByName(name).orElseThrow(DiscountNotFoundException::new);
+        Optional<Discount> discount = discountRepository.findDiscountByName(name);
+        if (discount.isEmpty()) throw new DiscountNotFoundException(name);
+        return discount.get();
     }
 
     @Override
@@ -71,7 +76,7 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     @Override
     public boolean deleteDiscount(Long id) throws DiscountNotFoundException {
         if(discountRepository.findById(id).isEmpty()) {
-            throw new DiscountNotFoundException();
+            throw new DiscountNotFoundException(id);
         }
         discountRepository.deleteById(id);
         return discountRepository.existsById(id);
