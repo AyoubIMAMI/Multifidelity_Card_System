@@ -126,7 +126,7 @@ public class PaymentDef {
 
     @When("he want to buy an discount names {string}, it cost {int} and {int} points, in quantity {int}")
     public void heWantToBuyAnDiscountNamesItCostInQuantity(String name, int price, int points, int quantity) {
-        shoppingList.add(new Item(quantity,new Discount(name, store.getId(),  price, points)));
+        shoppingList.add(new Item(quantity,new Discount(name, store.getId(), points)));
     }
 
     @And("he has not enough cash")
