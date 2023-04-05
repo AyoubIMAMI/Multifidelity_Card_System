@@ -1,4 +1,4 @@
-package fr.polytech.interfaces.catalog;
+package fr.polytech.interfaces.store;
 import java.util.Date;
 import fr.polytech.exceptions.IllegalDateException;
 

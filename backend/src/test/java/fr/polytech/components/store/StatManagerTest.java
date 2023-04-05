@@ -1,4 +1,4 @@
-package fr.polytech.components.catalog;
+package fr.polytech.components.store;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,7 +19,7 @@ import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import fr.polytech.entities.item.Product;
 import fr.polytech.exceptions.IllegalDateException;
-import fr.polytech.interfaces.catalog.StatsExplorer;
+import fr.polytech.interfaces.store.StatsExplorer;
 import fr.polytech.repository.CustomerRepository;
 import fr.polytech.repository.PaymentRepository;
 import fr.polytech.repository.StoreRepository;

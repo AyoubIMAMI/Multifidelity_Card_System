@@ -1,4 +1,4 @@
-package fr.polytech.components.catalog;
+package fr.polytech.components.store;
 
 import java.util.Date;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import fr.polytech.exceptions.IllegalDateException;
-import fr.polytech.interfaces.catalog.StatsExplorer;
+import fr.polytech.interfaces.store.StatsExplorer;
 import fr.polytech.repository.PaymentRepository;
 
 import javax.transaction.Transactional;

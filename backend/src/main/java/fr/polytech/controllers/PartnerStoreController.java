@@ -6,7 +6,7 @@ import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.IllegalDateException;
 import fr.polytech.exceptions.store.MissingInformationsException;
 import fr.polytech.exceptions.store.StoreSiretAlreadyUsedException;
-import fr.polytech.interfaces.catalog.StatsExplorer;
+import fr.polytech.interfaces.store.StatsExplorer;
 import fr.polytech.interfaces.store.StoreRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
