@@ -51,10 +51,9 @@ public class CliFidelityAccount {
     @Override
     public String toString() {
         return "CliFidelityAccount{" +
-                "points=" + points +
-                ", balance=" + balance +
+                "\u001B[31m" + "points=" + points +
+                ", balance=" + balance + "\u001B[0m" +
                 ", isVFP=" + isVFP +
-                ", licencePlate='" + licencePlate + '\'' +
                 '}';
     }
 }

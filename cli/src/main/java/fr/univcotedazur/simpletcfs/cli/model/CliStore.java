@@ -51,7 +51,7 @@ public class CliStore {
     @Override
     public String toString() {
         return "CliStore{" +
-                "id=" + id +
+                "\u001B[32m" + "id=" + id + "\u001B[0m" +
                 ", siret='" + siret + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +

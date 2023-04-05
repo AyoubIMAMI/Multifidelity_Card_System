@@ -32,7 +32,7 @@ public class CliDiscount extends CliBuyable {
         }
         sb.append("name='").append(getName()).append('\'');
         sb.append(", storeId=").append(getStoreId());
-        sb.append(", pointPrice=").append(pointPrice);
+        sb.append(", ").append("\u001B[35m").append("pointPrice=").append(pointPrice).append("\u001B[0m");
         sb.append('}');
         return sb.toString();
     }

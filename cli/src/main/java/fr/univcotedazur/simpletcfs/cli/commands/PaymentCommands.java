@@ -31,7 +31,7 @@ public class PaymentCommands {
 
     @ShellMethod("Display items in cart")
     public String cart() {
-        StringBuilder cartStr = new StringBuilder("Items in cart:\n");
+        StringBuilder cartStr = new StringBuilder("\nItems in cart:\n");
         for (CliItem item : cliContext.getCart()) {
             cartStr.append(item).append("\n");
         }
