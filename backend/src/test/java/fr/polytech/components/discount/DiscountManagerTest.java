@@ -57,7 +57,7 @@ class DiscountManagerTest {
     }
 
     @Test
-    void givenDiscountsFromDifferentStores_whenFindDiscountsByStore_thenShouldReturnsOnlyTheStoreDiscount() throws NoDiscountsFoundException {
+    void givenDiscountsFromDifferentStores_whenFindDiscountsByStore_thenShouldReturnsOnlyTheStoreDiscount() throws DiscountNotFoundException {
         // Given
         Long storeId = 456789L;
 
@@ -80,7 +80,7 @@ class DiscountManagerTest {
         Executable find = () -> discountExplorer.findDiscountsByStore(1234L);
 
         // Then
-        assertThrows(NoDiscountsFoundException.class, find);
+        assertThrows(DiscountNotFoundException.class, find);
     }
 
     @Test
