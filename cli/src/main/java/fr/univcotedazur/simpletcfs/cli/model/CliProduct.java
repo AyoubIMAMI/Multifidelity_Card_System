@@ -1,43 +1,16 @@
 package fr.univcotedazur.simpletcfs.cli.model;
 
-public class CliProduct {
+public class CliProduct extends CliBuyable {
 
-    private Long id;
-    private String name;
-    private Long storeId;
     private double cashPrice;
 
     public CliProduct(String name, Long storeId, double cashPrice) {
-        this.name = name;
-        this.storeId = storeId;
+        super(name, storeId);
         this.cashPrice = cashPrice;
     }
 
     public CliProduct() {
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Long storeId) {
-        this.storeId = storeId;
     }
 
     public double getCashPrice() {
@@ -48,11 +21,19 @@ public class CliProduct {
         this.cashPrice = cashPrice;
     }
 
+
     @Override
     public String toString() {
-        return "CliProduct{" +
-                "name='" + name + '\'' +
-                ", cashPrice=" + cashPrice +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("CliProduct{");
+        if (getId() != null) {
+            sb.append("id=").append(getId());
+            sb.append(", ");
+        }
+        sb.append("name='").append(getName()).append('\'');
+        sb.append(", storeId=").append(getStoreId());
+        sb.append(", cashPrice=").append(cashPrice);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -77,7 +77,7 @@ public class PaymentDef {
     public void heWantToBuyItems() {
         shoppingList=new HashSet<>();
         shoppingList.add(new Item(2,new Product("Coffee", store.getId(), 5)));
-        shoppingList.add(new Item(2,new Discount("Cake", store.getId(),  10, 7)));
+        shoppingList.add(new Item(2,new Discount("Cake", store.getId(), 7)));
     }
 
     @And("he has enough cash")

@@ -8,8 +8,6 @@ import fr.polytech.exceptions.payment.PaymentNotFoundException;
 
 import fr.polytech.entities.Store;
 
-import java.util.Optional;
-
 
 public interface PaymentExplorer {
 

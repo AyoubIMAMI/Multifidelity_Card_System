@@ -10,10 +10,6 @@ import fr.polytech.entities.Store;
 import fr.polytech.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Objects;
 
 @Component
 public class PaymentManager implements PaymentExplorer, PaymentModifier {
@@ -61,7 +57,7 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
 
         if(paymentAlreadyExists(paymentID)) {
             System.out.println("Ce payment existe deja");
-            throw new PaymentAlreadyExistsException();
+            throw new PaymentAlreadyExistsException(paymentID);
         }
 
         System.out.println("Aucun payment avec cet id dans la DB donc on peut le save");
