@@ -21,7 +21,9 @@ import fr.polytech.entities.item.Product;
 import fr.polytech.exceptions.IllegalDateException;
 import fr.polytech.interfaces.store.StatsExplorer;
 import fr.polytech.repository.CustomerRepository;
+import fr.polytech.repository.DiscountRepository;
 import fr.polytech.repository.PaymentRepository;
+import fr.polytech.repository.ProductRepository;
 import fr.polytech.repository.StoreRepository;
 
 @SpringBootTest
@@ -38,6 +40,12 @@ public class StatManagerTest {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private DiscountRepository discountRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     private Customer mourad;
     private Customer leo;
@@ -64,14 +72,14 @@ public class StatManagerTest {
 
         // Setting up sets
         li1 = new HashSet<>();
-        li1.add(new Item(1, new Discount("Table trop cool", polyStore.getId(), 1000)));
-        li1.add(new Item(4, new Discount("Chaises du swag", polyStore.getId(), 200)));
-        li1.add(new Item(4, new Product("Set de table", polyStore.getId(), 10)));
+        li1.add(new Item(1, discountRepository.save(new Discount("Table trop cool", polyStore.getId(), 1000))));
+        li1.add(new Item(4, discountRepository.save(new Discount("Chaises du swag", polyStore.getId(), 200))));
+        li1.add(new Item(4, productRepository.save(new Product("Set de table", polyStore.getId(), 10))));
 
         li2 = new HashSet<>();
-        li2.add(new Item(1, new Discount("Bandana jaune", polyGone.getId(), 50)));
-        li2.add(new Item(1, new Product("Television 4k oled", polyGone.getId(), 1320)));
-        li2.add(new Item(1, new Discount("Table", polyGone.getId(), 500)));
+        li2.add(new Item(1, discountRepository.save(new Discount("Bandana jaune", polyGone.getId(), 50))));
+        li2.add(new Item(1, productRepository.save(new Product("Television 4k oled", polyGone.getId(), 1320))));
+        li2.add(new Item(1, discountRepository.save(new Discount("Table", polyGone.getId(), 500))));
     }
 
     @Test

@@ -76,10 +76,6 @@ public class CheckingStatistics {
         Discount discount = discountRepository.save(new Discount(discountName, store.getId(), point));
         shoppingList.add(new Item(1, discount));
         paymentRepository.save(new Payment(customer, store, shoppingList));
-
-        System.out.println("Hein ? (paymentRepo) " +  paymentRepository.findAll());
-        System.out.println("Hein ? (productRepo) " +  productRepository.findAll());
-        System.out.println("Hein ? (discountRepo) " + discountRepository.findAll());
     }
 
     @And("the customer {string} purchase {string} with {int} euros in the store {string}")
@@ -90,10 +86,6 @@ public class CheckingStatistics {
         Product product = productRepository.save(new Product(productName, store.getId(), cash));
         shoppingList.add(new Item(1, product));
         paymentRepository.save(new Payment(customer, store, shoppingList));
-
-        System.out.println("Hein ? (paymentRepo) " +  paymentRepository.findAll());
-        System.out.println("Hein ? (productRepo) " +  productRepository.findAll());
-        System.out.println("Hein ? (discountRepo) " + discountRepository.findAll());
     }
 
     @Then("the total point used was {int} since the beginning")
