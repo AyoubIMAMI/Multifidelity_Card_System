@@ -79,4 +79,22 @@ public class CatalogCommands {
         cliContext.getAdvantages().put(result.getId(), result);
         return result;
     }
+
+    @ShellMethod("Delete an advantage in the backend (delete-advantage ADVANTAGE_ID)")
+    public String deleteAdvantage(Long advantageId) {
+        CliAdvantage advantage = getAdvantageById(advantageId);
+        HttpEntity<CliAdvantage> entity = new HttpEntity<CliAdvantage>(advantage);
+            String result = restTemplate.exchange(BASE_URI + ADVANTAGE_URI + "/" + advantageId, HttpMethod.DELETE, entity, String.class).getBody();
+        cliContext.getAdvantages().remove(advantage.getId());
+        return result;
+    }
+
+    @ShellMethod("Get an advantage from the catalog of the backend with its id (get-advantage-by-id ADVANTAGE_ID)")
+    public CliAdvantage getAdvantageById(Long advantageId) {
+        CliAdvantage result = restTemplate.getForObject(BASE_URI + ADVANTAGE_URI + "/" + advantageId, CliAdvantage.class);
+        cliContext.getAdvantages().put(result.getId(), result);
+        return result;
+    }
+
+
 }
