@@ -40,8 +40,7 @@ public class StatManager implements StatsExplorer {
 
     @Override
     public int getTotalPointUsed() {
-        List<Payment> payments = paymentRepository.findAll();
-        return countNumberOfPoints(payments);
+        return countNumberOfPoints(paymentRepository.findAll());
     }
 
     @Override
@@ -61,11 +60,8 @@ public class StatManager implements StatsExplorer {
         int givenPoints = 0;
         for(Payment payment : payments)
             for(Item item : payment.getShoppingList())
-                if(item.getBuyable() instanceof Discount) {
+                if(item.getBuyable() instanceof Discount)
                     givenPoints += ((Discount) item.getBuyable()).getPointPrice() * item.getQuantity();
-                    System.out.println(item.getBuyable().getName() + " is a discount");
-                }
-                    
         return givenPoints;
     }
 }

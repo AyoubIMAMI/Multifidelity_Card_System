@@ -14,5 +14,4 @@ import java.util.List;
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
     List<Payment> findAllByCustomer(Customer customer);
     List<Payment> findByStore(Store store);
-    List<Payment> findAll();
 }

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.Payment;
@@ -20,7 +21,6 @@ import fr.polytech.interfaces.catalog.StatsExplorer;
 import fr.polytech.repository.CustomerRepository;
 import fr.polytech.repository.PaymentRepository;
 import fr.polytech.repository.StoreRepository;
-
 
 @SpringBootTest
 public class StatManagerTest {
@@ -64,6 +64,7 @@ public class StatManagerTest {
     }
 
     @Test
+    @Transactional
     public void getAllPaymentInDataTest() {
         Set<Item> li1 = new HashSet<>();
         li1.add(new Item(1, new Discount("Table trop cool", polyStore.getId(), 1000)));
@@ -71,7 +72,6 @@ public class StatManagerTest {
         li1.add(new Item(4, new Product("Set de table", polyStore.getId(), 10)));
         Payment p1 = new Payment(mourad, polyStore, li1);
         paymentRepository.save(p1);
-        
         assertEquals(1 * 1000 + 4 * 200, statsExplorer.getTotalPointUsed());
     }
 }
