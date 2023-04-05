@@ -28,15 +28,9 @@ public class PartnerStoreController {
     }
 
     @PostMapping(path = "/registration", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<StoreDTO> register(@RequestBody @Valid StoreDTO storeDTO){
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED)
+    public ResponseEntity<StoreDTO> register(@RequestBody @Valid StoreDTO storeDTO) throws StoreSiretAlreadyUsedException {
+        return ResponseEntity.status(HttpStatus.CREATED)
                     .body(convertStoreToDto(storeRegistration.registerNewStore(storeDTO.getName(), storeDTO.getSiret(), storeDTO.getPassword())));
-        } catch (BadCredentialsException | MissingInformationsException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        } catch (StoreSiretAlreadyUsedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private StoreDTO convertStoreToDto(Store store) {
