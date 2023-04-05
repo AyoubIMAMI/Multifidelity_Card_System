@@ -65,7 +65,7 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
         FidelityAccount fidelityAccount = customer.getFidelityAccount();
         double balance = fidelityAccount.getBalance();
         if(balance < amount)
-            throw new NotEnoughBalanceException();
+            throw new NotEnoughBalanceException(amount, balance);
 
         fidelityAccount.setBalance(balance - amount);
         return customerRepository.save(customer);

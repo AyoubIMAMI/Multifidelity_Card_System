@@ -4,6 +4,7 @@ import fr.polytech.controllers.dto.ErrorDTO;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
+import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice(assignableTypes = {CustomerAccountController.class, CatalogController.class,
-        ClientPaymentController.class})
+        ClientPaymentController.class, PartnerStoreController.class})
 public class GlobalControllerAdvice {
 
     @ExceptionHandler({MailAlreadyUsedException.class})
@@ -98,6 +99,15 @@ public class GlobalControllerAdvice {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setError("Payment already exists!");
         errorDTO.setDetails("The payment with id #" + e.getId() + "already exists...");
+        return errorDTO;
+    }
+
+    @ExceptionHandler({NotEnoughBalanceException.class})
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorDTO handleExceptions(NotEnoughBalanceException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Not enough balance!");
+        errorDTO.setDetails("You must have " + e.getAmountRequired() + " and you have " + e.getAmountOwned());
         return errorDTO;
     }
 
