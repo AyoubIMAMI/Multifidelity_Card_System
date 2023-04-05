@@ -73,9 +73,9 @@ public class CatalogCommands {
         return res;
     }
 
-    @ShellMethod("Create an advantage (create-advantage ID NAME")
-    public CliAdvantage createAdvantage(Long id, String name) {
-        CliAdvantage result = restTemplate.postForObject(BASE_URI + ADVANTAGE_URI, new CliAdvantage(id, name), CliAdvantage.class);
+    @ShellMethod("Create an advantage (create-advantage NAME)")
+    public CliAdvantage createAdvantage(String name) {
+        CliAdvantage result = restTemplate.postForObject(BASE_URI + ADVANTAGE_URI, name, CliAdvantage.class);
         cliContext.getAdvantages().put(result.getId(), result);
         return result;
     }
