@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(assignableTypes = {CustomerAccountController.class, CustomerNotFoundException.class,
-        NegativeAmountException.class, PaymentInBankException.class, NoDiscountsFoundException.class,
-        DiscountNotFoundException.class, StoreNotFoundException.class, PaymentAlreadyExistsException.class})
+@RestControllerAdvice(assignableTypes = {CustomerAccountController.class, CatalogController.class,
+        ClientPaymentController.class})
 public class GlobalControllerAdvice {
 
     @ExceptionHandler({MailAlreadyUsedException.class})
