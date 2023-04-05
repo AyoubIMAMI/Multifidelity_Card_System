@@ -191,9 +191,7 @@ pipeline {
                 sh 'apt install -y python3-pip'
                 sh 'pip install psycopg2-binary'
                 sh 'docker ps'
-                
-                sh 'cp ./cli/scripts/demo.txt ./cli/scripts_docker/demo.txt'          
-                              
+                                              
                 dir("./DevopsCli"){
                     sh 'python3 ./endToEnd.py'
                     sh 'python3 ./printBdContent.py'
