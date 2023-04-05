@@ -37,7 +37,7 @@ services:
     depends_on:
       - teamh-server
     volumes:
-      - ${WORKSPACE}/cli/scripts_docker:/opt/app/scripts
+      - ${WORKSPACE}/cli/script_docker:/opt/app/script_docker
     stdin_open: true
     tty: true
 
