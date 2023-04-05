@@ -13,7 +13,7 @@ ARG JAR_FILE
 RUN addgroup dockergroup; adduser --ingroup dockergroup --disabled-password --system --shell /bin/false dockeruser
 WORKDIR /opt/app
 COPY wait-for-it.sh ./wait-for-it.sh
-COPY scripts ./scripts
+COPY scripts ./
 
 COPY --from=builder /opt/app/target/${JAR_FILE} ./app.jar
 RUN chown -R dockeruser:dockergroup /opt/app && chmod a+x ./wait-for-it.sh
