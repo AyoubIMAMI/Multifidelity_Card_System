@@ -27,13 +27,13 @@ public class VFPController {
     public VFPController(VFPTransaction vfpTransaction) {
         this.vfpTransaction = vfpTransaction;
     }
-    @PostMapping(path = ADVANTAGE_URI)
+    @GetMapping(path = ADVANTAGE_URI)
     public ResponseEntity<String> useAdvantageVFP(@PathVariable("customerID") Long customerId, @PathVariable("advantageId") Long advantageId) throws NoAdvantageFoundException, VFPNotFoundException, CustomerNotFoundException, AdvantageAlreadyConsumedException {
         vfpTransaction.tryUseAdvantage(customerId, advantageId);
         return ResponseEntity.ok().body("Advantage OK");
     }
 
-    @PostMapping(path = PARKING_ADVANTAGE_URI)
+    @GetMapping(path = PARKING_ADVANTAGE_URI)
     public ResponseEntity<String> useParkingAdvantageVFP(@PathVariable("customerID") Long customerId, @PathVariable("advantageId") Long advantageId, @PathVariable("parkingId") Long parkingId) throws NoAdvantageFoundException, VFPNotFoundException, CustomerNotFoundException, AdvantageAlreadyConsumedException, ParkingUnavailableException {
         vfpTransaction.tryUseParkingAdvantage(customerId, advantageId, parkingId);
         return ResponseEntity.ok().body("Advantage OK");

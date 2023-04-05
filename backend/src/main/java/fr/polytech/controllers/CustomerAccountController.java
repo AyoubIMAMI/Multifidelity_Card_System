@@ -47,7 +47,7 @@ public class CustomerAccountController {
     }
 
     @PostMapping(path = "/plate")
-    public ResponseEntity<String> refillAccount(@PathVariable("customerId") Long customerId, String licensePlate) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException {
+    public ResponseEntity<String> setLicensePlate(@PathVariable("customerId") Long customerId, String licensePlate) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException {
         Customer customer=customerRegistration.registerNewPlate(customerId,licensePlate);
 
         return ResponseEntity.ok().body("New license plates saved: "+customer.getFidelityAccount().getLicencePlate());
