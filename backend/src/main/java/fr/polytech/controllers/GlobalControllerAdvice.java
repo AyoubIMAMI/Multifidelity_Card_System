@@ -4,6 +4,7 @@ import fr.polytech.controllers.dto.ErrorDTO;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
+import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentInBankException;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice(assignableTypes = {CustomerAccountController.class, CustomerNotFoundException.class,
-        NegativeAmountException.class, PaymentInBankException.class})
+        NegativeAmountException.class, PaymentInBankException.class, NoDiscountsFoundException.class})
 public class GlobalControllerAdvice {
 
     @ExceptionHandler({MailAlreadyUsedException.class})
@@ -57,6 +58,15 @@ public class GlobalControllerAdvice {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setError("Payment declined!");
         errorDTO.setDetails("The payment of an amount of " + e.getAmount() + " has been refused...");
+        return errorDTO;
+    }
+
+    @ExceptionHandler({NoDiscountsFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDTO handleExceptions(NoDiscountsFoundException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Discounts not found!");
+        errorDTO.setDetails("No discounts were found...");
         return errorDTO;
     }
 

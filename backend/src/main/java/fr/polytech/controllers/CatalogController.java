@@ -43,12 +43,8 @@ public class CatalogController {
     }
 
     @GetMapping(path = DISCOUNTS_URI, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Discount>> getDiscountsCatalog() {
-        try {
-            return ResponseEntity.ok().body(discountExplorer.findAllDiscounts());
-        } catch (NoDiscountsFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<List<Discount>> getDiscountsCatalog() throws NoDiscountsFoundException {
+        return ResponseEntity.ok().body(discountExplorer.findAllDiscounts());
     }
 
     @GetMapping(path = DISCOUNTS_URI+"/{discountId}", produces = APPLICATION_JSON_VALUE)
