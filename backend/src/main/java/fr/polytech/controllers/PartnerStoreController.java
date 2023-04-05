@@ -44,22 +44,22 @@ public class PartnerStoreController {
         }
     }
 
-    @GetMapping(path = "/statistics", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/statistics/cost", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Double> getTotalCostFromBeginning() {
         return ResponseEntity.ok().body(statsExplorer.getOperationCost());
     }
 
-    @PostMapping(path = "/statistics", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/statistics/cost", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Double> getTotalCostFromDate(@RequestBody Date date) throws IllegalDateException {
         return ResponseEntity.ok().body(statsExplorer.getOperationCost(date));
     }
 
-    @GetMapping(path = "/statistics", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/statistics/points", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> getTotalPointsUsedFromBeginning() {
         return ResponseEntity.ok().body(statsExplorer.getTotalPointUsed());
     }
 
-    @PostMapping(path = "/statistics", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/statistics/points", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> getTotalPointUsedFromDate(@RequestBody Date date) throws IllegalDateException {
         return ResponseEntity.ok().body(statsExplorer.getTotalPointUsed(date));
     }
