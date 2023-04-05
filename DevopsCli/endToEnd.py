@@ -6,8 +6,6 @@ import subprocess
 #sudo apt install python3-pip
 #pip install psycopg2-binary
 
-
-
 def getTable(tableName):
     # Exécuter une requête SELECT pour obtenir le contenu de la table 'customer'
     cursor.execute("SELECT * FROM " + tableName)
@@ -53,10 +51,10 @@ print("out= ",output.decode())
 time.sleep(8)
 
 #print cli and server output
-output = subprocess.check_output("docker logs cli --tail=3", shell=True)
+output = subprocess.check_output("docker logs cli", shell=True)
 print("out= ",output.decode())
 
-output = subprocess.check_output("docker logs cli --tail=3", shell=True)
+output = subprocess.check_output("docker logs cli", shell=True)
 print("out= ",output.decode())
 #
 try:
