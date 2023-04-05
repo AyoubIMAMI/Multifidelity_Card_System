@@ -1,13 +1,15 @@
 package fr.polytech.controllers.dto;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 public class OrganisationDTO {
+
+    private Long id;
     @NotBlank(message = "siret should not be blank")
     private String siret;
     @NotBlank(message = "name should not be blank")
     private String name;
-    private Long id;
     @NotBlank(message = "password should not be blank")
     private String password;
 
@@ -53,10 +55,23 @@ public class OrganisationDTO {
     @Override
     public String toString() {
         return "OrganisationDTO{" +
-                "siret='" + siret + '\'' +
+                "id=" + id +
+                ", siret='" + siret + '\'' +
                 ", name='" + name + '\'' +
-                ", id=" + id +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrganisationDTO that = (OrganisationDTO) o;
+        return Objects.equals(siret, that.siret) && Objects.equals(name, that.name) && Objects.equals(password, that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(siret, name, password);
     }
 }

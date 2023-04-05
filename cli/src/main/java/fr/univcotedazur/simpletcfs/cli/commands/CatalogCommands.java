@@ -2,7 +2,6 @@ package fr.univcotedazur.simpletcfs.cli.commands;
 
 import fr.univcotedazur.simpletcfs.cli.CliContext;
 import fr.univcotedazur.simpletcfs.cli.model.CliDiscount;
-import fr.univcotedazur.simpletcfs.cli.model.CliStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -34,9 +33,9 @@ public class CatalogCommands {
         return discounts.toString();
     }
 
-    @ShellMethod("Create a new Discount in the backend (create-discount NAME STORE_ID CASH_PRICE POINT_PRICE)")
-    public CliDiscount createDiscount(String name, Long storeId, double cashPrice, int pointPrice) {
-        CliDiscount res = restTemplate.postForObject(BASE_URI + DISCOUNTS_URI, new CliDiscount(name, storeId, cashPrice, pointPrice), CliDiscount.class);
+    @ShellMethod("Create a new Discount in the backend (create-discount NAME STORE_ID POINT_PRICE)")
+    public CliDiscount createDiscount(String name, Long storeId, int pointPrice) {
+        CliDiscount res = restTemplate.postForObject(BASE_URI + DISCOUNTS_URI, new CliDiscount(name, storeId, pointPrice), CliDiscount.class);
         cliContext.getDiscounts().put(res.getId(), res);
         return res;
     }
