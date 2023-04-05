@@ -58,22 +58,13 @@ public class CatalogController {
     }
 
     @PutMapping(path =DISCOUNTS_URI+"/{discountId}", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Discount> updatePointPrice(@PathVariable("discountId") Long discountId, @RequestBody int pointPrice) {
-        try {
-            return ResponseEntity.ok()
-                    .body(discountModifier.modifyPointPrice(discountId, pointPrice));
-        } catch (DiscountNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<Discount> updatePointPrice(@PathVariable("discountId") Long discountId, @RequestBody int pointPrice) throws DiscountNotFoundException {
+        return ResponseEntity.ok().body(discountModifier.modifyPointPrice(discountId, pointPrice));
     }
 
     @DeleteMapping(DISCOUNTS_URI + "/{discountId}")
-    public ResponseEntity<String> deleteDiscount(@PathVariable("discountId") Long discountId) {
-        try {
-            discountModifier.deleteDiscount(discountId);
-            return ResponseEntity.ok().body("Discount successfully deleted");
-        } catch (DiscountNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<String> deleteDiscount(@PathVariable("discountId") Long discountId) throws DiscountNotFoundException {
+        discountModifier.deleteDiscount(discountId);
+        return ResponseEntity.ok().body("Discount successfully deleted");
     }
 }
