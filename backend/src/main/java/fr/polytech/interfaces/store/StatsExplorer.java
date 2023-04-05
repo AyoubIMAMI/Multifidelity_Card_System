@@ -21,7 +21,7 @@ public interface StatsExplorer {
      * Give the number of points used since the beginning.
      * @return Number of generated points.
      */
-    int getTotalPointUsed();
+    int getUsedPoints();
 
     /**
      * Give the number of points used since a given date.
@@ -29,5 +29,5 @@ public interface StatsExplorer {
      * @return
      * @throws IllegalDateException
      */
-    int getTotalPointUsed(Date date) throws IllegalDateException;
+    int getUsedPoints(Date date) throws IllegalDateException;
 }

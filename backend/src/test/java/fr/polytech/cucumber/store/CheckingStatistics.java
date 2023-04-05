@@ -91,6 +91,12 @@ public class CheckingStatistics {
     @Then("the total point used was {int} since the beginning")
     public void theTotalPointUsedWasSinceTheBeginning(int usedPoints) {
         
-        assertEquals(usedPoints, statManager.getTotalPointUsed());
+        assertEquals(usedPoints, statManager.getUsedPoints());
     }
+
+    @Then("the total cost of the operation is up to {double} euros since the beginning")
+    public void theTotalCostOfTheOperationIsUpToEurosSinceTheBeginning(double amount) {
+        assertEquals(amount, statManager.getOperationCost());
+    }
+
 }

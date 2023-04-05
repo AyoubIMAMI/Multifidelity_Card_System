@@ -56,12 +56,12 @@ public class PartnerStoreController {
 
     @GetMapping(path = "/statistics/points", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> getTotalPointsUsedFromBeginning() {
-        return ResponseEntity.ok().body(statsExplorer.getTotalPointUsed());
+        return ResponseEntity.ok().body(statsExplorer.getUsedPoints());
     }
 
     @PostMapping(path = "/statistics/points", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> getTotalPointUsedFromDate(@RequestBody Date date) throws IllegalDateException {
-        return ResponseEntity.ok().body(statsExplorer.getTotalPointUsed(date));
+        return ResponseEntity.ok().body(statsExplorer.getUsedPoints(date));
     }
 
     private StoreDTO convertStoreToDto(Store store) {

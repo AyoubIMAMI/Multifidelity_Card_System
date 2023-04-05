@@ -11,3 +11,9 @@ Feature: User is checking overall statistics
     And the customer "Glio" purchase "Steak végétarien" with 7 euros in the store "Poly Store"
     Then the total point used was 45 since the beginning
 
+  Scenario: Same purchase, but different Customer
+    When the customer "Glio" purchase "Salade wifi" with 45 points in the store "Store Cool"
+    And the customer "Estoult" purchase "Pomme de terre Bluetooth" with 27 euros in the store "Poly Store"
+    And the customer "Glio" purchase "Pomme de terre Bluetooth" with 27 euros in the store "Poly Store"
+    Then the total cost of the operation is up to 4.50 euros since the beginning
+

@@ -92,7 +92,7 @@ public class StatManagerTest {
         paymentRepository.save(new Payment(mourad, polyStore, li1));
         paymentRepository.save(new Payment(leo, polyGone, li2));
     
-        assertEquals(1000 + 4 * 200 + 50 + 500, statsExplorer.getTotalPointUsed());
+        assertEquals(1000 + 4 * 200 + 50 + 500, statsExplorer.getUsedPoints());
         assertEquals((1000 + 4 * 200 + 50 + 500) / (double) 10, statsExplorer.getOperationCost());
     }
 
@@ -116,7 +116,7 @@ public class StatManagerTest {
         thresholdDate.set(Calendar.MONTH, 0);
         thresholdDate.set(Calendar.DATE, 1);
 
-        assertEquals(500 + 50, statsExplorer.getTotalPointUsed(thresholdDate.getTime()));
+        assertEquals(500 + 50, statsExplorer.getUsedPoints(thresholdDate.getTime()));
         assertEquals((500 + 50) / (double) 10, statsExplorer.getOperationCost(thresholdDate.getTime()));
     }
 }
