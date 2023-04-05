@@ -4,7 +4,6 @@ Feature: Register and login
     Given a user named "Benoit" with "Benoit@gmail.cube" mail and this password "JeSuisB0"
 
 
-
   Scenario: A user wants to create an account and login to get his id
     When the user registers
     Then he can login and get his ID with "Benoit@gmail.cube" mail and this password "JeSuisB0"
