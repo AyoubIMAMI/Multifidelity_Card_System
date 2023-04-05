@@ -8,5 +8,5 @@ import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
 import fr.polytech.exceptions.advantage.VFPNotFoundException;
 
 public interface VFPTransaction {
-    void tryUseAdvantage(Long userID, Long advantageID) throws CustomerNotFoundException, NotVFPClientException, ISawWhereYouParkedLastSummerUnvailableException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException;
+    void tryUseAdvantage(Long userID, Long advantageID, Long parkingID) throws CustomerNotFoundException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException;
 }

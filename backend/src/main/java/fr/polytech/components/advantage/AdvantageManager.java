@@ -27,12 +27,17 @@ public class AdvantageManager implements AdvantageExplorer, AdvantageModifier {
     }
 
     @Override
-    public void createAdvantage(Advantage advantage) {
-        advantageRepository.save(advantage);
+    public Advantage createAdvantage(Advantage advantage) {
+        return(advantageRepository.save(advantage));
     }
 
     @Override
-    public void deleteAdvantage(Long advantageID) {
-        advantageRepository.deleteById(advantageID);
+    public void deleteAdvantage(Long advantageID) throws AdvantageNotFoundException {
+        try{
+            advantageRepository.deleteById(advantageID);
+        }
+        catch(Exception e){
+            throw new AdvantageNotFoundException();
+        }
     }
 }

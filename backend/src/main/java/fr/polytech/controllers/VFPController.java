@@ -29,9 +29,9 @@ public class VFPController {
         this.vfpTransaction = vfpTransaction;
     }
     @PostMapping(path = VFP_URI+"/advantage")
-    public ResponseEntity<String> processWithPaymentFidelity(@PathVariable("customerID") Long customerId, Long advantageID) throws NoDiscountsFoundException {
+    public ResponseEntity<String> processWithPaymentFidelity(@PathVariable("customerID") Long customerId, Long advantageID,Long parkingID) throws NoDiscountsFoundException {
         try {
-            vfpTransaction.tryUseAdvantage(customerId,advantageID);
+            vfpTransaction.tryUseAdvantage(customerId,advantageID,parkingID);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

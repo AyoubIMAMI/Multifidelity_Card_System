@@ -1,6 +1,7 @@
 package fr.polytech.entities;
 
 import fr.polytech.entities.structure.TerritorialCommunity;
+import fr.polytech.repository.AdvantageRepository;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +13,16 @@ public class  Advantage {
 
     //private TerritorialCommunity provider;
     private String advantageName;
-    private Date expirationDate;
-    private int counter;
     @GeneratedValue
     @Id
     private Long id;
+
+    public Advantage(String advantageName){
+        this.advantageName=advantageName;
+    }
+    public Advantage() {
+
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -24,5 +30,9 @@ public class  Advantage {
 
     public Long getId() {
         return id;
+    }
+
+    public String getAdvantageName() {
+        return advantageName;
     }
 }
