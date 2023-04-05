@@ -1,19 +1,31 @@
 package fr.univcotedazur.simpletcfs.cli.model;
 
-public class CliProduct {
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Product.class, name = "product"),
+        @JsonSubTypes.Type(value = Discount.class, name = "discount")
+})
+public abstract class Buyable {
 
     private Long id;
-    private String name;
-    private Long storeId;
-    private double cashPrice;
 
-    public CliProduct(String name, Long storeId, double cashPrice) {
+    private String name;
+
+    private Long storeId;
+
+    public Buyable(String name, Long storeId) {
         this.name = name;
         this.storeId = storeId;
-        this.cashPrice = cashPrice;
     }
 
-    public CliProduct() {
+    public Buyable() {
+
     }
 
     public Long getId() {
@@ -40,19 +52,12 @@ public class CliProduct {
         this.storeId = storeId;
     }
 
-    public double getCashPrice() {
-        return cashPrice;
-    }
-
-    public void setCashPrice(double cashPrice) {
-        this.cashPrice = cashPrice;
-    }
-
     @Override
     public String toString() {
-        return "CliProduct{" +
-                "name='" + name + '\'' +
-                ", cashPrice=" + cashPrice +
+        return "Buyable{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", storeId=" + storeId +
                 '}';
     }
 }

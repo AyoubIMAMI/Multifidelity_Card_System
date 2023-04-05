@@ -1,8 +1,5 @@
-package fr.polytech.entities.item;
+package fr.univcotedazur.simpletcfs.cli.model;
 
-import javax.persistence.Entity;
-
-@Entity
 public class Discount extends Buyable {
 
     private int pointPrice;

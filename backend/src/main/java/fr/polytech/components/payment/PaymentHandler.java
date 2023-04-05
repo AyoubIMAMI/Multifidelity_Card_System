@@ -65,9 +65,10 @@ public class PaymentHandler implements IPayment {
     private void checkDiscountAndPayWithPointPurchase(Customer customer, Set<Item> shoppingList) throws NoDiscountsFoundException, NotEnoughBalanceException {
         System.out.println("On check si il y a une discount");
         for (Item item: shoppingList) {
-            if(item.getProduct() instanceof Discount) {
+            if(item.getBuyable() instanceof Discount) {
+                System.out.println("Discount trouvé");
                 pointPurchase.buyWithPoint(customer, shoppingList);
-                System.out.println("Discount found!");
+                System.out.println("fin check discount");
             }
         }
     }

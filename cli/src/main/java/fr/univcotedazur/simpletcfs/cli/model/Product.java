@@ -1,9 +1,5 @@
-package fr.polytech.entities.item;
+package fr.univcotedazur.simpletcfs.cli.model;
 
-import javax.persistence.Entity;
-import java.util.Objects;
-
-@Entity
 public class Product extends Buyable {
 
     private double cashPrice;
@@ -25,18 +21,6 @@ public class Product extends Buyable {
         this.cashPrice = cashPrice;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return Double.compare(product.cashPrice, cashPrice) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cashPrice);
-    }
 
     @Override
     public String toString() {

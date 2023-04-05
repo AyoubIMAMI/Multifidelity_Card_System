@@ -1,20 +1,20 @@
 package fr.univcotedazur.simpletcfs.cli.model;
 
-public class CliCustomer {
+public class Customer {
     private Long id;
     private String name;
     private String password;
     private String email;
 
-    private CliFidelityAccount fidelityAccount;
+    private FidelityAccount fidelityAccount;
 
-    public CliCustomer(String name, String email, String password){
+    public Customer(String name, String email, String password){
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public CliCustomer() {
+    public Customer() {
 
     }
 
@@ -50,11 +50,11 @@ public class CliCustomer {
         this.email = email;
     }
 
-    public CliFidelityAccount getFidelityAccount() {
+    public FidelityAccount getFidelityAccount() {
         return fidelityAccount;
     }
 
-    public void setFidelityAccount(CliFidelityAccount fidelityAccount) {
+    public void setFidelityAccount(FidelityAccount fidelityAccount) {
         this.fidelityAccount = fidelityAccount;
     }
 

@@ -1,12 +1,9 @@
 package fr.polytech.controllers;
 
-import fr.polytech.controllers.dto.CustomerDTO;
-import fr.polytech.controllers.dto.PaymentDTO;
-import fr.polytech.controllers.dto.StoreDTO;
+import fr.polytech.controllers.dto.*;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Item;
-import fr.polytech.entities.item.Product;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.interfaces.payment.IPayment;
 import fr.polytech.entities.Payment;
@@ -15,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -65,5 +61,4 @@ public class ClientPaymentController {
     private StoreDTO convertStoreToDto(Store store) {
         return new StoreDTO(store.getId(), store.getName(), store.getSiret(), store.getPassword());
     }
-
 }

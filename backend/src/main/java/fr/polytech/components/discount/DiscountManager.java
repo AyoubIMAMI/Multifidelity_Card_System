@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
 
 @Transactional
 @Component
@@ -54,8 +52,8 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     }
 
     @Override
-    public Discount createDiscount(String name, Long storeId, double cashPrice, int pointPrice){
-        Discount discount = new Discount(name, storeId, cashPrice, pointPrice);
+    public Discount createDiscount(String name, Long storeId, int pointPrice){
+        Discount discount = new Discount(name, storeId, pointPrice);
         return discountRepository.save(discount);
     }
 

@@ -1,5 +1,4 @@
 package fr.polytech.entities;
-import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.structure.Organisation;
 
 import javax.persistence.Entity;
