@@ -41,19 +41,25 @@ def disconnect(cursor, connection):
 
 
 # Ouvrir une connexion et un curseur
-print("Hello World")
 connection = connect()
 cursor = connection.cursor()
 
 
 os.system('echo "script full-payment-scripts.txt" | socat EXEC:"docker attach cli",pty STDIN')
-time.sleep(3)
+time.sleep(8)
 
-userTable = getTable("customer")
-printTable(userTable)
+try:
+    userTable = getTable("customer")
+    printTable(userTable)
+    organisationTable = getTable("organisation")
+    printTable(organisationTable)
+except:
+  print("An exception occurred")
 
-organisationTable = getTable("organisation")
-printTable(organisationTable)
+
+
+
+
 
 # Fermer le curseur et la connexion à la base de données
 cursor.close()
