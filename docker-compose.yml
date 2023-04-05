@@ -36,8 +36,6 @@ services:
     entrypoint: "bash -c '/opt/app/wait-for-it.sh $${SERVER_WITH_PORT} -- java -jar /opt/app/app.jar'"
     depends_on:
       - teamh-server
-    volumes:
-      - ${WORKSPACE}/cli/script_docker:/opt/app/script_docker
     stdin_open: true
     tty: true
 
