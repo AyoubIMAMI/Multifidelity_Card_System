@@ -45,7 +45,7 @@ connection = connect()
 cursor = connection.cursor()
 
 
-os.system('echo "script full-payment-scripts.txt" | socat EXEC:"docker attach cli",pty STDIN')
+os.system('./inputInCli.sh')
 time.sleep(8)
 
 try:
