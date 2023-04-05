@@ -4,7 +4,7 @@ import fr.polytech.exceptions.IllegalDateException;
 
 public interface StatsExplorer {
     /**
-     * Give the total cost of the discount operation since the begining.
+     * Give the total cost of the discount operation since the beginning.
      * @return cost of the operation.
      */
     double getOperationCost();
@@ -18,8 +18,8 @@ public interface StatsExplorer {
 
 
     /**
-     * Give the number of points generatess since the begining.
-     * @return Nuber of generated points.
+     * Give the number of points generates since the beginning.
+     * @return Number of generated points.
      */
     int getTotalPointGenerated();
 

@@ -2,9 +2,12 @@ package fr.polytech.controllers;
 
 import fr.polytech.controllers.dto.StoreDTO;
 import fr.polytech.entities.Store;
+import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.BadCredentialsException;
+import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.store.MissingInformationsException;
 import fr.polytech.exceptions.store.StoreSiretAlreadyUsedException;
+import fr.polytech.interfaces.catalog.StatsExplorer;
 import fr.polytech.interfaces.store.StoreRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -21,6 +26,7 @@ public class PartnerStoreController {
     public static final String BASE_URI = "/stores";
 
     StoreRegistration storeRegistration;
+    StatsExplorer statsExplorer;
 
     @Autowired
     public PartnerStoreController(StoreRegistration storeRegistration) {
@@ -39,7 +45,13 @@ public class PartnerStoreController {
         }
     }
 
+    @GetMapping(path = "/statistics", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Double> getTotalCostFromBeginning() {
+        return ResponseEntity.ok().body(statsExplorer.getOperationCost());
+    }
+
     private StoreDTO convertStoreToDto(Store store) {
         return new StoreDTO(store.getId(), store.getSiret(), store.getName(), store.getPassword());
     }
+
 }
