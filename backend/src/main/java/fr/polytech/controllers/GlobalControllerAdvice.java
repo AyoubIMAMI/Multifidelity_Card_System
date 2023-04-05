@@ -1,10 +1,7 @@
 package fr.polytech.controllers;
 
 import fr.polytech.controllers.dto.ErrorDTO;
-import fr.polytech.exceptions.BadCredentialsException;
-import fr.polytech.exceptions.CustomerNotFoundException;
-import fr.polytech.exceptions.MailAlreadyUsedException;
-import fr.polytech.exceptions.NotEnoughBalanceException;
+import fr.polytech.exceptions.*;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
