@@ -38,6 +38,15 @@ public class PaymentCommands {
         return cartStr.toString();
     }
 
+    @ShellMethod("Clear items in cart")
+    public String clearCart() {
+        StringBuilder cartStr = new StringBuilder("Items in cart:\n");
+        for (CliItem item : cliContext.getCart()) {
+            cartStr.append(item).append("\n");
+        }
+        return cartStr.toString();
+    }
+
     @ShellMethod("Add a Product Item to cart (add-product QUANTITY PRODUCT_NAME STORE_ID CASH_PRICE")
     public CliItem addProduct(int quantity, String productName, Long storeId, double cashPrice) {
         CliItem item = new CliItem(quantity, new CliProduct(productName, storeId, cashPrice));
@@ -45,9 +54,9 @@ public class PaymentCommands {
         return item;
     }
 
-    @ShellMethod("Add a Discount Item to cart (add-product QUANTITY PRODUCT_NAME STORE_ID CASH_PRICE POINT_PRICE")
-    public CliItem addDiscount(int quantity, String productName, Long storeId, double cashPrice, int pointPrice) {
-        CliItem item = new CliItem(quantity, new CliDiscount(productName, storeId, cashPrice, pointPrice));
+    @ShellMethod("Add a Discount Item to cart (add-product QUANTITY PRODUCT_NAME STORE_ID POINT_PRICE")
+    public CliItem addDiscount(int quantity, String productName, Long storeId, int pointPrice) {
+        CliItem item = new CliItem(quantity, new CliDiscount(productName, storeId, pointPrice));
         cliContext.getCart().add(item);
         return item;
     }
@@ -64,7 +73,7 @@ public class PaymentCommands {
         CliPayment res = restTemplate.postForObject(BASE_URI + "/store/" + storeId + "/customer/" + customerId + "/settled", cliContext.getCart(), CliPayment.class);
         cliContext.getPayments().put(res.getId(), res);
         cliContext.getCart().clear();
-        cliContext.getCustomers().put(res.getCustomer().getId(),res.getCustomer());
+        cliContext.getCustomers().put(res.getCustomer().getId(), res.getCustomer());
         return res;
     }
 
@@ -73,7 +82,7 @@ public class PaymentCommands {
         CliPayment res = restTemplate.postForObject(BASE_URI + "/store/" + storeId + "/customer/" + customerId + "/fidelity", cliContext.getCart(), CliPayment.class);
         cliContext.getPayments().put(res.getId(), res);
         cliContext.getCart().clear();
-        cliContext.getCustomers().put(res.getCustomer().getId(),res.getCustomer());
+        cliContext.getCustomers().put(res.getCustomer().getId(), res.getCustomer());
         return res;
     }
 }

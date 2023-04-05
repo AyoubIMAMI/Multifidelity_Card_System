@@ -2,7 +2,6 @@ package fr.polytech.entities;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 
 @Embeddable
 public class FidelityAccount {
@@ -47,6 +46,27 @@ public class FidelityAccount {
         if (Double.compare(that.balance, balance) != 0) return false;
         if (isVFP != that.isVFP) return false;
         return Objects.equals(licencePlate, that.licencePlate);
+    }
+
+    public boolean isVFP() {
+        return isVFP;
+    }
+
+    public void setVFP(boolean VFP) {
+        isVFP = VFP;
+    }
+
+    public String getLicencePlate() {
+        return licencePlate;
+    }
+
+    public void setLicencePlate(String licencePlate) {
+        this.licencePlate = licencePlate;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(points, balance, isVFP, licencePlate);
     }
 
     @Override

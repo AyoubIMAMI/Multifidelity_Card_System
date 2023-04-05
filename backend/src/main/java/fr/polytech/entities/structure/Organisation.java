@@ -3,15 +3,16 @@ package fr.polytech.entities.structure;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Set;
+import java.util.Objects;
 
 @Entity
 public abstract class Organisation {
-    private String siret;
-    private String name;
+
     @Id
     @GeneratedValue
     private Long id;
+    private String siret;
+    private String name;
     private String password;
 
     public Organisation(String siret, String name,String password) {
@@ -44,4 +45,38 @@ public abstract class Organisation {
         return siret;
     }
 
+    public void setSiret(String siret) {
+        this.siret = siret;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Organisation that = (Organisation) o;
+        return Objects.equals(siret, that.siret) && Objects.equals(name, that.name) && Objects.equals(password, that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(siret, name, password);
+    }
+
+    @Override
+    public String toString() {
+        return "Organisation{" +
+                "id=" + id +
+                ", siret='" + siret + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

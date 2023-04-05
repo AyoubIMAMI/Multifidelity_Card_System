@@ -3,6 +3,7 @@ package fr.polytech.controllers.dto;
 import fr.polytech.entities.FidelityAccount;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 public class CustomerDTO {
 
@@ -63,5 +64,29 @@ public class CustomerDTO {
 
     public void setFidelityAccount(FidelityAccount fidelityAccount) {
         this.fidelityAccount = fidelityAccount;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", fidelityAccount=" + fidelityAccount +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomerDTO that = (CustomerDTO) o;
+        return Objects.equals(name, that.name) && Objects.equals(password, that.password) && Objects.equals(email, that.email) && Objects.equals(fidelityAccount, that.fidelityAccount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, password, email, fidelityAccount);
     }
 }

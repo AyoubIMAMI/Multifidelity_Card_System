@@ -3,6 +3,7 @@ package fr.polytech.controllers.dto;
 import fr.polytech.entities.item.Item;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 public class PaymentDTO {
@@ -15,7 +16,7 @@ public class PaymentDTO {
 
     private Set<Item> shoppingList;
 
-    private Date transactionDate;
+    private boolean isSettled;
 
     private float amount;
 
@@ -36,7 +37,7 @@ public class PaymentDTO {
                 ", customer=" + customer +
                 ", store=" + store +
                 ", shoppingList=" + shoppingList +
-                ", transactionDate=" + transactionDate +
+                ", isSettled=" + isSettled +
                 ", amount=" + amount +
                 '}';
     }
@@ -87,5 +88,29 @@ public class PaymentDTO {
 
     public void setAmount(float amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PaymentDTO that = (PaymentDTO) o;
+        return Float.compare(that.amount, amount) == 0 && Objects.equals(customer, that.customer) && Objects.equals(store, that.store) && Objects.equals(shoppingList, that.shoppingList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customer, store, shoppingList, amount);
+    }
+
+    @Override
+    public String toString() {
+        return "PaymentDTO{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", store=" + store +
+                ", shoppingList=" + shoppingList +
+                ", amount=" + amount +
+                '}';
     }
 }

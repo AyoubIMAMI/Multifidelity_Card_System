@@ -38,7 +38,7 @@ public class PointPurchaseHandlerTest {
         customer = new Customer("John", "john@doe.com", "pwd");
         payment = new Payment();
         product = new Product("Coffee", Long.parseLong("0"), 5);
-        discountedProduct = new Discount("Cake", Long.parseLong("1"),  10, 7);
+        discountedProduct = new Discount("Cake", Long.parseLong("1"), 7);
         initialFidelityPoint = 100;
     }
 

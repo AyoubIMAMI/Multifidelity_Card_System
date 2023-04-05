@@ -25,11 +25,13 @@ public class RefillFidelityCardHandler implements RefillFidelityCard {
     }
 
     public Date refill(Customer customer, BankTransactionDTO transaction) throws NegativeAmountException, PaymentInBankException {
-        if(transaction.getAmount() <= 0)
-            throw new NegativeAmountException();
+        double amount = transaction.getAmount();
+
+        if(amount <= 0)
+            throw new NegativeAmountException(amount);
 
         if(!bank.refill(transaction))
-            throw new PaymentInBankException();
+            throw new PaymentInBankException(amount);
 
         Date bankTransactionDate = new Date();
 
