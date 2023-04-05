@@ -71,7 +71,7 @@ public class StatManagerTest {
         li1.add(new Item(4, new Product("Set de table", polyStore.getId(), 10)));
         Payment p1 = new Payment(mourad, polyStore, li1);
         paymentRepository.save(p1);
-
+        
         assertEquals(1 * 1000 + 4 * 200, statsExplorer.getTotalPointUsed());
     }
 }
