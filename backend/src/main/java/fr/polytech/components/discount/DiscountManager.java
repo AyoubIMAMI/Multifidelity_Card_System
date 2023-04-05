@@ -40,10 +40,10 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     }
 
     @Override
-    public List<Discount> findDiscountsByStore(Long storeId) throws NoDiscountsFoundException {
+    public List<Discount> findDiscountsByStore(Long storeId) throws DiscountNotFoundException {
         List<Discount> discounts = discountRepository.findByStoreId(storeId);
         if(discounts.isEmpty()) {
-            throw new NoDiscountsFoundException();
+            throw new DiscountNotFoundException(storeId);
         }
         return discounts;
     }

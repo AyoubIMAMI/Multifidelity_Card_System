@@ -11,7 +11,7 @@ public interface DiscountExplorer {
 
     Discount findDiscountByName(String name) throws DiscountNotFoundException;
 
-    List<Discount> findDiscountsByStore(Long storeId) throws NoDiscountsFoundException;
+    List<Discount> findDiscountsByStore(Long storeId) throws DiscountNotFoundException;
 
     List<Discount> findAllDiscounts() throws NoDiscountsFoundException ;
 }
