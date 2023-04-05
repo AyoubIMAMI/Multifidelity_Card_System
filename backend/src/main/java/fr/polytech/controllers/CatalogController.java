@@ -54,7 +54,7 @@ public class CatalogController {
         return ResponseEntity.ok().body(discountExplorer.findAllDiscounts());
     }
 
-    @PutMapping(path = ADVANTAGE_URI, produces = APPLICATION_JSON_VALUE)
+    @PostMapping(path = ADVANTAGE_URI, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Advantage> createAdvantage(@RequestBody @Valid Advantage advantage) {
         return ResponseEntity.ok().body(advantageModifier.createAdvantage(advantage));
     }
