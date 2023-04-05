@@ -8,7 +8,7 @@ public class StoreNotFoundException extends Exception {
         this.id = id;
     }
 
-    //public StoreNotFoundException() {}
+    public StoreNotFoundException() {}
 
     public Long getId() {
         return id;

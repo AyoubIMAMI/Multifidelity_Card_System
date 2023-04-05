@@ -7,6 +7,7 @@ import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
+import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.payment.PaymentInBankException;
 import fr.polytech.exceptions.store.StoreNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice(assignableTypes = {CustomerAccountController.class, CustomerNotFoundException.class,
         NegativeAmountException.class, PaymentInBankException.class, NoDiscountsFoundException.class,
-        DiscountNotFoundException.class, StoreNotFoundException.class})
+        DiscountNotFoundException.class, StoreNotFoundException.class, PaymentAlreadyExistsException.class})
 public class GlobalControllerAdvice {
 
     @ExceptionHandler({MailAlreadyUsedException.class})
@@ -91,5 +92,15 @@ public class GlobalControllerAdvice {
         errorDTO.setDetails("The store with with id #" + e.getId() + "has not been found...");
         return errorDTO;
     }
+
+    @ExceptionHandler({PaymentAlreadyExistsException.class})
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorDTO handleExceptions(PaymentAlreadyExistsException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Payment already exists!");
+        errorDTO.setDetails("The payment with id #" + e.getId() + "already exists...");
+        return errorDTO;
+    }
+
 
 }

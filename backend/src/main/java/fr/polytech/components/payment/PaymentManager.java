@@ -56,7 +56,7 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
 
         if(paymentAlreadyExists(paymentID)) {
             System.out.println("Ce payment existe deja");
-            throw new PaymentAlreadyExistsException();
+            throw new PaymentAlreadyExistsException(paymentID);
         }
 
         System.out.println("Aucun payment avec cet id dans la DB donc on peut le save");
