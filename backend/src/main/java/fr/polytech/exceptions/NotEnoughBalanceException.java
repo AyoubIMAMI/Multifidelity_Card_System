@@ -10,6 +10,8 @@ public class NotEnoughBalanceException extends Exception {
         this.amountOwned = amountOwned;
     }
 
+    public  NotEnoughBalanceException() {}
+
     public double getAmountRequired() {
         return amountRequired;
     }

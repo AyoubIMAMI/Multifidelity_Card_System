@@ -7,7 +7,6 @@ import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.payment.PaymentInBankException;
-import fr.polytech.exceptions.store.MissingInformationsException;
 import fr.polytech.exceptions.store.StoreNotFoundException;
 import fr.polytech.exceptions.store.StoreSiretAlreadyUsedException;
 import org.springframework.http.HttpStatus;
@@ -118,6 +117,5 @@ public class GlobalControllerAdvice {
         errorDTO.setDetails("The siret #" + e.getSiret() + " has already been used for a store");
         return errorDTO;
     }
-
 
 }

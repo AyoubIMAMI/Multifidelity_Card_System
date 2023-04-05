@@ -13,6 +13,8 @@ public class DiscountNotFoundException extends Exception{
         this.name = name;
     }
 
+    public DiscountNotFoundException() {}
+
     public Long getId() {
         return id;
     }
