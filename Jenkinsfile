@@ -177,11 +177,10 @@ pipeline {
                 expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false'} 
             }
             steps{
-                sh 'cp ./cli/scripts/demo.txt ./cli/scripts_docker/demo.txt'
                 sh 'docker ps'
                 sh './build-all.sh'
                 sh 'cat ${WORKSPACE}/cli/scripts/demo.txt'
-                sh './run-all.sh'                        
+                sh './run-all.sh'
             }
         }
         stage('Test end to end') {
@@ -193,6 +192,7 @@ pipeline {
                 sh 'pip install psycopg2-binary'
                 sh 'docker ps'
                 dir("./DevopsCli"){
+                    sh 'cp ./cli/scripts/demo.txt ./cli/scripts_docker/demo.txt'                        
                     sh 'python3 ./endToEnd.py'
                     sh 'python3 ./printBdContent.py'
                 }
