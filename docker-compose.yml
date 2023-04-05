@@ -37,12 +37,7 @@ services:
     depends_on:
       - teamh-server
     volumes:
-      - ${WORKSPACE}/cli/scripts/demo.txt:/opt/app/demo.txt
-      - ${WORKSPACE}/cli/scripts/register.txt:/opt/app/register.txt
-      - ${WORKSPACE}/cli/scripts/settled-payment.txt:/opt/app/settled-payment.txt
-      - ${WORKSPACE}/cli/scripts/fidelity-payment.txt:/opt/app/fidelity-payment.txt
-      - ${WORKSPACE}/cli/scripts/discount-payment.txt:/opt/app/discount-payment.txt
-      - ${WORKSPACE}/cli/scripts/full-payment-scripts.txt:/opt/app/full-payment-scripts.txt
+      - ${WORKSPACE}/cli/scripts:/opt/app/
     stdin_open: true
     tty: true
 
