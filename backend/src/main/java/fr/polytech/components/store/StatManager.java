@@ -8,12 +8,11 @@ import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.polytech.exceptions.IllegalDateException;
 import fr.polytech.interfaces.store.StatsExplorer;
 import fr.polytech.repository.PaymentRepository;
-
-import javax.transaction.Transactional;
 
 @Component
 @Transactional

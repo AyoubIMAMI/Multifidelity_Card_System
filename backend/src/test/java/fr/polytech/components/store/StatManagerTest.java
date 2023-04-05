@@ -25,6 +25,7 @@ import fr.polytech.repository.PaymentRepository;
 import fr.polytech.repository.StoreRepository;
 
 @SpringBootTest
+@Transactional
 public class StatManagerTest {
     @Autowired
     private StatsExplorer statsExplorer;
@@ -79,20 +80,15 @@ public class StatManagerTest {
     }
 
     @Test
-    @Transactional
     public void getAllPaymentInDataTest() {
-        Payment p1 = new Payment(mourad, polyStore, li1);
-        paymentRepository.save(p1);
-
-        Payment p2 = new Payment(leo, polyGone, li2);
-        paymentRepository.save(p2);
+        paymentRepository.save(new Payment(mourad, polyStore, li1));
+        paymentRepository.save(new Payment(leo, polyGone, li2));
     
         assertEquals(1000 + 4 * 200 + 50 + 500, statsExplorer.getTotalPointUsed());
         assertEquals((1000 + 4 * 200 + 50 + 500) / (double) 10, statsExplorer.getOperationCost());
     }
 
     @Test
-    @Transactional
     public void getPaymentAfterDate() throws IllegalDateException {
         // This payment is from 01/01/2022
         Payment p1 = new Payment(mourad, polyStore, li1);
@@ -104,8 +100,7 @@ public class StatManagerTest {
         paymentRepository.save(p1);
 
         // This payment is from now
-        Payment p2 = new Payment(leo, polyGone, li2);
-        p2 = paymentRepository.save(p2);
+        paymentRepository.save(new Payment(leo, polyGone, li2));
 
         // Threshold is set to 01/01/2023
         Calendar thresholdDate = Calendar.getInstance();

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -18,7 +19,8 @@ import java.util.Objects;
         @JsonSubTypes.Type(value = Product.class, name = "product"),
         @JsonSubTypes.Type(value = Discount.class, name = "discount")
 })
-@Entity
+
+@MappedSuperclass
 public abstract class Buyable {
 
     @Id
