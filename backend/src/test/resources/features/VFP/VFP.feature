@@ -9,3 +9,8 @@ Feature: VFP
     And we try to use the parking advantage
     Then we use it
     And the date is set in the database
+
+    Scenario: VFP try to use a Advantage that doesn't exist
+      When a user set his plate
+      And he tries to use a not valid AdvantageID
+      Then it fails

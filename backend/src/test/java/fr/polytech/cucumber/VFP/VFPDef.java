@@ -91,6 +91,10 @@ public class VFPDef {
         }
     }
 
+    @And("he tries to use a not valid AdvantageID")
+    public void heTriesToUseANotValidAdvantageID() {
+    }
+
     @Then("we use it")
     public void weUseIt() {
         assertNull(exception);
