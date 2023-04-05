@@ -45,7 +45,7 @@ cursor = connection.cursor()
 #wait 20secondes the cli
 time.sleep(20)
 
-command = 'echo "script ../cli/scripts/full-payment-scripts.txt" | socat EXEC:"docker attach cli",pty STDIN'
+command = 'echo "script /opt/app/full-payment-scripts.txt" | socat EXEC:"docker attach cli",pty STDIN'
 output = subprocess.check_output(command, shell=True)
 print("out= ",output.decode())
 time.sleep(8)
