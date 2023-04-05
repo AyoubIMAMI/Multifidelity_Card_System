@@ -179,6 +179,7 @@ pipeline {
             steps{
                 sh 'docker ps'
                 sh './build-all.sh'
+                sh 'cat ${WORKSPACE}/cli/scripts/demo.txt'
                 sh './run-all.sh'                        
             }
         }
