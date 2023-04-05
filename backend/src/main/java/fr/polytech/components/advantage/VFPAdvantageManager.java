@@ -36,7 +36,7 @@ public class VFPAdvantageManager implements AdvantageCustomer, CustomerAdvantage
     @Override
     public void consumeAdvantage(CustomerAdvantage customerAdvantage, Long advantageID) throws NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException {
         Optional<Date> date = customerAdvantage.getAdvantageDate(advantageID);
-        if (date.isEmpty()||isSameDay(date.get(),new Date()))
+        if (date.isEmpty()||!isSameDay(date.get(),new Date()))
         {
             customerAdvantage.setUpAdvantage(advantageID);
             customerAdvantageRepository.save(customerAdvantage);
