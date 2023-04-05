@@ -177,6 +177,7 @@ pipeline {
                 expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false'} 
             }
             steps{
+                sh 'cp ./cli/scripts/demo.txt ./cli/scripts_docker/demo.txt'
                 sh 'docker ps'
                 sh './build-all.sh'
                 sh 'cat ${WORKSPACE}/cli/scripts/demo.txt'
