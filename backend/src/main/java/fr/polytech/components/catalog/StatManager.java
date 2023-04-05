@@ -33,7 +33,7 @@ public class StatManager implements StatsExplorer {
     @Override
     public double getOperationCost(Date date) throws IllegalDateException {
         if(date.after(new Date()))
-            throw new IllegalDateException();
+            throw new IllegalDateException(date);
 
         return 0;
     }
@@ -47,7 +47,7 @@ public class StatManager implements StatsExplorer {
     @Override
     public int getTotalPointUsed(Date date) throws IllegalDateException {
         if(date.after(new Date()))
-            throw new IllegalDateException();
+            throw new IllegalDateException(date);
 
         return 0;
     }
