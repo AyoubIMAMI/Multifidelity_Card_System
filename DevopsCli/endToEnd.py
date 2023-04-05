@@ -1,6 +1,7 @@
 import psycopg2
 import os
 import time
+import subprocess
 #apt-get install -y socat
 #sudo apt install python3-pip
 #pip install psycopg2-binary
@@ -44,8 +45,9 @@ def disconnect(cursor, connection):
 connection = connect()
 cursor = connection.cursor()
 
-os.system('ls -l')
-os.system('./inputInCli.sh')
+command = 'echo "script full-payment-scripts.txt" | socat EXEC:"docker attach cli",pty STDIN'
+output = subprocess.check_output(command, shell=True)
+print(output.decode())
 time.sleep(8)
 
 try:
