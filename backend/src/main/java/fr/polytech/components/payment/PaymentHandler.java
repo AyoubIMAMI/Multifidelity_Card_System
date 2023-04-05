@@ -57,7 +57,7 @@ public class PaymentHandler implements IPayment {
     }
 
     private Payment sendToSettledPayment(Customer customer, Store store, Set<Item> shoppingList) throws PaymentAlreadyExistsException, PurchaseFailedException {
-        Payment payment = new Payment(customer, store, shoppingList, true);
+        Payment payment = new Payment(customer, store, shoppingList);
         System.out.println("Payment created : " + payment);
         return settledPurchase.validatePurchase(payment);
     }
