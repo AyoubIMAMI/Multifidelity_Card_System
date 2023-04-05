@@ -190,8 +190,11 @@ pipeline {
                 sh 'apt install -y python3-pip'
                 sh 'pip install psycopg2-binary'
                 sh 'docker ps'
-                sh 'python3 ./DevopsCli/endToEnd.py'
-                sh 'python3 ./DevopsCli/printBdContent.py'
+                dir("./DevopsCli"){
+                    sh 'python3 ./endToEnd.py'
+                    sh 'python3 ./printBdContent.py'
+                }
+                
             }
         }
         stage('Export images on DockerHub (main)') {

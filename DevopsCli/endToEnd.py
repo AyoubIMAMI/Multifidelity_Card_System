@@ -44,7 +44,7 @@ def disconnect(cursor, connection):
 connection = connect()
 cursor = connection.cursor()
 
-
+os.system('ls -l')
 os.system('./inputInCli.sh')
 time.sleep(8)
 
