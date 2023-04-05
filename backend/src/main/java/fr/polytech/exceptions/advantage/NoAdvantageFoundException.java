@@ -8,6 +8,9 @@ public class NoAdvantageFoundException extends Exception{
         this.id = id;
     }
 
+    public NoAdvantageFoundException() {
+    }
+
     public Long getId() {
         return id;
     }

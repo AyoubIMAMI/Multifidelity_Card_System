@@ -8,6 +8,9 @@ public class VFPNotFoundException extends Exception{
         this.userId = userId;
     }
 
+    public VFPNotFoundException() {
+    }
+
     public Long getUserId() {
         return userId;
     }

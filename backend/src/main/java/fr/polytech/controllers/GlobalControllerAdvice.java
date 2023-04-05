@@ -4,6 +4,7 @@ import fr.polytech.controllers.dto.ErrorDTO;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
+import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
 import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
 import fr.polytech.exceptions.advantage.VFPNotFoundException;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
@@ -118,6 +119,15 @@ public class GlobalControllerAdvice {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setError("VFP not found!");
         errorDTO.setDetails("The customer with id #" + e.getUserId() + "is not VFP...");
+        return errorDTO;
+    }
+
+    @ExceptionHandler({AdvantageAlreadyConsumedException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDTO handleExceptions(AdvantageAlreadyConsumedException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Advantage already consumed!");
+        errorDTO.setDetails("The advantage with id #" + e.getId() + "has already been consumed...");
         return errorDTO;
     }
 
