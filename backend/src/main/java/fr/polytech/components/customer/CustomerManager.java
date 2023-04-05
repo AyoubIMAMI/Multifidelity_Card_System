@@ -41,7 +41,7 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder, Cu
     @Override
     public Customer findCustomerById(Long id) throws CustomerNotFoundException {
         Optional<Customer> customer= customerRepository.findById(id);
-        if (customer.isEmpty()) throw new CustomerNotFoundException();
+        if (customer.isEmpty()) throw new CustomerNotFoundException(id);
         else return customer.get();
     }
 

@@ -8,6 +8,9 @@ public class NegativeAmountException extends Exception {
         this.amount = amount;
     }
 
+    public NegativeAmountException() {
+    }
+
     public double getAmount() {
         return amount;
     }

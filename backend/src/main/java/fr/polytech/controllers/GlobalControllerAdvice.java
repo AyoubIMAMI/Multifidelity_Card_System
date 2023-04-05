@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(assignableTypes = {CustomerAccountController.class, CustomerNotFoundException.class, NegativeAmountException.class, PaymentInBankException.class})
+@RestControllerAdvice(assignableTypes = {CustomerAccountController.class, CustomerNotFoundException.class,
+        NegativeAmountException.class, PaymentInBankException.class})
 public class GlobalControllerAdvice {
 
     @ExceptionHandler({MailAlreadyUsedException.class})
@@ -32,6 +33,15 @@ public class GlobalControllerAdvice {
         return errorDTO;
     }
 
+    @ExceptionHandler({CustomerNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDTO handleExceptions(CustomerNotFoundException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("User not found!");
+        errorDTO.setDetails("The account associated to the id #" + e.getMail() + " has not been found...");
+        return errorDTO;
+    }
+
     @ExceptionHandler({NegativeAmountException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDTO handleExceptions(NegativeAmountException e) {
@@ -40,4 +50,14 @@ public class GlobalControllerAdvice {
         errorDTO.setDetails("You cannot refill your card of a " + e.getAmount() + " amount. It must be positive...");
         return errorDTO;
     }
+
+    @ExceptionHandler({PaymentInBankException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDTO handleExceptions(PaymentInBankException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Payment declined!");
+        errorDTO.setDetails("The payment of an amount of " + e.getAmount() + " has been refused...");
+        return errorDTO;
+    }
+
 }
