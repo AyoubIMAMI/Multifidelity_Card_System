@@ -10,19 +10,24 @@ public interface StatsExplorer {
     double getOperationCost();
 
     /**
-     * Give the total cost of the discount operation since the given date.
-     * @param date The starting date to check the cost of the operation.
+     * Give the total cost of the discount operation since a given date.
+     * @param date The starting date.
      * @return The cost of the operation.
      */
     double getOperationCost(Date date) throws IllegalDateException;
 
 
     /**
-     * Give the number of points generates since the beginning.
+     * Give the number of points used since the beginning.
      * @return Number of generated points.
      */
-    int getTotalPointGenerated();
+    int getTotalPointUsed();
 
-
-    //int getTotalPointGenerated(Date date) throw 
+    /**
+     * Give the number of points used since a given date.
+     * @param date The starting date.
+     * @return
+     * @throws IllegalDateException
+     */
+    int getTotalPointUsed(Date date) throws IllegalDateException;
 }
