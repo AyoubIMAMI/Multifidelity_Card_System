@@ -3,6 +3,7 @@ package fr.polytech.components.discount;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
+import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
 import fr.polytech.repository.DiscountRepository;
@@ -52,7 +53,10 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     }
 
     @Override
-    public Discount createDiscount(String name, Long storeId, int pointPrice){
+    public Discount createDiscount(String name, Long storeId, int pointPrice) throws NegativeAmountException {
+
+        if (pointPrice <= 0) throw new NegativeAmountException(pointPrice);
+
         Discount discount = new Discount(name, storeId, pointPrice);
         return discountRepository.save(discount);
     }

@@ -3,6 +3,7 @@ package fr.polytech.controllers;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
+import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class CatalogController {
     }
 
     @PostMapping(path = DISCOUNTS_URI, consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Discount> create(@RequestBody @Valid Discount discount) {
+    public ResponseEntity<Discount> create(@RequestBody @Valid Discount discount) throws NegativeAmountException {
         return ResponseEntity.status(HttpStatus.CREATED)
                     .body(discountModifier.createDiscount(
                             discount.getName(),

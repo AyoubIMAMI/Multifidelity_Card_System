@@ -3,6 +3,7 @@ package fr.polytech.components.discount;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
+import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
 import fr.polytech.repository.DiscountRepository;
@@ -114,7 +115,7 @@ class DiscountManagerTest {
     }
 
     @Test
-    void givenAnEmptyRepo_whenCreateDiscount_thenDiscountShouldBeSavedInRepo() throws NoDiscountsFoundException {
+    void givenAnEmptyRepo_whenCreateDiscount_thenDiscountShouldBeSavedInRepo() throws NegativeAmountException {
         // Given
         assertEquals(0, discountRepository.count());
 

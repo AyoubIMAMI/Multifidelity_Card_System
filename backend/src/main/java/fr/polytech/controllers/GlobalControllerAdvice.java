@@ -46,8 +46,8 @@ public class GlobalControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDTO handleExceptions(NegativeAmountException e) {
         ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setError("Negative amount!");
-        errorDTO.setDetails("You cannot refill your card of a " + e.getAmount() + " amount. It must be positive...");
+        errorDTO.setError("Negative or zero amount!");
+        errorDTO.setDetails("You cannot process with a " + e.getAmount() + " amount. It must be positive...");
         return errorDTO;
     }
 
