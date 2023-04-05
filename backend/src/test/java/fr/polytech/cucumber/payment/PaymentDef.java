@@ -28,12 +28,14 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,7 +48,6 @@ public class PaymentDef {
     Exception catchedExeption;
     Store store;
     Customer customer;
-
     Set<Item> shoppingList;
     @Autowired
     StoreRepository storeRepository;
@@ -65,6 +66,7 @@ public class PaymentDef {
 
     @Before
     public void aWorkingBank() throws Exception {
+        customerRepository.deleteAll();
         // Mocking the bank proxy
         when(bankMock.refill(any(BankTransactionDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
             return true;
@@ -79,8 +81,7 @@ public class PaymentDef {
         String name = "Pierre";
         String mail = "pierre@mail.com";
         String password = "myPassword";
-        customerRepository.save(new Customer(name,mail,password));
-        customer=customerRepository.findCustomerByName(name).get();
+        customer =customerRepository.save(new Customer(name,mail,password));
         shoppingList=new HashSet<>();
     }
 
@@ -139,5 +140,43 @@ public class PaymentDef {
         ArrayList<Payment> payments=new ArrayList<Payment>();
         paymentRepository.findAllByCustomer(customer).forEach(pay->payments.add(pay));
         assertEquals(0,payments.size());
+    }
+
+    @And("a empty fidelity card")
+    public void aEmptyFidelityCard() {
+        customer.getFidelityAccount().setBalance(0);
+        customerRepository.save(customer);
+    }
+
+    @When("the user refill his account with {int} with the credit-card {string}")
+    public void theUserRefillHisAccountWith(int amount, String creditCard) throws PaymentInBankException {
+        try{
+            refillFidelityCard.refill(customer, new BankTransactionDTO(creditCard, amount));
+        }catch (NegativeAmountException e){
+            catchedExeption = e;
+        }
+    }
+
+    @Then("the fidelity card contain {int}")
+    public void theFidelityCardContain(int amount) {
+        double customerAmount = -1;
+        Optional<Customer> optionalCustomer = customerRepository.findCustomerByName(customer.getName());
+        if(optionalCustomer.isPresent()){
+            Customer c = optionalCustomer.get();
+            customerAmount = c.getFidelityAccount().getBalance();
+        }
+        assertEquals(amount, customerAmount);
+    }
+
+    @Then("the system has refuse the payment")
+    public void theSystemHasRefuseThePayment() {
+        assertTrue(catchedExeption instanceof NegativeAmountException);
+        double customerAmount = -1;
+        Optional<Customer> optionalCustomer = customerRepository.findCustomerByName(customer.getName());
+        if(optionalCustomer.isPresent()){
+            Customer c = optionalCustomer.get();
+            customerAmount = c.getFidelityAccount().getBalance();
+        }
+        assertEquals(0, customerAmount);
     }
 }
