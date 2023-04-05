@@ -16,15 +16,19 @@ import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.payment.PaymentInBankException;
 import fr.polytech.exceptions.store.StoreNotFoundException;
+import fr.polytech.interfaces.fidelity.PointModifier;
+import fr.polytech.interfaces.payment.Bank;
 import fr.polytech.interfaces.payment.IPayment;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
 import fr.polytech.repository.CustomerRepository;
 import fr.polytech.repository.PaymentRepository;
 import fr.polytech.repository.StoreRepository;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -33,6 +37,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class PaymentDef {
@@ -48,9 +54,21 @@ public class PaymentDef {
     IPayment payment;
     @Autowired
     RefillFidelityCard refillFidelityCard;
-
+    @Autowired
+    private Bank bankMock;
     @Autowired
     PaymentRepository paymentRepository;
+    @Autowired
+    PointModifier pointModifier;
+
+    @Before
+    public void aWorkingBank() throws Exception {
+        // Mocking the bank proxy
+        when(bankMock.refill(any(BankTransactionDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
+            return true;
+        });
+
+    }
 
 
     @Given("a user")
@@ -87,6 +105,7 @@ public class PaymentDef {
 
     @And("he pay")
     public void hePay() throws PaymentAlreadyExistsException, NoDiscountsFoundException, BadCredentialsException, CustomerNotFoundException, NotEnoughBalanceException, PurchaseFailedException, StoreNotFoundException {
+        pointModifier.incrementPoints(customer, 1000);
         payment.payWithFidelity(customer.getId(),store.getId(),shoppingList);
     }
 
@@ -94,6 +113,6 @@ public class PaymentDef {
     public void thePaymentWorks() {
         ArrayList<Payment> payments=new ArrayList<Payment>();
         paymentRepository.findAllByCustomer(customer).forEach(pay->payments.add(pay));
-        assertEquals(0,payments.size());
+        assertEquals(1,payments.size());
     }
 }
