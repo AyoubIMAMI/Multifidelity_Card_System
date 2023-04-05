@@ -32,7 +32,7 @@ public class CliProduct extends CliBuyable {
         }
         sb.append("name='").append(getName()).append('\'');
         sb.append(", storeId=").append(getStoreId());
-        sb.append(", cashPrice=").append(cashPrice);
+        sb.append(", ").append("\u001B[35m").append("cashPrice=").append(cashPrice).append("\u001B[0m");
         sb.append('}');
         return sb.toString();
     }
