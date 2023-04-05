@@ -28,8 +28,8 @@ public class AdvantageManager implements AdvantageExplorer, AdvantageModifier {
     }
 
     @Override
-    public Advantage createAdvantage(Advantage advantage) {
-        return(advantageRepository.save(advantage));
+    public Advantage createAdvantage(String advantageName) {
+        return(advantageRepository.save(new Advantage(advantageName)));
     }
 
     @Override
