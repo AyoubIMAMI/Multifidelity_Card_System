@@ -29,7 +29,7 @@ public class VFPController {
         this.vfpTransaction = vfpTransaction;
     }
     @PostMapping(path = VFP_URI+"/advantage")
-    public ResponseEntity<String> processWithPaymentFidelity(@PathVariable("customerID") Long customerId, Long advantageID,Long parkingID) throws NoDiscountsFoundException {
+    public ResponseEntity<String> useAdvantage(@PathVariable("customerID") Long customerId, Long advantageID,Long parkingID) throws NoDiscountsFoundException {
         try {
             vfpTransaction.tryUseAdvantage(customerId,advantageID,parkingID);
         } catch (Exception e) {
@@ -39,5 +39,6 @@ public class VFPController {
             return ResponseEntity.ok().body("Advantage OK");
         }
     }
+
 
 }
