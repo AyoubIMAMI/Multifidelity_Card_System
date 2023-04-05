@@ -6,5 +6,6 @@ Feature: VFP
 
   Scenario: VFP wants a free ticket
     When a user set his plate
-    When we try to use the parking advantage
+    And we try to use the parking advantage
     Then we use it
+    And the date is set in the database
