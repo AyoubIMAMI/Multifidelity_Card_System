@@ -14,6 +14,7 @@ public class CliContext {
 
     private Map<Long, CliCustomer> customers;
     private Map<Long, CliDiscount> discounts;
+    private Map<Long, CliAdvantage> advantages;
     private Map<Long, CliPayment> payments;
     private Map<Long, CliStore> stores;
     private Set<CliItem> cart;
@@ -21,8 +22,11 @@ public class CliContext {
     public Map<Long, CliCustomer> getCustomers() {
         return customers;
     }
-    public Map<Long, CliDiscount>getDiscounts() {
+    public Map<Long, CliDiscount> getDiscounts() {
         return discounts;
+    }
+    public Map<Long, CliAdvantage> getAdvantages() {
+        return advantages;
     }
     public Map<Long, CliPayment> getPayments() {
         return payments;
@@ -37,6 +41,7 @@ public class CliContext {
     public CliContext() {
         customers = new HashMap<>();
         discounts = new HashMap<>();
+        advantages = new HashMap<>();
         payments = new HashMap<>();
         stores = new HashMap<>();
         cart = new HashSet<>();
@@ -50,6 +55,10 @@ public class CliContext {
 
         String discountsString = "Discounts" + discounts.keySet().stream()
                 .map(key -> key + "=" + discounts.get(key))
+                .collect(Collectors.joining(", ", "{", "}"));
+
+        String advantagesString = "Advantages" + advantages.keySet().stream()
+                .map(key -> key + "=" + advantages.get(key))
                 .collect(Collectors.joining(", ", "{", "}"));
 
         String paymentsString = "Payments" + payments.keySet().stream()
@@ -66,6 +75,7 @@ public class CliContext {
     public void clearAll() {
         customers.clear();
         discounts.clear();
+        advantages.clear();
         payments.clear();
         stores.clear();
         cart.clear();

@@ -1,15 +1,13 @@
 package fr.univcotedazur.simpletcfs.cli.commands;
 
 
-import fr.univcotedazur.simpletcfs.cli.CliContext;
-import fr.univcotedazur.simpletcfs.cli.model.CliStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.web.client.RestTemplate;
 
 @ShellComponent
-public class VFPCommand {
+public class VFPCommands {
 
     public static final String BASE_URI = "/VFP";
 
@@ -21,7 +19,7 @@ public class VFPCommand {
         return restTemplate.getForObject(BASE_URI + "/" + customerId + "/" + advantageID, String.class);
     }
 
-    @ShellMethod("Use a parking advantage (use-advantage CUSTOMER_ID ADVANTAGE_ID PARKING_ID)")
+    @ShellMethod("Use a parking advantage (use-parking-advantage CUSTOMER_ID ADVANTAGE_ID PARKING_ID)")
     public String useParkingAdvantage(Long customerId, Long advantageID, Long parkingId) {
         return restTemplate.getForObject(BASE_URI + "/" + customerId + "/" + advantageID + "/" + parkingId, String.class);
     }

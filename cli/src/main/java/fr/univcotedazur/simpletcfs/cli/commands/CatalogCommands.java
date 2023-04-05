@@ -1,6 +1,7 @@
 package fr.univcotedazur.simpletcfs.cli.commands;
 
 import fr.univcotedazur.simpletcfs.cli.CliContext;
+import fr.univcotedazur.simpletcfs.cli.model.CliAdvantage;
 import fr.univcotedazur.simpletcfs.cli.model.CliDiscount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -17,6 +18,7 @@ public class CatalogCommands {
     public static final String BASE_URI = "/catalog";
     public static final String DISCOUNTS_URI = "/discounts";
     public static final String STORE_URI = "/store";
+    public static final String ADVANTAGE_URI = "/advantage";
 
     @Autowired
     RestTemplate restTemplate;
@@ -69,5 +71,12 @@ public class CatalogCommands {
         String res = restTemplate.exchange(BASE_URI + DISCOUNTS_URI + "/" + discountId, HttpMethod.DELETE, entity, String.class).getBody();
         cliContext.getDiscounts().remove(discount.getId());
         return res;
+    }
+
+    @ShellMethod("Create an advantage (create-advantage ID NAME")
+    public CliAdvantage createAdvantage(Long id, String name) {
+        CliAdvantage result = restTemplate.postForObject(BASE_URI + ADVANTAGE_URI, new CliAdvantage(id, name), CliAdvantage.class);
+        cliContext.getAdvantages().put(result.getId(), result);
+        return result;
     }
 }
