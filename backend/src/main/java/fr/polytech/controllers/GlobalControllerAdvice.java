@@ -3,6 +3,7 @@ package fr.polytech.controllers;
 import fr.polytech.controllers.dto.ErrorDTO;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
+import fr.polytech.exceptions.IllegalDateException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
@@ -101,5 +102,13 @@ public class GlobalControllerAdvice {
         return errorDTO;
     }
 
+    @ExceptionHandler({IllegalDateException.class})
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorDTO handleExceptions(IllegalDateException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Illegal date!");
+        errorDTO.setDetails("The date " + e.getDate().toString() + "is past the today date...");
+        return errorDTO;
+    }
 
 }
