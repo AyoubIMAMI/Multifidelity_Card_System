@@ -1,0 +1,2 @@
+register-customer Antoine antoine@gmail.com azerty123
+register-store 123456789 lePetitCommercant duCoin

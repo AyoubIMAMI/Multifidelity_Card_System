@@ -23,6 +23,9 @@ services:
       - POSTGRES_PASSWORD=postgrespass
       - POSTGRES_USER=postgresuser
       - POSTGRES_DB=tcf-db
+    ports:
+      - "8003:5432"
+
 
   # A simple java CLI
   teamh-cli:
@@ -34,7 +37,8 @@ services:
     depends_on:
       - teamh-server
     volumes:
-      - ./cli/demo.txt:/opt/app/demo.txt
+      - ./cli/scripts/demo.txt:/opt/app/demo.txt
+      - ./cli/scripts/register1Customer1Store.txt:/opt/app/register1Customer1Store.txt
     stdin_open: true
     tty: true
 

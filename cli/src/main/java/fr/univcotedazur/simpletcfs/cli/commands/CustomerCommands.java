@@ -8,6 +8,8 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 @ShellComponent
 public class CustomerCommands {
 
@@ -18,6 +20,15 @@ public class CustomerCommands {
 
     @Autowired
     private CliContext cliContext;
+
+    @ShellMethod("List all customers")
+    public String customers() {
+        StringBuilder customers = new StringBuilder("List of customers:\n");
+        for (Map.Entry<Long, CliCustomer> entry : cliContext.getCustomers().entrySet()) {
+            customers.append(entry.getKey()).append(" : ").append(entry.getValue()).append("\n");
+        }
+        return customers.toString();
+    }
 
     @ShellMethod("Register a customer in the backend (register-customer CUSTOMER_NAME CUSTOMER_EMAIL CUSTOMER_PASSWORD)")
     public CliCustomer registerCustomer(String name, String email, String password) {
@@ -31,16 +42,10 @@ public class CustomerCommands {
         return res;
     }
 
-    //TODO Proke l'exception PaymentInBankException
-    @ShellMethod("Refill the account of a customer in the backend with his id (refill-customer CUSTOMER_EMAIL CUSTOMER_PASSWORD)")
+    @ShellMethod("Refill the account of a customer in the backend with his id (refill-customer CUSTOMER_ID CREDIT_CARD AMOUNT)")
     public String refillCustomer(Long customerId, String creditCard, int amount) {
         String result = restTemplate.postForObject(BASE_URI + "/refill/" + customerId, new CliBankTransaction(creditCard, amount), String.class);
+        cliContext.getCustomers().get(customerId).getFidelityAccount().setBalance(amount);
         return result;
     }
-
-    @ShellMethod("List all customers")
-    public String customers() {
-        return cliContext.getCustomers().toString();
-    }
-
 }

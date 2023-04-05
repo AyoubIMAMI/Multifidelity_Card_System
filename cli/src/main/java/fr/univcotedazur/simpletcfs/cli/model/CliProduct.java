@@ -13,14 +13,7 @@ public class CliProduct {
         this.cashPrice = cashPrice;
     }
 
-    @Override
-    public String toString() {
-        return "DiscountDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", storeId=" + storeId +
-                ", cashPrice=" + cashPrice +
-                '}';
+    public CliProduct() {
     }
 
     public Long getId() {
@@ -53,5 +46,13 @@ public class CliProduct {
 
     public void setCashPrice(double cashPrice) {
         this.cashPrice = cashPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "CliProduct{" +
+                "name='" + name + '\'' +
+                ", cashPrice=" + cashPrice +
+                '}';
     }
 }

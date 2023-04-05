@@ -10,13 +10,15 @@ public class CliDiscount extends CliProduct {
 
     @Override
     public String toString() {
-        return "DiscountDTO{" +
-                "id=" + getId() +
-                ", name='" + getName() + '\'' +
-                ", storeId=" + getStoreId() +
+        return "CliDiscount{" +
+                "name='" + getName() + '\'' +
                 ", cashPrice=" + getCashPrice() +
                 ", pointPrice=" + pointPrice +
                 '}';
+    }
+
+    public CliDiscount() {
+        super();
     }
 
     public int getPointPrice() {

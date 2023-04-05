@@ -10,21 +10,21 @@ public class PaymentDTO {
 
     private CustomerDTO customer;
 
-    //private StoreDTO store;
+    private StoreDTO store;
 
-    //private Set<Item> shoppingList;
+    private Set<Item> shoppingList;
 
-    //private boolean isSettled;
+    private boolean isSettled;
 
-    //private float amount;
+    private float amount;
 
-    public PaymentDTO(Long id, CustomerDTO customer/*, StoreDTO store, Set<Item> shoppingList, boolean isSettled, float amount*/) {
+    public PaymentDTO(Long id, CustomerDTO customer, StoreDTO store, Set<Item> shoppingList, boolean isSettled, float amount) {
         this.id = id;
         this.customer = customer;
-        //this.store = store;
-        //this.shoppingList = shoppingList;
-        //this.isSettled = isSettled;
-        //this.amount = amount;
+        this.store = store;
+        this.shoppingList = shoppingList;
+        this.isSettled = isSettled;
+        this.amount = amount;
     }
 
 
@@ -33,10 +33,10 @@ public class PaymentDTO {
         return "PaymentDTO{" +
                 "id=" + id +
                 ", customer=" + customer +
-                /*", store=" + store +
+                ", store=" + store +
                 ", shoppingList=" + shoppingList +
                 ", isSettled=" + isSettled +
-                ", amount=" + amount +*/
+                ", amount=" + amount +
                 '}';
     }
 
@@ -47,7 +47,7 @@ public class PaymentDTO {
     public CustomerDTO getCustomer() {
         return customer;
     }
-/*
+
     public StoreDTO getStore() {
         return store;
     }
@@ -62,7 +62,7 @@ public class PaymentDTO {
 
     public float getAmount() {
         return amount;
-    }*/
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -71,7 +71,7 @@ public class PaymentDTO {
     public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
     }
-/*
+
     public void setStore(StoreDTO store) {
         this.store = store;
     }
@@ -86,5 +86,5 @@ public class PaymentDTO {
 
     public void setAmount(float amount) {
         this.amount = amount;
-    }*/
+    }
 }

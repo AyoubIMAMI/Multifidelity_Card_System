@@ -1,13 +1,12 @@
 package fr.univcotedazur.simpletcfs.cli;
 
-import fr.univcotedazur.simpletcfs.cli.model.CliCustomer;
-import fr.univcotedazur.simpletcfs.cli.model.CliDiscount;
-import fr.univcotedazur.simpletcfs.cli.model.CliPayment;
-import fr.univcotedazur.simpletcfs.cli.model.CliStore;
+import fr.univcotedazur.simpletcfs.cli.model.*;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -17,6 +16,7 @@ public class CliContext {
     private Map<Long, CliDiscount> discounts;
     private Map<Long, CliPayment> payments;
     private Map<Long, CliStore> stores;
+    private Set<CliItem> cart;
 
     public Map<Long, CliCustomer> getCustomers() {
         return customers;
@@ -31,11 +31,16 @@ public class CliContext {
         return stores;
     }
 
+    public Set<CliItem> getCart() {
+        return cart;
+    }
+
     public CliContext() {
         customers = new HashMap<>();
         discounts = new HashMap<>();
         payments = new HashMap<>();
         stores = new HashMap<>();
+        cart = new HashSet<>();
     }
 
     @Override

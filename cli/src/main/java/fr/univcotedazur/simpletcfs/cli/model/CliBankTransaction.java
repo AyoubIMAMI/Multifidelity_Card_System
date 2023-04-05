@@ -12,6 +12,9 @@ public class CliBankTransaction {
         this.amount = amount;
     }
 
+    public CliBankTransaction() {
+    }
+
     public String getCreditCard() {
         return creditCard;
     }
@@ -26,5 +29,13 @@ public class CliBankTransaction {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "CliBankTransaction{" +
+                "creditCard='" + creditCard + '\'' +
+                ", amount=" + amount +
+                '}';
     }
 }

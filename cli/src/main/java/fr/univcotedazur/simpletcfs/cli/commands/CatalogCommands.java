@@ -2,6 +2,7 @@ package fr.univcotedazur.simpletcfs.cli.commands;
 
 import fr.univcotedazur.simpletcfs.cli.CliContext;
 import fr.univcotedazur.simpletcfs.cli.model.CliDiscount;
+import fr.univcotedazur.simpletcfs.cli.model.CliStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -10,6 +11,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.Map;
 
 @ShellComponent
 public class CatalogCommands {
@@ -23,16 +25,20 @@ public class CatalogCommands {
     @Autowired
     private CliContext cliContext;
 
+    @ShellMethod("List all the discounts")
+    public String discounts() {
+        StringBuilder discounts = new StringBuilder("List of discounts:\n");
+        for (Map.Entry<Long, CliDiscount> entry : cliContext.getDiscounts().entrySet()) {
+            discounts.append(entry.getKey()).append(" : ").append(entry.getValue()).append("\n");
+        }
+        return discounts.toString();
+    }
+
     @ShellMethod("Create a new Discount in the backend (create-discount NAME STORE_ID CASH_PRICE POINT_PRICE)")
     public CliDiscount createDiscount(String name, Long storeId, double cashPrice, int pointPrice) {
         CliDiscount res = restTemplate.postForObject(BASE_URI + DISCOUNTS_URI, new CliDiscount(name, storeId, cashPrice, pointPrice), CliDiscount.class);
         cliContext.getDiscounts().put(res.getId(), res);
         return res;
-    }
-
-    @ShellMethod("List all the discounts")
-    public String discounts() {
-        return cliContext.getDiscounts().toString();
     }
 
     @ShellMethod("Get a discount from the catalog of the backend with its id (get-discount-by-id DISCOUNT_ID)")

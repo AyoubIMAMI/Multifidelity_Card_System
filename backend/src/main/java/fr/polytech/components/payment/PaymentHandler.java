@@ -42,7 +42,7 @@ public class PaymentHandler implements IPayment {
         Customer customer = customerFinder.findCustomerById(customerId);
         Store store = storeFinder.findStoreByID(storeId);
         checkDiscountAndPayWithPointPurchase(customer, shoppingList);
-        fidelityCardPurchase.buyWithFidelityCard(customer, store, shoppingList);
+        customer = fidelityCardPurchase.buyWithFidelityCard(customer, store, shoppingList);
         return sendToSettledPayment(customer, store, shoppingList);
     }
 
@@ -63,6 +63,7 @@ public class PaymentHandler implements IPayment {
     }
 
     private void checkDiscountAndPayWithPointPurchase(Customer customer, Set<Item> shoppingList) throws NoDiscountsFoundException, NotEnoughBalanceException {
+        System.out.println("On check si il y a une discount");
         for (Item item: shoppingList) {
             if(item.getProduct() instanceof Discount) {
                 pointPurchase.buyWithPoint(customer, shoppingList);
