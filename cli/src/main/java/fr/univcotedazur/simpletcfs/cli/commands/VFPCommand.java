@@ -16,14 +16,14 @@ public class VFPCommand {
     @Autowired
     RestTemplate restTemplate;
 
-    @Autowired
-    private CliContext cliContext;
+    @ShellMethod("Use an advantage (use-advantage CUSTOMER_ID ADVANTAGE_ID)")
+    public String useAdvantage(Long customerId, Long advantageID) {
+        return restTemplate.getForObject(BASE_URI + "/" + customerId + "/" + advantageID, String.class);
+    }
 
-    @ShellMethod("Use an advantage (use-advantage CUSTOMER_ID ADVANTAGE_ID PARKING_ID)")
-    public CliStore useAdvantage(Long customerId, Long advantageID,Long parkingID) {
-        CliStore res = restTemplate.postForObject(BASE_URI + "/" + customerId + "/advantage", new CliAdvantage(advantageID, parkingID), CliStore.class);
-        cliContext.getStores().put(res.getId(), res);
-        return res;
+    @ShellMethod("Use a parking advantage (use-advantage CUSTOMER_ID ADVANTAGE_ID PARKING_ID)")
+    public String useParkingAdvantage(Long customerId, Long advantageID, Long parkingId) {
+        return restTemplate.getForObject(BASE_URI + "/" + customerId + "/" + advantageID + "/" + parkingId, String.class);
     }
 
 
