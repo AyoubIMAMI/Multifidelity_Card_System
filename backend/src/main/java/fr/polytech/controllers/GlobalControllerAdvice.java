@@ -119,7 +119,7 @@ public class GlobalControllerAdvice {
     }
 
     @ExceptionHandler({NotEnoughBalanceException.class})
-    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseStatus(HttpStatus.PAYMENT_REQUIRED)
     public ErrorDTO handleExceptions(NotEnoughBalanceException e) {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setError("Not enough balance!");

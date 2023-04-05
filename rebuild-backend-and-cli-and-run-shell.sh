@@ -17,7 +17,7 @@ cd ..
 
 docker compose up -d
 
-//clear
+clear
 
 echo "*** Lancement de la Cli ***"
 

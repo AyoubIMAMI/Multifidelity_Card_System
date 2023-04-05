@@ -16,7 +16,11 @@ public class UsefulCommands {
 
     @ShellMethod("Print message (print MESSAGE)")
     public String print(String message) {
-        return "\n" + "\u001B[34m" + message + "\u001B[0m";
+        if(message.charAt(0) == '!') {
+            return "\n" + "\u001B[31m" + "      " + message.substring(1) + "\u001B[0m";
+        } else {
+            return "\n" + "\u001B[34m" + message + "\u001B[0m";
+        }
     }
 
     @ShellMethod("Clear context (clear-ctx)")
@@ -34,12 +38,8 @@ public class UsefulCommands {
     }
 
     @ShellMethod("Clear items in cart")
-    public String clearCart() {
-        StringBuilder cartStr = new StringBuilder("Items in cart:\n");
-        for (CliItem item : cliContext.getCart()) {
-            cartStr.append(item).append("\n");
-        }
-        return cartStr.toString();
+    public void clearCart() {
+        cliContext.getCart().clear();
     }
 
     @ShellMethod("Add a Product Item to cart (add-product QUANTITY PRODUCT_NAME STORE_ID CASH_PRICE")

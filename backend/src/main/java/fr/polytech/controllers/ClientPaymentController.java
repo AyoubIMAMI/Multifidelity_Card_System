@@ -4,7 +4,6 @@ import fr.polytech.controllers.dto.*;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Item;
-import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
@@ -34,13 +33,13 @@ public class ClientPaymentController {
     }
 
     @PostMapping(path = PAYMENT_URI+"/settled")
-    public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException, StoreNotFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, NotEnoughBalanceException, NegativeAmountException {
+    public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException, StoreNotFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, NotEnoughBalanceException, NegativeAmountException {
         System.out.println("Shopping List received : " + shoppingList);
         return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payedProcess(customerId, storeId, shoppingList)));
     }
 
     @PostMapping(path = PAYMENT_URI+"/fidelity")
-    public ResponseEntity<PaymentDTO> processWithPaymentFidelity(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException, StoreNotFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, NotEnoughBalanceException, NegativeAmountException {
+    public ResponseEntity<PaymentDTO> processWithPaymentFidelity(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException, StoreNotFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, NotEnoughBalanceException, NegativeAmountException {
             return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payWithFidelity(customerId, storeId, shoppingList)));
 
     }
