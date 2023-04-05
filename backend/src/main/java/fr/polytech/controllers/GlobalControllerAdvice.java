@@ -6,6 +6,7 @@ import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.exceptions.ParkingUnavailableException;
 import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
+import fr.polytech.exceptions.advantage.AdvantageNotFoundException;
 import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
 import fr.polytech.exceptions.advantage.VFPNotFoundException;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
@@ -124,7 +125,7 @@ public class GlobalControllerAdvice {
     }
 
     @ExceptionHandler({AdvantageAlreadyConsumedException.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.ALREADY_REPORTED)
     public ErrorDTO handleExceptions(AdvantageAlreadyConsumedException e) {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setError("Advantage already consumed!");
@@ -133,11 +134,20 @@ public class GlobalControllerAdvice {
     }
 
     @ExceptionHandler({ParkingUnavailableException.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
     public ErrorDTO handleExceptions(ParkingUnavailableException e) {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setError("Parking unavailable!");
         errorDTO.setDetails("The parking with id #" + e.getId() + " is currently unavailable...");
+        return errorDTO;
+    }
+
+    @ExceptionHandler({AdvantageNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDTO handleExceptions(AdvantageNotFoundException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Advantage not found!");
+        errorDTO.setDetails("The advantage with id #" + e.getId() + " has not been found...");
         return errorDTO;
     }
 

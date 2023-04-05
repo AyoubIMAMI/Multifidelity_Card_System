@@ -3,6 +3,7 @@ package fr.polytech.components.advantage;
 import fr.polytech.entities.Advantage;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.advantage.AdvantageNotFoundException;
+import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.interfaces.advantage.AdvantageExplorer;
 import fr.polytech.interfaces.advantage.AdvantageModifier;
 import fr.polytech.repository.AdvantageRepository;
@@ -37,7 +38,14 @@ public class AdvantageManager implements AdvantageExplorer, AdvantageModifier {
             advantageRepository.deleteById(advantageID);
         }
         catch(Exception e){
-            throw new AdvantageNotFoundException();
+            throw new AdvantageNotFoundException(advantageID);
         }
+    }
+
+    @Override
+    public Advantage findAdvantageById(Long advantageId) throws AdvantageNotFoundException {
+        Optional<Advantage> advantage = advantageRepository.findById(advantageId);
+        if (advantage.isEmpty()) throw new AdvantageNotFoundException(advantageId);
+        return advantage.get();
     }
 }

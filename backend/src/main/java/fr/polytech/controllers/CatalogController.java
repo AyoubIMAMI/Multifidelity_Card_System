@@ -6,6 +6,7 @@ import fr.polytech.exceptions.advantage.AdvantageNotFoundException;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
+import fr.polytech.interfaces.advantage.AdvantageExplorer;
 import fr.polytech.interfaces.advantage.AdvantageModifier;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
@@ -32,12 +33,14 @@ public class CatalogController {
     private final DiscountExplorer discountExplorer;
 
     private final AdvantageModifier advantageModifier;
+    private final AdvantageExplorer advantageExplorer;
 
     @Autowired
-    public CatalogController(DiscountModifier discountModifier, DiscountExplorer discountExplorer, AdvantageModifier advantageModifier) {
+    public CatalogController(DiscountModifier discountModifier, DiscountExplorer discountExplorer, AdvantageModifier advantageModifier, AdvantageExplorer advantageExplorer) {
         this.discountModifier = discountModifier;
         this.discountExplorer = discountExplorer;
         this.advantageModifier = advantageModifier;
+        this.advantageExplorer = advantageExplorer;
     }
 
     @PostMapping(path = DISCOUNTS_URI, consumes = APPLICATION_JSON_VALUE)
@@ -59,15 +62,15 @@ public class CatalogController {
         return ResponseEntity.ok().body(advantageModifier.createAdvantage(advantage));
     }
 
-    @DeleteMapping(path = ADVANTAGE_URI+"/{advantageID}", produces = APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = ADVANTAGE_URI + "/{advantageID}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteAdvantage(@PathVariable("advantageID") Long advantageID) throws AdvantageNotFoundException {
         advantageModifier.deleteAdvantage(advantageID);
         return ResponseEntity.ok().body("Advantage successfully deleted");
     }
 
-    @GetMapping(path = ADVANTAGE_URI, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Advantage> getAdvantage(@RequestBody @Valid Advantage advantage) {
-        return ResponseEntity.ok().body(advantageModifier.createAdvantage(advantage));
+    @GetMapping(path = ADVANTAGE_URI + "/{advantageId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Advantage> getAdvantageById(@PathVariable("advantageId") Long advantageId) throws AdvantageNotFoundException {
+        return ResponseEntity.ok().body(advantageExplorer.findAdvantageById(advantageId));
     }
 
     @GetMapping(path = DISCOUNTS_URI+"/{discountId}", produces = APPLICATION_JSON_VALUE)
