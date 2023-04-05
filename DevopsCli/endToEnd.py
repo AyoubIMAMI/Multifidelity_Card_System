@@ -1,8 +1,6 @@
 import psycopg2
 import os
 import time
-import subprocess
-
 #apt-get install -y socat
 #sudo apt install python3-pip
 #pip install psycopg2-binary
@@ -28,11 +26,11 @@ def connect():
     global cursor
     # Définir les informations de connexion à la base de données
     connection = psycopg2.connect(
-        host="134.59.213.138",
+        host="localhost",
         database="tcf-db",
         user="postgresuser",
         password="postgrespass",
-        port=8003
+        port=5432
     )
     return connection
 
@@ -47,14 +45,8 @@ print("Hello World")
 connection = connect()
 cursor = connection.cursor()
 
-userTable = getTable("customer")
-printTable(userTable)
 
-organisationTable = getTable("organisation")
-printTable(organisationTable)
-
-os.system('ls -l')
-os.system('./inputInCli.sh')
+os.system('echo "script full-payment-scripts.txt" | socat EXEC:"docker attach cli",pty STDIN')
 time.sleep(3)
 
 userTable = getTable("customer")
