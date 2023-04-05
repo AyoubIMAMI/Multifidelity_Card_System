@@ -1,10 +1,9 @@
 package fr.polytech.components.advantage;
 
 import fr.polytech.connectors.externaldto.ParkingTransactionDTO;
-import fr.polytech.entities.Customer;
 import fr.polytech.entities.CustomerAdvantage;
 import fr.polytech.exceptions.CustomerNotFoundException;
-import fr.polytech.exceptions.ParkingNotPossibleException;
+import fr.polytech.exceptions.ParkingUnavailableException;
 import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
 import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
 import fr.polytech.exceptions.advantage.VFPNotFoundException;
@@ -34,14 +33,14 @@ public class VFPTransactionProcessHandler implements VFPTransaction {
         this.parking=parking;
     }
     @Override
-    public void tryUsParkingAdvantage(Long userID,Long advantageID,Long parkingID) throws CustomerNotFoundException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException, ParkingNotPossibleException {
+    public void tryUseParkingAdvantage(Long userID, Long advantageID, Long parkingID) throws CustomerNotFoundException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException, ParkingUnavailableException {
         tryUseAdvantage(userID, advantageID);
         if (!parking.getParkingPlace(new ParkingTransactionDTO(this.customerFinder.findCustomerById(userID).getFidelityAccount().getLicencePlate(),parkingID)))
-            throw new ParkingNotPossibleException();
+            throw new ParkingUnavailableException(parkingID);
         advantageCustomer.consumeAdvantage(advantageCustomer.findCustomerAdvantageAccount(userID).get(),advantageID);
     }
     @Override
-    public void tryUseAdvantage(Long userID, Long advantageID) throws CustomerNotFoundException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException, ParkingNotPossibleException {
+    public void tryUseAdvantage(Long userID, Long advantageID) throws CustomerNotFoundException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException {
         this.customerFinder.findCustomerById(userID);
         Optional<Advantage> advantageOptional = advantageExplorer.VerifyAdvantage(advantageID);
         if (advantageOptional.isEmpty())
