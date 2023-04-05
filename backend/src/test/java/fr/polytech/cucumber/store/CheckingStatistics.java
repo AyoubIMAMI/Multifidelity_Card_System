@@ -8,7 +8,9 @@ import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import fr.polytech.entities.item.Product;
 import fr.polytech.repository.CustomerRepository;
+import fr.polytech.repository.DiscountRepository;
 import fr.polytech.repository.PaymentRepository;
+import fr.polytech.repository.ProductRepository;
 import fr.polytech.repository.StoreRepository;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -24,9 +26,11 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
+@SpringBootTest
 public class CheckingStatistics {
     @Autowired
     private StoreRepository storeRepository;
@@ -40,12 +44,18 @@ public class CheckingStatistics {
     @Autowired
     private StatManager statManager;
 
+    @Autowired
+    private DiscountRepository discountRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
     @Before
     public void init() {
-        System.out.println("Init");
         storeRepository.deleteAll();
         customerRepository.deleteAll();
         paymentRepository.deleteAll();
+        discountRepository.deleteAll();
     }
 
     @Given("a store named {string} with Siret {string} and password {string}")
@@ -63,10 +73,13 @@ public class CheckingStatistics {
         Store store = storeRepository.findStoreByName(storeName).get();
         Customer customer = customerRepository.findCustomerByName(customerName).get();
         Set<Item> shoppingList = new HashSet<>();
-        shoppingList.add(new Item(1, new Discount(discountName, store.getId(), point)));
+        Discount discount = discountRepository.save(new Discount(discountName, store.getId(), point));
+        shoppingList.add(new Item(1, discount));
         paymentRepository.save(new Payment(customer, store, shoppingList));
 
-        System.out.println("Hein ? " +  paymentRepository.findAll());
+        System.out.println("Hein ? (paymentRepo) " +  paymentRepository.findAll());
+        System.out.println("Hein ? (productRepo) " +  productRepository.findAll());
+        System.out.println("Hein ? (discountRepo) " + discountRepository.findAll());
     }
 
     @And("the customer {string} purchase {string} with {int} euros in the store {string}")
@@ -74,10 +87,13 @@ public class CheckingStatistics {
         Store store = storeRepository.findStoreByName(storeName).get();
         Customer customer = customerRepository.findCustomerByName(customerName).get();
         Set<Item> shoppingList = new HashSet<>();
-        shoppingList.add(new Item(1, new Product(productName, store.getId(), cash)));
+        Product product = productRepository.save(new Product(productName, store.getId(), cash));
+        shoppingList.add(new Item(1, product));
         paymentRepository.save(new Payment(customer, store, shoppingList));
 
-        System.out.println("Hein ? " +  paymentRepository.findAll());
+        System.out.println("Hein ? (paymentRepo) " +  paymentRepository.findAll());
+        System.out.println("Hein ? (productRepo) " +  productRepository.findAll());
+        System.out.println("Hein ? (discountRepo) " + discountRepository.findAll());
     }
 
     @Then("the total point used was {int} since the beginning")
