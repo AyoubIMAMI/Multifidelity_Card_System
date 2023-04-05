@@ -49,7 +49,9 @@ command = 'echo "script full-payment-scripts.txt" | socat EXEC:"docker attach cl
 output = subprocess.check_output(command, shell=True)
 print("out= ",output.decode())
 time.sleep(8)
-
+output = subprocess.check_output("docker logs cli --tail=3", shell=True)
+print("out= ",output.decode())
+#
 try:
     userTable = getTable("customer")
     printTable(userTable)
