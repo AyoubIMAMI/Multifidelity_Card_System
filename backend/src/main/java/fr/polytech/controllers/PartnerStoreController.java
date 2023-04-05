@@ -2,10 +2,8 @@ package fr.polytech.controllers;
 
 import fr.polytech.controllers.dto.StoreDTO;
 import fr.polytech.entities.Store;
-import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.IllegalDateException;
-import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.store.MissingInformationsException;
 import fr.polytech.exceptions.store.StoreSiretAlreadyUsedException;
 import fr.polytech.interfaces.catalog.StatsExplorer;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.util.Date;
-import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
