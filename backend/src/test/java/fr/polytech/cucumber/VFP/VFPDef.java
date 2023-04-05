@@ -6,6 +6,7 @@ import fr.polytech.entities.Advantage;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.CustomerAdvantage;
 import fr.polytech.exceptions.CustomerNotFoundException;
+import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
 import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
 import fr.polytech.exceptions.advantage.VFPNotFoundException;
@@ -93,6 +94,11 @@ public class VFPDef {
 
     @And("he tries to use a not valid AdvantageID")
     public void heTriesToUseANotValidAdvantageID() {
+        try {
+            vfpTransaction.tryUseAdvantage(customer.getId(),Long.valueOf(10),Long.valueOf(12));
+        } catch (Exception e) {
+            exception=e;
+        }
     }
 
     @Then("we use it")
@@ -104,5 +110,25 @@ public class VFPDef {
     public void theDateIsSetInTheDatabase() {
         CustomerAdvantage customerAdvantage = customerAdvantageRepository.findByConsumerID(customer.getId()).get();
         assertTrue(customerAdvantage.getAdvantageDate(advantageParking.getId()).isPresent());
+    }
+
+    @Then("it fails with NoAdvantageFoundException Exception")
+    public void itFailsWithNoAdvantageFoundExceptionException() {
+        assertTrue(exception instanceof NoAdvantageFoundException);
+    }
+
+    @Given("a user with no vfp")
+    public void aUserWithNoVfp() throws MailAlreadyUsedException {
+        customer=customerRegistration.register("Antoine","antoine@gmail.com","AntoineDu652345532255");
+    }
+
+    @Then("it fails with VFPNotFoundException Exception")
+    public void itFailsWithVFPNotFoundExceptionException() {
+        assertTrue(exception instanceof VFPNotFoundException);
+    }
+
+    @Then("it fails with AdvantageAlreadyConsumedException")
+    public void itFailsWithAdvantageAlreadyConsumedException() {
+        assertTrue(exception instanceof AdvantageAlreadyConsumedException);
     }
 }
