@@ -43,8 +43,8 @@ public class VFPTransactionProcessHandler implements VFPTransaction {
         if (customerAdvantageOptional.isEmpty())
             throw new VFPNotFoundException(userID);
         else if(advantageOptional.get().getAdvantageName().equals("parking")) {
-            parking.getParkingPlace(new ParkingTransactionDTO(customer.getFidelityAccount().getLicencePlate(),parkingID));
-            throw new ParkingNotPossibleException();
+            if (!parking.getParkingPlace(new ParkingTransactionDTO(customer.getFidelityAccount().getLicencePlate(),parkingID)))
+                throw new ParkingNotPossibleException();
         }
         advantageCustomer.consumeAdvantage(customerAdvantageOptional.get(),advantageID);
     }
