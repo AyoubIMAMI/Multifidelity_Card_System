@@ -47,23 +47,15 @@ public class CustomerAccountController {
     }
 
     @PostMapping(path = "/registration", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<CustomerDTO> register(@RequestBody @Valid CustomerDTO customerDTO){
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED)
+    public ResponseEntity<CustomerDTO> register(@RequestBody @Valid CustomerDTO customerDTO) throws MailAlreadyUsedException {
+        return ResponseEntity.status(HttpStatus.CREATED)
                     .body(convertCustomerToDto(customerRegistration.register(customerDTO.getName(), customerDTO.getEmail(), customerDTO.getPassword())));
-        } catch (MailAlreadyUsedException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
     }
 
     @PostMapping(path = "/login", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> login(@RequestBody @Valid CustomerDTO customerDTO){
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED)
+    public ResponseEntity<Long> login(@RequestBody @Valid CustomerDTO customerDTO) throws BadCredentialsException {
+        return ResponseEntity.status(HttpStatus.OK)
                     .body(customerExplorer.checkCredentials(customerDTO.getEmail(), customerDTO.getPassword()));
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
     }
 
     private CustomerDTO convertCustomerToDto(Customer customer) {

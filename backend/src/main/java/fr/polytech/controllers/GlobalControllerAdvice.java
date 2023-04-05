@@ -4,6 +4,7 @@ import fr.polytech.controllers.dto.ErrorDTO;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalControllerAdvice {
 
     @ExceptionHandler({MailAlreadyUsedException.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorDTO handleExceptions(MailAlreadyUsedException e) {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setError("Mail already used!");
@@ -21,7 +22,7 @@ public class GlobalControllerAdvice {
     }
 
     @ExceptionHandler({BadCredentialsException.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ErrorDTO handleExceptions(BadCredentialsException e) {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setError("Wrong credentials!");
