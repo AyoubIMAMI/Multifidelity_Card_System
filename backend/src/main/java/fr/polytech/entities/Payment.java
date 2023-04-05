@@ -31,7 +31,7 @@ public class Payment {
 
     private Date transactionDate;
 
-    public Payment(Customer customer, Store store, Set<Item> shoppingList, boolean isSettled) {
+    public Payment(Customer customer, Store store, Set<Item> shoppingList) {
         this.customer = customer;
         this.store = store;
         this.shoppingList = shoppingList;
