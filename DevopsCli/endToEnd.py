@@ -45,18 +45,19 @@ cursor = connection.cursor()
 #wait 20secondes the cli
 time.sleep(20)
 
-command = 'echo "script full-payment-scripts.txt" | socat EXEC:"docker attach cli",pty STDIN'
+command = 'echo "script ../cli/scripts/full-payment-scripts.txt" | socat EXEC:"docker attach cli",pty STDIN'
 output = subprocess.check_output(command, shell=True)
 print("out= ",output.decode())
 time.sleep(8)
 
 #print cli and server output
 output = subprocess.check_output("docker logs cli", shell=True)
-print("out= ",output.decode())
+print("Cli= ",output.decode())
 
 output = subprocess.check_output("docker logs cli", shell=True)
-print("out= ",output.decode())
-#
+print("Serveur= ",output.decode())
+
+
 try:
     userTable = getTable("customer")
     printTable(userTable)
@@ -64,10 +65,6 @@ try:
     printTable(organisationTable)
 except:
   print("An exception occurred")
-
-
-
-
 
 
 # Fermer le curseur et la connexion à la base de données
