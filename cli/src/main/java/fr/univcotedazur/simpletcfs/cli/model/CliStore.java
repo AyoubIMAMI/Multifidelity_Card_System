@@ -1,19 +1,19 @@
 package fr.univcotedazur.simpletcfs.cli.model;
 
-public class Store {
+public class CliStore {
 
     private Long id;
     private String siret;
     private String name;
     private String password;
 
-    public Store(String siret, String name, String password) {
+    public CliStore(String siret, String name, String password) {
         this.siret = siret;
         this.name = name;
         this.password = password;
     }
 
-    public Store() {
+    public CliStore() {
     }
 
     public String getSiret() {

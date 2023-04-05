@@ -3,6 +3,7 @@ package fr.polytech.entities.item;
 import fr.polytech.entities.Payment;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +13,7 @@ public class Item {
     @GeneratedValue()
     private Long id;
 
+    @NotNull(message = "quantity should not be null")
     private int quantity;
 
     @ManyToOne
@@ -77,10 +79,8 @@ public class Item {
     @Override
     public String toString() {
         return "Item{" +
-                "id=" + id +
-                ", quantity=" + quantity +
+                "quantity=" + quantity +
                 ", buyable=" + buyable +
-                ", payment=" + payment +
                 '}';
     }
 }

@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         include = JsonTypeInfo.As.PROPERTY,
         property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = Product.class, name = "product"),
-        @JsonSubTypes.Type(value = Discount.class, name = "discount")
+        @JsonSubTypes.Type(value = CliProduct.class, name = "product"),
+        @JsonSubTypes.Type(value = CliDiscount.class, name = "discount")
 })
-public abstract class Buyable {
+public abstract class CliBuyable {
 
     private Long id;
 
@@ -19,12 +19,12 @@ public abstract class Buyable {
 
     private Long storeId;
 
-    public Buyable(String name, Long storeId) {
+    public CliBuyable(String name, Long storeId) {
         this.name = name;
         this.storeId = storeId;
     }
 
-    public Buyable() {
+    public CliBuyable() {
 
     }
 
@@ -54,7 +54,7 @@ public abstract class Buyable {
 
     @Override
     public String toString() {
-        return "Buyable{" +
+        return "CliBuyable{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", storeId=" + storeId +

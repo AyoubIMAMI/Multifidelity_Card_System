@@ -12,26 +12,26 @@ import java.util.stream.Collectors;
 @Component
 public class CliContext {
 
-    private Map<Long, Customer> customers;
-    private Map<Long, Discount> discounts;
-    private Map<Long, Payment> payments;
-    private Map<Long, Store> stores;
-    private Set<Item> cart;
+    private Map<Long, CliCustomer> customers;
+    private Map<Long, CliDiscount> discounts;
+    private Map<Long, CliPayment> payments;
+    private Map<Long, CliStore> stores;
+    private Set<CliItem> cart;
 
-    public Map<Long, Customer> getCustomers() {
+    public Map<Long, CliCustomer> getCustomers() {
         return customers;
     }
-    public Map<Long, Discount>getDiscounts() {
+    public Map<Long, CliDiscount>getDiscounts() {
         return discounts;
     }
-    public Map<Long, Payment> getPayments() {
+    public Map<Long, CliPayment> getPayments() {
         return payments;
     }
-    public Map<Long, Store> getStores() {
+    public Map<Long, CliStore> getStores() {
         return stores;
     }
 
-    public Set<Item> getCart() {
+    public Set<CliItem> getCart() {
         return cart;
     }
 

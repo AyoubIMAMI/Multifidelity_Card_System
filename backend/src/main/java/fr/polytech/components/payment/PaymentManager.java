@@ -10,10 +10,6 @@ import fr.polytech.entities.Store;
 import fr.polytech.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Objects;
 
 @Component
 public class PaymentManager implements PaymentExplorer, PaymentModifier {

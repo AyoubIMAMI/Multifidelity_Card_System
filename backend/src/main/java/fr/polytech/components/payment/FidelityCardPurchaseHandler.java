@@ -1,7 +1,6 @@
 package fr.polytech.components.payment;
 
 import fr.polytech.entities.Store;
-import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import fr.polytech.entities.item.Product;
 import fr.polytech.exceptions.NotEnoughBalanceException;

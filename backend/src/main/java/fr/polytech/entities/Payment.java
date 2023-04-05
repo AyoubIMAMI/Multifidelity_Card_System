@@ -1,6 +1,5 @@
 package fr.polytech.entities;
 
-import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import fr.polytech.entities.item.Product;
 
@@ -102,6 +101,18 @@ public class Payment {
     }
 
     @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", store=" + store +
+                ", isSettled=" + isSettled +
+                ", shoppingList=" + shoppingList +
+                ", amount=" + amount +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -112,17 +123,5 @@ public class Payment {
     @Override
     public int hashCode() {
         return Objects.hash(customer, store, isSettled, shoppingList, amount);
-    }
-
-    @Override
-    public String toString() {
-        return "Payment{" +
-                "id=" + id +
-                ", customer=" + customer +
-                ", store=" + store +
-                ", isSettled=" + isSettled +
-                ", shoppingList=" + shoppingList +
-                ", amount=" + amount +
-                '}';
     }
 }

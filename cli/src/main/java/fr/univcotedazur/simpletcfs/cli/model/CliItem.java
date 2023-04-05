@@ -1,22 +1,20 @@
 package fr.univcotedazur.simpletcfs.cli.model;
 
 
-public class Item {
+public class CliItem {
 
     private Long id;
 
     private int quantity;
 
-    private Buyable buyable;
+    private CliBuyable buyable;
 
-    private Payment payment;
-
-    public Item(int quantity, Buyable buyable) {
+    public CliItem(int quantity, CliBuyable buyable) {
         this.quantity = quantity;
         this.buyable = buyable;
     }
 
-    public Item() {
+    public CliItem() {
 
     }
 
@@ -36,30 +34,20 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public Buyable getBuyable() {
+    public CliBuyable getBuyable() {
         return buyable;
     }
 
-    public void setBuyable(Buyable buyable) {
+    public void setBuyable(CliBuyable buyable) {
         this.buyable = buyable;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
     }
 
 
     @Override
     public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", quantity=" + quantity +
+        return "CliItem{" +
+                "quantity=" + quantity +
                 ", buyable=" + buyable +
-                ", payment=" + payment +
                 '}';
     }
 }
