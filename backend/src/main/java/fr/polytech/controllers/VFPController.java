@@ -2,6 +2,7 @@ package fr.polytech.controllers;
 
 import fr.polytech.controllers.dto.StoreDTO;
 import fr.polytech.exceptions.CustomerNotFoundException;
+import fr.polytech.exceptions.ParkingNotPossibleException;
 import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
 import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
 import fr.polytech.exceptions.advantage.VFPNotFoundException;
@@ -30,8 +31,14 @@ public class VFPController {
         this.vfpTransaction = vfpTransaction;
     }
     @PostMapping(path = VFP_URI+"/advantage")
-    public ResponseEntity<String> processWithPaymentFidelity(@PathVariable("customerID") Long customerId, Long advantageId, Long parkingId) throws NoAdvantageFoundException, VFPNotFoundException, CustomerNotFoundException, AdvantageAlreadyConsumedException {
-        vfpTransaction.tryUseAdvantage(customerId, advantageId, parkingId);
+    public ResponseEntity<String> useAdvantageVFP(@PathVariable("customerID") Long customerId, Long advantageId) throws NoAdvantageFoundException, VFPNotFoundException, CustomerNotFoundException, AdvantageAlreadyConsumedException, ParkingNotPossibleException {
+        vfpTransaction.tryUseAdvantage(customerId, advantageId);
+        return ResponseEntity.ok().body("Advantage OK");
+    }
+
+    @PostMapping(path = VFP_URI+"/advantage/parking")
+    public ResponseEntity<String> useParkingAdvantageVFP(@PathVariable("customerID") Long customerId, Long advantageId, Long parkingId) throws NoAdvantageFoundException, VFPNotFoundException, CustomerNotFoundException, AdvantageAlreadyConsumedException, ParkingNotPossibleException {
+        vfpTransaction.tryUsParkingAdvantage(customerId, advantageId, parkingId);
         return ResponseEntity.ok().body("Advantage OK");
     }
 
