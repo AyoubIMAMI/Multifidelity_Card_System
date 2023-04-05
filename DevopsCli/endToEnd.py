@@ -44,11 +44,18 @@ def disconnect(cursor, connection):
 # Ouvrir une connexion et un curseur
 connection = connect()
 cursor = connection.cursor()
+#wait 20secondes the cli
+time.sleep(8)
 
 command = 'echo "script full-payment-scripts.txt" | socat EXEC:"docker attach cli",pty STDIN'
 output = subprocess.check_output(command, shell=True)
 print("out= ",output.decode())
 time.sleep(8)
+
+#print cli and server output
+output = subprocess.check_output("docker logs cli --tail=3", shell=True)
+print("out= ",output.decode())
+
 output = subprocess.check_output("docker logs cli --tail=3", shell=True)
 print("out= ",output.decode())
 #
