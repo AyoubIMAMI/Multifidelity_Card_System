@@ -4,7 +4,13 @@ import fr.polytech.controllers.dto.*;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Item;
+import fr.polytech.exceptions.BadCredentialsException;
+import fr.polytech.exceptions.CustomerNotFoundException;
+import fr.polytech.exceptions.NotEnoughBalanceException;
+import fr.polytech.exceptions.PurchaseFailedException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
+import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
+import fr.polytech.exceptions.store.StoreNotFoundException;
 import fr.polytech.interfaces.payment.IPayment;
 import fr.polytech.entities.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +35,9 @@ public class ClientPaymentController {
     }
 
     @PostMapping(path = PAYMENT_URI+"/settled")
-    public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException {
-        try {
-            System.out.println("Shopping List received : " + shoppingList);
-            return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payedProcess(customerId, storeId, shoppingList)));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException, StoreNotFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, NotEnoughBalanceException, PurchaseFailedException {
+        System.out.println("Shopping List received : " + shoppingList);
+        return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payedProcess(customerId, storeId, shoppingList)));
     }
 
     @PostMapping(path = PAYMENT_URI+"/fidelity")

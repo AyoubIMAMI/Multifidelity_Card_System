@@ -34,7 +34,7 @@ public class StoreManager implements StoreFinder, StoreRegistration{
         Optional<Store> store = storeRepository.findStoreById(storeID);
         if (store.isEmpty()) {
             System.out.println("Aucun store trouvé");
-            throw new StoreNotFoundException();
+            throw new StoreNotFoundException(storeID);
         }
         return store.get();
     }

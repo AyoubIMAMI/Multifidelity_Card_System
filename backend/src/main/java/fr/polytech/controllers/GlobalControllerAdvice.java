@@ -8,6 +8,7 @@ import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentInBankException;
+import fr.polytech.exceptions.store.StoreNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice(assignableTypes = {CustomerAccountController.class, CustomerNotFoundException.class,
         NegativeAmountException.class, PaymentInBankException.class, NoDiscountsFoundException.class,
-        DiscountNotFoundException.class})
+        DiscountNotFoundException.class, StoreNotFoundException.class})
 public class GlobalControllerAdvice {
 
     @ExceptionHandler({MailAlreadyUsedException.class})
@@ -82,6 +83,13 @@ public class GlobalControllerAdvice {
         return errorDTO;
     }
 
-
+    @ExceptionHandler({StoreNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDTO handleExceptions(StoreNotFoundException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Store not found!");
+        errorDTO.setDetails("The store with with id #" + e.getId() + "has not been found...");
+        return errorDTO;
+    }
 
 }
