@@ -55,7 +55,7 @@ public abstract class CliBuyable {
     @Override
     public String toString() {
         return "CliBuyable{" +
-                "id=" + id +
+                "\u001B[32m" + "id=" + id + "\u001B[0m" +
                 ", name='" + name + '\'' +
                 ", storeId=" + storeId +
                 '}';

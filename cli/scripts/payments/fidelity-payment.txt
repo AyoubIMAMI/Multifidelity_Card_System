@@ -1,0 +1,12 @@
+print "*** Ajout de 50€ sur le compte fidelite de Customer 2"
+refill-customer 2 896983 50
+print "*** Resultat :"
+customers
+print "*** Ajout de plusieurs Item Product dans le cart"
+add-product 1 Pantalon 3 15
+add-product 1 Tabouret 3 10
+cart
+print "*** Payement par Customer 2 au Store 3 avec la carte de fidelite"
+fidelity-payment 2 3
+print "*** Resultat :"
+customers

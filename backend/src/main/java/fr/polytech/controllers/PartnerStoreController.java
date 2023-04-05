@@ -2,9 +2,7 @@ package fr.polytech.controllers;
 
 import fr.polytech.controllers.dto.StoreDTO;
 import fr.polytech.entities.Store;
-import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.IllegalDateException;
-import fr.polytech.exceptions.store.MissingInformationsException;
 import fr.polytech.exceptions.store.StoreSiretAlreadyUsedException;
 import fr.polytech.interfaces.store.StatsExplorer;
 import fr.polytech.interfaces.store.StoreRegistration;
@@ -33,15 +31,10 @@ public class PartnerStoreController {
     }
 
     @PostMapping(path = "/registration", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<StoreDTO> register(@RequestBody @Valid StoreDTO storeDTO){
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED)
+    public ResponseEntity<StoreDTO> register(@RequestBody @Valid StoreDTO storeDTO) throws StoreSiretAlreadyUsedException {
+        return ResponseEntity.status(HttpStatus.CREATED)
                     .body(convertStoreToDto(storeRegistration.registerNewStore(storeDTO.getName(), storeDTO.getSiret(), storeDTO.getPassword())));
-        } catch (BadCredentialsException | MissingInformationsException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        } catch (StoreSiretAlreadyUsedException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
     @GetMapping(path = "/statistics/cost", produces = APPLICATION_JSON_VALUE)

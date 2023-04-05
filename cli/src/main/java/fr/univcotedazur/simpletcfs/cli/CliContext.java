@@ -30,7 +30,6 @@ public class CliContext {
     public Map<Long, CliStore> getStores() {
         return stores;
     }
-
     public Set<CliItem> getCart() {
         return cart;
     }
@@ -64,5 +63,11 @@ public class CliContext {
         return customersString + "\n" + discountsString + "\n" + paymentsString + "\n" + storesString;
     }
 
-
+    public void clearAll() {
+        customers.clear();
+        discounts.clear();
+        payments.clear();
+        stores.clear();
+        cart.clear();
+    }
 }
