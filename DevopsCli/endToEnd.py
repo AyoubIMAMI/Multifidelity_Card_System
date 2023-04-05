@@ -45,7 +45,7 @@ def disconnect(cursor, connection):
 connection = connect()
 cursor = connection.cursor()
 #wait 20secondes the cli
-time.sleep(8)
+time.sleep(20)
 
 command = 'echo "script full-payment-scripts.txt" | socat EXEC:"docker attach cli",pty STDIN'
 output = subprocess.check_output(command, shell=True)
