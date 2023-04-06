@@ -38,6 +38,10 @@ public class CustomerManagerTest {
 
     @Test
     void registrationTest() throws MailAlreadyUsedException {
+        //assertTrue(false);
+
+
+
         Customer customer = customerRegistration.register(name, mail, password);
 
         assertEquals(name, customer.getName());
