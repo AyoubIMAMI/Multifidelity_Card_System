@@ -1,6 +1,6 @@
 package fr.univcotedazur.simpletcfs.cli.model;
 
-public class CliAdvantage extends CliBuyable{
+public class CliAdvantage {
 
     Long id;
     String name;
@@ -11,6 +11,14 @@ public class CliAdvantage extends CliBuyable{
     }
 
     public CliAdvantage() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
 
     @Override
     public String toString() {
