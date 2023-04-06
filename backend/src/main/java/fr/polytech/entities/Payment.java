@@ -25,8 +25,9 @@ public class Payment {
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @OneToMany(mappedBy = "payment")
+    @ElementCollection
     private Set<Item> shoppingList = new HashSet<>();
+    
     private float amount;
 
     private Date transactionDate;

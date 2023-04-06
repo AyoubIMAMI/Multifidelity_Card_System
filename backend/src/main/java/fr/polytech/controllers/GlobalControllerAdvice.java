@@ -87,7 +87,7 @@ public class GlobalControllerAdvice {
     public ErrorDTO handleExceptions(StoreNotFoundException e) {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setError("Store not found!");
-        errorDTO.setDetails("The store with with id #" + e.getId() + "has not been found...");
+        errorDTO.setDetails("The store with with id #" + e.getId() + " has not been found...");
         return errorDTO;
     }
 

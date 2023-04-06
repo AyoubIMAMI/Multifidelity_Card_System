@@ -21,10 +21,13 @@ import fr.polytech.entities.item.Product;
 import fr.polytech.exceptions.IllegalDateException;
 import fr.polytech.interfaces.store.StatsExplorer;
 import fr.polytech.repository.CustomerRepository;
+import fr.polytech.repository.DiscountRepository;
 import fr.polytech.repository.PaymentRepository;
+import fr.polytech.repository.ProductRepository;
 import fr.polytech.repository.StoreRepository;
 
 @SpringBootTest
+@Transactional
 public class StatManagerTest {
     @Autowired
     private StatsExplorer statsExplorer;
@@ -37,6 +40,12 @@ public class StatManagerTest {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private DiscountRepository discountRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     private Customer mourad;
     private Customer leo;
@@ -63,14 +72,14 @@ public class StatManagerTest {
 
         // Setting up sets
         li1 = new HashSet<>();
-        li1.add(new Item(1, new Discount("Table trop cool", polyStore.getId(), 1000)));
-        li1.add(new Item(4, new Discount("Chaises du swag", polyStore.getId(), 200)));
-        li1.add(new Item(4, new Product("Set de table", polyStore.getId(), 10)));
+        li1.add(new Item(1, discountRepository.save(new Discount("Table trop cool", polyStore.getId(), 1000))));
+        li1.add(new Item(4, discountRepository.save(new Discount("Chaises du swag", polyStore.getId(), 200))));
+        li1.add(new Item(4, productRepository.save(new Product("Set de table", polyStore.getId(), 10))));
 
         li2 = new HashSet<>();
-        li2.add(new Item(1, new Discount("Bandana jaune", polyGone.getId(), 50)));
-        li2.add(new Item(1, new Product("Television 4k oled", polyGone.getId(), 1320)));
-        li2.add(new Item(1, new Discount("Table", polyGone.getId(), 500)));
+        li2.add(new Item(1, discountRepository.save(new Discount("Bandana jaune", polyGone.getId(), 50))));
+        li2.add(new Item(1, productRepository.save(new Product("Television 4k oled", polyGone.getId(), 1320))));
+        li2.add(new Item(1, discountRepository.save(new Discount("Table", polyGone.getId(), 500))));
     }
 
     @Test
@@ -79,20 +88,15 @@ public class StatManagerTest {
     }
 
     @Test
-    @Transactional
     public void getAllPaymentInDataTest() {
-        Payment p1 = new Payment(mourad, polyStore, li1);
-        paymentRepository.save(p1);
-
-        Payment p2 = new Payment(leo, polyGone, li2);
-        paymentRepository.save(p2);
+        paymentRepository.save(new Payment(mourad, polyStore, li1));
+        paymentRepository.save(new Payment(leo, polyGone, li2));
     
-        assertEquals(1000 + 4 * 200 + 50 + 500, statsExplorer.getTotalPointUsed());
+        assertEquals(1000 + 4 * 200 + 50 + 500, statsExplorer.getUsedPoints());
         assertEquals((1000 + 4 * 200 + 50 + 500) / (double) 10, statsExplorer.getOperationCost());
     }
 
     @Test
-    @Transactional
     public void getPaymentAfterDate() throws IllegalDateException {
         // This payment is from 01/01/2022
         Payment p1 = new Payment(mourad, polyStore, li1);
@@ -104,8 +108,7 @@ public class StatManagerTest {
         paymentRepository.save(p1);
 
         // This payment is from now
-        Payment p2 = new Payment(leo, polyGone, li2);
-        p2 = paymentRepository.save(p2);
+        paymentRepository.save(new Payment(leo, polyGone, li2));
 
         // Threshold is set to 01/01/2023
         Calendar thresholdDate = Calendar.getInstance();
@@ -113,7 +116,7 @@ public class StatManagerTest {
         thresholdDate.set(Calendar.MONTH, 0);
         thresholdDate.set(Calendar.DATE, 1);
 
-        assertEquals(500 + 50, statsExplorer.getTotalPointUsed(thresholdDate.getTime()));
+        assertEquals(500 + 50, statsExplorer.getUsedPoints(thresholdDate.getTime()));
         assertEquals((500 + 50) / (double) 10, statsExplorer.getOperationCost(thresholdDate.getTime()));
     }
 }
