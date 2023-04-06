@@ -37,6 +37,7 @@ pipeline {
                         sh 'docker stop server'
                         sh 'docker stop cli'
                         sh 'docker rm bank db server cli'
+                        sh 'docker image prune'
                     } catch (Exception e) {
                         echo "no container to close"
                     }
@@ -164,7 +165,7 @@ pipeline {
                     if( env.BRANCH_NAME != 'main'){     
                         echo "Downloading cli (v${last_cli_version})"           
                         echo "last_backend_version = ${last_backend_version} and last_cli_version = ${last_cli_version}"
-                        sh "./buildDockerImageRelease.sh ${last_backend_version} ${last_cli_version}"
+                        sh "cd"
                     }
                     else{
                         directories.each { directory ->
