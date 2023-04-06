@@ -4,4 +4,4 @@ services:
   app:
     image: i_saw_where_you_parked_last_summer
     ports:
-      - "9191:9191"
+      - "8004':8004"

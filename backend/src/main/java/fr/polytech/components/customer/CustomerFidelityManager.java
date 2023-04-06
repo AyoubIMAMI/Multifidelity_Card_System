@@ -2,6 +2,7 @@ package fr.polytech.components.customer;
 
 import fr.polytech.components.advantage.VFPAdvantageManager;
 import fr.polytech.connectors.externaldto.BankTransactionDTO;
+import fr.polytech.interfaces.advantage.AdvantageCustomer;
 import fr.polytech.interfaces.payment.PaymentExplorer;
 import fr.polytech.repository.CustomerRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
@@ -25,13 +26,14 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
 
     PaymentExplorer paymentExplorer;
 
-    VFPAdvantageManager vfpAdvantageManager;
+
+    AdvantageCustomer advantageCustomer;
 
     @Autowired
-    public CustomerFidelityManager(CustomerRepository customerRepository,PaymentExplorer paymentExplorer,VFPAdvantageManager vfpAdvantageManager){
+    public CustomerFidelityManager(CustomerRepository customerRepository,PaymentExplorer paymentExplorer,AdvantageCustomer advantageCustomer){
         this.customerRepository = customerRepository;
         this.paymentExplorer=paymentExplorer;
-        this.vfpAdvantageManager=vfpAdvantageManager;
+        this.advantageCustomer=advantageCustomer;
     }
 
     @Override
@@ -47,7 +49,7 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     @Override
     public boolean checkIfPossibleToBecomeVfp(Customer customer) {
         boolean hasReached10Payments = paymentExplorer.customerReached10Payments(customer);
-        if (hasReached10Payments) vfpAdvantageManager.addCustomerToProgramVFP(customer);
+        if (hasReached10Payments) advantageCustomer.addCustomerToProgramVFP(customer);
         return hasReached10Payments;
     }
 
