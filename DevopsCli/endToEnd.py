@@ -59,7 +59,7 @@ def assertEquals(expected, actual):
         print(str(expected)+" not equals to "+str(actual))
         exit(-1)
 
-customerTable_expected = [(1, 'benoit@gmail.com', 0.0, False, None, 30, 'Benoit', 'benocub'),(1, 'benoit@gmail.com', 0.0, False, None, 30, 'Benoit', 'benocub')]
+customerTable_expected = [(1, 'benoit@gmail.com', 0.0, False, None, 30, 'Benoit', 'benocub'),(2, 'thomas@gmail.com', 23.0, False, None, 15, 'Thomas', 'thobilou')]
 printTable(customerTable_expected)
 
 organisationTable_expected = [('Store', 3, 'Fast Market', 'yTrEA', '123456789'),('Store', 4, "Vente'2000", 'AzErTy', '987654321')]
