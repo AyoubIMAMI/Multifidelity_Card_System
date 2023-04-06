@@ -37,7 +37,7 @@ pipeline {
                         sh 'docker stop server'
                         sh 'docker stop cli'
                         sh 'docker rm bank db server cli'
-                        sh 'docker image prune'
+                        sh 'docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
                     } catch (Exception e) {
                         echo "no container to close"
                     }
