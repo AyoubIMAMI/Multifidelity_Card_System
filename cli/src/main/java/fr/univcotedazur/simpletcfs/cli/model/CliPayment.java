@@ -11,19 +11,16 @@ public class CliPayment {
 
     private Set<CliItem> shoppingList;
 
-    private boolean isSettled;
-
     private float amount;
 
     public CliPayment() {
 
     }
 
-    public CliPayment(CliCustomer customer, CliStore store, Set<CliItem> shoppingList, boolean isSettled, float amount) {
+    public CliPayment(CliCustomer customer, CliStore store, Set<CliItem> shoppingList, float amount) {
         this.customer = customer;
         this.store = store;
         this.shoppingList = shoppingList;
-        this.isSettled = isSettled;
         this.amount = amount;
     }
 
@@ -59,14 +56,6 @@ public class CliPayment {
         this.shoppingList = shoppingList;
     }
 
-    public boolean isSettled() {
-        return isSettled;
-    }
-
-    public void setSettled(boolean settled) {
-        isSettled = settled;
-    }
-
     public float getAmount() {
         return amount;
     }
@@ -78,9 +67,9 @@ public class CliPayment {
     @Override
     public String toString() {
         return "CliPayment{" +
-                "id=" + id +
+                "\u001B[34m" + "id=" + id + "\u001B[0m" +
                 ", customer=" + customer +
-                ", storeId=" + store.getId() +
+                ", store.id=" + store.getId() +
                 ", shoppingList=" + shoppingList +
                 ", amount=" + amount +
                 '}';

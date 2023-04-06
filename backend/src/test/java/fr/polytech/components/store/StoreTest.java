@@ -1,15 +1,11 @@
 package fr.polytech.components.store;
 
-import fr.polytech.entities.Customer;
 import fr.polytech.entities.Store;
 import fr.polytech.exceptions.BadCredentialsException;
-import fr.polytech.exceptions.MailAlreadyUsedException;
-import fr.polytech.exceptions.store.MissingInformationsException;
 import fr.polytech.exceptions.store.StoreSiretAlreadyUsedException;
 import fr.polytech.interfaces.store.StoreFinder;
 import fr.polytech.interfaces.store.StoreRegistration;
 import fr.polytech.repository.StoreRepository;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +36,7 @@ public class StoreTest {
         siret="numSiret";
     }
     @Test
-    void registrationTest() throws MissingInformationsException, BadCredentialsException, StoreSiretAlreadyUsedException {
+    void registrationTest() throws BadCredentialsException, StoreSiretAlreadyUsedException {
         Store store = storeRegistration.registerNewStore(name,siret, password);
 
         assertEquals(name, store.getName());

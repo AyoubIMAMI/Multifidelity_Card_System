@@ -1,0 +1,11 @@
+clear-ctx
+clear
+print "*** Creation de Customers"
+register-customer Benoit benoit@gmail.com benocub
+register-customer Thomas thomas@gmail.com thobilou
+print "*** Creation de Stores"
+register-store 123456789 "Fast Market" yTrEA
+register-store 987654321 "Vente'2000" AzErTy
+print "*** Resultat :"
+customers
+stores

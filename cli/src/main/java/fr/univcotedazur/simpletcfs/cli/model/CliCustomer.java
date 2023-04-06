@@ -5,7 +5,6 @@ public class CliCustomer {
     private String name;
     private String password;
     private String email;
-
     private CliFidelityAccount fidelityAccount;
 
     public CliCustomer(String name, String email, String password){
@@ -61,10 +60,10 @@ public class CliCustomer {
     @Override
     public String toString() {
         return "CliCustomer{" +
-                "id=" + id +
+                "\u001B[34m" + "id=" + id + "\u001B[0m" +
                 ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", fidelityAccount=" + fidelityAccount +
                 '}';
     }

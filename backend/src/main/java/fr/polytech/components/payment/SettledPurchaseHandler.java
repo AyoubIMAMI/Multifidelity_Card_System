@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SettledPurchaseHandler implements SettledPurchase {
-    PointModifier pointModifier;
-    PaymentModifier paymentModifier;
+    private PointModifier pointModifier;
+    private PaymentModifier paymentModifier;
 
     @Autowired
     public SettledPurchaseHandler(PointModifier pointModifier, PaymentModifier paymentModifier) {
@@ -29,7 +29,7 @@ public class SettledPurchaseHandler implements SettledPurchase {
 
     @Override
     public void winPoint(Payment payment) {
-        System.out.println("On ajoute des points");
+        System.out.println("Adding fidelity points");
         pointModifier.incrementPoints(payment.getCustomer(), payment.getAmount());
     }
 }

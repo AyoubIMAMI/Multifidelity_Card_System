@@ -1,0 +1,8 @@
+print "*** Ajout de plusieurs Item Product dans le cart"
+add-product 1 T-shirt 4 20
+add-product 2 Ananas 4 5
+cart
+print "*** Payement par Customer 1 au Store 4 avec une carte bancaire"
+settled-payment 1 4
+print "*** Resultat :"
+customers
