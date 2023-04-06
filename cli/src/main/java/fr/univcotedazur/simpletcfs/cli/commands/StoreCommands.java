@@ -7,11 +7,20 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @ShellComponent
 public class StoreCommands {
+
+    private static final Logger logger = Logger.getLogger("StoreCommands");
     public static final String BASE_URI = "/stores";
+    public static final String COST_URI = "/statistics/cost";
+    public static final String POINTS_URI = "/statistics/points";
 
     @Autowired
     RestTemplate restTemplate;
@@ -33,5 +42,37 @@ public class StoreCommands {
         CliStore res = restTemplate.postForObject(BASE_URI + "/registration", new CliStore(siret, name, password), CliStore.class);
         cliContext.getStores().put(res.getId(), res);
         return res;
+    }
+
+    @ShellMethod("Statistics on the total cost of the discounts operations since the beginning")
+    public Double getCostStats() {
+        return restTemplate.getForObject(BASE_URI + COST_URI, Double.class);
+    }
+
+    @ShellMethod("Statistics on the total cost of the discounts operations since the given date")
+    public String getDateCostStats(String stringDate) {
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = dateFormat.parse(stringDate);
+            return "" + restTemplate.postForObject(BASE_URI + COST_URI, date, Double.class);
+        } catch (Exception e) {
+            return "Wrong format date! Format date expected: dd/MM/yyyy";
+        }
+    }
+
+    @ShellMethod("Statistics on the total points of the discounts operations since the beginning")
+    public Double getPointsStats() {
+        return restTemplate.getForObject(BASE_URI + POINTS_URI, Double.class);
+    }
+
+    @ShellMethod("Statistics on the total points of the discounts operations since the given date")
+    public String getDatePointsStats(String stringDate) {
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = dateFormat.parse(stringDate);
+            return "" + restTemplate.postForObject(BASE_URI + POINTS_URI, date, Double.class);
+        } catch (Exception e) {
+            return "Wrong format date! Format date expected: dd/MM/yyyy";
+        }
     }
 }
