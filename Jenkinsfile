@@ -134,7 +134,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'rmdir releases'
+                        sh 'rm -rf releases'
                     } catch (Exception e) {
                     echo "The directory doesn't exist"
                     }
