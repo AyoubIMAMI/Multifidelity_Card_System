@@ -8,7 +8,7 @@ COPY ./src /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Exposing server on port 9191
-EXPOSE 9191
+EXPOSE 8004
 
 # Starting app server
 CMD ["python", "main.py"]

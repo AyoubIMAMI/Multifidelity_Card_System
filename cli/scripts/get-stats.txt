@@ -1,0 +1,5 @@
+print "*** Statisiques depuis le début"
+print "*** Montant total d'argent investit pour le système de points depuis le début"
+get-cost-stats
+print "*** Montant total de points dépensés depuis le début"
+get-points-stats

@@ -51,13 +51,15 @@ public class StoreCommands {
 
     @ShellMethod("Statistics on the total cost of the discounts operations since the given date")
     public String getDateCostStats(String stringDate) {
+        Date date;
         try {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date date = dateFormat.parse(stringDate);
-            return "" + restTemplate.postForObject(BASE_URI + COST_URI, date, Double.class);
+            date = dateFormat.parse(stringDate);
         } catch (Exception e) {
             return "Wrong format date! Format date expected: dd/MM/yyyy";
         }
+        return "" + restTemplate.postForObject(BASE_URI + COST_URI, date, Double.class);
+
     }
 
     @ShellMethod("Statistics on the total points of the discounts operations since the beginning")
@@ -67,12 +69,13 @@ public class StoreCommands {
 
     @ShellMethod("Statistics on the total points of the discounts operations since the given date")
     public String getDatePointsStats(String stringDate) {
+        Date date;
         try {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date date = dateFormat.parse(stringDate);
-            return "" + restTemplate.postForObject(BASE_URI + POINTS_URI, date, Double.class);
+            date = dateFormat.parse(stringDate);
         } catch (Exception e) {
             return "Wrong format date! Format date expected: dd/MM/yyyy";
         }
+        return "" + restTemplate.postForObject(BASE_URI + POINTS_URI, date, Double.class);
     }
 }

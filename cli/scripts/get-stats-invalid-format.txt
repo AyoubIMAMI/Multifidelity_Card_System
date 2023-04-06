@@ -1,0 +1,5 @@
+print "*** Statistiques avec un mauvais format de dates"
+print "*** Montant total d'argent investit pour le système de points depuis le 01042023"
+get-date-cost-stats 01042023
+print "*** Montant total de points dépensés depuis le 01042023"
+get-date-points-stats 01042023

@@ -26,8 +26,9 @@ public class PartnerStoreController {
     StatsExplorer statsExplorer;
 
     @Autowired
-    public PartnerStoreController(StoreRegistration storeRegistration) {
+    public PartnerStoreController(StoreRegistration storeRegistration, StatsExplorer statsExplorer) {
         this.storeRegistration=storeRegistration;
+        this.statsExplorer = statsExplorer;
     }
 
     @PostMapping(path = "/registration", consumes = APPLICATION_JSON_VALUE)
