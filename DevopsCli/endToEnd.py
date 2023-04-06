@@ -20,10 +20,6 @@ def printTable(table):
     for row in table:
         print(row)
 
-def createTable(input):
-    for row in table:
-        print(row)
-
 def connect():
     global connection
     global cursor
