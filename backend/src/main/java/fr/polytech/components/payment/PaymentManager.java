@@ -7,8 +7,10 @@ import fr.polytech.exceptions.payment.PaymentNotFoundException;
 import fr.polytech.interfaces.payment.PaymentExplorer;
 import fr.polytech.interfaces.payment.PaymentModifier;
 import fr.polytech.entities.Store;
+import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import fr.polytech.entities.item.Product;
+import fr.polytech.repository.DiscountRepository;
 import fr.polytech.repository.PaymentRepository;
 import fr.polytech.repository.ProductRepository;
 
@@ -23,11 +25,13 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
 
     private final PaymentRepository paymentRepository;
     private final ProductRepository productRepository;
+    private final DiscountRepository discountRepository;
 
     @Autowired
-    public PaymentManager(PaymentRepository paymentRepository, ProductRepository productRepository) {
+    public PaymentManager(PaymentRepository paymentRepository, ProductRepository productRepository, DiscountRepository discountRepository) {
         this.paymentRepository = paymentRepository;
         this.productRepository = productRepository;
+        this.discountRepository = discountRepository;
     }
 
     @Override
@@ -83,8 +87,12 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
      */
     private void saveNewProduct(Set<Item> items) {
         for(Item item : items)
-            if(item.getBuyable() instanceof Product product)
+            if(item.getBuyable() instanceof Product product){
                 if(!productRepository.exists(Example.of(product))) // Check if the product is already in registry
                     productRepository.save(product);
+            } else if (item.getBuyable() instanceof Discount discount) {
+                if(!discountRepository.exists(Example.of(discount))) // Check if the discount is already in registry
+                    discountRepository.save(discount);
+            }
     }
 }
