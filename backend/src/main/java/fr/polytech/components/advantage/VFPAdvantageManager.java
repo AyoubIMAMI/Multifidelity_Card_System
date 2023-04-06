@@ -25,8 +25,9 @@ public class VFPAdvantageManager implements AdvantageCustomer, CustomerAdvantage
 
     AdvantageExplorer advantageExplorer;
     @Autowired
-    public VFPAdvantageManager(CustomerAdvantageRepository customerAdvantageRepository){
+    public VFPAdvantageManager(CustomerAdvantageRepository customerAdvantageRepository,AdvantageExplorer advantageExplorer){
         this.customerAdvantageRepository=customerAdvantageRepository;
+        this.advantageExplorer=advantageExplorer;   
     }
     @Override
     public CustomerAdvantage addCustomerToProgramVFP(Customer consumer) {

@@ -28,9 +28,10 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     VFPAdvantageManager vfpAdvantageManager;
 
     @Autowired
-    public CustomerFidelityManager(CustomerRepository customerRepository,PaymentExplorer paymentExplorer){
+    public CustomerFidelityManager(CustomerRepository customerRepository,PaymentExplorer paymentExplorer,VFPAdvantageManager vfpAdvantageManager){
         this.customerRepository = customerRepository;
         this.paymentExplorer=paymentExplorer;
+        this.vfpAdvantageManager=vfpAdvantageManager;
     }
 
     @Override

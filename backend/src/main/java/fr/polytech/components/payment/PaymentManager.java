@@ -14,6 +14,10 @@ import fr.polytech.repository.DiscountRepository;
 import fr.polytech.repository.PaymentRepository;
 import fr.polytech.repository.ProductRepository;
 
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,11 +97,27 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
     private void saveNewProduct(Set<Item> items) {
         for(Item item : items)
             if(item.getBuyable() instanceof Product product){
-                if(!productRepository.exists(Example.of(product))) // Check if the product is already in registry
-                    productRepository.save(product);
+                Optional<Product> productOptional=productRepository.findByNameAndStoreIdAndCashPrice(product.getName(),product.getStoreId(),product.getCashPrice());
+                if(productOptional.isEmpty()) // Check if the product is already in registry
+                {
+                    item.setBuyable(productRepository.save(product));
+                }
+                else{
+                    item.setBuyable(productOptional.get());
+                }
             } else if (item.getBuyable() instanceof Discount discount) {
                 if(!discountRepository.exists(Example.of(discount))) // Check if the discount is already in registry
                     discountRepository.save(discount);
             }
+    }
+
+    @Override
+    public List<Payment> findAllPayments() {
+        return paymentRepository.findAll();
+    }
+
+    @Override
+    public List<Payment> findAllByTransactionDateAfter(Date date) {
+        return paymentRepository.findAllByTransactionDateAfter(date);
     }
 }

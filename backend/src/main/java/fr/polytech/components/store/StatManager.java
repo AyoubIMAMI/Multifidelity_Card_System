@@ -6,6 +6,7 @@ import java.util.List;
 import fr.polytech.entities.Payment;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
+import fr.polytech.interfaces.payment.PaymentExplorer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +18,11 @@ import fr.polytech.repository.PaymentRepository;
 @Component
 @Transactional
 public class StatManager implements StatsExplorer {
-    private final PaymentRepository paymentRepository;
+    PaymentExplorer paymentExplorer;
 
     @Autowired
-    public StatManager(PaymentRepository paymentRepository) {
-        this.paymentRepository = paymentRepository;
+    public StatManager(PaymentExplorer paymentExplorer) {
+        this.paymentExplorer = paymentExplorer;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class StatManager implements StatsExplorer {
 
     @Override
     public int getUsedPoints() {
-        return countNumberOfPoints(paymentRepository.findAll());
+        return countNumberOfPoints(paymentExplorer.findAllPayments());
     }
 
     @Override
@@ -47,7 +48,7 @@ public class StatManager implements StatsExplorer {
         if(date.after(new Date()))
             throw new IllegalDateException(date);
 
-        return countNumberOfPoints(paymentRepository.findAllByTransactionDateAfter(date));
+        return countNumberOfPoints(paymentExplorer.findAllByTransactionDateAfter(date));
     }
 
     /**

@@ -1,0 +1,21 @@
+=== PAYMENTS ===
+
+script register.txt
+
+script settled-payment.txt
+
+script fidelity-payment.txt
+
+script discount-payment.txt
+
+payment-errors.txt
+
+
+
+=== VFP ===
+
+d
+
+
+
+=== STATS ===

@@ -1,0 +1,5 @@
+print "*** Il atteint 10paiements "
+script VFP_payment.txt
+
+print "*** Il essaie d'utiliser un avantage qui n'existe pas" 
+use-parking-advantage 1 18 98
