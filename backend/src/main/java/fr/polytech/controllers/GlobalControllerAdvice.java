@@ -1,10 +1,7 @@
 package fr.polytech.controllers;
 
 import fr.polytech.controllers.dto.ErrorDTO;
-import fr.polytech.exceptions.BadCredentialsException;
-import fr.polytech.exceptions.CustomerNotFoundException;
-import fr.polytech.exceptions.MailAlreadyUsedException;
-import fr.polytech.exceptions.ParkingUnavailableException;
+import fr.polytech.exceptions.*;
 import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
 import fr.polytech.exceptions.advantage.AdvantageNotFoundException;
 import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
@@ -151,5 +148,13 @@ public class GlobalControllerAdvice {
         return errorDTO;
     }
 
+    @ExceptionHandler({OneDiscountDontExistException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDTO handleExceptions(OneDiscountDontExistException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Discount do not exist!");
+        errorDTO.setDetails("There is no discount for this payment...");
+        return errorDTO;
+    }
 
 }
