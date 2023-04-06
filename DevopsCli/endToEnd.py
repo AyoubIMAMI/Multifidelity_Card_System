@@ -55,7 +55,7 @@ print("out= ",output.decode())
 time.sleep(8)
 
 def assertEquals(expected, actual):
-    if(expected != actual):
+    if(str(expected) != str(actual)):
         print(str(expected)+" not equals to "+str(actual))
         exit(-1)
 
@@ -65,7 +65,7 @@ printTable(customerTable_expected)
 organisationTable_expected = [('Store', 3, 'Fast Market', 'yTrEA', '123456789'),('Store', 4, "Vente'2000", 'AzErTy', '987654321')]
 printTable(organisationTable_expected)
 
-paymentTable_expected = [(7, 30.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 245000), 1, 4), (10, 25.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 602000), 2, 3), (13, 2.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 789000), 2, 3)]
+paymentTable_expected = ["(7, 30.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 245000), 1, 4), (10, 25.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 602000), 2, 3), (13, 2.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 789000), 2, 3)"]
 printTable(paymentTable_expected)
 
 
