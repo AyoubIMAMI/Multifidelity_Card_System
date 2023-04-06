@@ -46,6 +46,12 @@ public class CustomerAccountController {
         return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + ". Transaction amount: " + transaction.getAmount());
     }
 
+    @PostMapping(path = "/plate/{customerId}")
+    public ResponseEntity<String> setLicensePlate(@PathVariable("customerId") Long customerId, @RequestBody String licensePlate) throws CustomerNotFoundException {
+        Customer customer=customerRegistration.registerNewPlate(customerId,licensePlate);
+        return ResponseEntity.ok().body("New license plates saved: "+customer.getFidelityAccount().getLicencePlate());
+    }
+
     @PostMapping(path = "/registration", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerDTO> register(@RequestBody @Valid CustomerDTO customerDTO) throws MailAlreadyUsedException {
         return ResponseEntity.status(HttpStatus.CREATED)

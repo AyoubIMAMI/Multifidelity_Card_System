@@ -48,4 +48,11 @@ public class CustomerCommands {
         cliContext.getCustomers().get(customerId).getFidelityAccount().setBalance(amount);
         return result;
     }
+
+    @ShellMethod("Set the license plate (set-license-plate CUSTOMER_ID LICENSE_PLATE)")
+    public String setLicensePlate(Long customerId, String licensePlate) {
+        String result = restTemplate.postForObject(BASE_URI + "/plate/" + customerId, licensePlate, String.class);
+        cliContext.getLicensePlates().put(customerId, licensePlate);
+        return result;
+    }
 }

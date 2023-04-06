@@ -1,21 +1,14 @@
-package fr.polytech.entities;
+package fr.univcotedazur.simpletcfs.cli.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-@Entity
-public class Advantage {
+public class CliAdvantage {
 
-    //private TerritorialCommunity provider;
     private String advantageName;
-    @GeneratedValue
-    @Id
     private Long id;
 
-    public Advantage(String advantageName){
+    public CliAdvantage(String advantageName){
         this.advantageName=advantageName;
     }
-    public Advantage() {
+    public CliAdvantage() {
 
     }
 
@@ -32,4 +25,12 @@ public class Advantage {
     }
 
     public void setName(String advantageName) {this.advantageName = advantageName;}
+
+    @Override
+    public String toString() {
+        return "CliAdvantage{" +
+                "id=" + id +
+                ", name='" + advantageName + '\'' +
+                '}';
+    }
 }

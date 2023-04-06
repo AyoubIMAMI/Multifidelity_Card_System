@@ -1,10 +1,13 @@
 package fr.polytech.interfaces.advantage;
 
 import fr.polytech.exceptions.CustomerNotFoundException;
-import fr.polytech.exceptions.NotVFPClientException;
-import fr.polytech.exceptions.advantage.ISawWhereYouParkedLastSummerUnvailableException;
-import fr.polytech.entities.Advantage;
+import fr.polytech.exceptions.ParkingUnavailableException;
+import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
+import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
+import fr.polytech.exceptions.advantage.VFPNotFoundException;
 
 public interface VFPTransaction {
-    boolean tryUseAdvantage(String username, Advantage advantage) throws CustomerNotFoundException, NotVFPClientException, ISawWhereYouParkedLastSummerUnvailableException;
+    void tryUseAdvantage(Long userID, Long advantageID) throws CustomerNotFoundException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException;
+
+    void tryUseParkingAdvantage(Long userID, Long advantageID, Long parkingID) throws CustomerNotFoundException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException, ParkingUnavailableException;
 }
