@@ -59,14 +59,12 @@ pipeline {
                 script {
                     if(env.BRANCH_NAME != 'main'){
                         directories.each { directory ->
-                            stage ("Test $directory") {
-                                if(env.BRANCH_NAME == 'Develop'){
-                                    echo "$directory"
-                                    dir("./$directory") {
-                                        echo 'Testing...'
-                                        sh 'mvn test'
-                                    }
-                                }
+                            stage ("Test $directory") {                               
+                                echo "$directory"
+                                dir("./$directory") {
+                                    echo 'Testing...'
+                                    sh 'mvn test'
+                                }                               
                             }
                             stage ("Building $directory") {
                                 echo "$directory"
