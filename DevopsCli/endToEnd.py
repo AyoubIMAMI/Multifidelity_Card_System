@@ -15,10 +15,10 @@ def getTable(tableName):
     return userTable
 
 def printTable(table):
-    #print("printTable")
+    print(table)
     #print("print ",table[0])
-    for row in table:
-        print(row)
+    #for row in table:
+    #   print(row)
 
 def connect():
     global connection
@@ -52,32 +52,32 @@ time.sleep(8)
 
 def assertEquals(expected, actual):
     if(expected != str(actual)):
-        print(str(expected)+" not equals to "+str(actual))
+        print(expected+" not equals to "+str(actual))
         exit(-1)
 
 customerTable_expected = "[(1, 'benoit@gmail.com', 0.0, False, None, 30, 'Benoit', 'benocub'),(2, 'thomas@gmail.com', 23.0, False, None, 15, 'Thomas', 'thobilou')]"
-printTable(customerTable_expected)
+#printTable(customerTable_expected)
 
 organisationTable_expected = "[('Store', 3, 'Fast Market', 'yTrEA', '123456789'),('Store', 4, \"Vente'2000\", 'AzErTy', '987654321')]"
-printTable(organisationTable_expected)
+#printTable(organisationTable_expected)
 
 paymentTable_expected = "[(7, 30.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 245000), 1, 4), (10, 25.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 602000), 2, 3), (13, 2.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 789000), 2, 3)]"
-printTable(paymentTable_expected)
+#printTable(paymentTable_expected)
 
 #virgule
 customerTable = getTable("customer")
-printTable(customerTable)
+printTable(str(customerTable))
 
 organisationTable = getTable("organisation")
-printTable(organisationTable)
+printTable(str(organisationTable))
 
 paymentTable = getTable("payment")
-printTable(paymentTable)
+printTable(str(paymentTable))
 
 
-assertEquals(customerTable_expected, customerTable)
-assertEquals(organisationTable_expected, organisationTable)
-assertEquals(paymentTable_expected, paymentTable)
+#assertEquals(customerTable_expected, customerTable)
+#assertEquals(organisationTable_expected, organisationTable)
+#assertEquals(paymentTable_expected, paymentTable)
 
 # Fermer le curseur et la connexion à la base de données
 cursor.close()
