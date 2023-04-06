@@ -32,6 +32,7 @@ pipeline {
                         return
                     }
                     try {
+                        sh 'docker stop i_saw_where_you_parked_last_summer'
                         sh 'docker stop bank'
                         sh 'docker stop db'
                         sh 'docker stop server'
