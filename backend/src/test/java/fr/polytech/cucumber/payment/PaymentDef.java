@@ -1,5 +1,6 @@
 package fr.polytech.cucumber.payment;
 
+import fr.polytech.components.discount.DiscountManager;
 import fr.polytech.connectors.externaldto.BankTransactionDTO;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.Payment;
@@ -63,6 +64,8 @@ public class PaymentDef {
     PaymentRepository paymentRepository;
     @Autowired
     PointModifier pointModifier;
+    @Autowired
+    DiscountManager discountManager;
 
     @Before
     public void aWorkingBank() throws Exception {
@@ -106,8 +109,7 @@ public class PaymentDef {
 
         try{
             payment.payWithFidelity(customer.getId(),store.getId(),shoppingList);
-
-        }catch(NotEnoughBalanceException e){
+        }catch(Exception e){
             catchedExeption = e;
         }
     }
@@ -125,8 +127,9 @@ public class PaymentDef {
     }
 
     @When("he want to buy an discount names {string}, it cost {int} and {int} points, in quantity {int}")
-    public void heWantToBuyAnDiscountNamesItCostInQuantity(String name, int price, int points, int quantity) {
-        shoppingList.add(new Item(quantity,new Discount(name, store.getId(), points)));
+    public void heWantToBuyAnDiscountNamesItCostInQuantity(String name, int price, int points, int quantity) throws NegativeAmountException {
+        Discount discount = discountManager.createDiscount(name,store.getId(),points);
+        shoppingList.add(new Item(quantity,discount));
     }
 
     @And("he has not enough cash")
