@@ -59,7 +59,10 @@ public class CatalogController {
 
     @PostMapping(path = ADVANTAGE_URI, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Advantage> createAdvantage(@RequestBody String advantageName) {
-        return ResponseEntity.ok().body(advantageModifier.createAdvantage(advantageName));
+        System.out.println("Name received from cli: " + advantageName);
+        Advantage advantage = advantageModifier.createAdvantage(advantageName);
+        System.out.println("Name before sending to cli: " + advantage.getAdvantageName());
+        return ResponseEntity.ok().body(advantage);
     }
 
     @DeleteMapping(path = ADVANTAGE_URI + "/{advantageID}", produces = APPLICATION_JSON_VALUE)

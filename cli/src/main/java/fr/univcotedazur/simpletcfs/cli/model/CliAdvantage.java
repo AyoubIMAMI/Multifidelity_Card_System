@@ -2,34 +2,35 @@ package fr.univcotedazur.simpletcfs.cli.model;
 
 public class CliAdvantage {
 
-    Long id;
-    String name;
+    private String advantageName;
+    private Long id;
 
-    public CliAdvantage(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    public CliAdvantage(String advantageName){
+        this.advantageName=advantageName;
     }
+    public CliAdvantage() {
 
-    public CliAdvantage() {}
+    }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getAdvantageName() {
+        return advantageName;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String advantageName) {this.advantageName = advantageName;}
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("CliAdvantage{");
-        if (getId() != null) {
-            sb.append("id=").append(getId());
-            sb.append(", ");
-        }
-        sb.append("name='").append(getName()).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "CliAdvantage{" +
+                "id=" + id +
+                ", name='" + advantageName + '\'' +
+                '}';
     }
 }
