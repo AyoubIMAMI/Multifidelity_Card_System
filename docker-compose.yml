@@ -46,9 +46,9 @@ services:
     image: teamh-bank
     container_name: bank
 
-
+  # An external Parking service in Python
   i_saw_where_you_parked_last_summer:
-    image: i_saw_where_you_parked_last_summer
+    image: teamh-i_saw_where_you_parked_last_summer
     container_name: i_saw_where_you_parked_last_summer
     ports:
       - "9191:9191"
