@@ -7,26 +7,24 @@ import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
 import fr.polytech.exceptions.advantage.VFPNotFoundException;
 import fr.polytech.interfaces.advantage.AdvantageCustomer;
 import fr.polytech.interfaces.advantage.AdvantageExplorer;
-import fr.polytech.interfaces.advantage.CustomerAdvantageExplorer;
-import fr.polytech.entities.Advantage;
 import fr.polytech.repository.CustomerAdvantageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 
 @Component
-public class VFPAdvantageManager implements AdvantageCustomer, CustomerAdvantageExplorer {
+public class VFPAdvantageManager implements AdvantageCustomer {
     CustomerAdvantageRepository customerAdvantageRepository;
 
     AdvantageExplorer advantageExplorer;
     @Autowired
-    public VFPAdvantageManager(CustomerAdvantageRepository customerAdvantageRepository){
+    public VFPAdvantageManager(CustomerAdvantageRepository customerAdvantageRepository,AdvantageExplorer advantageExplorer){
         this.customerAdvantageRepository=customerAdvantageRepository;
+        this.advantageExplorer=advantageExplorer;
     }
     @Override
     public CustomerAdvantage addCustomerToProgramVFP(Customer consumer) {
@@ -48,11 +46,6 @@ public class VFPAdvantageManager implements AdvantageCustomer, CustomerAdvantage
     @Override
     public Optional<CustomerAdvantage> findCustomerAdvantageAccount(Long customerID){
         return(this.customerAdvantageRepository.findByConsumerID(customerID));
-    }
-
-    @Override
-    public List<Advantage> getAdvantage(int userId) {
-        return null;
     }
 
 

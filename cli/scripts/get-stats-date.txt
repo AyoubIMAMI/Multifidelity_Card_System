@@ -1,0 +1,5 @@
+print "*** Statisiques avec des dates valides"
+print "*** Montant total d'argent investit pour le système de points depuis le 01/04/2023"
+get-date-cost-stats 01/04/2023
+print "*** Montant total de points dépensés depuis le 01/04/2023"
+get-date-points-stats 01/04/2023

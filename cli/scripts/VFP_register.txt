@@ -1,0 +1,10 @@
+clear-ctx
+clear
+print "*** Création d'un Customer"
+register-customer Benoit benoit@gmail.com benocub
+create-advantage parking
+register-store 123456789 "Fast Market" yTrEA
+set-license-plate 1 XLZMDLSO
+print "*** Résultat :"
+customers
+stores

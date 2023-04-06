@@ -8,6 +8,9 @@ import fr.polytech.exceptions.payment.PaymentNotFoundException;
 
 import fr.polytech.entities.Store;
 
+import java.util.Date;
+import java.util.List;
+
 
 public interface PaymentExplorer {
 
@@ -16,4 +19,8 @@ public interface PaymentExplorer {
     Iterable<Payment> findPaymentsByStore(Store store) throws StoreNotFoundException, PaymentNotFoundException;
 
     boolean customerReached10Payments(Customer customer);
+
+    List<Payment> findAllPayments();
+
+    List<Payment> findAllByTransactionDateAfter(Date date);
 }
