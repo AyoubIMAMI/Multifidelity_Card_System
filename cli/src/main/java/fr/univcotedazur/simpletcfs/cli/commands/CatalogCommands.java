@@ -75,7 +75,9 @@ public class CatalogCommands {
 
     @ShellMethod("Create an advantage (create-advantage NAME)")
     public CliAdvantage createAdvantage(String name) {
+        System.out.println("Name before asking backend: " + name);
         CliAdvantage result = restTemplate.postForObject(BASE_URI + ADVANTAGE_URI, name, CliAdvantage.class);
+        System.out.println("Name after asking backend: " + result.toString());
         cliContext.getAdvantages().put(result.getId(), result);
         return result;
     }
