@@ -163,7 +163,7 @@ pipeline {
             steps {
                 script {
                     if( env.BRANCH_NAME != 'main'){
-                        sh 'buildDockerImageRelease.sh ${last_backend_version} ${last_cli_version}'
+                        sh './buildDockerImageRelease.sh ${last_backend_version} ${last_cli_version}'
                     }
                     else{
                         directories.each { directory ->
