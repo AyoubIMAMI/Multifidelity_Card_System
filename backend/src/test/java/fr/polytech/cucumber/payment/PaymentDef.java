@@ -11,7 +11,6 @@ import fr.polytech.entities.item.Product;
 import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
-import fr.polytech.exceptions.PurchaseFailedException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
@@ -29,7 +28,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -104,13 +102,15 @@ public class PaymentDef {
     }
 
     @And("he pay")
-    public void hePay() throws PaymentAlreadyExistsException, NoDiscountsFoundException, BadCredentialsException, CustomerNotFoundException, NotEnoughBalanceException, PurchaseFailedException, StoreNotFoundException {
+    public void hePay() throws PaymentAlreadyExistsException, NoDiscountsFoundException, BadCredentialsException, CustomerNotFoundException, NotEnoughBalanceException,  StoreNotFoundException {
         pointModifier.incrementPoints(customer, 1000);
 
         try{
             payment.payWithFidelity(customer.getId(),store.getId(),shoppingList);
         }catch(Exception e){
             catchedExeption = e;
+        } catch (NegativeAmountException e) {
+            throw new RuntimeException(e);
         }
     }
 

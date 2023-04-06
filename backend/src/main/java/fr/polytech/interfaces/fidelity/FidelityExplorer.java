@@ -7,10 +7,8 @@ import fr.polytech.entities.FidelityAccount;
 import java.util.List;
 
 public interface FidelityExplorer {
-    FidelityAccount findFidelityAccountByCustomer(Customer customer) throws CustomerNotFoundException, FidelityAccountNotFoundException;
+    FidelityAccount findFidelityAccountByCustomer(Customer customer) throws CustomerNotFoundException;
 
-    FidelityAccount findFidelityAccountById(Long id) throws CustomerNotFoundException, FidelityAccountNotFoundException;
-    boolean checkIfPossibleToBecomeVfp(Customer customer);
-
-
+    FidelityAccount findFidelityAccountById(Long id) throws CustomerNotFoundException;
+    List<FidelityExplorer> checkIfPossibleToBecomeVfp();
 }

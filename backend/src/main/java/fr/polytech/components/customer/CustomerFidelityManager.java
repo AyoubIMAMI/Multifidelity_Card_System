@@ -5,7 +5,6 @@ import fr.polytech.connectors.externaldto.BankTransactionDTO;
 import fr.polytech.interfaces.payment.PaymentExplorer;
 import fr.polytech.repository.CustomerRepository;
 import fr.polytech.exceptions.CustomerNotFoundException;
-import fr.polytech.exceptions.FidelityAccountNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.interfaces.fidelity.FidelityExplorer;
 import fr.polytech.interfaces.fidelity.PointModifier;
@@ -35,12 +34,12 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     }
 
     @Override
-    public FidelityAccount findFidelityAccountByCustomer(Customer customer) throws CustomerNotFoundException, FidelityAccountNotFoundException {
+    public FidelityAccount findFidelityAccountByCustomer(Customer customer) throws CustomerNotFoundException {
         return null;
     }
 
     @Override
-    public FidelityAccount findFidelityAccountById(Long id) throws CustomerNotFoundException, FidelityAccountNotFoundException {
+    public FidelityAccount findFidelityAccountById(Long id) throws CustomerNotFoundException {
         return null;
     }
 
@@ -75,7 +74,7 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
         FidelityAccount fidelityAccount = customer.getFidelityAccount();
         double balance = fidelityAccount.getBalance();
         if(balance < amount)
-            throw new NotEnoughBalanceException();
+            throw new NotEnoughBalanceException(balance, amount);
 
         fidelityAccount.setBalance(balance - amount);
         return customerRepository.save(customer);

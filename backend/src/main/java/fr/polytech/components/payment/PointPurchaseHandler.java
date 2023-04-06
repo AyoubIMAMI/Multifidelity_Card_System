@@ -32,7 +32,7 @@ public class PointPurchaseHandler implements PointPurchase {
         }
 
         if (pointsOnFidelityAccount < pointsRequired) {
-            throw new NotEnoughBalanceException();
+            throw new NotEnoughBalanceException(pointsOnFidelityAccount, pointsRequired);
         }
 
         return pointModifier.decrementPoints(customer, pointsRequired);

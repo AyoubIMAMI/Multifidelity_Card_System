@@ -67,7 +67,7 @@ public class CliPayment {
     @Override
     public String toString() {
         return "CliPayment{" +
-                "\u001B[32m" + "id=" + id + "\u001B[0m" +
+                "\u001B[34m" + "id=" + id + "\u001B[0m" +
                 ", customer=" + customer +
                 ", store.id=" + store.getId() +
                 ", shoppingList=" + shoppingList +

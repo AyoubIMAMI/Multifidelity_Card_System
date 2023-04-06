@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SettledPurchaseHandler implements SettledPurchase {
-    PointModifier pointModifier;
-    PaymentModifier paymentModifier;
-    FidelityExplorer fidelityExplorer;
+    private PointModifier pointModifier;
+    private PaymentModifier paymentModifier;
+    private FidelityExplorer fidelityExplorer;
 
     @Autowired
     public SettledPurchaseHandler(PointModifier pointModifier, PaymentModifier paymentModifier,FidelityExplorer fidelityExplorer) {
@@ -33,7 +33,7 @@ public class SettledPurchaseHandler implements SettledPurchase {
     //TODO y'a t'il besoin de la mettre dans l'interface alors qu'on l'utilise juste dans cette classe?
     @Override
     public void winPoint(Payment payment) {
-        System.out.println("On ajoute des points");
+        System.out.println("Adding fidelity points");
         pointModifier.incrementPoints(payment.getCustomer(), payment.getAmount());
     }
 }

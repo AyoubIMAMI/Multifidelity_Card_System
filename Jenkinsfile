@@ -179,7 +179,8 @@ pipeline {
             steps{
                 sh 'docker ps'
                 sh './build-all.sh'
-                sh './run-all.sh'                        
+                sh 'cat ${WORKSPACE}/cli/scripts/demo.txt'
+                sh './run-all.sh'
             }
         }
         stage('Test end to end') {
@@ -190,7 +191,12 @@ pipeline {
                 sh 'apt install -y python3-pip'
                 sh 'pip install psycopg2-binary'
                 sh 'docker ps'
-                sh 'python3 ./DevopsCli/endToEnd.py'
+                                              
+                dir("./DevopsCli"){
+                    sh 'python3 ./endToEnd.py'
+                    sh 'python3 ./printBdContent.py'
+                }
+                
             }
         }
         stage('Export images on DockerHub (main)') {

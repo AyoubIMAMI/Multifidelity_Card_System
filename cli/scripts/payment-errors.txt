@@ -1,0 +1,31 @@
+clear
+print "!=== SCRIPT TEST ERREURS ==="
+print "*** Creation de 2 Customer avec le meme email"
+register-customer Emile emile@gmail.com milou
+register-customer Emile emile@gmail.com milou
+print "*** Creation de 2 Store avec le meme Siret"
+register-store 147852369 "Pain-Frais" PoIuYt
+register-store 147852369 "Pain-Frais" PoIuYt
+print "*** Ajout d'un Product avec un prix negatif"
+add-product 1 Pantalon 3 -5
+cart
+print "*** Payement avec un ID d'un Customer qui n'existe pas"
+settled-payment 100 15
+print "*** Payement avec un ID d'un Store qui n'existe pas"
+settled-payment 14 100
+print "*** Payement avec un Product qui a un prix inferieur a 0"
+settled-payment 14 15
+clear-cart
+print "*** Transaction avec la Bank en utilisant une carte bancaire invalide"
+refill-customer 14 89794351 50
+print "*** Transaction de 10 euros avec la Bank en utilisant une carte bancaire valide"
+refill-customer 14 896983 10
+print "*** Ajout d'un Product de 15 euros"
+add-product 1 Pantalon 9 15
+print "*** Payement avec une carte de fidelite qui n'a que 10 euros de solde"
+fidelity-payment 14 15
+clear-cart
+print "*** Ajout d'une Discount dans le cart"
+add-discount 1 11
+print "*** Payment d'une Discount sans avoir de points"
+settled-payment 14 15

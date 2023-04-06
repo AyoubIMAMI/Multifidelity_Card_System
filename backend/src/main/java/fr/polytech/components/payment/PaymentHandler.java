@@ -5,7 +5,12 @@ import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import fr.polytech.exceptions.*;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
+import fr.polytech.entities.item.Product;
+import fr.polytech.exceptions.BadCredentialsException;
+import fr.polytech.exceptions.CustomerNotFoundException;
+import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
+import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.store.StoreNotFoundException;
 import fr.polytech.interfaces.customer.CustomerFinder;
@@ -40,7 +45,7 @@ public class PaymentHandler implements IPayment {
     }
 
     @Override
-    public Payment payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, StoreNotFoundException, OneDiscountDontExistException {
+    public Payment payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, StoreNotFoundException, OneDiscountDontExistException,NegativeAmountException {
         Customer customer = customerFinder.findCustomerById(customerId);
         Store store = storeFinder.findStoreByID(storeId);
         checkDiscountAndPayWithPointPurchase(customer, shoppingList,storeId);
@@ -49,7 +54,7 @@ public class PaymentHandler implements IPayment {
     }
 
     @Override
-    public Payment payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, StoreNotFoundException, OneDiscountDontExistException {
+    public Payment payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, StoreNotFoundException, OneDiscountDontExistException,NegativeAmountException {
         Customer customer = customerFinder.findCustomerById(customerId);
         System.out.println("Customer find : " + customer.getName());
         Store store = storeFinder.findStoreByID(storeId);
@@ -58,8 +63,9 @@ public class PaymentHandler implements IPayment {
         return sendToSettledPayment(customer, store, shoppingList);
     }
 
-    private Payment sendToSettledPayment(Customer customer, Store store, Set<Item> shoppingList) throws PaymentAlreadyExistsException, PurchaseFailedException {
-        Payment payment = new Payment(customer, store, shoppingList, true);
+    private Payment sendToSettledPayment(Customer customer, Store store, Set<Item> shoppingList) throws PaymentAlreadyExistsException, NegativeAmountException {
+        checkNegativePrice(shoppingList);
+        Payment payment = new Payment(customer, store, shoppingList);
         System.out.println("Payment created : " + payment);
         return settledPurchase.validatePurchase(payment);
     }
@@ -78,6 +84,20 @@ public class PaymentHandler implements IPayment {
                 System.out.println("Discount trouvé");
                 pointPurchase.buyWithPoint(customer, shoppingList);
                 System.out.println("fin check discount");
+            }
+        }
+    }
+
+    private void checkNegativePrice(Set<Item> shoppingList) throws NegativeAmountException {
+        for (Item item: shoppingList) {
+            if(item.getBuyable() instanceof Discount) {
+                if(((Discount) item.getBuyable()).getPointPrice() <= 0) {
+                    throw new NegativeAmountException(((Discount) item.getBuyable()).getPointPrice());
+                };
+            } else if(item.getBuyable() instanceof Product) {
+                if(((Product) item.getBuyable()).getCashPrice() <= 0) {
+                    throw new NegativeAmountException(((Product) item.getBuyable()).getCashPrice());
+                };
             }
         }
     }

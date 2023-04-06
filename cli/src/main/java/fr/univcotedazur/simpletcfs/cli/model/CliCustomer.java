@@ -60,7 +60,7 @@ public class CliCustomer {
     @Override
     public String toString() {
         return "CliCustomer{" +
-                "\u001B[32m" + "id=" + id + "\u001B[0m" +
+                "\u001B[34m" + "id=" + id + "\u001B[0m" +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
