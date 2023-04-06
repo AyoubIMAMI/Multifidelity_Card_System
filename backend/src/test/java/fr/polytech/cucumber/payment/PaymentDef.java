@@ -109,8 +109,6 @@ public class PaymentDef {
             payment.payWithFidelity(customer.getId(),store.getId(),shoppingList);
         }catch(Exception e){
             catchedExeption = e;
-        } catch (NegativeAmountException e) {
-            throw new RuntimeException(e);
         }
     }
 

@@ -45,7 +45,7 @@ public class PaymentHandler implements IPayment {
     }
 
     @Override
-    public Payment payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, StoreNotFoundException, OneDiscountDontExistException,NegativeAmountException {
+    public Payment payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, NoDiscountsFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, StoreNotFoundException, OneDiscountDontExistException,NegativeAmountException {
         Customer customer = customerFinder.findCustomerById(customerId);
         Store store = storeFinder.findStoreByID(storeId);
         checkDiscountAndPayWithPointPurchase(customer, shoppingList,storeId);
@@ -54,7 +54,7 @@ public class PaymentHandler implements IPayment {
     }
 
     @Override
-    public Payment payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, PurchaseFailedException, NoDiscountsFoundException, PaymentAlreadyExistsException, BadCredentialsException, CustomerNotFoundException, StoreNotFoundException, OneDiscountDontExistException,NegativeAmountException {
+    public Payment payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, NoDiscountsFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, StoreNotFoundException, OneDiscountDontExistException,NegativeAmountException {
         Customer customer = customerFinder.findCustomerById(customerId);
         System.out.println("Customer find : " + customer.getName());
         Store store = storeFinder.findStoreByID(storeId);

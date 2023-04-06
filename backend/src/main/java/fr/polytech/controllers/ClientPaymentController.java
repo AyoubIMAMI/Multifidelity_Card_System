@@ -34,13 +34,13 @@ public class ClientPaymentController {
     }
 
     @PostMapping(path = PAYMENT_URI+"/settled")
-    public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException, StoreNotFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, NotEnoughBalanceException, NegativeAmountException,OneDiscountDontExistException {
+    public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException, StoreNotFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, NotEnoughBalanceException, NegativeAmountException, OneDiscountDontExistException, BadCredentialsException {
         System.out.println("Shopping List received : " + shoppingList);
         return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payedProcess(customerId, storeId, shoppingList)));
     }
 
     @PostMapping(path = PAYMENT_URI+"/fidelity")
-    public ResponseEntity<PaymentDTO> processWithPaymentFidelity(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException, StoreNotFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, NotEnoughBalanceException, NegativeAmountException {
+    public ResponseEntity<PaymentDTO> processWithPaymentFidelity(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException, StoreNotFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, NotEnoughBalanceException, NegativeAmountException, OneDiscountDontExistException, BadCredentialsException {
             return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payWithFidelity(customerId, storeId, shoppingList)));
 
     }
