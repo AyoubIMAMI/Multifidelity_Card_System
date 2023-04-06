@@ -8,7 +8,7 @@ script fidelity-payment.txt
 
 script discount-payment.txt
 
-payment-errors.txt
+script payment-errors.txt
 
 
 
@@ -19,3 +19,11 @@ d
 
 
 === STATS ===
+
+script get-stats.txt
+
+script get-stats-date.txt
+
+script get-stats-invalid-format.txt
+
+script get-stats-invalid.txt
