@@ -15,6 +15,9 @@ pipeline {
 		containerWork = true
 		endToEndAvailable = true
         skipSteps = false
+        last_cli_version = ""
+        last_backend_version = ""
+
 	}
 
     stages {
@@ -123,9 +126,9 @@ pipeline {
                 }
             }
         }
-        stage('Pull ltest artifacts'){
+        stage('Pull latest artifacts'){
             when { 
-                branch 'main'
+                //branch 'main'
                 expression { "${skipSteps}" == 'false' } 
             }
             steps {
@@ -140,12 +143,12 @@ pipeline {
                     echo 'Pulling releases ...'
 
                     // Backend pulling
-                    def last_backend_version = sh(returnStdout: true, script: 'python3 artifactory_pull/backend_latest_version.py').split("\n")[1]
+                    last_backend_version = sh(returnStdout: true, script: 'python3 artifactory_pull/backend_latest_version.py').split("\n")[1]
                     echo "Downloading backend (v${last_backend_version})"
                     sh "cd ./releases && echo \\n | jf rt dl  --recursive --user=admin --password=zEzEBf7mD2aCHA8XG4! --url=http://134.59.213.138:8002/artifactory 'libs-release-local/fr/polytech/isa-devops-22-23-team-h-23/${last_backend_version}/*'"
                     
                     // Cli pulling
-                    def last_cli_version = sh(returnStdout: true, script: 'python3 artifactory_pull/cli_latest_version.py').split("\n")[1]
+                    last_cli_version = sh(returnStdout: true, script: 'python3 artifactory_pull/cli_latest_version.py').split("\n")[1]
                     echo "Downloading cli (v${last_cli_version})"
                     sh "cd ./releases && echo \\n | jf rt dl  --recursive --user=admin --password=zEzEBf7mD2aCHA8XG4! --url=http://134.59.213.138:8002/artifactory 'libs-release-local/fr/univcotedazur/fidelity/cli/${last_cli_version}/*'"
                 
@@ -159,22 +162,28 @@ pipeline {
             }
             steps {
                 script {
-                    directories.each { directory ->
+                    if( env.BRANCH_NAME != 'main'){
+                        sh 'buildDockerImageRelease.sh ${last_backend_version} ${last_cli_version}'
+                    }
+                    else{
+                        directories.each { directory ->
                         stage ("Create $directory image") {
                             echo "$directory"
                             dir("./$directory") {
                                 echo 'Testing...'
-                                sh './build.sh'
+                                sh './build.sh '
+                                }
                             }
                         }
                     }
+                    
                 }
                 sh 'docker images'
             }
         }
         stage('Start containers') {            
             when { 
-                expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false'} 
+                expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false' &&  env.BRANCH_NAME != 'main'} 
             }
             steps{
                 sh 'docker ps'
@@ -185,7 +194,7 @@ pipeline {
         }
         stage('Test end to end') {
             when { 
-                expression { "${endToEndAvailable}" == 'true' && "${skipSteps}" == 'false' } }
+                expression { "${endToEndAvailable}" == 'true' && "${skipSteps}" == 'false' &&  env.BRANCH_NAME != 'main'} }
             steps {
                 sh 'apt-get install -y socat'
                 sh 'apt install -y python3-pip'
