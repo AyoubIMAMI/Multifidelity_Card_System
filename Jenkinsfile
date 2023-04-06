@@ -31,7 +31,7 @@ pipeline {
                         skipSteps = true
                         return
                     }
-                                          
+                    sh 'docker ps'                
                     try{sh 'docker stop i_saw_where_you_parked_last_summer'}catch (Exception e){echo "no container to close"}
                     try{sh 'docker stop bank'}catch (Exception e){echo "no container to close"}
                     try{sh 'docker stop db'}catch (Exception e){echo "no container to close"}
