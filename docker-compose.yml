@@ -36,14 +36,6 @@ services:
     entrypoint: "bash -c '/opt/app/wait-for-it.sh $${SERVER_WITH_PORT} -- java -jar /opt/app/app.jar'"
     depends_on:
       - teamh-server
-    volumes:
-      - ./cli/scripts/demo.txt:/opt/app/demo.txt
-      - ./cli/scripts/register.txt:/opt/app/register.txt
-      - ./cli/scripts/settled-payment.txt:/opt/app/settled-payment.txt
-      - ./cli/scripts/fidelity-payment.txt:/opt/app/fidelity-payment.txt
-      - ./cli/scripts/discount-payment.txt:/opt/app/discount-payment.txt
-      - ./cli/scripts/full-payment-scripts.txt:/opt/app/full-payment-scripts.txt
-      - ./cli/scripts/payment-errors.txt:/opt/app/payment-errors.txt
     stdin_open: true
     tty: true
 

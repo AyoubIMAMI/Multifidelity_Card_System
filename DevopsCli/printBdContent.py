@@ -2,11 +2,11 @@ import psycopg2
 
 # Définir les informations de connexion à la base de données
 conn = psycopg2.connect(
-    host="localhost",
+    host="134.59.213.138",
     database="tcf-db",
     user="postgresuser",
     password="postgrespass",
-    port=5432
+    port=8003
 )
 
 # Ouvrir un curseur
