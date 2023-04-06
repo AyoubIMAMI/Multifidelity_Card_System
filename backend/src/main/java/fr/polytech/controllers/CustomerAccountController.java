@@ -46,10 +46,9 @@ public class CustomerAccountController {
         return ResponseEntity.ok().body("Transaction ok! At: " + refillTime.toString() + ". Transaction amount: " + transaction.getAmount());
     }
 
-    @PostMapping(path = "/plate")
-    public ResponseEntity<String> setLicensePlate(@PathVariable("customerId") Long customerId, String licensePlate) throws CustomerNotFoundException, NegativeAmountException, PaymentInBankException {
+    @PostMapping(path = "/plate/{customerId}")
+    public ResponseEntity<String> setLicensePlate(@PathVariable("customerId") Long customerId, @RequestBody String licensePlate) throws CustomerNotFoundException {
         Customer customer=customerRegistration.registerNewPlate(customerId,licensePlate);
-
         return ResponseEntity.ok().body("New license plates saved: "+customer.getFidelityAccount().getLicencePlate());
     }
 
