@@ -19,6 +19,6 @@ docker image rm teamh-bank
 build_dir "bank"
 
 docker image rm i_saw_where_you_parked_last_summer
-build_dir "i_saw_where_you_parked_last_summer"
+build_dir "iSawWhereYouParkedLastSummer"
 
 echo "** Done all"
