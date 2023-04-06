@@ -65,7 +65,7 @@ printTable(customerTable_expected)
 organisationTable_expected = [('Store', 3, 'Fast Market', 'yTrEA', '123456789'),('Store', 4, "Vente'2000", 'AzErTy', '987654321')]
 printTable(organisationTable_expected)
 
-paymentTable_expected = [(5, 30.0, True, 1, 4),(6, 25.0, True, 2, 3),(7, 2.0, True, 2, 3)]
+paymentTable_expected = [.0, True, 2, 3)] not equals to [(7, 30.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 245000), 1, 4), (10, 25.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 602000), 2, 3), (13, 2.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 789000), 2, 3)]
 printTable(paymentTable_expected)
 
 
