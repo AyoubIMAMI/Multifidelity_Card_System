@@ -1,0 +1,3 @@
+print "*** Fait un payment"
+add-product 1 T-shirt 3 20
+settled-payment 1 3

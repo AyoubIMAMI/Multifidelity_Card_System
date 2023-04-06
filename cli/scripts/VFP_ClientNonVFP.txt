@@ -1,0 +1,14 @@
+script VFP_register.txt
+print "*** Le client va effectué 9 paiement"
+script VFP_payment.txt
+script VFP_payment.txt
+script VFP_payment.txt
+script VFP_payment.txt
+script VFP_payment.txt
+script VFP_payment.txt
+script VFP_payment.txt
+script VFP_payment.txt
+script VFP_payment.txt
+
+print "*** Il n'est donc pas vfp mais il va essayer d'utiliser l'avantage"
+use-parking-advantage 1 2 98
