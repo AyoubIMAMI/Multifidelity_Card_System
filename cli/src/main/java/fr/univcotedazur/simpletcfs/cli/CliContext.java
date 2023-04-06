@@ -15,6 +15,7 @@ public class CliContext {
     private Map<Long, CliCustomer> customers;
     private Map<Long, CliDiscount> discounts;
     private Map<Long, CliAdvantage> advantages;
+    private Map<Long, String> licensePlates;
     private Map<Long, CliPayment> payments;
     private Map<Long, CliStore> stores;
     private Set<CliItem> cart;
@@ -28,6 +29,7 @@ public class CliContext {
     public Map<Long, CliAdvantage> getAdvantages() {
         return advantages;
     }
+    public Map<Long, String> getLicensePlates() {return licensePlates;}
     public Map<Long, CliPayment> getPayments() {
         return payments;
     }
@@ -42,6 +44,7 @@ public class CliContext {
         customers = new HashMap<>();
         discounts = new HashMap<>();
         advantages = new HashMap<>();
+        licensePlates = new HashMap<>();
         payments = new HashMap<>();
         stores = new HashMap<>();
         cart = new HashSet<>();
@@ -61,6 +64,10 @@ public class CliContext {
                 .map(key -> key + "=" + advantages.get(key))
                 .collect(Collectors.joining(", ", "{", "}"));
 
+        String licensePlatesString = "License plates" + licensePlates.keySet().stream()
+                .map(key -> key + "=" + licensePlates.get(key))
+                .collect(Collectors.joining(", ", "{", "}"));
+
         String paymentsString = "Payments" + payments.keySet().stream()
                 .map(key -> key + "=" + payments.get(key))
                 .collect(Collectors.joining(", ", "{", "}"));
@@ -69,13 +76,15 @@ public class CliContext {
                 .map(key -> key + "=" + stores.get(key))
                 .collect(Collectors.joining(", ", "{", "}"));
 
-        return customersString + "\n" + discountsString + "\n" + paymentsString + "\n" + storesString;
+        return customersString + "\n" + discountsString + "\n" + advantagesString + "\n" + licensePlatesString + "\n"
+                + paymentsString + "\n" + storesString;
     }
 
     public void clearAll() {
         customers.clear();
         discounts.clear();
         advantages.clear();
+        licensePlates.clear();
         payments.clear();
         stores.clear();
         cart.clear();
