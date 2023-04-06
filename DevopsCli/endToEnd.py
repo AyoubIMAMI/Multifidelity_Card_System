@@ -51,7 +51,7 @@ print("out= ",output.decode())
 time.sleep(8)
 
 def assertEquals(expected, actual):
-    if(str(expected) != str(actual)):
+    if(expected != str(actual)):
         print(str(expected)+" not equals to "+str(actual))
         exit(-1)
 
