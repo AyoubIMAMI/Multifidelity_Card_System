@@ -64,7 +64,7 @@ printTable(organisationTable_expected)
 paymentTable_expected = "[(7, 30.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 245000), 1, 4), (10, 25.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 602000), 2, 3), (13, 2.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 789000), 2, 3)]"
 printTable(paymentTable_expected)
 
-
+#virgule
 customerTable = getTable("customer")
 printTable(customerTable)
 
