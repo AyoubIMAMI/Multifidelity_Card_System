@@ -8,7 +8,7 @@ services:
     environment:
       - BANK_WITH_PORT=bank-system:9090
       - POSTGRES_HOST=postgres:5432
-      - ISWYPLS_HIST=iswypls:8004
+      - ISWYPLS_HIST=iswypls:9191
     # waiting for postgres
     entrypoint: "bash -c '/opt/app/wait-for-it.sh $${POSTGRES_HOST} -- java -jar /opt/app/app.jar --bank.host.baseurl=http://$${BANK_WITH_PORT}'"
     depends_on:
@@ -50,5 +50,3 @@ services:
   i_saw_where_you_parked_last_summer:
     image: i_saw_where_you_parked_last_summer
     container_name: i_saw_where_you_parked_last_summer
-    ports:
-      - "8004:8004"
