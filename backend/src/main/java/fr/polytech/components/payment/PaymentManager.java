@@ -16,6 +16,8 @@ import fr.polytech.repository.ProductRepository;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,5 +109,15 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
                 if(!discountRepository.exists(Example.of(discount))) // Check if the discount is already in registry
                     discountRepository.save(discount);
             }
+    }
+
+    @Override
+    public List<Payment> findAllPayments() {
+        return paymentRepository.findAll();
+    }
+
+    @Override
+    public List<Payment> findAllByTransactionDateAfter(Date date) {
+        return paymentRepository.findAllByTransactionDateAfter(date);
     }
 }

@@ -28,4 +28,4 @@ clear-cart
 print "*** Ajout d'une Discount dans le cart"
 add-discount 1 11
 print "*** Payment d'une Discount sans avoir de points"
-settled-payment 14 15
+settled-payment 14 3
