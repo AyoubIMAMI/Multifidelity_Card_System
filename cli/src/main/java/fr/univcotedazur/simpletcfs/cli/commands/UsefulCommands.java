@@ -1,7 +1,6 @@
 package fr.univcotedazur.simpletcfs.cli.commands;
 
 import fr.univcotedazur.simpletcfs.cli.CliContext;
-import fr.univcotedazur.simpletcfs.cli.model.CliDiscount;
 import fr.univcotedazur.simpletcfs.cli.model.CliItem;
 import fr.univcotedazur.simpletcfs.cli.model.CliProduct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,15 +48,8 @@ public class UsefulCommands {
         return item;
     }
 
-    @ShellMethod("Add a Discount Item to cart (add-product QUANTITY PRODUCT_NAME STORE_ID POINT_PRICE")
-    public CliItem addDiscount(int quantity, String productName, Long storeId, int pointPrice) {
-        CliItem item = new CliItem(quantity, new CliDiscount(productName, storeId, pointPrice));
-        cliContext.getCart().add(item);
-        return item;
-    }
-
     @ShellMethod("Add a Discount Item to cart by Discount Id (add-discount-by-id QUANTITY DISCOUNT_ID")
-    public CliItem addDiscountById(int quantity, Long discountId) {
+    public CliItem addDiscount(int quantity, Long discountId) {
         CliItem item = new CliItem(quantity, cliContext.getDiscounts().get(discountId));
         cliContext.getCart().add(item);
         return item;
