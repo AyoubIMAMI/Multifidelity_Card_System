@@ -159,9 +159,9 @@ pipeline {
             }
             steps {
                 script {
-                    if( env.BRANCH_NAME != 'main'){
-                        def last_backend_version = sh(returnStdout: true, script: 'python3 artifactory_pull/backend_latest_version.py').split("\n")[1]
-                        def last_cli_version = sh(returnStdout: true, script: 'python3 artifactory_pull/cli_latest_version.py').split("\n")[1]
+                    def last_backend_version = sh(returnStdout: true, script: 'python3 artifactory_pull/backend_latest_version.py').split("\n")[1]
+                    def last_cli_version = sh(returnStdout: true, script: 'python3 artifactory_pull/cli_latest_version.py').split("\n")[1]
+                    if( env.BRANCH_NAME != 'main'){                
                         sh 'echo "last_backend_version = ${last_backend_version} and last_cli_version = ${last_cli_version}"'
                         sh './buildDockerImageRelease.sh ${last_backend_version} ${last_cli_version}'
                     }
