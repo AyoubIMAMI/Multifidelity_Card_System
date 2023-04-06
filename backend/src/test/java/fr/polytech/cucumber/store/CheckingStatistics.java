@@ -7,6 +7,7 @@ import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import fr.polytech.entities.item.Product;
+import fr.polytech.exceptions.IllegalDateException;
 import fr.polytech.repository.CustomerRepository;
 import fr.polytech.repository.DiscountRepository;
 import fr.polytech.repository.PaymentRepository;
@@ -19,8 +20,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -68,29 +70,45 @@ public class CheckingStatistics {
         customerRepository.save(new Customer(name, mail, password));
     }
 
-    @When("the customer {string} purchase {string} with {int} points in the store {string}")
-    public void theCustomerPurchaseWithPointsInTheStore(String customerName, String discountName, int point, String storeName) {
+    @When("the customer {string} purchase {string} with {int} points in the store {string} in {int}")
+    public void theCustomerPurchaseWithPointsInTheStore(String customerName, String discountName, int point, String storeName, int year) {
         Store store = storeRepository.findStoreByName(storeName).get();
         Customer customer = customerRepository.findCustomerByName(customerName).get();
+
         Set<Item> shoppingList = new HashSet<>();
         Discount discount = discountRepository.save(new Discount(discountName, store.getId(), point));
         shoppingList.add(new Item(1, discount));
-        paymentRepository.save(new Payment(customer, store, shoppingList));
+
+        Payment payment = new Payment(customer, store, shoppingList);
+        Calendar transactionDate = Calendar.getInstance();
+        transactionDate.set(Calendar.YEAR, year);
+        transactionDate.set(Calendar.MONTH, 0);
+        transactionDate.set(Calendar.DATE, 1);
+        payment.setTransactionDate(transactionDate.getTime());
+
+        paymentRepository.save(payment);
     }
 
-    @And("the customer {string} purchase {string} with {int} euros in the store {string}")
-    public void theCustomerPurchaseWithEurosInTheStore(String customerName, String productName, int cash, String storeName) {
+    @And("the customer {string} purchase {string} with {int} euros in the store {string} in {int}")
+    public void theCustomerPurchaseWithEurosInTheStore(String customerName, String productName, int cash, String storeName, int year) {
         Store store = storeRepository.findStoreByName(storeName).get();
         Customer customer = customerRepository.findCustomerByName(customerName).get();
         Set<Item> shoppingList = new HashSet<>();
         Product product = productRepository.save(new Product(productName, store.getId(), cash));
         shoppingList.add(new Item(1, product));
-        paymentRepository.save(new Payment(customer, store, shoppingList));
+
+        Payment payment = new Payment(customer, store, shoppingList);
+        Calendar transactionDate = Calendar.getInstance();
+        transactionDate.set(Calendar.YEAR, year);
+        transactionDate.set(Calendar.MONTH, 0);
+        transactionDate.set(Calendar.DATE, 1);
+        payment.setTransactionDate(transactionDate.getTime());
+
+        paymentRepository.save(payment);
     }
 
     @Then("the total point used was {int} since the beginning")
     public void theTotalPointUsedWasSinceTheBeginning(int usedPoints) {
-        
         assertEquals(usedPoints, statManager.getUsedPoints());
     }
 
@@ -99,4 +117,33 @@ public class CheckingStatistics {
         assertEquals(amount, statManager.getOperationCost());
     }
 
+    @Then("the total point used was {int} since {int}")
+    public void theTotalPointUsedWasSince(int points, int year) throws IllegalDateException {
+        Calendar thresholdDate = Calendar.getInstance();
+        thresholdDate.set(Calendar.YEAR, year);
+        thresholdDate.set(Calendar.MONTH, 0);
+        thresholdDate.set(Calendar.DATE, 1);
+
+        assertEquals(points, statManager.getUsedPoints(thresholdDate.getTime()));
+    }
+
+    @Then("the total cost of the operation is up to {double} euros since the {int}")
+    public void theTotalCostOfTheOperationIsUpToEurosSinceThe(double amount, int year) throws IllegalDateException {
+        Calendar thresholdDate = Calendar.getInstance();
+        thresholdDate.set(Calendar.YEAR, year);
+        thresholdDate.set(Calendar.MONTH, 0);
+        thresholdDate.set(Calendar.DATE, 1);
+
+        assertEquals(amount, statManager.getOperationCost(thresholdDate.getTime()));
+    }
+
+    @Then("the user can not query the total cost of the operation from {int} \\(IllegalDateException)")
+    public void theUserCanNotQueryTheTotalCostOfTheOperationFromIllegalDateException(int year) {
+        Calendar thresholdDate = Calendar.getInstance();
+        thresholdDate.set(Calendar.YEAR, year);
+        thresholdDate.set(Calendar.MONTH, 0);
+        thresholdDate.set(Calendar.DATE, 1);
+
+        assertThrows(IllegalDateException.class ,() -> statManager.getOperationCost(thresholdDate.getTime()));
+    }
 }
