@@ -1,22 +1,21 @@
 package fr.polytech.controllers;
 
 import fr.polytech.controllers.dto.ErrorDTO;
-import fr.polytech.exceptions.BadCredentialsException;
-import fr.polytech.exceptions.CustomerNotFoundException;
-import fr.polytech.exceptions.MailAlreadyUsedException;
+import fr.polytech.exceptions.*;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
 import fr.polytech.exceptions.payment.PaymentInBankException;
 import fr.polytech.exceptions.store.StoreNotFoundException;
+import fr.polytech.exceptions.store.StoreSiretAlreadyUsedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice(assignableTypes = {CustomerAccountController.class, CatalogController.class,
-        ClientPaymentController.class})
+        ClientPaymentController.class, PartnerStoreController.class})
 public class GlobalControllerAdvice {
 
     @ExceptionHandler({MailAlreadyUsedException.class})
@@ -51,7 +50,7 @@ public class GlobalControllerAdvice {
     public ErrorDTO handleExceptions(NegativeAmountException e) {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setError("Negative or zero amount!");
-        errorDTO.setDetails("You cannot process with a " + e.getAmount() + " amount. It must be positive...");
+        errorDTO.setDetails("You cannot process with a " + e.getAmount() + " amount or price. It must be positive...");
         return errorDTO;
     }
 
@@ -88,7 +87,7 @@ public class GlobalControllerAdvice {
     public ErrorDTO handleExceptions(StoreNotFoundException e) {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setError("Store not found!");
-        errorDTO.setDetails("The store with with id #" + e.getId() + "has not been found...");
+        errorDTO.setDetails("The store with with id #" + e.getId() + " has not been found...");
         return errorDTO;
     }
 
@@ -101,5 +100,31 @@ public class GlobalControllerAdvice {
         return errorDTO;
     }
 
+    @ExceptionHandler({StoreSiretAlreadyUsedException.class})
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorDTO handleExceptions(StoreSiretAlreadyUsedException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Siret already exists!");
+        errorDTO.setDetails(e.getSiret() + " has already been used to register to our multi-fidelity card service...");
+        return errorDTO;
+    }
+
+    @ExceptionHandler({IllegalDateException.class})
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorDTO handleExceptions(IllegalDateException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Illegal date!");
+        errorDTO.setDetails("The date " + e.getDate().toString() + "is past the today date...");
+        return errorDTO;
+    }
+
+    @ExceptionHandler({NotEnoughBalanceException.class})
+    @ResponseStatus(HttpStatus.PAYMENT_REQUIRED)
+    public ErrorDTO handleExceptions(NotEnoughBalanceException e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Not enough balance!");
+        errorDTO.setDetails(e.getAmount() + " is needed but balance is: " + e.getBalance());
+        return errorDTO;
+    }
 
 }

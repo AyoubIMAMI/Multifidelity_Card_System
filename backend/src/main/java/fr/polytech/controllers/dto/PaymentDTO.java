@@ -2,6 +2,7 @@ package fr.polytech.controllers.dto;
 
 import fr.polytech.entities.item.Item;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,11 +18,14 @@ public class PaymentDTO {
 
     private float amount;
 
-    public PaymentDTO(Long id, CustomerDTO customer, StoreDTO store, Set<Item> shoppingList, float amount) {
+    private Date transactionDate;
+
+    public PaymentDTO(Long id, CustomerDTO customer, StoreDTO store, Set<Item> shoppingList, Date transactionDate, float amount) {
         this.id = id;
         this.customer = customer;
         this.store = store;
         this.shoppingList = shoppingList;
+        this.transactionDate = transactionDate;
         this.amount = amount;
     }
 
@@ -39,6 +43,10 @@ public class PaymentDTO {
 
     public Set<Item> getShoppingList() {
         return shoppingList;
+    }
+
+    public Date getTransactionDate() {
+        return transactionDate;
     }
 
     public float getAmount() {
@@ -61,6 +69,9 @@ public class PaymentDTO {
         this.shoppingList = shoppingList;
     }
 
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
+    }
 
     public void setAmount(float amount) {
         this.amount = amount;

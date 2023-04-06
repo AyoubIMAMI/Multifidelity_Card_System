@@ -41,7 +41,7 @@ public class StoreManager implements StoreFinder, StoreRegistration{
     @Override
     public Store registerNewStore(String storeName, String storeSiret, String password) throws StoreSiretAlreadyUsedException {
         if(storeRepository.existsStoreBySiret(storeSiret))
-            throw new StoreSiretAlreadyUsedException();
+            throw new StoreSiretAlreadyUsedException(storeSiret);
         Store store = new Store(storeName, storeSiret, password);
         return storeRepository.save(store);
     }
