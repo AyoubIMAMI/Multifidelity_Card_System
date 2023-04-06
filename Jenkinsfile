@@ -37,6 +37,7 @@ pipeline {
                         sh 'docker stop server'
                         sh 'docker stop cli'
                         sh 'docker rm bank db server cli'
+                        sh 'docker image prune'
                     } catch (Exception e) {
                         echo "no container to close"
                     }
@@ -123,7 +124,7 @@ pipeline {
                 }
             }
         }
-        stage('Pull ltest artifacts'){
+        stage('Pull latest artifacts'){
             when { 
                 branch 'main'
                 expression { "${skipSteps}" == 'false' } 
@@ -131,7 +132,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'rmdir releases'
+                        sh 'rm -rf releases'
                     } catch (Exception e) {
                     echo "The directory doesn't exist"
                     }
@@ -159,22 +160,32 @@ pipeline {
             }
             steps {
                 script {
-                    directories.each { directory ->
+                    def last_backend_version = sh(returnStdout: true, script: 'python3 artifactory_pull/backend_latest_version.py').split("\n")[1]
+                    def last_cli_version = sh(returnStdout: true, script: 'python3 artifactory_pull/cli_latest_version.py').split("\n")[1]
+                    if( env.BRANCH_NAME == 'main'){     
+                        echo "Downloading cli (v${last_cli_version})"           
+                        echo "last_backend_version = ${last_backend_version} and last_cli_version = ${last_cli_version}"
+                        sh "cd"
+                    }
+                    else{
+                        directories.each { directory ->
                         stage ("Create $directory image") {
                             echo "$directory"
                             dir("./$directory") {
                                 echo 'Testing...'
-                                sh './build.sh'
+                                sh './build.sh '
+                                }
                             }
                         }
                     }
+                    
                 }
                 sh 'docker images'
             }
         }
         stage('Start containers') {            
             when { 
-                expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false'} 
+                expression { "${containerWork}" == 'true' && "${skipSteps}" == 'false' &&  env.BRANCH_NAME != 'main'} 
             }
             steps{
                 sh 'docker ps'
@@ -185,7 +196,7 @@ pipeline {
         }
         stage('Test end to end') {
             when { 
-                expression { "${endToEndAvailable}" == 'true' && "${skipSteps}" == 'false' } }
+                expression { "${endToEndAvailable}" == 'true' && "${skipSteps}" == 'false' &&  env.BRANCH_NAME != 'main'} }
             steps {
                 sh 'apt-get install -y socat'
                 sh 'apt install -y python3-pip'
