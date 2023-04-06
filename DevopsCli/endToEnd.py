@@ -20,10 +20,6 @@ def printTable(table):
     for row in table:
         print(row)
 
-def createTable(input):
-    for row in table:
-        print(row)
-
 def connect():
     global connection
     global cursor
@@ -59,10 +55,10 @@ def assertEquals(expected, actual):
         print(str(expected)+" not equals to "+str(actual))
         exit(-1)
 
-customerTable_expected = [(1, 'benoit@gmail.com', 0.0, False, None, 30, 'Benoit', 'benocub'),(2, 'thomas@gmail.com', 23.0, False, None, 15, 'Thomas', 'thobilou')]
+customerTable_expected = ["(1, 'benoit@gmail.com', 0.0, False, None, 30, 'Benoit', 'benocub'),(2, 'thomas@gmail.com', 23.0, False, None, 15, 'Thomas', 'thobilou')"]
 printTable(customerTable_expected)
 
-organisationTable_expected = [('Store', 3, 'Fast Market', 'yTrEA', '123456789'),('Store', 4, "Vente'2000", 'AzErTy', '987654321')]
+organisationTable_expected = ["('Store', 3, 'Fast Market', 'yTrEA', '123456789'),('Store', 4, \"Vente'2000\", 'AzErTy', '987654321')"]
 printTable(organisationTable_expected)
 
 paymentTable_expected = ["(7, 30.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 245000), 1, 4), (10, 25.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 602000), 2, 3), (13, 2.0, datetime.datetime(2023, 4, 6, 2, 59, 44, 789000), 2, 3)"]
