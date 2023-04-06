@@ -1,6 +1,7 @@
 package fr.univcotedazur.simpletcfs.cli.commands;
 
 import fr.univcotedazur.simpletcfs.cli.CliContext;
+import fr.univcotedazur.simpletcfs.cli.model.CliAdvantage;
 import fr.univcotedazur.simpletcfs.cli.model.CliDiscount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -17,6 +18,7 @@ public class CatalogCommands {
     public static final String BASE_URI = "/catalog";
     public static final String DISCOUNTS_URI = "/discounts";
     public static final String STORE_URI = "/store";
+    public static final String ADVANTAGE_URI = "/advantage";
 
     @Autowired
     RestTemplate restTemplate;
@@ -70,4 +72,31 @@ public class CatalogCommands {
         cliContext.getDiscounts().remove(discount.getId());
         return res;
     }
+
+    @ShellMethod("Create an advantage (create-advantage NAME)")
+    public CliAdvantage createAdvantage(String name) {
+        System.out.println("Name before asking backend: " + name);
+        CliAdvantage result = restTemplate.postForObject(BASE_URI + ADVANTAGE_URI, name, CliAdvantage.class);
+        System.out.println("Name after asking backend: " + result.toString());
+        cliContext.getAdvantages().put(result.getId(), result);
+        return result;
+    }
+
+    @ShellMethod("Delete an advantage in the backend (delete-advantage ADVANTAGE_ID)")
+    public String deleteAdvantage(Long advantageId) {
+        CliAdvantage advantage = getAdvantageById(advantageId);
+        HttpEntity<CliAdvantage> entity = new HttpEntity<CliAdvantage>(advantage);
+            String result = restTemplate.exchange(BASE_URI + ADVANTAGE_URI + "/" + advantageId, HttpMethod.DELETE, entity, String.class).getBody();
+        cliContext.getAdvantages().remove(advantage.getId());
+        return result;
+    }
+
+    @ShellMethod("Get an advantage from the catalog of the backend with its id (get-advantage-by-id ADVANTAGE_ID)")
+    public CliAdvantage getAdvantageById(Long advantageId) {
+        CliAdvantage result = restTemplate.getForObject(BASE_URI + ADVANTAGE_URI + "/" + advantageId, CliAdvantage.class);
+        cliContext.getAdvantages().put(result.getId(), result);
+        return result;
+    }
+
+
 }

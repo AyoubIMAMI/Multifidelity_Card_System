@@ -39,6 +39,16 @@ public class CustomerManager implements CustomerRegistration, CustomerFinder, Cu
     }
 
     @Override
+    public Customer registerNewPlate(Long customerID, String licensePlate) throws CustomerNotFoundException {
+        Optional<Customer> customer= customerRepository.findById(customerID);
+        if (customer.isEmpty()) throw new CustomerNotFoundException();
+        else{
+            customer.get().getFidelityAccount().setLicencePlate(licensePlate);
+            return(customerRepository.save(customer.get()));
+        }
+    }
+
+    @Override
     public Customer findCustomerById(Long id) throws CustomerNotFoundException {
         Optional<Customer> customer= customerRepository.findById(id);
         if (customer.isEmpty()) throw new CustomerNotFoundException(id);

@@ -14,4 +14,5 @@ public interface DiscountExplorer {
     List<Discount> findDiscountsByStore(Long storeId) throws DiscountNotFoundException;
 
     List<Discount> findAllDiscounts() throws NoDiscountsFoundException ;
+
 }

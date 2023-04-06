@@ -1,5 +1,4 @@
 clear
-clear-ctx
 print "!=== SCRIPT TEST ERREURS ==="
 print "*** Creation de 2 Customer avec le meme email"
 register-customer Emile emile@gmail.com milou
@@ -27,6 +26,6 @@ print "*** Payement avec une carte de fidelite qui n'a que 10 euros de solde"
 fidelity-payment 14 15
 clear-cart
 print "*** Ajout d'une Discount dans le cart"
-add-discount 1 Cafe 15 5
+add-discount 1 11
 print "*** Payment d'une Discount sans avoir de points"
 settled-payment 14 15

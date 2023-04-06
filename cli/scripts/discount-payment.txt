@@ -1,5 +1,6 @@
 print "*** Ajout d'Item Discount et Product dans le cart"
-add-discount 1 Cafe 3 12
+create-discount Cafe 3 12
+add-discount 1 11
 add-product 1 Crayon 3 2
 cart
 print "*** Payement par Customer 2 au Store 3 avec la carte de fidelite (et ses points)"

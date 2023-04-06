@@ -18,10 +18,19 @@ export class AppService {
   }
 
   refill(paymentDto: PaymentDto): PaymentDto {
+    console.log(
+      "Received request: {creditCard='" +
+        paymentDto.creditCard +
+        "', amount=" +
+        paymentDto.amount +
+        '}',
+    );
     if (paymentDto.creditCard.includes(AppService.magicKey)) {
       this.transactions.push(paymentDto);
+      console.log('OK for payment, sending back:' + paymentDto.amount);
       return paymentDto;
     } else {
+      console.log('*NOK* for payment, sending back: 0');
       throw new PaymentRejectedException(paymentDto.amount);
     }
   }
