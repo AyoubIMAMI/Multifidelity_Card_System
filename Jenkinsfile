@@ -197,8 +197,12 @@ pipeline {
                 
             }
         }
-        stage ("Deploy artifacts") {
-            if(env.BRANCH_NAME == 'Develop'){
+        stage('Deploy artifacts') {
+            when { 
+                branch 'Develop'
+                expression { "${skipSteps}" == 'false' } 
+            }
+            steps {
                 echo "backend"
                 dir("./backend") {
                     echo 'Deploying...'
@@ -208,8 +212,8 @@ pipeline {
                 dir("./cli") {
                     echo 'Deploying...'
                     sh 'mvn deploy'
-                }
-            }                                
+                }   
+            }
         }
         stage('Export images on DockerHub (main)') {
             when { 

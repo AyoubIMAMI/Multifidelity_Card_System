@@ -30,10 +30,8 @@ public class StoreManager implements StoreFinder, StoreRegistration{
     }
     @Override
     public Store findStoreByID(Long storeID) throws StoreNotFoundException {
-        System.out.println("On cherche le store avec l'id : " + storeID);
         Optional<Store> store = storeRepository.findStoreById(storeID);
         if (store.isEmpty()) {
-            System.out.println("Aucun store trouvé");
             throw new StoreNotFoundException(storeID);
         }
         return store.get();
