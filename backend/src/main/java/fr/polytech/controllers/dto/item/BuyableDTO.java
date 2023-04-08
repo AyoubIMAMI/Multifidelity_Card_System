@@ -3,7 +3,6 @@ package fr.polytech.controllers.dto.item;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -16,14 +15,8 @@ import java.util.Objects;
         @JsonSubTypes.Type(value = ProductDTO.class, name = "product"),
         @JsonSubTypes.Type(value = DiscountDTO.class, name = "discount")
 })
-
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "buyable_type")
 public abstract class BuyableDTO {
 
-    @Id
-    @GeneratedValue()
     private Long id;
 
     @NotBlank(message = "name should not be blank")

@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.polytech.exceptions.IllegalDateException;
 import fr.polytech.interfaces.store.StatsExplorer;
-import fr.polytech.repository.PaymentRepository;
 
 @Component
 @Transactional

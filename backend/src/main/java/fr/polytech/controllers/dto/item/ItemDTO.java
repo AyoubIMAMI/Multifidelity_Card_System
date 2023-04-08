@@ -1,17 +1,13 @@
 package fr.polytech.controllers.dto.item;
 
-import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
-@Embeddable
 public class ItemDTO {
 
     @NotNull(message = "quantity should not be null")
     private int quantity;
 
-    @ManyToOne
     private BuyableDTO buyableDTO;
 
     public ItemDTO(int quantity, BuyableDTO buyableDTO) {
@@ -22,7 +18,6 @@ public class ItemDTO {
     public ItemDTO() {
 
     }
-
 
     public int getQuantity() {
         return quantity;
