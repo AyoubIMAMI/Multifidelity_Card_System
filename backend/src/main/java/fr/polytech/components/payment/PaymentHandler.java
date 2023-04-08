@@ -50,7 +50,7 @@ public class PaymentHandler implements IPayment {
         Store store = storeFinder.findStoreByID(storeId);
         shoppingList.forEach(item -> item.getBuyable().setStore(store));
         checkDiscountAndPayWithPointPurchase(customer, shoppingList,storeId);
-        customer = fidelityCardPurchase.buyWithFidelityCard(customer, store, shoppingList);
+        customer = fidelityCardPurchase.buyWithFidelityCard(customer, shoppingList);
         return sendToSettledPayment(customer, store, shoppingList);
     }
 
