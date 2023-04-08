@@ -1,9 +1,7 @@
 package fr.polytech.entities;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Entity
 public class CustomerAdvantage {
@@ -11,17 +9,16 @@ public class CustomerAdvantage {
     @Id
     @GeneratedValue
     private Long id;
-
-    private Long consumerID;
+    @OneToOne(optional = true)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    private Customer customer;
 
     @ElementCollection
-    @MapKeyJoinColumn(name = "advantage_id")
-    @Temporal(TemporalType.DATE)
-    @Column(name = "consumed_date")
-    private Map<Long, Date> consumedAdvantage;
+    private List<AdvantageCustomer> advantageCustomerList;
 
-    public CustomerAdvantage(Long id){
-        this.consumerID=id;
+    public CustomerAdvantage(Customer customer){
+        this.advantageCustomerList=new ArrayList<>();
+        this.customer=customer;
     }
 
     public CustomerAdvantage() {
@@ -35,13 +32,21 @@ public class CustomerAdvantage {
         return id;
     }
 
-    public void setUpAdvantage(Long advantageID){
-        consumedAdvantage.put(advantageID,new Date());
+    public void setUpAdvantage(Advantage advantageToVerify){
+        for (AdvantageCustomer advantage:advantageCustomerList){
+            if (advantage.getAdvantage().equals(advantageToVerify)){
+                advantage.setLastConsumedDate(new Date());
+                return;
+            }
+        }
+        advantageCustomerList.add(new AdvantageCustomer(advantageToVerify,new Date()));
     }
 
-    public Optional<Date> getAdvantageDate(Long advantageID){
-        if (!consumedAdvantage.containsKey(advantageID))
-            return Optional.empty();
-        return Optional.of(consumedAdvantage.get(advantageID));
+    public Optional<Date> getAdvantageDate(Advantage advantageToVerify){
+        for (AdvantageCustomer advantage:advantageCustomerList){
+            if (advantage.getAdvantage().equals(advantageToVerify))
+                return Optional.of(advantage.getLastConsumedDate());
+        }
+        return Optional.empty();
     }
 }

@@ -27,6 +27,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -53,8 +56,14 @@ public class VFPDef {
 
     @Before
     public void setUp() throws Exception {
-        customerAdvantageRepository.deleteAll();
-        customerRepository.deleteAll();
+        List<Customer> customers = customerRepository.findAll();
+        for (Customer customer : customers) {
+            Optional<CustomerAdvantage> customerAdvantage = customerAdvantageRepository.findByCustomer(customer);
+            if (customerAdvantage.isPresent()) {
+                customerAdvantageRepository.delete(customerAdvantage.get());
+            }
+            customerRepository.delete(customer);
+        }
         exception=null;
         // Mocking the bank proxy
         when(parkingMock.getParkingPlace(any(ParkingTransactionDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
@@ -71,7 +80,7 @@ public class VFPDef {
     @And("a user with VFP account")
     public void aUserWithVFPAccount() {
         customer=customerRepository.save(customer);
-        customerAdvantageRepository.save(new CustomerAdvantage(customer.getId()));
+        customerAdvantageRepository.save(new CustomerAdvantage(customer));
     }
 
     @When("a user set his plate")
@@ -108,8 +117,8 @@ public class VFPDef {
 
     @And("the date is set in the database")
     public void theDateIsSetInTheDatabase() {
-        CustomerAdvantage customerAdvantage = customerAdvantageRepository.findByConsumerID(customer.getId()).get();
-        assertTrue(customerAdvantage.getAdvantageDate(advantageParking.getId()).isPresent());
+        CustomerAdvantage customerAdvantage = customerAdvantageRepository.findByCustomer(customer).get();
+        assertTrue(customerAdvantage.getAdvantageDate(advantageParking).isPresent());
     }
 
     @Then("it fails with NoAdvantageFoundException Exception")

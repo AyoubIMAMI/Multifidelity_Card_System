@@ -3,6 +3,7 @@ package fr.polytech.cucumber.payment;
 import fr.polytech.components.discount.DiscountManager;
 import fr.polytech.connectors.externaldto.BankTransactionDTO;
 import fr.polytech.entities.Customer;
+import fr.polytech.entities.CustomerAdvantage;
 import fr.polytech.entities.Payment;
 import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Discount;
@@ -20,6 +21,7 @@ import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.Bank;
 import fr.polytech.interfaces.payment.IPayment;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
+import fr.polytech.repository.CustomerAdvantageRepository;
 import fr.polytech.repository.CustomerRepository;
 import fr.polytech.repository.PaymentRepository;
 import fr.polytech.repository.StoreRepository;
@@ -32,10 +34,7 @@ import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -64,11 +63,20 @@ public class PaymentDef {
     PointModifier pointModifier;
     @Autowired
     DiscountManager discountManager;
+    @Autowired
+    CustomerAdvantageRepository customerAdvantageRepository;
 
     @Before
     public void aWorkingBank() throws Exception {
-        customerRepository.deleteAll();
-        // Mocking the bank proxy
+        List<Customer> customers = customerRepository.findAll();
+        for (Customer customer : customers) {
+            Optional<CustomerAdvantage> customerAdvantage = customerAdvantageRepository.findByCustomer(customer);
+            if (customerAdvantage.isPresent()) {
+                customerAdvantageRepository.delete(customerAdvantage.get());
+            }
+            customerRepository.delete(customer);
+        }
+
         when(bankMock.refill(any(BankTransactionDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
             return true;
         });
@@ -78,7 +86,14 @@ public class PaymentDef {
 
     @Given("a user")
     public void aUser() {
-        customerRepository.deleteAll();
+        List<Customer> customers = customerRepository.findAll();
+        for (Customer customer : customers) {
+            Optional<CustomerAdvantage> customerAdvantage = customerAdvantageRepository.findByCustomer(customer);
+            if (customerAdvantage.isPresent()) {
+                customerAdvantageRepository.delete(customerAdvantage.get());
+            }
+            customerRepository.delete(customer);
+        }
         String name = "Pierre";
         String mail = "pierre@mail.com";
         String password = "myPassword";

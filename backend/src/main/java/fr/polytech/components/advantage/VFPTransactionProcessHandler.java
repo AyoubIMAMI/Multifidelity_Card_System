@@ -1,6 +1,7 @@
 package fr.polytech.components.advantage;
 
 import fr.polytech.connectors.externaldto.ParkingTransactionDTO;
+import fr.polytech.entities.Customer;
 import fr.polytech.entities.CustomerAdvantage;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.ParkingUnavailableException;
@@ -37,20 +38,20 @@ public class VFPTransactionProcessHandler implements VFPTransaction {
         tryUseAdvantage(userID, advantageID);
         if (!parking.getParkingPlace(new ParkingTransactionDTO(this.customerFinder.findCustomerById(userID).getFidelityAccount().getLicencePlate(),parkingID)))
             throw new ParkingUnavailableException(parkingID);
-        advantageCustomer.consumeAdvantage(advantageCustomer.findCustomerAdvantageAccount(userID).get(),advantageID);
+        advantageCustomer.consumeAdvantage(advantageCustomer.findCustomerAdvantageAccount(this.customerFinder.findCustomerById(userID)).get(),advantageExplorer.VerifyAdvantage(advantageID).get());
     }
     @Override
     public void tryUseAdvantage(Long userID, Long advantageID) throws CustomerNotFoundException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException {
-        this.customerFinder.findCustomerById(userID);
+        Customer customer=this.customerFinder.findCustomerById(userID);
         Optional<Advantage> advantageOptional = advantageExplorer.VerifyAdvantage(advantageID);
         if (advantageOptional.isEmpty())
             throw new NoAdvantageFoundException(advantageID);
-        Optional< CustomerAdvantage> customerAdvantageOptional=advantageCustomer.findCustomerAdvantageAccount(userID);
+        Optional< CustomerAdvantage> customerAdvantageOptional=advantageCustomer.findCustomerAdvantageAccount(customer);
         if (customerAdvantageOptional.isEmpty())
             throw new VFPNotFoundException(userID);
         else if(advantageOptional.get().getAdvantageName().equals("parking")) {
             return ;
         }
-        advantageCustomer.consumeAdvantage(customerAdvantageOptional.get(),advantageID);
+        advantageCustomer.consumeAdvantage(customerAdvantageOptional.get(),advantageOptional.get());
     }
 }

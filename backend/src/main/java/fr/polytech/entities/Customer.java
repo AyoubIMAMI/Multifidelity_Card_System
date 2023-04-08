@@ -14,6 +14,9 @@ public class Customer {
     private String password;
     private String email;
 
+    @OneToOne(mappedBy = "customer", optional = true)
+    private CustomerAdvantage customerAdvantage;
+
     @Embedded
     private FidelityAccount fidelityAccount = new FidelityAccount();
 

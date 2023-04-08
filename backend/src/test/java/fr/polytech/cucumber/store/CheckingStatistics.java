@@ -2,17 +2,14 @@ package fr.polytech.cucumber.store;
 
 import fr.polytech.components.store.StatManager;
 import fr.polytech.entities.Customer;
+import fr.polytech.entities.CustomerAdvantage;
 import fr.polytech.entities.Payment;
 import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import fr.polytech.entities.item.Product;
 import fr.polytech.exceptions.IllegalDateException;
-import fr.polytech.repository.CustomerRepository;
-import fr.polytech.repository.DiscountRepository;
-import fr.polytech.repository.PaymentRepository;
-import fr.polytech.repository.ProductRepository;
-import fr.polytech.repository.StoreRepository;
+import fr.polytech.repository.*;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -22,9 +19,7 @@ import io.cucumber.java.en.When;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -52,10 +47,20 @@ public class CheckingStatistics {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CustomerAdvantageRepository customerAdvantageRepository;
+
     @Before
     public void init() {
         storeRepository.deleteAll();
-        customerRepository.deleteAll();
+        List<Customer> customers = customerRepository.findAll();
+        for (Customer customer : customers) {
+            Optional<CustomerAdvantage> customerAdvantage = customerAdvantageRepository.findByCustomer(customer);
+            if (customerAdvantage.isPresent()) {
+                customerAdvantageRepository.delete(customerAdvantage.get());
+            }
+            customerRepository.delete(customer);
+        }
         paymentRepository.deleteAll();
         discountRepository.deleteAll();
     }

@@ -1,8 +1,10 @@
 package fr.polytech.components.customer;
 
+import fr.polytech.entities.CustomerAdvantage;
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.interfaces.customer.CustomerRegistration;
 import fr.polytech.entities.Customer;
+import fr.polytech.repository.CustomerAdvantageRepository;
 import fr.polytech.repository.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,8 @@ public class CustomerManagerTest {
 
     @Autowired
     private CustomerRegistration customerRegistration;
+    @Autowired
+    private CustomerAdvantageRepository customerAdvantageRepository;
 
     private String name;
     private String mail;
@@ -30,7 +34,14 @@ public class CustomerManagerTest {
 
     @BeforeEach
     void setUp() {
-        customerRepository.deleteAll();
+        List<Customer> customers = customerRepository.findAll();
+        for (Customer customer : customers) {
+            Optional<CustomerAdvantage> customerAdvantage = customerAdvantageRepository.findByCustomer(customer);
+            if (customerAdvantage.isPresent()) {
+                customerAdvantageRepository.delete(customerAdvantage.get());
+            }
+            customerRepository.delete(customer);
+        }
         name = "Pierre";
         mail = "pierre@mail.com";
         password = "myPassword";

@@ -1,5 +1,6 @@
 package fr.polytech.components.advantage;
 
+import fr.polytech.entities.Advantage;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.CustomerAdvantage;
 import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
@@ -28,24 +29,24 @@ public class VFPAdvantageManager implements AdvantageCustomer {
     }
     @Override
     public CustomerAdvantage addCustomerToProgramVFP(Customer consumer) {
-        return customerAdvantageRepository.save(new CustomerAdvantage(consumer.getId()));
+        return customerAdvantageRepository.save(new CustomerAdvantage(consumer));
     }
 
     @Override
-    public void consumeAdvantage(CustomerAdvantage customerAdvantage, Long advantageID) throws NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException {
-        Optional<Date> date = customerAdvantage.getAdvantageDate(advantageID);
+    public void consumeAdvantage(CustomerAdvantage customerAdvantage, Advantage advantage) throws NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException {
+        Optional<Date> date = customerAdvantage.getAdvantageDate(advantage);
         if (date.isEmpty()||!isSameDay(date.get(),new Date()))
         {
-            customerAdvantage.setUpAdvantage(advantageID);
+            customerAdvantage.setUpAdvantage(advantage);
             customerAdvantageRepository.save(customerAdvantage);
         }
         else
-            throw new AdvantageAlreadyConsumedException(advantageID);
+            throw new AdvantageAlreadyConsumedException(advantage.getId());
     }
 
     @Override
-    public Optional<CustomerAdvantage> findCustomerAdvantageAccount(Long customerID){
-        return(this.customerAdvantageRepository.findByConsumerID(customerID));
+    public Optional<CustomerAdvantage> findCustomerAdvantageAccount(Customer customer){
+        return(this.customerAdvantageRepository.findByCustomer(customer));
     }
 
 
