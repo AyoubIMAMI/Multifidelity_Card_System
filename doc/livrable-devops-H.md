@@ -225,35 +225,35 @@ Pour accéder à notre DockerHub il suffit de se rendre sur la page suivante:<br
 ## Explication de nos choix techniques
 
 #### Main
-***Pourquoi sur cette branche créons et déployons nous les Releases sur Artifactory ?***
+***Pourquoi sur cette branche créons et déployons nous les Releases sur Artifactory ?***<br>
 La branche main est une branche stable, tout ce qui arrive sur main a déjà été testé et validé plusieurs fois. On push donc sur main assez "rarament", chaque push sur main corespond à une nouvelle version complètement stable du projet. C'est donc pour ca que c'est le meilleur endroit pour créer une Release.
 
 
-***Pourquoi la pipeline ne refait pas tout les tests (unitaire, intégration et end-to-end) ?***
+***Pourquoi la pipeline ne refait pas tout les tests (unitaire, intégration et end-to-end) ?***<br>
 On ne developpe pas directement sur la branche main alors les seuls push qui existent sur cette branche ce sont les merges avec la branche develop. Cela signifie que tout le code présent sur main est parfaitement testé, c'est donc pour ca que nous avons choisit de ne pas relancer de tests.
 
 
-***Pourquoi pull les artefacts sur Artifactory pour créer les images Dockers ?***
+***Pourquoi pull les artefacts sur Artifactory pour créer les images Dockers ?***<br>
 Car une release représente une nouvelle version stable, il est donc cohérent de construire nos images avec les dernières release possible.
 
 
-***Pourquoi sur cette branche nous exportons les images dockers sur DockerHub ?***
+***Pourquoi sur cette branche nous exportons les images dockers sur DockerHub ?***<br>
 La branche main créé une nouvelle release à chaque build, nous crééons donc une nouvelle version des images docker tout simplement pour les stocker. Nous pourrions imaginer dans le cadre de la suite de note intégration continus, utiliser les images docker des Releases pour déployer automatiquement sur un serveur la dernière version de notre projet.
 En se basant sur cette idée nous avons fait le choix de pas construire d'image Docker des Snapshots car nous ne déploiront pas sur notre serveur une version non-stable de notre produit.
 
 
 #### Develop
-***Pourquoi sur cette branche créons et déployons nous les Snapshots sur Artifactory ?***
+***Pourquoi sur cette branche créons et déployons nous les Snapshots sur Artifactory ?***<br>
 La branche develop est une branche moins stable que la branche main mais plus à jour. Une Snapshot est une capture instantanée de l'état actuel d'un logiciel ou d'un système. La branche develop était donc la candidate idéale pour créer des Snapshots, car c'est sur cette branche qu'on intègre au reste du projet toutes les nouvelles fonctionnalités aboutis.
 
-***Pourquoi la pipeline refait tout les tests alors qu'ils sont censés tous être passés sur la branche précédente ?***
+***Pourquoi la pipeline refait tout les tests alors qu'ils sont censés tous être passés sur la branche précédente ?***<br>
 En effet tout les tests sont censé être passé sur la branche précédente. Cependant rien ne prouve que la nouvelle fonctionnalité ne va pas rentrer en conflit avec la version actuelle de develop. Il est donc important de garder des tests sur cette branche qui n'est pas stable car de nouvelle fonctionnalités arrivent régulièrement.
 
 
-***Pourquoi attendre d'avoir effectué les tests end-to-end pour déployer les jar sur Artifactory ?***
+***Pourquoi attendre d'avoir effectué les tests end-to-end pour déployer les jar sur Artifactory ?***<br>
 Même si les tests unitaires et d'intégrations sont passé avec succès, nous ne sommes jamais à l'abris que le tests end-to-end ne revèlent une nouvelle regression. C'est pour cette raison que l'on attend d'avoir effectué les tests end-to-end pour déployer les jar sur Artifactory
 
 
 #### Feature
-***Pourquoi sur cette branche on ne déploie pas de jar sur Artifactory ?***
+***Pourquoi sur cette branche on ne déploie pas de jar sur Artifactory ?***<br>
 Les branches features sont des branches non-stables, souvent en décallage avec le reste du projet il n'est pas pertinent de stocker ces versions.
