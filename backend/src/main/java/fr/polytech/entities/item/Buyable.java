@@ -2,6 +2,7 @@ package fr.polytech.entities.item;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import fr.polytech.entities.Store;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -29,16 +30,24 @@ public abstract class Buyable {
     @NotBlank(message = "name should not be blank")
     private String name;
 
-    @NotNull(message = "storeId should not be null")
-    private Long storeId;
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
 
-    public Buyable(String name, Long storeId) {
+    public Buyable(String name) {
         this.name = name;
-        this.storeId = storeId;
+    }
+    public Buyable(String name,Store store) {
+        this.name = name;
+        this.store=store;
     }
 
     public Buyable() {
 
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 
     public Long getId() {
@@ -57,25 +66,28 @@ public abstract class Buyable {
         this.name = name;
     }
 
-    public Long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Long storeId) {
-        this.storeId = storeId;
+    public Store getStore() {
+        return store;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Buyable buyable = (Buyable) o;
-        return Objects.equals(name, buyable.name) && Objects.equals(storeId, buyable.storeId);
+
+        if (!Objects.equals(id, buyable.id)) return false;
+        if (!Objects.equals(name, buyable.name)) return false;
+        return Objects.equals(store, buyable.store);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, storeId);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (store != null ? store.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -83,7 +95,7 @@ public abstract class Buyable {
         return "Buyable{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", storeId=" + storeId +
+                ", store=" + store +
                 '}';
     }
 }

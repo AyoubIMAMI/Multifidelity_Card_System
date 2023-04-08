@@ -97,7 +97,7 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
     private void saveNewProduct(Set<Item> items) {
         for(Item item : items)
             if(item.getBuyable() instanceof Product product){
-                Optional<Product> productOptional=productRepository.findByNameAndStoreIdAndCashPrice(product.getName(),product.getStoreId(),product.getCashPrice());
+                Optional<Product> productOptional=productRepository.findByNameAndStoreAndCashPrice(product.getName(),product.getStore(),product.getCashPrice());
                 if(productOptional.isEmpty()) // Check if the product is already in registry
                 {
                     item.setBuyable(productRepository.save(product));

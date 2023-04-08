@@ -14,7 +14,7 @@ public class Customer {
     private String password;
     private String email;
 
-    @OneToOne(mappedBy = "customer", optional = true)
+    @OneToOne(mappedBy = "customer", optional = true, cascade = CascadeType.REMOVE)
     private CustomerAdvantage customerAdvantage;
 
     @Embedded

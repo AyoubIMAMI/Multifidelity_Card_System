@@ -48,6 +48,7 @@ public class PaymentHandler implements IPayment {
     public Payment payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, NoDiscountsFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, StoreNotFoundException, OneDiscountDontExistException,NegativeAmountException {
         Customer customer = customerFinder.findCustomerById(customerId);
         Store store = storeFinder.findStoreByID(storeId);
+        shoppingList.forEach(item -> item.getBuyable().setStore(store));
         checkDiscountAndPayWithPointPurchase(customer, shoppingList,storeId);
         customer = fidelityCardPurchase.buyWithFidelityCard(customer, store, shoppingList);
         return sendToSettledPayment(customer, store, shoppingList);
@@ -59,6 +60,7 @@ public class PaymentHandler implements IPayment {
         System.out.println("Customer find : " + customer.getName());
         Store store = storeFinder.findStoreByID(storeId);
         System.out.println("Store find : " + store.getName());
+        shoppingList.forEach(item -> item.getBuyable().setStore(store));
         checkDiscountAndPayWithPointPurchase(customer, shoppingList, storeId);
         return sendToSettledPayment(customer, store, shoppingList);
     }
@@ -80,7 +82,7 @@ public class PaymentHandler implements IPayment {
                 } catch (DiscountNotFoundException e) {
                     throw new OneDiscountDontExistException();
                 }
-                if(!discount.getStoreId().equals(storeId)) throw new StoreNotFoundException();
+                if(!discount.getStore().getId().equals(storeId)) throw new StoreNotFoundException();
                 System.out.println("Discount trouvé");
                 pointPurchase.buyWithPoint(customer, shoppingList);
                 System.out.println("fin check discount");

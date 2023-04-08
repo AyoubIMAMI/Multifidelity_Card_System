@@ -1,11 +1,13 @@
 package fr.polytech.controllers;
 
+import fr.polytech.controllers.dto.item.DiscountDTO;
 import fr.polytech.entities.Advantage;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.advantage.AdvantageNotFoundException;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
+import fr.polytech.exceptions.store.StoreNotFoundException;
 import fr.polytech.interfaces.advantage.AdvantageExplorer;
 import fr.polytech.interfaces.advantage.AdvantageModifier;
 import fr.polytech.interfaces.discount.DiscountExplorer;
@@ -44,12 +46,12 @@ public class CatalogController {
     }
 
     @PostMapping(path = DISCOUNTS_URI, consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Discount> create(@RequestBody @Valid Discount discount) throws NegativeAmountException {
+    public ResponseEntity<Discount> create(@RequestBody @Valid DiscountDTO discountDTO) throws NegativeAmountException, StoreNotFoundException {
         return ResponseEntity.status(HttpStatus.CREATED)
                     .body(discountModifier.createDiscount(
-                            discount.getName(),
-                            discount.getStoreId(),
-                            discount.getPointPrice()));
+                            discountDTO.getName(),
+                            discountDTO.getStoreId(),
+                            discountDTO.getPointPrice()));
     }
 
     @GetMapping(path = DISCOUNTS_URI, produces = APPLICATION_JSON_VALUE)
@@ -82,7 +84,7 @@ public class CatalogController {
     }
 
     @GetMapping(path = DISCOUNTS_URI+STORE_URI, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Discount>> getDiscountsByStore(@PathVariable("storeId") Long storeId) throws DiscountNotFoundException {
+    public ResponseEntity<List<Discount>> getDiscountsByStore(@PathVariable("storeId") Long storeId) throws DiscountNotFoundException, StoreNotFoundException {
         return ResponseEntity.ok().body(discountExplorer.findDiscountsByStore(storeId));
     }
 

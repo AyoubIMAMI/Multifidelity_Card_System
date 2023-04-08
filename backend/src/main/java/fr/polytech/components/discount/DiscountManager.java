@@ -4,8 +4,10 @@ import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
+import fr.polytech.exceptions.store.StoreNotFoundException;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
+import fr.polytech.interfaces.store.StoreFinder;
 import fr.polytech.repository.DiscountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,8 @@ import java.util.Optional;
 public class DiscountManager implements DiscountModifier, DiscountExplorer {
 
     DiscountRepository discountRepository;
+    @Autowired
+    StoreFinder storeFinder;
 
     @Autowired
     public DiscountManager(DiscountRepository discountRepository) {
@@ -40,8 +44,8 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     }
 
     @Override
-    public List<Discount> findDiscountsByStore(Long storeId) throws DiscountNotFoundException {
-        List<Discount> discounts = discountRepository.findByStoreId(storeId);
+    public List<Discount> findDiscountsByStore(Long storeId) throws DiscountNotFoundException, StoreNotFoundException {
+        List<Discount> discounts = discountRepository.findByStore(storeFinder.findStoreByID(storeId));
         if(discounts.isEmpty()) {
             throw new DiscountNotFoundException(storeId);
         }
@@ -58,11 +62,11 @@ public class DiscountManager implements DiscountModifier, DiscountExplorer {
     }
 
     @Override
-    public Discount createDiscount(String name, Long storeId, int pointPrice) throws NegativeAmountException {
+    public Discount createDiscount(String name, Long storeId, int pointPrice) throws NegativeAmountException, StoreNotFoundException {
 
         if (pointPrice <= 0) throw new NegativeAmountException(pointPrice);
 
-        Discount discount = new Discount(name, storeId, pointPrice);
+        Discount discount = new Discount(name, storeFinder.findStoreByID(storeId), pointPrice);
         return discountRepository.save(discount);
     }
 

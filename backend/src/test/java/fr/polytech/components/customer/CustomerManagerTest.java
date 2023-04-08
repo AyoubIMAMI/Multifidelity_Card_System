@@ -34,14 +34,7 @@ public class CustomerManagerTest {
 
     @BeforeEach
     void setUp() {
-        List<Customer> customers = customerRepository.findAll();
-        for (Customer customer : customers) {
-            Optional<CustomerAdvantage> customerAdvantage = customerAdvantageRepository.findByCustomer(customer);
-            if (customerAdvantage.isPresent()) {
-                customerAdvantageRepository.delete(customerAdvantage.get());
-            }
-            customerRepository.delete(customer);
-        }
+        customerRepository.deleteAll();
         name = "Pierre";
         mail = "pierre@mail.com";
         password = "myPassword";

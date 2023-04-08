@@ -1,12 +1,15 @@
 package fr.polytech.components.discount;
 
+import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
+import fr.polytech.exceptions.store.StoreNotFoundException;
 import fr.polytech.interfaces.discount.DiscountExplorer;
 import fr.polytech.interfaces.discount.DiscountModifier;
 import fr.polytech.repository.DiscountRepository;
+import fr.polytech.repository.StoreRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -23,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class DiscountDTOManagerTest {
 
     private static final String PRODUCT_NAME = "Cake";
-    private static final Long STORE_ID = 1234567889L;
     private static final int CASH_PRICE = 10;
     private static final int POINT_PRICE = 7;
 
@@ -36,12 +38,18 @@ class DiscountDTOManagerTest {
     @Autowired
     private DiscountRepository discountRepository;
 
+    @Autowired
+    private StoreRepository storeRepository;
+
     Discount discount;
+
+    Store store;
 
     @BeforeEach
     void setUp() {
+        store = storeRepository.save(new Store("magasin","59845897458","leo124"));
         discountRepository.deleteAll();
-        discount = new Discount(PRODUCT_NAME, STORE_ID, POINT_PRICE);
+        discount = new Discount(PRODUCT_NAME, store, POINT_PRICE);
     }
 
     @Test
@@ -57,17 +65,17 @@ class DiscountDTOManagerTest {
     }
 
     @Test
-    void givenDiscountsFromDifferentStores_whenFindDiscountsByStore_thenShouldReturnsOnlyTheStoreDiscount() throws DiscountNotFoundException {
+    void givenDiscountsFromDifferentStores_whenFindDiscountsByStore_thenShouldReturnsOnlyTheStoreDiscount() throws DiscountNotFoundException, StoreNotFoundException {
         // Given
-        Long storeId = 456789L;
+        Store store = storeRepository.save(new Store("magasin","59845897458","leo124"));
 
-        Discount storeDiscount = new Discount("Candy", storeId, 2);
+        Discount storeDiscount = new Discount("Candy", store, 2);
 
         discountRepository.save(discount);
         discountRepository.save(storeDiscount);
 
         // When
-        Iterable<Discount> discountsFound = discountExplorer.findDiscountsByStore(storeId);
+        Iterable<Discount> discountsFound = discountExplorer.findDiscountsByStore(store.getId());
 
         // Then
         assertEquals(1, StreamSupport.stream(discountsFound.spliterator(), false).count());
@@ -77,7 +85,7 @@ class DiscountDTOManagerTest {
     @Test
     void whenFindDiscountsOfStoreWithoutDiscounts_thenShouldThrowsNoDiscountsFoundException() {
         // When
-        Executable find = () -> discountExplorer.findDiscountsByStore(1234L);
+        Executable find = () -> discountExplorer.findDiscountsByStore(store.getId());
 
         // Then
         assertThrows(DiscountNotFoundException.class, find);
@@ -88,7 +96,7 @@ class DiscountDTOManagerTest {
         // Given
         Long storeId = 987654321L;
 
-        Discount storeDiscount = new Discount("Candy", storeId, 2);
+        Discount storeDiscount = new Discount("Candy", store, 2);
 
         discountRepository.save(discount);
         discountRepository.save(storeDiscount);
@@ -113,12 +121,12 @@ class DiscountDTOManagerTest {
     }
 
     @Test
-    void givenAnEmptyRepo_whenCreateDiscount_thenDiscountShouldBeSavedInRepo() throws NegativeAmountException {
+    void givenAnEmptyRepo_whenCreateDiscount_thenDiscountShouldBeSavedInRepo() throws NegativeAmountException, StoreNotFoundException {
         // Given
         assertEquals(0, discountRepository.count());
 
         // When
-        discountModifier.createDiscount(PRODUCT_NAME, STORE_ID, POINT_PRICE);
+        discountModifier.createDiscount(PRODUCT_NAME, store.getId(), POINT_PRICE);
 
         // Then
         assertEquals(1, discountRepository.count());

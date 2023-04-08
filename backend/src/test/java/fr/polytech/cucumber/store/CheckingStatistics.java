@@ -51,18 +51,13 @@ public class CheckingStatistics {
     private CustomerAdvantageRepository customerAdvantageRepository;
 
     @Before
+    @Transactional
     public void init() {
+        List<Discount> discounts= discountRepository.findAll();
         storeRepository.deleteAll();
-        List<Customer> customers = customerRepository.findAll();
-        for (Customer customer : customers) {
-            Optional<CustomerAdvantage> customerAdvantage = customerAdvantageRepository.findByCustomer(customer);
-            if (customerAdvantage.isPresent()) {
-                customerAdvantageRepository.delete(customerAdvantage.get());
-            }
-            customerRepository.delete(customer);
-        }
+        customerRepository.deleteAll();
+        productRepository.deleteAll();
         paymentRepository.deleteAll();
-        discountRepository.deleteAll();
     }
 
     @Given("a store named {string} with Siret {string} and password {string}")
@@ -81,7 +76,7 @@ public class CheckingStatistics {
         Customer customer = customerRepository.findCustomerByName(customerName).get();
 
         Set<Item> shoppingList = new HashSet<>();
-        Discount discount = discountRepository.save(new Discount(discountName, store.getId(), point));
+        Discount discount = discountRepository.save(new Discount(discountName, store, point));
         shoppingList.add(new Item(1, discount));
 
         Payment payment = new Payment(customer, store, shoppingList);
@@ -99,7 +94,7 @@ public class CheckingStatistics {
         Store store = storeRepository.findStoreByName(storeName).get();
         Customer customer = customerRepository.findCustomerByName(customerName).get();
         Set<Item> shoppingList = new HashSet<>();
-        Product product = productRepository.save(new Product(productName, store.getId(), cash));
+        Product product = productRepository.save(new Product(productName, store, cash));
         shoppingList.add(new Item(1, product));
 
         Payment payment = new Payment(customer, store, shoppingList);

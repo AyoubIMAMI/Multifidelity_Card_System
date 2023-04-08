@@ -1,5 +1,7 @@
 package fr.polytech.entities.item;
 
+import fr.polytech.entities.Store;
+
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -8,10 +10,14 @@ import java.util.Objects;
 public class Discount extends Buyable {
 
     @NotNull(message = "point price should not be null")
-    private int pointPrice;
+    private Integer pointPrice;
 
-    public Discount(String name, Long storeId, int pointPrice) {
-        super(name, storeId);
+    public Discount(String name, int pointPrice) {
+        super(name);
+        this.pointPrice = pointPrice;
+    }
+    public Discount(String name, Store store, int pointPrice) {
+        super(name,store);
         this.pointPrice = pointPrice;
     }
 
@@ -51,7 +57,7 @@ public class Discount extends Buyable {
             sb.append(", ");
         }
         sb.append("name='").append(getName()).append('\'');
-        sb.append(", storeId=").append(getStoreId());
+        sb.append(", store=").append(getStore());
         sb.append(", pointPrice=").append(pointPrice);
         sb.append('}');
         return sb.toString();

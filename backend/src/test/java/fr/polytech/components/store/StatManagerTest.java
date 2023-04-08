@@ -72,14 +72,14 @@ public class StatManagerTest {
 
         // Setting up sets
         li1 = new HashSet<>();
-        li1.add(new Item(1, discountRepository.save(new Discount("Table trop cool", polyStore.getId(), 1000))));
-        li1.add(new Item(4, discountRepository.save(new Discount("Chaises du swag", polyStore.getId(), 200))));
-        li1.add(new Item(4, productRepository.save(new Product("Set de table", polyStore.getId(), 10))));
+        li1.add(new Item(1, discountRepository.save(new Discount("Table trop cool", polyStore, 1000))));
+        li1.add(new Item(4, discountRepository.save(new Discount("Chaises du swag", polyStore, 200))));
+        li1.add(new Item(4, productRepository.save(new Product("Set de table", polyStore, 10))));
 
         li2 = new HashSet<>();
-        li2.add(new Item(1, discountRepository.save(new Discount("Bandana jaune", polyGone.getId(), 50))));
-        li2.add(new Item(1, productRepository.save(new Product("Television 4k oled", polyGone.getId(), 1320))));
-        li2.add(new Item(1, discountRepository.save(new Discount("Table", polyGone.getId(), 500))));
+        li2.add(new Item(1, discountRepository.save(new Discount("Bandana jaune", polyGone, 50))));
+        li2.add(new Item(1, productRepository.save(new Product("Television 4k oled", polyGone, 1320))));
+        li2.add(new Item(1, discountRepository.save(new Discount("Table", polyGone, 500))));
     }
 
     @Test

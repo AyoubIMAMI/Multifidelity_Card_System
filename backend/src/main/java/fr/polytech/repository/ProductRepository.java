@@ -1,5 +1,6 @@
 package fr.polytech.repository;
 
+import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,5 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    Optional<Product> findByNameAndStoreIdAndCashPrice(String name,Long StoreId,double cashPrice);
+    Optional<Product> findByNameAndStoreAndCashPrice(String name, Store store, double cashPrice);
 }

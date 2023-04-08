@@ -21,10 +21,7 @@ import fr.polytech.interfaces.fidelity.PointModifier;
 import fr.polytech.interfaces.payment.Bank;
 import fr.polytech.interfaces.payment.IPayment;
 import fr.polytech.interfaces.payment.RefillFidelityCard;
-import fr.polytech.repository.CustomerAdvantageRepository;
-import fr.polytech.repository.CustomerRepository;
-import fr.polytech.repository.PaymentRepository;
-import fr.polytech.repository.StoreRepository;
+import fr.polytech.repository.*;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -65,17 +62,15 @@ public class PaymentDef {
     DiscountManager discountManager;
     @Autowired
     CustomerAdvantageRepository customerAdvantageRepository;
+    @Autowired
+    DiscountRepository discountRepository;
+    @Autowired
+    ProductRepository productRepository;
+
 
     @Before
     public void aWorkingBank() throws Exception {
-        List<Customer> customers = customerRepository.findAll();
-        for (Customer customer : customers) {
-            Optional<CustomerAdvantage> customerAdvantage = customerAdvantageRepository.findByCustomer(customer);
-            if (customerAdvantage.isPresent()) {
-                customerAdvantageRepository.delete(customerAdvantage.get());
-            }
-            customerRepository.delete(customer);
-        }
+        customerRepository.deleteAll();
 
         when(bankMock.refill(any(BankTransactionDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
             return true;
@@ -86,14 +81,9 @@ public class PaymentDef {
 
     @Given("a user")
     public void aUser() {
-        List<Customer> customers = customerRepository.findAll();
-        for (Customer customer : customers) {
-            Optional<CustomerAdvantage> customerAdvantage = customerAdvantageRepository.findByCustomer(customer);
-            if (customerAdvantage.isPresent()) {
-                customerAdvantageRepository.delete(customerAdvantage.get());
-            }
-            customerRepository.delete(customer);
-        }
+        customerRepository.deleteAll();
+        discountRepository.deleteAll();
+        productRepository.deleteAll();
         String name = "Pierre";
         String mail = "pierre@mail.com";
         String password = "myPassword";
@@ -136,11 +126,11 @@ public class PaymentDef {
 
     @When("he want to buy an item names {string}, it cost {int}, in quantity {int}")
     public void heWantToBuyAnItemNamesItCostInQuantity(String name, int price, int quantity) {
-        shoppingList.add(new Item(quantity,new Product(name, store.getId(), price)));
+        shoppingList.add(new Item(quantity,new Product(name, store, price)));
     }
 
     @When("he want to buy an discount names {string}, it cost {int} and {int} points, in quantity {int}")
-    public void heWantToBuyAnDiscountNamesItCostInQuantity(String name, int price, int points, int quantity) throws NegativeAmountException {
+    public void heWantToBuyAnDiscountNamesItCostInQuantity(String name, int price, int points, int quantity) throws NegativeAmountException, StoreNotFoundException {
         Discount discount = discountManager.createDiscount(name,store.getId(),points);
         shoppingList.add(new Item(quantity,discount));
     }

@@ -57,13 +57,7 @@ public class VFPDef {
     @Before
     public void setUp() throws Exception {
         List<Customer> customers = customerRepository.findAll();
-        for (Customer customer : customers) {
-            Optional<CustomerAdvantage> customerAdvantage = customerAdvantageRepository.findByCustomer(customer);
-            if (customerAdvantage.isPresent()) {
-                customerAdvantageRepository.delete(customerAdvantage.get());
-            }
-            customerRepository.delete(customer);
-        }
+        customerRepository.deleteAll();
         exception=null;
         // Mocking the bank proxy
         when(parkingMock.getParkingPlace(any(ParkingTransactionDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
