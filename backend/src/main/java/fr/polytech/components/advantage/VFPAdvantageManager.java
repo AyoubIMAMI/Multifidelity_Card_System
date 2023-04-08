@@ -19,12 +19,12 @@ import java.util.Optional;
 
 
 @Component
-public class VFPVFPVFPAdvantageManager implements VFPAdvantageModifier, VFPAdvantageFinder {
+public class VFPAdvantageManager implements VFPAdvantageModifier, VFPAdvantageFinder {
     CustomerAdvantageRepository customerAdvantageRepository;
 
     AdvantageExplorer advantageExplorer;
     @Autowired
-    public VFPVFPVFPAdvantageManager(CustomerAdvantageRepository customerAdvantageRepository, AdvantageExplorer advantageExplorer){
+    public VFPAdvantageManager(CustomerAdvantageRepository customerAdvantageRepository, AdvantageExplorer advantageExplorer){
         this.customerAdvantageRepository=customerAdvantageRepository;
         this.advantageExplorer=advantageExplorer;
     }

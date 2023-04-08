@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-class DiscountDTOManagerTest {
+class DiscountManagerTest {
 
     private static final String PRODUCT_NAME = "Cake";
     private static final int CASH_PRICE = 10;
