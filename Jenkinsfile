@@ -198,18 +198,20 @@ pipeline {
             }
         }
         stage ("Deploy artifacts") {
-            if(env.BRANCH_NAME == 'Develop'){
-                echo "backend"
-                dir("./backend") {
-                    echo 'Deploying...'
-                    sh 'mvn deploy'
-                }
-                echo "cli"
-                dir("./cli") {
-                    echo 'Deploying...'
-                    sh 'mvn deploy'
-                }
-            }                                
+            when { 
+                branch 'Develop'
+                expression { "${skipSteps}" == 'false' } 
+            }
+            echo "backend"
+            dir("./backend") {
+                echo 'Deploying...'
+                sh 'mvn deploy'
+            }
+            echo "cli"
+            dir("./cli") {
+                echo 'Deploying...'
+                sh 'mvn deploy'
+            }                                           
         }
         stage('Export images on DockerHub (main)') {
             when { 
