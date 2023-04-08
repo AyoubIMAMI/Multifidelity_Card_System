@@ -34,7 +34,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -71,7 +71,7 @@ public class PaymentDef {
     public void aWorkingBank() throws Exception {
         customerRepository.deleteAll();
 
-        when(bankMock.refill(any(BankTransactionDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
+        when(bankMock.refill(anyString(), anyDouble())).thenAnswer((Answer<Boolean>) invocation -> {
             return true;
         });
 
@@ -102,7 +102,7 @@ public class PaymentDef {
 
     @And("he has enough cash")
     public void heHasEnoughCash() throws NegativeAmountException, PaymentInBankException {
-        refillFidelityCard.refill(customer,new BankTransactionDTO("896983", 100));
+        refillFidelityCard.refill(customer,"896983", 100);
     }
 
     @And("he pay")
@@ -136,7 +136,7 @@ public class PaymentDef {
 
     @And("he has not enough cash")
     public void heHasNotEnoughCash() throws NegativeAmountException, PaymentInBankException {
-        refillFidelityCard.refill(customer,new BankTransactionDTO("896983", 1));
+        refillFidelityCard.refill(customer,"896983", 1);
     }
 
     @Then("the payment doesn't work")
@@ -156,7 +156,7 @@ public class PaymentDef {
     @When("the user refill his account with {int} with the credit-card {string}")
     public void theUserRefillHisAccountWith(int amount, String creditCard) throws PaymentInBankException {
         try{
-            refillFidelityCard.refill(customer, new BankTransactionDTO(creditCard, amount));
+            refillFidelityCard.refill(customer, creditCard, amount);
         }catch (NegativeAmountException e){
             catchedExeption = e;
         }

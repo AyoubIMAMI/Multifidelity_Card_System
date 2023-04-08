@@ -8,5 +8,5 @@ import fr.polytech.exceptions.payment.PaymentInBankException;
 import java.util.Date;
 
 public interface RefillFidelityCard {
-    Date refill(Customer customer, BankTransactionDTO transaction) throws NegativeAmountException, PaymentInBankException;
+    Date refill(Customer customer, String creditCard, double amount ) throws NegativeAmountException, PaymentInBankException;
 }

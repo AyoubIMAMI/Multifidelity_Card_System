@@ -7,5 +7,5 @@ import fr.polytech.exceptions.payment.NegativeAmountException;
 
 public interface BalanceModifier {
     Customer decreaseBalance(Customer customer, double amount) throws NotEnoughBalanceException;
-    Customer rechargeBalance(Customer customer, BankTransactionDTO transaction) throws NegativeAmountException;
+    Customer rechargeBalance(Customer customer, String creditCard, double amount) throws NegativeAmountException;
 }

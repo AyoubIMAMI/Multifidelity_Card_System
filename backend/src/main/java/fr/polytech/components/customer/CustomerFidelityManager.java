@@ -78,10 +78,10 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     }
 
     @Override
-    public Customer rechargeBalance(Customer customer, BankTransactionDTO bankTransactionDTO) {
+    public Customer rechargeBalance(Customer customer, String creditCard, double amount) {
         FidelityAccount fidelityAccount = customer.getFidelityAccount();
         double balance = fidelityAccount.getBalance();
-        fidelityAccount.setBalance(balance + bankTransactionDTO.getAmount());
+        fidelityAccount.setBalance(balance + amount);
         return customerRepository.save(customer);
     }
 }
