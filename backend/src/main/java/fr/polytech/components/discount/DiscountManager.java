@@ -21,11 +21,11 @@ import java.util.Optional;
 public class DiscountManager implements DiscountModifier, DiscountExplorer {
 
     DiscountRepository discountRepository;
-    @Autowired
     StoreFinder storeFinder;
 
     @Autowired
-    public DiscountManager(DiscountRepository discountRepository) {
+    public DiscountManager(DiscountRepository discountRepository,StoreFinder storeFinder) {
+        this.storeFinder=storeFinder;
         this.discountRepository = discountRepository;
     }
 

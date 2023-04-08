@@ -35,13 +35,12 @@ public class VFPTransactionProcessHandler implements VFPTransaction {
     }
     @Override
     public void tryUseParkingAdvantage(Long userID, Long advantageID, Long parkingID) throws CustomerNotFoundException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException, ParkingUnavailableException {
-        tryUseAdvantage(userID, advantageID);
+        useAnAdvantage(userID, advantageID);
         if (!parking.getParkingPlace(new ParkingTransactionDTO(this.customerFinder.findCustomerById(userID).getFidelityAccount().getLicencePlate(),parkingID)))
             throw new ParkingUnavailableException(parkingID);
         VFPAdvantageFinder.consumeAdvantage(VFPAdvantageFinder.findCustomerAdvantageAccount(this.customerFinder.findCustomerById(userID)).get(),advantageExplorer.VerifyAdvantage(advantageID).get());
     }
-    @Override
-    public void tryUseAdvantage(Long userID, Long advantageID) throws CustomerNotFoundException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException {
+    public void useAnAdvantage(Long userID, Long advantageID) throws CustomerNotFoundException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException {
         Customer customer=this.customerFinder.findCustomerById(userID);
         Optional<Advantage> advantageOptional = advantageExplorer.VerifyAdvantage(advantageID);
         if (advantageOptional.isEmpty())
@@ -49,9 +48,11 @@ public class VFPTransactionProcessHandler implements VFPTransaction {
         Optional<VFPAccount> customerAdvantageOptional= VFPAdvantageFinder.findCustomerAdvantageAccount(customer);
         if (customerAdvantageOptional.isEmpty())
             throw new VFPNotFoundException(userID);
-        else if(advantageOptional.get().getAdvantageName().equals("parking")) {
-            return ;
-        }
-        VFPAdvantageFinder.consumeAdvantage(customerAdvantageOptional.get(),advantageOptional.get());
     }
+    @Override
+    public void tryUseAdvantage(Long userID, Long advantageID) throws CustomerNotFoundException, NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException {
+        useAnAdvantage( userID,  advantageID);
+        VFPAdvantageFinder.consumeAdvantage(VFPAdvantageFinder.findCustomerAdvantageAccount(this.customerFinder.findCustomerById(userID)).get(),advantageExplorer.VerifyAdvantage(advantageID).get());
+    }
+
 }

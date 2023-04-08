@@ -17,7 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -43,28 +43,24 @@ public class RefillTest {
         mouradFidelityAccount = mourad.getFidelityAccount();
 
         // Mocking the bank proxy
-        when(bankMock.refill(any(BankTransactionDTO.class))).thenAnswer((Answer<Boolean>) invocation -> {
-            BankTransactionDTO arg = invocation.getArgument(0);
-            return correct_credit_card.equals(arg.getCreditCard());
+        when(bankMock.refill(anyString(), anyDouble())).thenAnswer((Answer<Boolean>) invocation -> {
+            return correct_credit_card.equals(invocation.getArgument(0));
         });
     }
 
     @Test
     public void okTransactionTestvMain() throws PaymentInBankException, NegativeAmountException {
-        BankTransactionDTO transaction = new BankTransactionDTO(correct_credit_card, 120);
-        Date transactionDate = refillFidelityCard.refill(john, transaction);
+        Date transactionDate = refillFidelityCard.refill(john, correct_credit_card, 120);
         assertNotNull(transactionDate);
     }
     @Test
     public void okTransactionTestvBranche() throws PaymentInBankException, NegativeAmountException {
-        // Creating a transaction
-        BankTransactionDTO transaction = new BankTransactionDTO(correct_credit_card, 120);
 
         // Verifying customer balance
         assertEquals(0, johnFidelityAccount.getBalance());
 
         // Making transaction
-        Date transactionDate = refillFidelityCard.refill(john, transaction);
+        Date transactionDate = refillFidelityCard.refill(john, correct_credit_card, 120);
 
         // Verifying if transaction is successful by checking transaction date
         assertNotNull(transactionDate);
@@ -75,7 +71,6 @@ public class RefillTest {
 
     @Test
     public void nokTransactionTest() {
-        BankTransactionDTO transaction = new BankTransactionDTO(bad_credit_card, 50);
-        assertThrows(PaymentInBankException.class,  () -> refillFidelityCard.refill(mourad, transaction));
+        assertThrows(PaymentInBankException.class,  () -> refillFidelityCard.refill(mourad, bad_credit_card, 50));
     }
 }

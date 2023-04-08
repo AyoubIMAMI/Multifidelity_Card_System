@@ -19,11 +19,11 @@ public class BankProxy implements Bank {
     private RestTemplate restTemplate = new RestTemplate();
 
     @Override
-    public boolean refill(BankTransactionDTO bankTransactionDTO) {
+    public boolean refill(String creditCard,double amount) {
         try {
             ResponseEntity<BankTransactionDTO> result = restTemplate.postForEntity(
                     bankHostandPort + "/cctransactions",
-                    bankTransactionDTO,
+                    new BankTransactionDTO(creditCard,amount),
                     BankTransactionDTO.class
             );
             return (result.getStatusCode().equals(HttpStatus.CREATED));

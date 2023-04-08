@@ -1,65 +1,56 @@
 # Problème potentiels
+### Légende :<br>
 
+|Gravité   |Échelle   |
+|---|---|
+|Faible   |⭐   |
+|Moyenne   |⭐⭐   |
+|Elevé   |⭐⭐⭐   |
 ## Jenkins
 
-### Très Grave
-
-### Grave
-
-### Pas grave
-#### "file.sh not found"
-  Si vous avez cette erreur alors que le fichier est au bon endroit:
+#### "File.sh not found" ⭐
+  Si vous avez cette erreur alors que le fichier est au bon endroit :
   ```
   + ./build-all.sh
-  /var/jenkins_home/workspace/2-23-team-h-23_cli-intoo-jenkins@tmp/durable-7332bef8/script.sh: 1: ./build-all.sh: not found
+  /var/jenkins_home/workspace/2-23-team-h-23_cli-intoo-jenkins@tmp/durable-7332bef8/script.sh: 1 : ./build-all.sh: not found
   ```
-  Il faut vérifier si la première ligne du fichier est bien exactement:
+  Il faut vérifier si la première ligne du fichier est bien exactement :
   ```
   #!/bin/bash
   ```
 
 ## Artifactory
-### Très Grave
-
-### Grave
-#### 401 Unauthorized connexion refused
-Il ya deux choses qui pourraient déclancher cette erreur:
-1. Aller voir l'explication de [l'erreur dans la catégorie VM](#401-unauthorized-connexion-refused-vm-part)
+#### "401 Unauthorized --> connexion refused" ⭐⭐
+Il ya deux choses qui pourraient déclancher cette erreur :
+1. Aller voir l'explication de [l'erreur dans la catégorie VM](#401-unauthorized-connexion-refused-vm-part-⭐-⭐)
 2. Si cela n'a pas réglé le problème il est possible que Jenkins n'ai pas localisé le fichier `settings.xml` de Maven. Alors veillez à bien vérifier que Jenkins localise se fichier et que le fichier soit bien nommé `settings.xml`.
 
-### Pas grave
 
 ## Vm
-### Très Grave
-
-### Grave
-#### 401 Unauthorized connexion refused vm part
+#### "401 Unauthorized --> connexion refused" (VM) ⭐⭐
 Si vous avez rajouté un service sur la VM il est possible que quand vous essayé de le contacter vous tombiez fasse à cette erreur.<br>
-La solution est de remplacer `http://localhost:80XX` par l'adresse en dur: `http://134.59.213.138:80XX`
+La solution est de remplacer `http://localhost:80XX` par l'adresse en dur : `http://134.59.213.138:80XX`
 
-Note: Veillez à ce que le port renseigné soit bien compris entre `8000` et `8030`, c'est la plage autorisé
-### Pas grave
-
-
+Note : Veillez à ce que le port renseigné soit bien compris entre `8000` et `8030`, c'est la plage autorisée
 
 # Procédures de redémarrage/reconstruction
 
 ## Redémarrer Jenkins et Artifactory
 
 #### Eteindre les containers
-En se connectant à la vm vous pouvez observer quels containers sont actifs avec:
+En se connectant à la vm vous pouvez observer quels containers sont actifs avec :
 ````
 docker ps
 ````
-Pour fermer tout les containers il faut utiliser:
+Pour fermer tout les containers il faut utiliser :
 ````
 docker compose down
 ````
-Pour fermer un seul containers:
+Pour fermer un seul containers :
 ````
 docker stop <container-name/id>
 ````
-Pour supprimer un ou plusieurs containers inactif:
+Pour supprimer un ou plusieurs containers inactif :
 ````
 docker rm <container-name/id> <container-name/id> 
 ````
@@ -67,12 +58,12 @@ docker rm <container-name/id> <container-name/id>
 Vérifier que tout s'est bien fermé avec `docker ps`
 
 #### Démarrer les containers
-Pour démarrer Jenkins:
+Pour démarrer Jenkins :
 ````
 cd ./jenkins
 docker compose up
 ````
-Pour démarrer Artifactory:
+Pour démarrer Artifactory :
 ````
 cd ./artifactory-oss-7.49.6
 docker compose up
@@ -84,7 +75,7 @@ Si vous avez besoins d'ajouter une brique à l'image docker Jenkins il faut dans
 cd ./jenkins
 nano Dockerfile
 ````
-Une fois la modification effectué il faut construire la nouvelle image:
+Une fois la modification effectué il faut construire la nouvelle image :
 ````
 cd ./jenkins
 ./build.sh
@@ -98,14 +89,14 @@ docker compose up
 
 
 # Recréer l'environnement DevOps from scratch (1h30)
-### Prérequis:
+### Prérequis :
 L'environnement Devops a été configuré sur la vm vmpx08.polytech.unice.fr, la première chose à faire est donc d'y accéder et pour cela il faut se connecter au VPN (Cisco) open.unice.fr.
-Il faut ensuite se connecter en ssh à la VM:
+Il faut ensuite se connecter en ssh à la VM :
 ````
 ssh teamh@vmpx08.polytech.unice.fr
 zEBf7mD2aCHA8XG4
 ````
-**Warning:** Tout le reste de l'installation se passe dans la VM
+**Warning :** Tout le reste de l'installation se passe dans la VM
 
 ## Setup de l'environnement de la VM (10min)
 
@@ -127,7 +118,7 @@ lsb-release
 
 ### Smee (5min)
 Smee est utilisé pour permettre à Jenkins de recevoir des évènement de la part de GitHub.
-A noter: Node.js est nécessaire pour utiliser Smee
+A noter : Node.js est nécessaire pour utiliser Smee
 
 **Installation de Node.js et smee**
 ````
@@ -142,9 +133,9 @@ smee --url https://smee.io/ugXPk3XiT2ED6aZV --path /github-webhook/ --port 8001 
 ## Création de l'environnement Docker (1h20)
 ### Jenkins (1h)
 #### Installation (30min)
-* Créer un dossier `Jenkins`: `mkdir Jenkins`
-* Se placer dans le dossier `Jenkins`: `cd Jenkins`
-* Créer le `Dockerfile` qui va décrire notre image Docker Jenkins:
+* Créer un dossier `Jenkins` : `mkdir Jenkins`
+* Se placer dans le dossier `Jenkins` : `cd Jenkins`
+* Créer le `Dockerfile` qui va décrire notre image Docker Jenkins :
 ```Dockerfile
 # Dockerfile of the jenkins docker-image
 FROM jenkins/jenkins:jdk17-preview
@@ -187,7 +178,7 @@ docker build -t custom_jenkins .
 
 *  Modifier les permission du fichier `build.sh` afin de pouvoir l'exécuter : `sudo chmod 777 build.sh`
 
-* Créer le fichier `docker-compose.yaml`:
+* Créer le fichier `docker-compose.yaml` :
 ```yaml
 version: '3.8'
 services:
@@ -211,9 +202,9 @@ services:
 #### Configuration de Jenkins (30min)
 **Se Login sur Jenkins**
 * Aller [Jenkins web page](vmpx08.polytech.unice.fr:8001)
-* Se Log sur Jenkins:
-Username: `admin`
-Password: `348177c474054e7795cd1282d0b05c28`
+* Se Log sur Jenkins :
+Username : `admin`
+Password : `348177c474054e7795cd1282d0b05c28`
 
 **Configurer la connexion à GitHub**
 * Aller sur la page de [configuration des credentials](http://vmpx08.polytech.unice.fr:8001/manage/credentials/)
@@ -239,18 +230,18 @@ Password: `348177c474054e7795cd1282d0b05c28`
 * Décompresser le .tar.gz `tar xvzf jfrog-artifactory-oss-7.49.6-compose.tar.gz`
 * Ouvrir le fichier `.env` et définir le `JF_ROUTER_ENTRYPOINTS_EXTERNALPORT` à `8002`
 * Toujours dans le  `.env`, définir le `ROOT_DATA_DIR` à `/home/teamh/.jfrog/artifactory`
-* Lancer le fichier `config.sh` en tant que root:
+* Lancer le fichier `config.sh` en tant que root :
     ````sudo ./config.sh````
 * Choisir `no` pour tout et selectionner `derby`comme db
 
 #### Configuration (10min)
 Se login sur Artifactory
 * Aller sur la [page web Artifactor](vmpx08.polytech.unice.fr:8002)
-* Se Log sur Artifactory:
-Username: `admin`
-Password: `zEzEBf7mD2aCHA8XG4!`
+* Se Log sur Artifactory :
+Username : `admin`
+Password : `zEzEBf7mD2aCHA8XG4!`
 
-Configurer les dossier Artifactory:
+Configurer les dossier Artifactory :
 * cliquer sur "Welcome, admin" en haut à droite sur la page d'accueil
 * Cliquer sur "Quick Repository Creation"
 * Cliquer sur "Maven" et suivre les étapes
