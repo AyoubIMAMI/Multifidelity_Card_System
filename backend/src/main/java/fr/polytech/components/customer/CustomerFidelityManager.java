@@ -55,12 +55,8 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
     @Override
     public Customer incrementPoints(Customer customer, float points) {
         FidelityAccount fidelityAccount = customer.getFidelityAccount();
-        System.out.println("Fidelity account found : " + fidelityAccount);
-        System.out.println("Ancien solde de point : " + fidelityAccount.getPoints());
-        System.out.println("On ajoute : " + Math.floor(points));
         fidelityAccount.setPoints((int) (fidelityAccount.getPoints() + Math.floor(points)));
-        System.out.println("Nouveau solde : " + fidelityAccount.getPoints());
-        return customerRepository.save(customer);
+       return customerRepository.save(customer);
     }
 
     @Override

@@ -35,7 +35,6 @@ public class ClientPaymentController {
 
     @PostMapping(path = PAYMENT_URI+"/settled")
     public ResponseEntity<PaymentDTO> processWithPaymentInStore(@PathVariable("customerId") Long customerId, @PathVariable("storeId") Long storeId, @RequestBody Set<Item> shoppingList) throws NoDiscountsFoundException, StoreNotFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, NotEnoughBalanceException, NegativeAmountException, OneDiscountDontExistException, BadCredentialsException {
-        System.out.println("Shopping List received : " + shoppingList);
         return ResponseEntity.ok().body(convertPaymentToDto(this.payment.payedProcess(customerId, storeId, shoppingList)));
     }
 
@@ -46,9 +45,7 @@ public class ClientPaymentController {
     }
 
     private PaymentDTO convertPaymentToDto(Payment payment) {
-        System.out.println("Payment received in converter : " + payment);
         PaymentDTO paymentDTO = new PaymentDTO(payment.getId(), convertCustomerToDto(payment.getCustomer()), convertStoreToDto(payment.getStore()), payment.getShoppingList(), payment.getTransactionDate(), payment.getAmount());
-        System.out.println("Payment DTO created : " + paymentDTO);
         return paymentDTO;
     }
 

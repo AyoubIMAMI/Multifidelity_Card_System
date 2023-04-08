@@ -49,9 +49,6 @@ public class Payment {
                 .filter(x -> (x.getBuyable() instanceof Product))
                 .map(x -> x.getQuantity() * ((Product) x.getBuyable()).getCashPrice())
                 .reduce(Double::sum).orElse((double) 0);
-
-        System.out.println("Amount du payment : " + amount);
-
         return (float) amount;
     }
 

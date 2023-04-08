@@ -56,9 +56,7 @@ public class PaymentHandler implements IPayment {
     @Override
     public Payment payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, NoDiscountsFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, StoreNotFoundException, OneDiscountDontExistException,NegativeAmountException {
         Customer customer = customerFinder.findCustomerById(customerId);
-        System.out.println("Customer find : " + customer.getName());
         Store store = storeFinder.findStoreByID(storeId);
-        System.out.println("Store find : " + store.getName());
         checkDiscountAndPayWithPointPurchase(customer, shoppingList, storeId);
         return sendToSettledPayment(customer, store, shoppingList);
     }
@@ -66,12 +64,10 @@ public class PaymentHandler implements IPayment {
     private Payment sendToSettledPayment(Customer customer, Store store, Set<Item> shoppingList) throws PaymentAlreadyExistsException, NegativeAmountException {
         checkNegativePrice(shoppingList);
         Payment payment = new Payment(customer, store, shoppingList);
-        System.out.println("Payment created : " + payment);
         return settledPurchase.validatePurchase(payment);
     }
 
     private void checkDiscountAndPayWithPointPurchase(Customer customer, Set<Item> shoppingList, Long storeId) throws NoDiscountsFoundException, NotEnoughBalanceException, OneDiscountDontExistException, StoreNotFoundException {
-        System.out.println("On check si il y a une discount");
         for (Item item: shoppingList) {
             if(item.getBuyable() instanceof Discount) {
                 Discount discount;
@@ -81,10 +77,8 @@ public class PaymentHandler implements IPayment {
                     throw new OneDiscountDontExistException();
                 }
                 if(!discount.getStoreId().equals(storeId)) throw new StoreNotFoundException();
-                System.out.println("Discount trouvé");
                 pointPurchase.buyWithPoint(customer, shoppingList);
-                System.out.println("fin check discount");
-            }
+                }
         }
     }
 
