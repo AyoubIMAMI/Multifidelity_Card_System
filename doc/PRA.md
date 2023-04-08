@@ -18,6 +18,29 @@
   ```
   #!/bin/bash
   ```
+  
+#### "You don't have a SNAPSHOT project in the reactor projects list" ⭐⭐
+**Erreur**:<br>
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-release-plugin:3.0.0-M1:prepare (default-cli) on project isa-devops-22-23-team-h-23: You don't have a SNAPSHOT project in the reactor projects list. -> [Help 1]
+
+**Cause**:<br>
+2 commits sur main ont été effectués trop rapidement, le plugin maven release n'a pas eu le temps de push la nouvelle version, il y a alors eu un conflit avec le deuxième commit car un tag était déjà présent pour cette version.
+
+**Solution**:<br>
+Aller regarder dans le pom.xml de la CLI ou du Backend afin de voir lequels des deux ne possède plus dans la balise version le mot SNAPSHOT. Par exemple dans la pom de la cli on poourrait trouver:
+````
+<groupId>fr.univcotedazur.fidelity</groupId>
+<artifactId>cli</artifactId>
+<version>0.5</version>
+<packaging>jar</packaging>
+<name>cli</name>
+<description>cli</description>
+````
+On voit que la balise version ne contient pas le mot SNAPSHOT, on le rajoute donc:
+````
+<version>0.5-SNAPSHOT</version>
+````
+Enfin pour repartir sur un environnement propre on vous conseille de supprimer le workspace associé.
 
 ## Artifactory
 #### "401 Unauthorized --> connexion refused" ⭐⭐
