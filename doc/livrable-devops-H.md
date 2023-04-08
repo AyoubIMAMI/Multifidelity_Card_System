@@ -224,7 +224,7 @@ Pour accéder à notre DockerHub il suffit de se rendre sur la page suivante:<br
 
 ## Explication de nos choix techniques
 
-#### Main
+### Main
 ***Pourquoi sur cette branche créons et déployons nous les Releases sur Artifactory ?***<br>
 La branche main est une branche stable, tout ce qui arrive sur main a déjà été testé et validé plusieurs fois. On push donc sur main assez "rarament", chaque push sur main corespond à une nouvelle version complètement stable du projet. C'est donc pour ca que c'est le meilleur endroit pour créer une Release.
 
@@ -242,7 +242,7 @@ La branche main créé une nouvelle release à chaque build, nous crééons donc
 En se basant sur cette idée nous avons fait le choix de pas construire d'image Docker des Snapshots car nous ne déploiront pas sur notre serveur une version non-stable de notre produit.
 
 
-#### Develop
+### Develop
 ***Pourquoi sur cette branche créons et déployons nous les Snapshots sur Artifactory ?***<br>
 La branche develop est une branche moins stable que la branche main mais plus à jour. Une Snapshot est une capture instantanée de l'état actuel d'un logiciel ou d'un système. La branche develop était donc la candidate idéale pour créer des Snapshots, car c'est sur cette branche qu'on intègre au reste du projet toutes les nouvelles fonctionnalités aboutis.
 
@@ -254,6 +254,6 @@ En effet tout les tests sont censé être passé sur la branche précédente. Ce
 Même si les tests unitaires et d'intégrations sont passé avec succès, nous ne sommes jamais à l'abris que le tests end-to-end ne revèlent une nouvelle regression. C'est pour cette raison que l'on attend d'avoir effectué les tests end-to-end pour déployer les jar sur Artifactory
 
 
-#### Feature
+### Feature
 ***Pourquoi sur cette branche on ne déploie pas de jar sur Artifactory ?***<br>
 Les branches features sont des branches non-stables, souvent en décallage avec le reste du projet il n'est pas pertinent de stocker ces versions.
