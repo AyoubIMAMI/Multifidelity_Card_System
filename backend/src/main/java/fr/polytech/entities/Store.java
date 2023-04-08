@@ -12,7 +12,8 @@ import java.util.Set;
 public class Store extends Organisation {
 
     //Schedule schedule;
-
+    @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
+    private Set<Payment> payments;
     @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
     private Set<Discount> offers;
 
