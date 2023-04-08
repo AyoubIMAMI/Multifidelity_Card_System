@@ -25,7 +25,7 @@
 #### 401 Unauthorized connexion refused
 Il ya deux choses qui pourraient déclancher cette erreur:
 1. Aller voir l'explication de [l'erreur dans la catégorie VM](#401-unauthorized-connexion-refused-vm-part)
-2. Si cela n'a pas reglé le problème il est possible que Jenkins n'ai pas localisé le fichier `settings.xml` de maven. Alors veillez à bien vérifier que Jenkins localise se fichier et que le fichier soit bien nommé `settings.xml`.
+2. Si cela n'a pas réglé le problème il est possible que Jenkins n'ai pas localisé le fichier `settings.xml` de Maven. Alors veillez à bien vérifier que Jenkins localise se fichier et que le fichier soit bien nommé `settings.xml`.
 
 ### Pas grave
 
