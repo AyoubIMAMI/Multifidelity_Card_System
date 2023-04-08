@@ -5,7 +5,6 @@ import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.payment.NegativeAmountException;
 import fr.polytech.exceptions.store.StoreNotFoundException;
 
-
 public interface DiscountModifier {
 
     Discount createDiscount(String name, Long storeId, int pointPrice) throws NegativeAmountException, StoreNotFoundException;

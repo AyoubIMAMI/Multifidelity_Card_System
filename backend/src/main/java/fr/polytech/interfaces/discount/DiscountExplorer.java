@@ -1,6 +1,5 @@
 package fr.polytech.interfaces.discount;
 
-import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;

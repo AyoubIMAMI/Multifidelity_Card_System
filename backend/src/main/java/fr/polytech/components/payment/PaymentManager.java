@@ -3,10 +3,8 @@ package fr.polytech.components.payment;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.Payment;
 import fr.polytech.exceptions.payment.PaymentAlreadyExistsException;
-import fr.polytech.exceptions.payment.PaymentNotFoundException;
 import fr.polytech.interfaces.payment.PaymentExplorer;
 import fr.polytech.interfaces.payment.PaymentModifier;
-import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
 import fr.polytech.entities.item.Product;
@@ -14,7 +12,6 @@ import fr.polytech.repository.DiscountRepository;
 import fr.polytech.repository.PaymentRepository;
 import fr.polytech.repository.ProductRepository;
 
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Date;
 import java.util.List;

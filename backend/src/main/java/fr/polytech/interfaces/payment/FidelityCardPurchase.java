@@ -1,6 +1,5 @@
 package fr.polytech.interfaces.payment;
 
-import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Item;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.entities.Customer;

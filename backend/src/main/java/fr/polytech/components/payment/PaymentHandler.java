@@ -6,7 +6,6 @@ import fr.polytech.entities.item.Item;
 import fr.polytech.exceptions.*;
 import fr.polytech.exceptions.discount.DiscountNotFoundException;
 import fr.polytech.entities.item.Product;
-import fr.polytech.exceptions.BadCredentialsException;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.discount.NoDiscountsFoundException;

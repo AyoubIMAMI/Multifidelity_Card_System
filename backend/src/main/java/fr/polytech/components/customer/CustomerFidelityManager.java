@@ -1,10 +1,8 @@
 package fr.polytech.components.customer;
 
-import fr.polytech.connectors.externaldto.BankTransactionDTO;
 import fr.polytech.interfaces.advantage.VFPAdvantageModifier;
 import fr.polytech.interfaces.payment.PaymentExplorer;
 import fr.polytech.repository.CustomerRepository;
-import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.interfaces.fidelity.FidelityExplorer;
 import fr.polytech.interfaces.fidelity.PointModifier;
