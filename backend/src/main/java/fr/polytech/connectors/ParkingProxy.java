@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 public class ParkingProxy implements Parking {
-    @Value("${parking.host.baseurl}")
+    @Value("${iswypls.host.baseurl}")
     private String parkingHostandPort;
 
     private RestTemplate restTemplate = new RestTemplate();
@@ -30,6 +30,7 @@ public class ParkingProxy implements Parking {
             if (errorException.getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
                 return false;
             }
+            System.out.println("Ici coucou : " + errorException.getStatusCode());
             throw errorException;
         }
     }
