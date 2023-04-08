@@ -34,15 +34,6 @@ public class CustomerFidelityManager implements FidelityExplorer, PointModifier,
         this.VFPAdvantageModifier = VFPAdvantageModifier;
     }
 
-    @Override
-    public FidelityAccount findFidelityAccountByCustomer(Customer customer) throws CustomerNotFoundException {
-        return null;
-    }
-
-    @Override
-    public FidelityAccount findFidelityAccountById(Long id) throws CustomerNotFoundException {
-        return null;
-    }
 
     @Override
     public boolean checkIfPossibleToBecomeVfp(Customer customer) {

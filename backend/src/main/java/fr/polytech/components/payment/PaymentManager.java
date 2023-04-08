@@ -38,28 +38,6 @@ public class PaymentManager implements PaymentExplorer, PaymentModifier {
         this.discountRepository = discountRepository;
     }
 
-    @Override
-    public Payment findPaymentById(Long id) throws PaymentNotFoundException {
-        return paymentRepository.findById(id).orElseThrow(PaymentNotFoundException::new);
-    }
-
-    @Override
-    public Iterable<Payment> findPaymentsByCustomer(Customer customer) throws PaymentNotFoundException {
-        Iterable<Payment> payments = paymentRepository.findAllByCustomer(customer);
-        if (!payments.iterator().hasNext()) {
-            throw new PaymentNotFoundException();
-        }
-        return payments;
-    }
-
-    @Override
-    public Iterable<Payment> findPaymentsByStore(Store store) throws PaymentNotFoundException {
-        Iterable<Payment> payments = paymentRepository.findByStore(store);
-        if (!payments.iterator().hasNext()) {
-            throw new PaymentNotFoundException();
-        }
-        return payments;
-    }
 
     @Override
     public boolean customerReached10Payments(Customer customer) {
