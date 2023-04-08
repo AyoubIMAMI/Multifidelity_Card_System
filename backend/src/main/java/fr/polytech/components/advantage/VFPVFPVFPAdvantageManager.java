@@ -6,8 +6,8 @@ import fr.polytech.entities.CustomerAdvantage;
 import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
 import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
 import fr.polytech.exceptions.advantage.VFPNotFoundException;
-import fr.polytech.interfaces.advantage.AdvantageCustomer;
-import fr.polytech.interfaces.advantage.AdvantageCustomerFinder;
+import fr.polytech.interfaces.advantage.VFPAdvantageModifier;
+import fr.polytech.interfaces.advantage.VFPAdvantageFinder;
 import fr.polytech.interfaces.advantage.AdvantageExplorer;
 import fr.polytech.repository.CustomerAdvantageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,12 @@ import java.util.Optional;
 
 
 @Component
-public class VFPAdvantageManager implements AdvantageCustomer, AdvantageCustomerFinder {
+public class VFPVFPVFPAdvantageManager implements VFPAdvantageModifier, VFPAdvantageFinder {
     CustomerAdvantageRepository customerAdvantageRepository;
 
     AdvantageExplorer advantageExplorer;
     @Autowired
-    public VFPAdvantageManager(CustomerAdvantageRepository customerAdvantageRepository,AdvantageExplorer advantageExplorer){
+    public VFPVFPVFPAdvantageManager(CustomerAdvantageRepository customerAdvantageRepository, AdvantageExplorer advantageExplorer){
         this.customerAdvantageRepository=customerAdvantageRepository;
         this.advantageExplorer=advantageExplorer;
     }

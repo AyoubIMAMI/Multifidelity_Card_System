@@ -9,7 +9,7 @@ import fr.polytech.exceptions.advantage.VFPNotFoundException;
 
 import java.util.Optional;
 
-public interface AdvantageCustomerFinder {
+public interface VFPAdvantageFinder {
     Optional<CustomerAdvantage> findCustomerAdvantageAccount(Customer customer);
     void consumeAdvantage(CustomerAdvantage consumerAdvantageID, Advantage advantage) throws NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException;
 
