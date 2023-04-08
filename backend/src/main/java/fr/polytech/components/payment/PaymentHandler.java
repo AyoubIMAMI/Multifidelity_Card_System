@@ -49,7 +49,7 @@ public class PaymentHandler implements IPayment {
         Customer customer = customerFinder.findCustomerById(customerId);
         Store store = storeFinder.findStoreByID(storeId);
         checkDiscountAndPayWithPointPurchase(customer, shoppingList,storeId);
-        customer = fidelityCardPurchase.buyWithFidelityCard(customer, store, shoppingList);
+        customer = fidelityCardPurchase.buyWithFidelityCard(customer, shoppingList);
         return sendToSettledPayment(customer, store, shoppingList);
     }
 
