@@ -1,22 +1,3 @@
-# Livraison DEVOPS
-
-# Consigne
-
-Vous devez documenter (et/ou automatiser via des scripts) la procédure de
-construction et reconstruction.
-
-Vous devez présenter en détail le statut de votre livrable sur l'aspect devops:
-• Qu'avez vous mis en place ?
-• Comment y accède-t-on (endpoint, credentials) ?
-• Explicitez vos choix techniques etc
-
-Cette documentation prendra la forme d'un markdownlivrable-devops-X.mdoù X est la
-lettre de votre équipe et devra être placée dans le répertoire « doc » à la racine de votre
-projet.
-
-Ce fichier markdownpourra référencer d’autres fichiers si vous souhaitez hiérarchiser
-votre documentation.
-
 # Construction/reconstruction de l'environnement DevOps
 
 ## Prérequis:
