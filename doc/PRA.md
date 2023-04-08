@@ -2,29 +2,29 @@
 
 ## Jenkins
 
-#### Très Grave
+### Très Grave
 
-#### Grave
+### Grave
 
-#### Pas grave
-**"file.sh not found"**
-Si vous avez cette erreur alors que le fichier est au bon endroit:
-```
-+ ./build-all.sh
-/var/jenkins_home/workspace/2-23-team-h-23_cli-intoo-jenkins@tmp/durable-7332bef8/script.sh: 1: ./build-all.sh: not found
-```
-Il faut vérifier si la première ligne du fichier est bien exactement:
-```
-#!/bin/bash
-```
+### Pas grave
+#### "file.sh not found"
+  Si vous avez cette erreur alors que le fichier est au bon endroit:
+  ```
+  + ./build-all.sh
+  /var/jenkins_home/workspace/2-23-team-h-23_cli-intoo-jenkins@tmp/durable-7332bef8/script.sh: 1: ./build-all.sh: not found
+  ```
+  Il faut vérifier si la première ligne du fichier est bien exactement:
+  ```
+  #!/bin/bash
+  ```
 
 ## Artifactory
 ### Très Grave
 
 ### Grave
-#### "401 unauthorized -> connexion refused"
-Il ya deux choses qui pourraientt déclancher cette erreur:
-1. Aller voir l'explication de [l'erreur dans la catégorie VM](#### "401 unauthorized -> connexion refused")
+#### "401 unauthorized -> connexion refused" (Artifactory)
+Il ya deux choses qui pourraient déclancher cette erreur:
+1. Aller voir l'explication de [l'erreur dans la catégorie VM](#### "401 unauthorized -> connexion refused" (VM)")
 2. Si cela n'a pas reglé le problème il est possible que Jenkins n'ai pas localisé le fichier `settings.xml` de maven. Alors veillez à bien vérifier que Jenkins localise se fichier et que le fichier soit bien nommé `settings.xml`.
 
 ### Pas grave
@@ -33,7 +33,7 @@ Il ya deux choses qui pourraientt déclancher cette erreur:
 ### Très Grave
 
 ### Grave
-#### "401 unauthorized -> connexion refused"
+#### "401 unauthorized -> connexion refused" (VM)
 Si vous avez rajouté un service sur la VM il est possible que quand vous essayé de le contacter vous tombiez fasse à cette erreur.<br>
 La solution est de remplacer `http://localhost:80XX` par l'adresse en dur: `http://134.59.213.138:80XX`
 
