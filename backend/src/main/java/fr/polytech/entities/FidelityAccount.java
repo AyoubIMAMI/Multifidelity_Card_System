@@ -9,8 +9,7 @@ public class FidelityAccount {
     private int points;
     private double balance;
     private boolean isVFP;
-    //TODO
-    //private Set<Advantage> advantages;
+
     private String licencePlate;
 
     public FidelityAccount() {
