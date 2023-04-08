@@ -135,7 +135,7 @@ services:
 **Se Login sur Jenkins**
 * Aller [Jenkins web page](vmpx08.polytech.unice.fr:8001)
 * Se Log sur Jenkins:
-Username: `admin`
+Username: `admin`<br>
 Password: `348177c474054e7795cd1282d0b05c28`
 
 **Configurer la connexion à GitHub**
@@ -195,7 +195,7 @@ Notre pipeline Jenkins a une forme différentes en fonction de la branche sur la
 * Construire les jar 
 * Créer les images docker
 * Lancer tout les containers (docker compose up)
-* Lancer les test end to end depuis la cli
+* Lancer les test end to end depuis la cli<br>
 ![No image found](./ressources/feature-pipeline.png "Pipeline d'une branche feature")
 
 **Develop:**
@@ -205,14 +205,14 @@ Notre pipeline Jenkins a une forme différentes en fonction de la branche sur la
 * Créer les images docker
 * Lancer tout les containers (docker compose up)
 * Lancer les test end to end depuis la cli
-* Déployer les jar sur Artifactory en temps que nouvelle Snapshot
+* Déployer les jar sur Artifactory en temps que nouvelle Snapshot<br>
 ![No image found](./ressources/develop-pipeline.png "Pipeline d'une branche feature")
 
 **Main:**
 * Déployer les jar sur Artifactory en temps que nouvelle Release (mvn release:prepare/perform)
 * Pull les derniers artefacts
 * Créer des images dockers à partir de ces derniers
-* Exporte ces images dockers sur DockerHub
+* Exporte ces images dockers sur DockerHub<br>
 ![No image found](./ressources/main-pipeline.png "Pipeline d'une branche feature")
 
 **Note:** La création de Snapshot et Release incrémente une nouvelle version à chaque fois et créé un tag sur le repo GitHub
@@ -221,24 +221,24 @@ Notre pipeline Jenkins a une forme différentes en fonction de la branche sur la
 Pour accéder à notre environnement il est important de noter qu'il faut se connecter au VPN (Cisco) open.unice.fr.
 
 #### Jenkins
-Pour accéder à Jenkins il suffit de se rendre sur la page suivante:
+Pour accéder à Jenkins il suffit de se rendre sur la page suivante:<br>
 [http://vmpx08.polytech.unice.fr:8001](http://vmpx08.polytech.unice.fr:8001)
 
 **Identifiants:**
-User: `admin`
+User: `admin`<br>
 Password: `348177c474054e7795cd1282d0b05c28`
 
 
 #### Artifactory
-Pour accéder à Artifactory il suffit de se rendre sur la page suivante:
+Pour accéder à Artifactory il suffit de se rendre sur la page suivante:<br>
 [http://vmpx08.polytech.unice.fr:8002](http://vmpx08.polytech.unice.fr:8002)
 
 **Identifiants:**
-User: `admin`
+User: `admin` <br>
 Password: `zEzEBf7mD2aCHA8XG4!`
 
 #### DockerHub
-Pour accéder à notre DockerHub il suffit de se rendre sur la page suivante:
+Pour accéder à notre DockerHub il suffit de se rendre sur la page suivante:<br>
 [https://hub.docker.com/r/teamh2/isa](https://hub.docker.com/r/teamh2/isa)
 
 
