@@ -1,10 +1,8 @@
 package fr.polytech.controllers.dto.item;
 
-import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
-@Entity
 public class ProductDTO extends BuyableDTO {
 
     @NotNull(message = "point price should not be null")
