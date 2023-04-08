@@ -33,9 +33,6 @@ public abstract class Buyable {
     @JoinColumn(name = "store_id")
     private Store store;
 
-    public Buyable(String name) {
-        this.name = name;
-    }
     public Buyable(Store store,String name) {
         this.store=store;
         this.name = name;

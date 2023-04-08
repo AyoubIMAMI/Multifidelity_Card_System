@@ -12,10 +12,6 @@ public class Product extends Buyable {
     @NotNull(message = "point price should not be null")
     private double cashPrice;
 
-    public Product(String name, double cashPrice) {
-        super(name);
-        this.cashPrice = cashPrice;
-    }
     public Product(Long id,String name, double cashPrice) {
         super(id,name);
         this.cashPrice = cashPrice;

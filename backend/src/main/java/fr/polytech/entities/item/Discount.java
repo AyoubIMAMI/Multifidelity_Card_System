@@ -12,10 +12,6 @@ public class Discount extends Buyable {
     @NotNull(message = "point price should not be null")
     private Integer pointPrice;
 
-    public Discount(String name, int pointPrice) {
-        super(name);
-        this.pointPrice = pointPrice;
-    }
 
     public Discount(String name,Store store, int pointPrice) {
         super(store,name);
