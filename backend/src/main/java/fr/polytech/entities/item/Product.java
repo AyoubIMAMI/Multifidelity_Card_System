@@ -16,14 +16,19 @@ public class Product extends Buyable {
         super(name);
         this.cashPrice = cashPrice;
     }
-    public Product(String name, Store store, double cashPrice) {
-        super(name,store);
+    public Product(Long id,String name, double cashPrice) {
+        super(id,name);
+        this.cashPrice = cashPrice;
+    }
+    public Product(String name,Store store, double cashPrice) {
+        super(store,name);
         this.cashPrice = cashPrice;
     }
 
     public Product() {
 
     }
+
 
     public double getCashPrice() {
         return cashPrice;

@@ -1,9 +1,14 @@
 package fr.polytech.controllers;
 
 import fr.polytech.controllers.dto.*;
+import fr.polytech.controllers.dto.item.DiscountDTO;
+import fr.polytech.controllers.dto.item.ItemDTO;
+import fr.polytech.controllers.dto.item.ProductDTO;
 import fr.polytech.entities.Customer;
 import fr.polytech.entities.Store;
+import fr.polytech.entities.item.Discount;
 import fr.polytech.entities.item.Item;
+import fr.polytech.entities.item.Product;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.NotEnoughBalanceException;
 import fr.polytech.exceptions.*;
@@ -18,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -41,8 +47,8 @@ public class ClientPaymentController {
     private Set<Item> convertListItemDTOtoItem(Set<ItemDTO> shoppingList) {
         return shoppingList.stream().map(itemDTO ->
                         (itemDTO.getBuyable() instanceof DiscountDTO) ?
-                                new Item(itemDTO.getQuantity(), new Discount(itemDTO.getBuyable().getName(), ((DiscountDTO) itemDTO.getBuyable()).getPointPrice())) :
-                                new Item(itemDTO.getQuantity(), new Product(itemDTO.getBuyable().getName(), ((ProductDTO) itemDTO.getBuyable()).getCashPrice())))
+                                new Item(itemDTO.getQuantity(), new Discount(itemDTO.getBuyable().getId(),itemDTO.getBuyable().getName(), ((DiscountDTO) itemDTO.getBuyable()).getPointPrice())) :
+                                new Item(itemDTO.getQuantity(), new Product(itemDTO.getBuyable().getId(),itemDTO.getBuyable().getName(), ((ProductDTO) itemDTO.getBuyable()).getCashPrice())))
                 .collect(Collectors.toSet());
     }
 

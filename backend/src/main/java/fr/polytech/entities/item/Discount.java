@@ -16,8 +16,13 @@ public class Discount extends Buyable {
         super(name);
         this.pointPrice = pointPrice;
     }
-    public Discount(String name, Store store, int pointPrice) {
-        super(name,store);
+
+    public Discount(String name,Store store, int pointPrice) {
+        super(store,name);
+        this.pointPrice = pointPrice;
+    }
+    public Discount(Long id,String name, int pointPrice) {
+        super(id,name);
         this.pointPrice = pointPrice;
     }
 

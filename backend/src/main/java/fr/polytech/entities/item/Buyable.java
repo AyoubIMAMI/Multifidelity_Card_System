@@ -24,7 +24,7 @@ import java.util.Objects;
 public abstract class Buyable {
 
     @Id
-    @GeneratedValue()
+    @GeneratedValue
     private Long id;
 
     @NotBlank(message = "name should not be blank")
@@ -37,9 +37,13 @@ public abstract class Buyable {
     public Buyable(String name) {
         this.name = name;
     }
-    public Buyable(String name,Store store) {
-        this.name = name;
+    public Buyable(Store store,String name) {
         this.store=store;
+        this.name = name;
+    }
+    public Buyable(Long id,String name) {
+        this.id=id;
+        this.name = name;
     }
 
     public Buyable() {
