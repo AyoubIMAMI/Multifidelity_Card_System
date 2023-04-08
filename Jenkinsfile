@@ -71,16 +71,7 @@ pipeline {
                                     echo 'Building...'
                                     sh 'mvn clean package'
                                 }
-                            }
-                            stage ("Deploy $directory") {
-                                if(env.BRANCH_NAME == 'Develop'){
-                                    echo "$directory"
-                                    dir("./$directory") {
-                                        echo 'Deploying...'
-                                        sh 'mvn deploy'
-                                    }
-                                }                                
-                            }
+                            }                            
                         }
                     }else{
                         directories.each { directory ->
@@ -205,6 +196,20 @@ pipeline {
                 }
                 
             }
+        }
+        stage ("Deploy artifacts") {
+            if(env.BRANCH_NAME == 'Develop'){
+                echo "backend"
+                dir("./backend") {
+                    echo 'Deploying...'
+                    sh 'mvn deploy'
+                }
+                echo "cli"
+                dir("./cli") {
+                    echo 'Deploying...'
+                    sh 'mvn deploy'
+                }
+            }                                
         }
         stage('Export images on DockerHub (main)') {
             when { 
