@@ -24,7 +24,7 @@ L'environnement Devops a été configuré sur la vm vmpx08.polytech.unice.fr, la
 Il faut ensuite se connecter en ssh à la VM:
 ````
 ssh teamh@vmpx08.polytech.unice.fr
-/!\ je donne le password ???? /!\
+zEBf7mD2aCHA8XG4
 ````
 **Warning:** Tout le reste de l'installation se passe dans la VM
 
@@ -178,3 +178,104 @@ Configurer les dossier Artifactory:
 * Cliquer sur "Quick Repository Creation"
 * Cliquer sur "Maven" et suivre les étapes
 
+# Status du livrable DevOps
+## Ce qui a été mis en place
+**Les grandes lignes:**
+* Un repo GitHub
+* Une pipeline Jenkins qui recoit les events du repo github grâce à Smee
+* Artifactory qui hébergent nos livrables isa
+* DockerHub qui héberge nos images Docker
+
+### La pipeline Jenkins
+Notre pipeline Jenkins a une forme différentes en fonction de la branche sur laquelle elle s'éxécute:
+
+**Feature:**
+(Pour la cli et le backend)
+* Lancer les test 
+* Construire les jar 
+* Créer les images docker
+* Lancer tout les containers (docker compose up)
+* Lancer les test end to end depuis la cli
+![No image found](./ressources/feature-pipeline.png "Pipeline d'une branche feature")
+
+**Develop:**
+(Pour la cli et le backend)
+* Lancer les test 
+* Construire les jar 
+* Créer les images docker
+* Lancer tout les containers (docker compose up)
+* Lancer les test end to end depuis la cli
+* Déployer les jar sur Artifactory en temps que nouvelle Snapshot
+![No image found](./ressources/develop-pipeline.png "Pipeline d'une branche feature")
+
+**Main:**
+* Déployer les jar sur Artifactory en temps que nouvelle Release (mvn release:prepare/perform)
+* Pull les derniers artefacts
+* Créer des images dockers à partir de ces derniers
+* Exporte ces images dockers sur DockerHub
+![No image found](./ressources/main-pipeline.png "Pipeline d'une branche feature")
+
+**Note:** La création de Snapshot et Release incrémente une nouvelle version à chaque fois et créé un tag sur le repo GitHub
+
+## Comment accéder à notre environnement
+Pour accéder à notre environnement il est important de noter qu'il faut se connecter au VPN (Cisco) open.unice.fr.
+
+#### Jenkins
+Pour accéder à Jenkins il suffit de se rendre sur la page suivante:
+[http://vmpx08.polytech.unice.fr:8001](http://vmpx08.polytech.unice.fr:8001)
+
+**Identifiants:**
+User: `admin`
+Password: `348177c474054e7795cd1282d0b05c28`
+
+
+#### Artifactory
+Pour accéder à Artifactory il suffit de se rendre sur la page suivante:
+[http://vmpx08.polytech.unice.fr:8002](http://vmpx08.polytech.unice.fr:8002)
+
+**Identifiants:**
+User: `admin`
+Password: `zEzEBf7mD2aCHA8XG4!`
+
+#### DockerHub
+Pour accéder à notre DockerHub il suffit de se rendre sur la page suivante:
+[https://hub.docker.com/r/teamh2/isa](https://hub.docker.com/r/teamh2/isa)
+
+
+## Explication de nos choix techniques
+
+#### Main
+***Pourquoi sur cette branche créons et déployons nous les Releases sur Artifactory?***
+La branche main est une branche stable, tout ce qui arrive sur main a déjà été testé et validé plusieurs fois. On push donc sur main assez "rarament", donc chaque push sur main corespond à une nouvelle version complètement stable du du projet. C'est donc pour ca que c'est le meilleur endroit pour créer une Release.
+
+
+***Pourquoi la pipeline ne refait pas tout les tests (unitaire, intégration et end-to-end) ?***
+On ne developpe pas directement main alors les seul push qui existe sur cette branche ce sont les merges de la branche develop. Cela signifie que tout le code présent sur main est parfaitement testé, c'est donc pour ca que nous avons choisit de ne pas relancer des tests.
+
+
+***Pourquoi pull les artefacts sur Artifactory pour créer les images Dockers ?***
+Car une release représente une nouvelle version stable, il est donc cohérent de construire nos images avec les dernières release possible.
+
+
+***Pourquoi sur cette branche nous exportons les images dockers sur DockerHub?***
+La branche main créé une nouvelle release à chaque build, nous crééons donc une nouvelle version des images dockers tout simplement pour les stocker. Nous pourrions imaginer dans le cadre l'intégration continus, utiliser les images dockers des Releases pour déployer automatiquement sur un serveur la dernière version de notre projet.
+En se basant sur cette idée nous avons fait le choix de pas construire d'image Docker des Snapshots car nous ne déploiront pas sur notre serveur une version non-stable de notre produit.
+
+
+
+
+#### Develop
+***Pourquoi sur cette branche créons et déployons nous les Snapshots sur Artifactory ?***
+La branche develop est une branche moins stable que la branche main mais plus à jour. Une Snapshot est une capture instantanée de l'état actuel d'un logiciel ou d'un système. La branche develop était donc la candidate idéale pour créer des Snapshots, car c'est sur cette branche qu'on intègre au reste du projet toutes les nouvelles fonctionnalités aboutis.
+
+***Pourquoi la pipeline refait tout les tests alors qu'ils sont censés tous être passés sur la branche précédente ?***
+En effet tout les tests sont censé être passé sur la branche précédente. Cependant rien ne prouve que la nouvelle fonctionnalité ne va pas rentrer en conflit avec la version actuelle de develop. Il est donc important de garder des tests sur cette branche qui n'est pas stable car de nouvelle fonctionnalités arrivent régulièrement.
+
+
+***Pourquoi attendre d'avoir effectué les tests end-to-end pour déployer les jars sur Artifactory ?***
+Même si les tests unitaires et d'intégrations sont passé avec succès, nous ne sommes jamais à l'abris que le tests end-to-end ne revèle une nouvelle regression. C'est pour cette raison que l'on attend d'avoir effectué les tests end-to-end pour déployer les jars sur Artifactory
+
+
+#### Feature
+***Pourquoi sur cette branche on ne déploie pas de jar sur Artifactory ?***
+Les branches Features sont des branches non-stables, souvent en décallage avec le reste du projet il n'est pas pertinent de stocker ces versions.
