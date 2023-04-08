@@ -22,10 +22,11 @@
 ### Très Grave
 
 ### Grave
-#### "401 unauthorized -> connexion refused" (Artifactory)
+#### 401 Unauthorized connexion refused
 Il ya deux choses qui pourraient déclancher cette erreur:
-1. Aller voir l'explication de [l'erreur dans la catégorie VM](#### "401 unauthorized -> connexion refused" (VM)")
-2. Si cela n'a pas reglé le problème il est possible que Jenkins n'ai pas localisé le fichier `settings.xml` de maven. Alors veillez à bien vérifier que Jenkins localise se fichier et que le fichier soit bien nommé `settings.xml`.
+1. Aller voir l'explication de [l'erreur dans la catégorie VM](#401-unauthorized-connexion-refused-vm-part)
+2. [l'erreur dans la catégorie VM](http://vmpx08.polytech.unice.fr:8001/manage/credentials/)
+3. Si cela n'a pas reglé le problème il est possible que Jenkins n'ai pas localisé le fichier `settings.xml` de maven. Alors veillez à bien vérifier que Jenkins localise se fichier et que le fichier soit bien nommé `settings.xml`.
 
 ### Pas grave
 
@@ -33,7 +34,7 @@ Il ya deux choses qui pourraient déclancher cette erreur:
 ### Très Grave
 
 ### Grave
-#### "401 unauthorized -> connexion refused" (VM)
+#### 401 Unauthorized connexion refused vm part
 Si vous avez rajouté un service sur la VM il est possible que quand vous essayé de le contacter vous tombiez fasse à cette erreur.<br>
 La solution est de remplacer `http://localhost:80XX` par l'adresse en dur: `http://134.59.213.138:80XX`
 
