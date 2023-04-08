@@ -1,4 +1,4 @@
-# Construction/reconstruction de l'environnement DevOps
+# Construction/reconstruction de l'environnement DevOps (1h30)
 
 ## Prérequis:
 L'environnement Devops a été configuré sur la vm vmpx08.polytech.unice.fr, la première chose à faire est donc d'y accéder et pour cela il faut se connecter au VPN (Cisco) open.unice.fr.
@@ -9,9 +9,9 @@ zEBf7mD2aCHA8XG4
 ````
 **Warning:** Tout le reste de l'installation se passe dans la VM
 
-## Setup de l'environnement de la VM
+## Setup de l'environnement de la VM(10min)
 
-### Docker
+### Docker (5min)
 
 **Installation**
 ````
@@ -27,7 +27,7 @@ lsb-release
 * Ajouter le user au groupe ````sudo usermod -aG docker $USER````
 * Mettre à jour le groupe ````newgrp docker````
 
-### Smee
+### Smee (5min)
 Smee est utilisé pour permettre à Jenkins de recevoir des évènements de la part de GitHub.
 A noter: Node.js est nécessaire pour utiliser Smee.
 
@@ -41,11 +41,11 @@ npm install --global smee-client
 smee --url https://smee.io/ugXPk3XiT2ED6aZV --path /github-webhook/ --port 8001 &
 ````
 
-## Création de l'environnement Docker
+## Création de l'environnement Docker (1h20)
 
 
-### Jenkins
-**Installation**
+### Jenkins (1h)
+#### Installation (30min)
 * Créer un dossier `Jenkins`: `mkdir Jenkins`
 * Se placer dans le dossier `Jenkins`: `cd Jenkins`
 * Créer le `Dockerfile` qui va décrire notre image Docker Jenkins:
@@ -112,7 +112,7 @@ services:
 
 * Lancer le container Jenkins en mode détaché `docker compose up -d`
 
-#### Configuration de Jenkins
+#### Configuration de Jenkins (30min)
 **Se Login sur Jenkins**
 * Aller sur la [page web de Jenkins](vmpx08.polytech.unice.fr:8001)
 * Se Log sur Jenkins:
@@ -133,8 +133,8 @@ Password: `348177c474054e7795cd1282d0b05c28`
 * Sur "branch sources" ajouter "GitHub source" et selectionner les credentials associés. Ensuite coller l'url du projet: `https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git`
 
 
-### Artifactory
-#### Installation
+### Artifactory (20min)
+#### Installation (10min)
 * Télécharger la version de docker compose suivante [docker-compose 7.49.6](https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/oss/docker/jfrog-artifactory-oss/7.49.6/jfrog-artifactory-oss-7.49.6-compose.tar.gz):
   ````
   curl -L https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/oss/docker/jfrog-artifactory-oss/7.49.6/jfrog-artifactory-oss-7.49.6-compose.tar.gz
@@ -146,7 +146,7 @@ Password: `348177c474054e7795cd1282d0b05c28`
     ````sudo ./config.sh````
 * Choisir `no` pour tout et selectionner `derby`comme db
 
-#### Configuration
+#### Configuration (10min)
 Se login sur Artifactory
 * Aller sur la [page web d'Artifactory](vmpx08.polytech.unice.fr:8002)
 * Se Log sur Artifactory:
