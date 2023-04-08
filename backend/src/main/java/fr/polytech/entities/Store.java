@@ -8,9 +8,9 @@ import java.util.Set;
 @Entity
 public class Store extends Organisation {
 
-    Schedule schedule;
+    //Schedule schedule;
 
-    private Set<Discount> offers;
+    //private Set<Discount> offers;
 
     public Store(String storeName, String storeSiret, String password) {
         super(storeSiret, storeName, password);
