@@ -9,12 +9,12 @@
 ## Jenkins
 
 #### "File.sh not found" ⭐
-  Si vous avez cette erreur alors que le fichier est au bon endroit :
+  Si vous rencontrez cette erreur alors que le fichier est au bon endroit :
   ```
   + ./build-all.sh
   /var/jenkins_home/workspace/2-23-team-h-23_cli-intoo-jenkins@tmp/durable-7332bef8/script.sh: 1 : ./build-all.sh: not found
   ```
-  Il faut vérifier si la première ligne du fichier est bien exactement :
+  Il faut vérifier si la première ligne du fichier est exactement :
   ```
   #!/bin/bash
   ```
@@ -24,10 +24,10 @@
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-release-plugin:3.0.0-M1:prepare (default-cli) on project isa-devops-22-23-team-h-23: You don't have a SNAPSHOT project in the reactor projects list. -> [Help 1]
 
 **Cause**:<br>
-2 commits sur main ont été effectués trop rapidement, le plugin maven release n'a pas eu le temps de push la nouvelle version, il y a alors eu un conflit avec le deuxième commit car un tag était déjà présent pour cette version.
+Deux commits ont été effectués trop rapidement sur la branche "main", le plugin Maven release n'a pas eu le temps de pousser la nouvelle version, il y a donc eu un conflit avec le deuxième commit car un tag était déjà présent pour cette version.
 
 **Solution**:<br>
-Aller regarder dans le pom.xml de la CLI ou du Backend afin de voir lequels des deux ne possède plus dans la balise version le mot SNAPSHOT. Par exemple dans la pom de la cli on poourrait trouver:
+Vérifiez le fichier pom.xml de la CLI ou du Backend pour voir lequel des deux ne possède plus le mot SNAPSHOT dans la balise version. Par exemple, dans le fichier pom.xml de la CLI, vous pourriez trouver :
 ````
 <groupId>fr.univcotedazur.fidelity</groupId>
 <artifactId>cli</artifactId>
@@ -36,49 +36,49 @@ Aller regarder dans le pom.xml de la CLI ou du Backend afin de voir lequels des 
 <name>cli</name>
 <description>cli</description>
 ````
-On voit que la balise version ne contient pas le mot SNAPSHOT, on le rajoute donc:
+On constate que la balise version ne contient pas le mot SNAPSHOT, il faut donc l'ajouter :
 ````
 <version>0.5-SNAPSHOT</version>
 ````
-Enfin pour repartir sur un environnement propre on vous conseille de supprimer le workspace associé.
+Enfin, pour repartir sur un environnement propre, il est conseillé de supprimer le workspace associé.
 
 ## Artifactory
 #### "401 Unauthorized --> connexion refused" ⭐⭐
-Il ya deux choses qui pourraient déclancher cette erreur :
-1. Aller voir l'explication de [l'erreur dans la catégorie VM](#401-unauthorized-connexion-refused-vm-part-⭐-⭐)
-2. Si cela n'a pas réglé le problème il est possible que Jenkins n'ai pas localisé le fichier `settings.xml` de Maven. Alors veillez à bien vérifier que Jenkins localise se fichier et que le fichier soit bien nommé `settings.xml`.
+Il y a deux choses qui pourraient déclencher cette erreur :
+1. Veuillez consulter l'explication de [l'erreur dans la catégorie VM](#401-unauthorized-connexion-refused-vm-part-⭐-⭐)
+2. Si cela n'a pas résolu le problème, il est possible que Jenkins n'ait pas localisé le fichier  `settings.xml` de Maven. Assurez-vous que Jenkins localise ce fichier et que le fichier est correctement nommé `settings.xml`.
 
 
 ## Vm
 #### "401 Unauthorized --> connexion refused" (VM) ⭐⭐
-Si vous avez rajouté un service sur la VM il est possible que quand vous essayé de le contacter vous tombiez fasse à cette erreur.<br>
+Si vous avez ajouté un service sur la VM, il est possible que lorsque vous essayez de le contacter, vous tombiez face à cette erreur.<br>
 La solution est de remplacer `http://localhost:80XX` par l'adresse en dur : `http://134.59.213.138:80XX`
 
-Note : Veillez à ce que le port renseigné soit bien compris entre `8000` et `8030`, c'est la plage autorisée
+Note : Veuillez à ce que le port renseigné soit bien compris entre `8000` et `8030`,  c'est la plage autorisée.
 
 # Procédures de redémarrage/reconstruction
 
 ## Redémarrer Jenkins et Artifactory
 
-#### Eteindre les containers
-En se connectant à la vm vous pouvez observer quels containers sont actifs avec :
+#### Éteindre les conteneurs
+En vous connectant à la VM, vous pouvez observer quels conteneurs sont actifs avec :
 ````
 docker ps
 ````
-Pour fermer tout les containers il faut utiliser :
+Pour fermer tous les conteneurs, il faut utiliser :
 ````
 docker compose down
 ````
-Pour fermer un seul containers :
+Pour fermer un seul conteneur :
 ````
 docker stop <container-name/id>
 ````
-Pour supprimer un ou plusieurs containers inactif :
+Pour supprimer un ou plusieurs conteneurs inactifs :
 ````
 docker rm <container-name/id> <container-name/id> 
 ````
 
-Vérifier que tout s'est bien fermé avec `docker ps`
+Vérifiez que tout s'est bien fermé avec `docker ps`
 
 #### Démarrer les containers
 Pour démarrer Jenkins :
@@ -93,17 +93,17 @@ docker compose up
 ````
 
 ## Ajouter quelque chose à l'image Docker Jenkins
-Si vous avez besoins d'ajouter une brique à l'image docker Jenkins il faut dans un premier temps modifier le `Dockerfile`, c'est le fichier qui décris l'image Docker.
+Si vous avez besoin d'ajouter une brique à l'image Docker de Jenkins, il faut dans un premier temps modifier le `Dockerfile`, c'est le fichier qui décrit l'image Docker.
 ````
 cd ./jenkins
 nano Dockerfile
 ````
-Une fois la modification effectué il faut construire la nouvelle image :
+Une fois la modification effectuée, il faut construire la nouvelle image :
 ````
 cd ./jenkins
 ./build.sh
 ````
-Enfin vous pouvez relancer le container avec la nouvelle image. Veuillez à bien éteindre le container précédent.
+Enfin, vous pouvez relancer le conteneur avec la nouvelle image. Veuillez à bien éteindre le conteneur précédent.
 ````
 docker stop custom_jenkins
 cd ./jenkins
@@ -113,13 +113,13 @@ docker compose up
 
 # Recréer l'environnement DevOps from scratch (1h30)
 ### Prérequis :
-L'environnement Devops a été configuré sur la vm vmpx08.polytech.unice.fr, la première chose à faire est donc d'y accéder et pour cela il faut se connecter au VPN (Cisco) open.unice.fr.
-Il faut ensuite se connecter en ssh à la VM :
+L'environnement DevOps a été configuré sur la VM vmpx08.polytech.unice.fr, la première chose à faire est donc d'y accéder et pour cela il faut se connecter au VPN (Cisco) open.unice.fr.
+Il faut ensuite se connecter en SSH à la VM :
 ````
 ssh teamh@vmpx08.polytech.unice.fr
 zEBf7mD2aCHA8XG4
 ````
-**Warning :** Tout le reste de l'installation se passe dans la VM
+**Warning :** Tout le reste de l'installation se passe dans la VM.
 
 ## Setup de l'environnement de la VM (10min)
 
@@ -141,9 +141,9 @@ lsb-release
 
 ### Smee (5min)
 Smee est utilisé pour permettre à Jenkins de recevoir des évènement de la part de GitHub.
-A noter : Node.js est nécessaire pour utiliser Smee
+A noter : Node.js est nécessaire pour utiliser Smee.
 
-**Installation de Node.js et smee**
+**Installation de Node.js et Smee**
 ````
 sudo apt install npm nodejs
 npm install --global smee-client
@@ -232,14 +232,14 @@ Password : `348177c474054e7795cd1282d0b05c28`
 **Configurer la connexion à GitHub**
 * Aller sur la page de [configuration des credentials](http://vmpx08.polytech.unice.fr:8001/manage/credentials/)
 * Créer un "Secret text" credential et entrer le Github token
-* Créer un "Username with password" credential et entrer votre username et token Github
+* Créer un "Username with password" credential et saisir votre username et token Github
 * Aller sur la page de [configuration du système](http://vmpx08.polytech.unice.fr:8001/configure)
 * Ajouter les credentials Github et tester la connection.
 
 **Configurer la pipeline multibranche**
 * Créer un nouveau job
 * Dans le champs nom mettre : `isa-devops-22-23-team-h-23`
-* Selectionner "multibranch pipeline" et cliquer sur "ok".
+* Sélectionner  "multibranch pipeline" et cliquer sur "ok".
 * Sur "branch sources" ajouter "GitHub source" et selectionner les credentials associés. Ensuite coller l'url du projet: `https://github.com/pns-isa-devops/isa-devops-22-23-team-h-23.git`
 
 
