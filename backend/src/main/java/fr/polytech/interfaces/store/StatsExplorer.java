@@ -26,8 +26,8 @@ public interface StatsExplorer {
     /**
      * Give the number of points used since a given date.
      * @param date The starting date.
-     * @return
-     * @throws IllegalDateException
+     * @return the points used since a date
+     * @throws IllegalDateException threw if the given date is in the future
      */
     int getUsedPoints(Date date) throws IllegalDateException;
 }
