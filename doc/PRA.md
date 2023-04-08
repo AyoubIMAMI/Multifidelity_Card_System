@@ -31,7 +31,7 @@ Il ya deux choses qui pourraient déclancher cette erreur :
 Si vous avez rajouté un service sur la VM il est possible que quand vous essayé de le contacter vous tombiez fasse à cette erreur.<br>
 La solution est de remplacer `http://localhost:80XX` par l'adresse en dur : `http://134.59.213.138:80XX`
 
-Note : Veillez à ce que le port renseigné soit bien compris entre `8000` et `8030`, c'est la plage autorisé
+Note : Veillez à ce que le port renseigné soit bien compris entre `8000` et `8030`, c'est la plage autorisée
 
 # Procédures de redémarrage/reconstruction
 
