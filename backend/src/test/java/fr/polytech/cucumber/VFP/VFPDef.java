@@ -1,10 +1,9 @@
 package fr.polytech.cucumber.VFP;
 
-import fr.polytech.connectors.externaldto.BankTransactionDTO;
 import fr.polytech.connectors.externaldto.ParkingTransactionDTO;
 import fr.polytech.entities.Advantage;
 import fr.polytech.entities.Customer;
-import fr.polytech.entities.CustomerAdvantage;
+import fr.polytech.entities.VFPAccount;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
@@ -28,7 +27,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.transaction.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -74,7 +72,7 @@ public class VFPDef {
     @And("a user with VFP account")
     public void aUserWithVFPAccount() {
         customer=customerRepository.save(customer);
-        customerAdvantageRepository.save(new CustomerAdvantage(customer));
+        customerAdvantageRepository.save(new VFPAccount(customer));
     }
 
     @When("a user set his plate")
@@ -111,8 +109,8 @@ public class VFPDef {
 
     @And("the date is set in the database")
     public void theDateIsSetInTheDatabase() {
-        CustomerAdvantage customerAdvantage = customerAdvantageRepository.findByCustomer(customer).get();
-        assertTrue(customerAdvantage.getAdvantageDate(advantageParking).isPresent());
+        VFPAccount VFPAccount = customerAdvantageRepository.findByCustomer(customer).get();
+        assertTrue(VFPAccount.getAdvantageDate(advantageParking).isPresent());
     }
 
     @Then("it fails with NoAdvantageFoundException Exception")

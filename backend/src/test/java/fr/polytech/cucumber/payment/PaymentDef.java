@@ -3,7 +3,6 @@ package fr.polytech.cucumber.payment;
 import fr.polytech.components.discount.DiscountManager;
 import fr.polytech.connectors.externaldto.BankTransactionDTO;
 import fr.polytech.entities.Customer;
-import fr.polytech.entities.CustomerAdvantage;
 import fr.polytech.entities.Payment;
 import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Discount;

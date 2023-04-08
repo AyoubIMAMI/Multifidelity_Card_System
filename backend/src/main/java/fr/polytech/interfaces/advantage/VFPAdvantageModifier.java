@@ -1,8 +1,8 @@
 package fr.polytech.interfaces.advantage;
 
 import fr.polytech.entities.Customer;
-import fr.polytech.entities.CustomerAdvantage;
+import fr.polytech.entities.VFPAccount;
 
 public interface VFPAdvantageModifier {
-    CustomerAdvantage addCustomerToProgramVFP(Customer consumer);
+    VFPAccount addCustomerToProgramVFP(Customer consumer);
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-public class CustomerAdvantage {
+public class VFPAccount {
 
     @Id
     @GeneratedValue
@@ -14,14 +14,14 @@ public class CustomerAdvantage {
     private Customer customer;
 
     @ElementCollection
-    private List<AdvantageCustomer> advantageCustomerList;
+    private List<AdvantageConsumption> advantageConsumptionList;
 
-    public CustomerAdvantage(Customer customer){
-        this.advantageCustomerList=new ArrayList<>();
+    public VFPAccount(Customer customer){
+        this.advantageConsumptionList =new ArrayList<>();
         this.customer=customer;
     }
 
-    public CustomerAdvantage() {
+    public VFPAccount() {
     }
 
     public void setId(Long id) {
@@ -33,17 +33,17 @@ public class CustomerAdvantage {
     }
 
     public void setUpAdvantage(Advantage advantageToVerify){
-        for (AdvantageCustomer advantage:advantageCustomerList){
+        for (AdvantageConsumption advantage: advantageConsumptionList){
             if (advantage.getAdvantage().equals(advantageToVerify)){
                 advantage.setLastConsumedDate(new Date());
                 return;
             }
         }
-        advantageCustomerList.add(new AdvantageCustomer(advantageToVerify,new Date()));
+        advantageConsumptionList.add(new AdvantageConsumption(advantageToVerify,new Date()));
     }
 
     public Optional<Date> getAdvantageDate(Advantage advantageToVerify){
-        for (AdvantageCustomer advantage:advantageCustomerList){
+        for (AdvantageConsumption advantage: advantageConsumptionList){
             if (advantage.getAdvantage().equals(advantageToVerify))
                 return Optional.of(advantage.getLastConsumedDate());
         }

@@ -2,7 +2,7 @@ package fr.polytech.components.advantage;
 
 import fr.polytech.connectors.externaldto.ParkingTransactionDTO;
 import fr.polytech.entities.Customer;
-import fr.polytech.entities.CustomerAdvantage;
+import fr.polytech.entities.VFPAccount;
 import fr.polytech.exceptions.CustomerNotFoundException;
 import fr.polytech.exceptions.ParkingUnavailableException;
 import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
@@ -46,7 +46,7 @@ public class VFPTransactionProcessHandler implements VFPTransaction {
         Optional<Advantage> advantageOptional = advantageExplorer.VerifyAdvantage(advantageID);
         if (advantageOptional.isEmpty())
             throw new NoAdvantageFoundException(advantageID);
-        Optional< CustomerAdvantage> customerAdvantageOptional= VFPAdvantageFinder.findCustomerAdvantageAccount(customer);
+        Optional<VFPAccount> customerAdvantageOptional= VFPAdvantageFinder.findCustomerAdvantageAccount(customer);
         if (customerAdvantageOptional.isEmpty())
             throw new VFPNotFoundException(userID);
         else if(advantageOptional.get().getAdvantageName().equals("parking")) {

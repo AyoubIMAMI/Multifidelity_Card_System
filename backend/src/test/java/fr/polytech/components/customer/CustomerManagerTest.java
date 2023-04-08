@@ -1,6 +1,5 @@
 package fr.polytech.components.customer;
 
-import fr.polytech.entities.CustomerAdvantage;
 import fr.polytech.exceptions.MailAlreadyUsedException;
 import fr.polytech.interfaces.customer.CustomerRegistration;
 import fr.polytech.entities.Customer;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 

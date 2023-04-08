@@ -2,7 +2,7 @@ package fr.polytech.components.advantage;
 
 import fr.polytech.entities.Advantage;
 import fr.polytech.entities.Customer;
-import fr.polytech.entities.CustomerAdvantage;
+import fr.polytech.entities.VFPAccount;
 import fr.polytech.exceptions.advantage.AdvantageAlreadyConsumedException;
 import fr.polytech.exceptions.advantage.NoAdvantageFoundException;
 import fr.polytech.exceptions.advantage.VFPNotFoundException;
@@ -29,24 +29,24 @@ public class VFPVFPVFPAdvantageManager implements VFPAdvantageModifier, VFPAdvan
         this.advantageExplorer=advantageExplorer;
     }
     @Override
-    public CustomerAdvantage addCustomerToProgramVFP(Customer consumer) {
-        return customerAdvantageRepository.save(new CustomerAdvantage(consumer));
+    public VFPAccount addCustomerToProgramVFP(Customer consumer) {
+        return customerAdvantageRepository.save(new VFPAccount(consumer));
     }
 
     @Override
-    public void consumeAdvantage(CustomerAdvantage customerAdvantage, Advantage advantage) throws NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException {
-        Optional<Date> date = customerAdvantage.getAdvantageDate(advantage);
+    public void consumeAdvantage(VFPAccount VFPAccount, Advantage advantage) throws NoAdvantageFoundException, VFPNotFoundException, AdvantageAlreadyConsumedException {
+        Optional<Date> date = VFPAccount.getAdvantageDate(advantage);
         if (date.isEmpty()||!isSameDay(date.get(),new Date()))
         {
-            customerAdvantage.setUpAdvantage(advantage);
-            customerAdvantageRepository.save(customerAdvantage);
+            VFPAccount.setUpAdvantage(advantage);
+            customerAdvantageRepository.save(VFPAccount);
         }
         else
             throw new AdvantageAlreadyConsumedException(advantage.getId());
     }
 
     @Override
-    public Optional<CustomerAdvantage> findCustomerAdvantageAccount(Customer customer){
+    public Optional<VFPAccount> findCustomerAdvantageAccount(Customer customer){
         return(this.customerAdvantageRepository.findByCustomer(customer));
     }
 

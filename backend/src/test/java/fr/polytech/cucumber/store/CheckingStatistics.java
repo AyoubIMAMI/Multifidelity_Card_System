@@ -2,7 +2,6 @@ package fr.polytech.cucumber.store;
 
 import fr.polytech.components.store.StatManager;
 import fr.polytech.entities.Customer;
-import fr.polytech.entities.CustomerAdvantage;
 import fr.polytech.entities.Payment;
 import fr.polytech.entities.Store;
 import fr.polytech.entities.item.Discount;

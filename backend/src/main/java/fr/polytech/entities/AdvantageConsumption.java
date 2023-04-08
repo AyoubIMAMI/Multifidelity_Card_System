@@ -4,17 +4,17 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Embeddable
-public class AdvantageCustomer {
+public class AdvantageConsumption {
     @ManyToOne
     private Advantage advantage;
     private Date lastConsumedDate;
 
-    public AdvantageCustomer(Advantage advantage,Date lastConsumedDate){
+    public AdvantageConsumption(Advantage advantage, Date lastConsumedDate){
         this.advantage=advantage;
         this.lastConsumedDate=lastConsumedDate;
     }
 
-    public AdvantageCustomer() {
+    public AdvantageConsumption() {
 
     }
 

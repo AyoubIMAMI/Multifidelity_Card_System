@@ -15,7 +15,7 @@ public class Customer {
     private String email;
 
     @OneToOne(mappedBy = "customer", optional = true, cascade = CascadeType.REMOVE)
-    private CustomerAdvantage customerAdvantage;
+    private VFPAccount VFPAccount;
 
     @Embedded
     private FidelityAccount fidelityAccount = new FidelityAccount();
