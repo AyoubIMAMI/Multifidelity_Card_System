@@ -29,7 +29,7 @@ public class SettledPurchaseHandler implements SettledPurchase {
         fidelityExplorer.checkIfPossibleToBecomeVfp(payment.getCustomer());
         return newPayment;
     }
-    //TODO y'a t'il besoin de la mettre dans l'interface alors qu'on l'utilise juste dans cette classe?
+
     @Override
     public void winPoint(Payment payment) {
         pointModifier.incrementPoints(payment.getCustomer(), payment.getAmount());
