@@ -59,29 +59,44 @@ def assertEquals(expected, actual):
         print(str(expected)+" not equals to "+str(actual))
         exit(-1)
 
-#customerTable_expected = [(1, 'benoit@gmail.com', 0.0, False, None, 30, 'Benoit', 'benocub'),(2, 'thomas@gmail.com', 23.0, False, None, 15, 'Thomas', 'thobilou')]
+customerTable_expected = [(1, 'benoit@gmail.com', 0.0, False, None, 30, 'Benoit', 'benocub'),(2, 'thomas@gmail.com', 23.0, False, None, 15, 'Thomas', 'thobilou'),(14, 'benoit148494@gmail.com', 0.0, False, None, 0, 'Benoit', 'benocub'),(15, 'benoit11954196@gmail.com', 0.0, False, None, 0, 'Benoit', 'benocub'),(16, 'benoit151@gmail.com', 0.0, False, 'XLZMDLSO', 200, 'Benoit', 'benocub')]
 #printTable(customerTable_expected)
 
-#organisationTable_expected = [('Store', 3, 'Fast Market', 'yTrEA', '123456789'),('Store', 4, "Vente'2000", 'AzErTy', '987654321')]
-#printTable(organisationTable_expected)
+shoppingListTable_expected = [(7, 5, 1),(7, 6, 2),(10, 8, 1),(10, 9, 1),(13, 11, 1),(13, 12, 1),(20, 19, 1),(21, 19, 1),(22, 19, 1),(23, 19, 1),(24, 19, 1),(25, 19, 1),(26, 19, 1),(27, 19, 1),(28, 19, 1),
+(29, 19, 1)]
 
-#paymentTable_expected = [(5, 30.0, True, 1, 4),(6, 25.0, True, 2, 3),(7, 2.0, True, 2, 3)]
-#printTable(paymentTable_expected)
+vfpaccountTable_expected = [(30, 16)]
 
+advantageTable_expected = [(17, 'advantageTest')] 
 
-#customerTable = getTable("customer")
-#printTable(customerTable)
+organisationTable_expected = [('Store', 3, 'Fast Market', 'yTrEA', '123456789'),('Store', 4, "Vente'2000", 'AzErTy', '987654321'),('Store', 18, 'Fast Market', 'yTrEA', '123456798949989')]
 
-#organisationTable = getTable("organisation")
-#printTable(organisationTable)
+buyableTable_expected = [('Product', 5, 'T-shirt', 20.0, None, 4),('Product', 6, 'Ananas', 5.0, None, 4),('Product', 8, 'Tabouret', 10.0, None, 3),('Product', 9, 'Pantalon', 15.0, None, 3),('Discount', 11, 'Cafe', None, 12, 3),('Product', 12, 'Crayon', 2.0, None, 3),('Product', 19, 'T-shirt', 20.0, None, 18)]
 
-#paymentTable = getTable("payment")
-#printTable(paymentTable)
+customerTable = getTable("customer")
+printTable(customerTable)
 
+organisationTable = getTable("organisation")
+printTable(organisationTable)
 
-#assertEquals(customerTable_expected, customerTable)
-#assertEquals(organisationTable_expected, organisationTable)
-#assertEquals(paymentTable_expected, paymentTable)
+buyableTable = getTable("buyable")
+printTable(buyableTable)
+
+payment_shopping_listTable = getTable("payment_shopping_list")
+printTable(payment_shopping_listTable)
+
+vfpaccountTable = getTable("vfpaccount")
+printTable(vfpaccountTable)
+
+advantageTable = getTable("advantage")
+printTable(advantageTable)
+
+assertEquals(customerTable_expected, customerTable)
+assertEquals(organisationTable_expected, organisationTable)
+assertEquals(buyableTable_expected, buyableTable)
+assertEquals(shoppingListTable_expected, payment_shopping_listTable)
+assertEquals(vfpaccountTable_expected, vfpaccountTable)
+assertEquals(advantageTable_expected, advantageTable)
 
 # Fermer le curseur et la connexion à la base de données
 cursor.close()
