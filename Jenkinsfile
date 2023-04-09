@@ -192,6 +192,7 @@ pipeline {
                                               
                 dir("./DevopsCli"){
                     sh 'python3 ./endToEnd.py'
+                    sh 'python3 ./endToEndVFP.py'
                     sh 'python3 ./printBdContent.py'
                 }
                 
