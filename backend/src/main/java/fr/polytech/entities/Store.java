@@ -19,27 +19,9 @@ public class Store extends Organisation {
 
     public Store(String storeName, String storeSiret, String password) {
         super(storeSiret, storeName, password);
-        payments = new HashSet<>();
-        offers = new HashSet<>();
     }
 
     public Store() {
 
-    }
-
-    public Set<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(Set<Payment> payments) {
-        this.payments = payments;
-    }
-
-    public Set<Discount> getOffers() {
-        return offers;
-    }
-
-    public void setOffers(Set<Discount> offers) {
-        this.offers = offers;
     }
 }
