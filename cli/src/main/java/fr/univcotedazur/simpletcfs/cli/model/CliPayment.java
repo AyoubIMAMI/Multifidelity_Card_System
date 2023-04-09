@@ -1,5 +1,7 @@
 package fr.univcotedazur.simpletcfs.cli.model;
 
+import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 public class CliPayment {
@@ -13,14 +15,17 @@ public class CliPayment {
 
     private float amount;
 
+    private Date transactionDate;
+
     public CliPayment() {
 
     }
 
-    public CliPayment(CliCustomer customer, CliStore store, Set<CliItem> shoppingList, float amount) {
+    public CliPayment(CliCustomer customer, CliStore store, Set<CliItem> shoppingList, Date transactionDate, float amount) {
         this.customer = customer;
         this.store = store;
         this.shoppingList = shoppingList;
+        this.transactionDate = transactionDate;
         this.amount = amount;
     }
 
@@ -64,14 +69,36 @@ public class CliPayment {
         this.amount = amount;
     }
 
+    public Date getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CliPayment that = (CliPayment) o;
+        return Float.compare(that.amount, amount) == 0 && Objects.equals(customer, that.customer) && Objects.equals(store, that.store) && Objects.equals(shoppingList, that.shoppingList) && Objects.equals(transactionDate, that.transactionDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customer, store, shoppingList, amount, transactionDate);
+    }
+
     @Override
     public String toString() {
         return "CliPayment{" +
-                "\u001B[34m" + "id=" + id + "\u001B[0m" +
+                "id=" + id +
                 ", customer=" + customer +
-                ", store.id=" + store.getId() +
+                ", store=" + store +
                 ", shoppingList=" + shoppingList +
                 ", amount=" + amount +
+                ", transactionDate=" + transactionDate +
                 '}';
     }
 }

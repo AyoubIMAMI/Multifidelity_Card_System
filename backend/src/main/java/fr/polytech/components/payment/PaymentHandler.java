@@ -20,6 +20,7 @@ import fr.polytech.entities.Payment;
 import fr.polytech.interfaces.store.StoreFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -30,7 +31,6 @@ public class PaymentHandler implements IPayment {
     SettledPurchase settledPurchase;
     StoreFinder storeFinder;
     FidelityCardPurchase fidelityCardPurchase;
-
     DiscountExplorer discountExplorer;
 
     @Autowired
@@ -44,6 +44,7 @@ public class PaymentHandler implements IPayment {
     }
 
     @Override
+    @Transactional
     public Payment payWithFidelity(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, NoDiscountsFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, StoreNotFoundException, OneDiscountDontExistException,NegativeAmountException {
         Customer customer = customerFinder.findCustomerById(customerId);
         Store store = storeFinder.findStoreByID(storeId);
@@ -54,6 +55,7 @@ public class PaymentHandler implements IPayment {
     }
 
     @Override
+    @Transactional
     public Payment payedProcess(Long customerId, Long storeId, Set<Item> shoppingList) throws NotEnoughBalanceException, NoDiscountsFoundException, PaymentAlreadyExistsException, CustomerNotFoundException, StoreNotFoundException, OneDiscountDontExistException,NegativeAmountException {
         Customer customer = customerFinder.findCustomerById(customerId);
         Store store = storeFinder.findStoreByID(storeId);
